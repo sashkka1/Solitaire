@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Klondike</title>
+    <link rel="stylesheet" href="css/common.css"></link>
+    <link rel="stylesheet" href="css/cards.css"></link>
+    <link rel="stylesheet" href="css/klondike.css"></link>
+</head>
+
+<body>
+    <h1>Klondike Solitaire</h1>
+    <h4> Try to move all cards to the foundations (the 4 empty places at top right).</h4>
+
+    <!-- TODO: write more rules -->
+
+    <div id="game" class="game-area"></div>
+
+    <div class="setting-box">
+        <div class="setting-inputs">
+            <label for="pick-input">Cards to pick at a time:</label>
+            <input type="number" id="pick-input" min="1" max="24" value="3" required />
+        </div>
+        <button id="new-game-button" class="new-game-button">New Game</button>
+    </div>
+
+    <script type="module" src="js/klondike.js" ></script>
+</body>
+
+</html>
