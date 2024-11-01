@@ -194,8 +194,8 @@ class KlondikeUI extends CardGameUI {
 
 document.addEventListener('DOMContentLoaded', () => {
   const tg = window.Telegram.WebApp;
-  console.log(`viewportStableHeight ${tg.viewportStableHeight}`);
   tg.expand();
+  tg.disableVerticalSwipes();
   const gameDiv = document.getElementById('game');
   const pickInput = document.getElementById('pick-input');
   const newGameButton = document.getElementById('new-game-button');
