@@ -109,9 +109,11 @@ body {
 
 .card, .card-place {
     /* card size is defined in the javascript because it's much easier that way imo */
-    border-radius: 8px;
+    border-radius: 5px;
     transform: translate(-50%, -50%);
     position: absolute;
+    width: 15%;
+    height: 15%;
 }
 .card-place {
     background-color: #090;
@@ -125,13 +127,15 @@ body {
 }
 
 .card {
-    background-color: #77e;
-    border: 1px solid #333;
-    transition-property: background-color, left, top, z-index;
-    transition-duration: 0.2s;
+    background-image: url('../materials/Images/Back/back_pattern_1.png');
+    background-size: contain;
+    height: 15%;
+    width: 15%;
+    height: 15%;
 }
 .card.visible {
-    background-color: whitesmoke;
+    /* background-color: whitesmoke; */
+    background-image: url('../materials/Images/Front/front_empty.png');
 }
 .card.dragging {
     transition-property: none;
