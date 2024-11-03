@@ -112,8 +112,7 @@ body {
     border-radius: 5px;
     transform: translate(-50%, -50%);
     position: absolute;
-    width: 15%;
-    height: 15%;
+    
 }
 .card-place {
     background-color: #090;
@@ -128,10 +127,9 @@ body {
 
 .card {
     background-image: url('../materials/Images/Back/back_pattern_1.png');
-    background-size: contain;
-    height: 15%;
-    width: 15%;
-    height: 15%;
+    background-size: cover;
+    width: 10%;
+    height: 13.92%;
 }
 .card.visible {
     /* background-color: whitesmoke; */

@@ -1,6 +1,7 @@
+// Импортируем модули GameCore, GameStatus и GameUI из файла game.js
 import { GameCore, GameStatus, GameUI } from './game.js';
 
-
+// Определяем масти карт с их свойствами (имя, цвет и unicode-символ)
 export const SUITS = [
   { name: 'spade', color: 'black', unicode: '\u2660' },
   { name: 'heart', color: 'red', unicode: '\u2665' },
@@ -8,24 +9,27 @@ export const SUITS = [
   { name: 'diamond', color: 'red', unicode: '\u2666' },
 ];
 
+// Определяем класс карты с использованием EventTarget для событий
 export class Card extends EventTarget {
   constructor(number, suit) {
-    super();
-    this._number = number;
-    this._suit = suit;
-    this._visible = false;
+    super(); // Вызов конструктора родительского класса EventTarget
+    this._number = number; // Устанавливаем номер карты (от 1 до 13)
+    this._suit = suit; // Устанавливаем масть карты
+    this._visible = false; // Изначально карта невидима
   }
 
+  // Возвращает строковое представление номера карты (A, J, Q, K или число)
   getNumberString() {
     switch (this.number) {
-      case 1: return 'A';
-      case 11: return 'J';
-      case 12: return 'Q';
-      case 13: return 'K';
-      default: return (this.number + '');
+      case 1: return 'A'; // Если номер 1, возвращаем "A" (туз)
+      case 11: return 'J'; // Если номер 11, возвращаем "J" (валет)
+      case 12: return 'Q'; // Если номер 12, возвращаем "Q" (дама)
+      case 13: return 'K'; // Если номер 13, возвращаем "K" (король)
+      default: return (this.number + ''); // В других случаях возвращаем число
     }
   }
 
+  // Геттеры и сеттеры для свойств number, suit и visible
   get number() { return this._number; }
   get suit() { return this._suit; }
   get visible() { return this._visible; }
@@ -35,65 +39,67 @@ export class Card extends EventTarget {
   set visible(value) { this._visible = value; this.dispatchEvent(new Event('CardChanged')); }
 }
 
-// https://stackoverflow.com/a/6274381
+// Функция для перемешивания массива карт (алгоритм Фишера-Йетса)
 function shuffle(a) {
   for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
+    const j = Math.floor(Math.random() * (i + 1)); // Случайный индекс
+    [a[i], a[j]] = [a[j], a[i]]; // Меняем местами элементы
   }
 }
 
+// Класс логики игры на основе карт
 export class CardGameCore extends GameCore {
+  // Метод-заглушка, который должен быть переопределен для получения строк расположения карт
   static getCardPlaceStrings() {
     throw new Error("wasn't overrided");
   }
 
+  // Генерирует и кэширует информацию о местах для карт
   static getCardPlaces() {
-    // superstitious optimization
     if (this._cachedCardPlaces !== undefined) {
-      return this._cachedCardPlaces;
+      return this._cachedCardPlaces; // Возвращаем кэшированный результат, если доступен
     }
 
-    const kindToCounts = {};
-    const stringArray = this.getCardPlaceStrings();
-    const width = stringArray[0].split(' ').length;
+    const kindToCounts = {}; // Ассоциативный массив для подсчета видов мест
+    const stringArray = this.getCardPlaceStrings(); // Получаем строки мест
+    const width = stringArray[0].split(' ').length; // Ширина в символах
 
-    for (const [ yCount, string ] of stringArray.entries()) {
-      // numbers are used for funny hacks later, e.g. 'foundation0' means the first foundation
+    for (const [yCount, string] of stringArray.entries()) {
       if (/\d/.test(string)) {
-        throw new Error("card place string contains a number: " + string);
+        throw new Error("card place string contains a number: " + string); // Ошибка, если встречается число
       }
 
       const stringParts = string.split(' ');
       if (stringParts.length !== width) {
-        throw new Error("inconsistent string part count");
+        throw new Error("inconsistent string part count"); // Ошибка, если количество частей не совпадает
       }
 
-      for (const [ xCount, kind ] of stringParts.entries()) {
+      for (const [xCount, kind] of stringParts.entries()) {
         if (kind === '-') {
-          continue;
+          continue; // Пропускаем пустые места
         }
         if (kindToCounts[kind] === undefined) {
           kindToCounts[kind] = [];
         }
-        kindToCounts[kind].push([ xCount, yCount ]);
+        kindToCounts[kind].push([xCount, yCount]); // Запоминаем координаты мест для каждого вида
       }
     }
 
+    // Результат, содержащий информацию о местах карт
     const result = {
-      kindToPlaceIds: {},  // e.g. { 'foundation': ['foundation0', 'foundation1', 'foundation2', 'foundation3'] }
-      placeIdToCounts: {}, // e.g. { 'foundation0': [3, 0] }
-      countsToPlaceId: {}, // e.g. { '3,0': 'foundation0' }
-      countsToKind: {},    // e.g. { '3,0': 'foundation' }
+      kindToPlaceIds: {},
+      placeIdToCounts: {},
+      countsToPlaceId: {},
+      countsToKind: {},
       width: width,
       height: stringArray.length,
     };
-    for (const [ kind, counts2dArray ] of Object.entries(kindToCounts)) {
+    for (const [kind, counts2dArray] of Object.entries(kindToCounts)) {
       result.kindToPlaceIds[kind] = [];
-      for (const [ index, counts ] of counts2dArray.entries()) {
+      for (const [index, counts] of counts2dArray.entries()) {
         let id = kind;
         if (counts2dArray.length !== 1) {
-          id += index;
+          id += index; // Уникальный идентификатор места для вида
         }
         result.kindToPlaceIds[kind].push(id);
         result.placeIdToCounts[id] = counts;
@@ -103,409 +109,458 @@ export class CardGameCore extends GameCore {
     }
 
     this._cachedCardPlaces = result;
-    return result;
+    return result; // Возвращаем построенные данные о местах карт
   }
 
+  // Создает и возвращает массив всех карт в колоде
   static createCards() {
     const result = [];
     for (const suit of SUITS) {
       for (let number = 1; number <= 13; number++) {
-        result.push(new Card(number, suit));
+        result.push(new Card(number, suit)); // Создаем карты каждой масти и добавляем в массив
       }
     }
     return result;
   }
 
+  // Конструктор для создания игры с использованием всех карт
   constructor(allCards) {
     super();
 
     for (const card of allCards) {
-      card.visible = false;
+      card.visible = false; // Устанавливаем все карты невидимыми
     }
 
-    this._allCards = Array.from(allCards);   // would be confusing to modify argument in-place
-    shuffle(this._allCards);
+    this._allCards = Array.from(allCards); // Копируем массив карт
+    shuffle(this._allCards); // Перемешиваем карты
 
-    this.placeIdToCardArray = {};     // TODO: rename to .cardArrays or something else less annoyingly verbose
+    this.placeIdToCardArray = {};
     for (const id of Object.keys(this.constructor.getCardPlaces().placeIdToCounts)) {
-      this.placeIdToCardArray[id] = [];
+      this.placeIdToCardArray[id] = []; // Инициализируем массивы карт для каждого места
     }
   }
 
-  // is called after constructing a new instance and connecting card move events
+  // Метод-заглушка для раздачи карт
   deal() {
     throw new Error("wasn't overrided");
   }
 
-  // should return true for win, false for keep playing
+  // Метод-заглушка для проверки на победу
   checkWin() {
     throw new Error("wasn't overrided");
   }
 
+  // Перемещает карты в новое место и проверяет статус игры
   moveCards(cardArray, newPlaceId, setStatus = true) {
-    this.placeIdToCardArray[newPlaceId].push(...cardArray);
+    this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
 
     const event = new Event('CardsMoved');
     event.newPlaceId = newPlaceId;
     event.cardArray = cardArray;
-    this.dispatchEvent(event);
+    this.dispatchEvent(event); // Отправляем событие перемещения карт
 
     if (setStatus && this.checkWin()) {
-      this.status = GameStatus.WIN;
+      this.status = GameStatus.WIN; // Обновляем статус на "победа" при достижении условий
     }
   }
 
-  // this might be kind of slow, avoid e.g. calling in a loop
+  // Находит текущее место, где находится карта
   findCurrentPlaceId(card) {
-    for (const [ id, cardArray ] of Object.entries(this.placeIdToCardArray)) {
+    for (const [id, cardArray] of Object.entries(this.placeIdToCardArray)) {
       if (cardArray.includes(card)) {
-        return id;
+        return id; // Возвращаем ID места, если карта найдена
       }
     }
-    throw new Error("cannot find card");
+    throw new Error("cannot find card"); // Ошибка, если карта не найдена
   }
 
-  // is called to check whether dragging the card is allowed
-  canMaybeMoveSomewhere(card, sourcePlaceId) {   // eslint-disable-line
-    throw new Error("wasn't overrided");
+  // Проверяет возможность перетаскивания карты
+  canMaybeMoveSomewhere(card, sourcePlaceId) {
+    throw new Error("wasn't overrided"); // Заглушка для проверки возможного хода
   }
 
-  // is called to figure out whether a card can be dropped to the place
-  // should return false when sourcePlaceId === destPlaceId
-  canMove(card, sourcePlaceId, destPlaceId) {   // eslint-disable-line
-    throw new Error("wasn't overrided");
+  // Проверяет возможность перемещения карты на новое место
+  canMove(card, sourcePlaceId, destPlaceId) {
+    throw new Error("wasn't overrided"); // Заглушка для проверки допустимого перемещения
   }
 
+  // Реализует перемещение карты в новое место
   rawMove(card, sourcePlaceId, destPlaceId) {
     const sourceArray = this.placeIdToCardArray[sourcePlaceId];
 
     const index = sourceArray.indexOf(card);
     if (index === -1) {
-      throw new Error("card and sourcePlaceId don't match");
+      throw new Error("card and sourcePlaceId don't match"); // Ошибка, если карта не найдена в указанном месте
     }
-    const moving = sourceArray.splice(index);
-    this.moveCards(moving, destPlaceId);
+    const moving = sourceArray.splice(index); // Извлекаем карты для перемещения
+    this.moveCards(moving, destPlaceId); // Перемещаем карты
   }
 
+  // Осуществляет перемещение карты с проверкой возможности
   move(card, sourcePlaceId, destPlaceId) {
     if (!this.canMove(card, sourcePlaceId, destPlaceId)) {
-      throw new Error("invalid move");
+      throw new Error("invalid move"); // Ошибка, если перемещение недопустимо
     }
-    this.rawMove(card, sourcePlaceId, destPlaceId);
+    this.rawMove(card, sourcePlaceId, destPlaceId); // Выполняем перемещение
   }
 }
 
+// Константа для золотого сечения, используемого в размерах карты
 const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
 
+// Определяем размеры карты
 const CARD_WIDTH = 70;
-const CARD_HEIGHT = CARD_WIDTH * GOLDEN_RATIO;
-export const SPACING_SMALL = 0.1*CARD_HEIGHT;
-export const SPACING_MEDIUM = 0.3*CARD_WIDTH;   // note: this one has WIDTH, others have HEIGHT
-export const SPACING_BIG = 0.3*CARD_HEIGHT;
+const CARD_HEIGHT = CARD_WIDTH * 1.392;
+export const SPACING_SMALL = 0.1 * CARD_HEIGHT; // Маленький интервал
+export const SPACING_MEDIUM = 0.3 * CARD_WIDTH; // Средний интервал
+export const SPACING_BIG = 0.3 * CARD_HEIGHT; // Большой интервал
 
+// Ограничивает число в пределах min и maxPlus1
 function putNumberBetween(num, min, maxPlus1) {
   if (num < min) {
-    return min;
+    return min; // Возвращает минимум, если число меньше min
   }
   if (num >= maxPlus1) {
-    return maxPlus1 - 1;
+    return maxPlus1 - 1; // Возвращает максимум - 1, если число больше или равно maxPlus1
   }
-  return num;
+  return num; // Возвращает само число, если оно в пределах min и maxPlus1
 }
 
+
 export class CardGameUI extends GameUI {
-  // when reading this class, keep in mind that cardDiv.left and cardDiv.top are actually coordinates of center :D
-  // this is because the css does translate(-50%, -50%)
+  // Учитывайте, что cardDiv.left и cardDiv.top - это координаты центра карты,
+  // так как CSS применяет translate(-50%, -50%) для выравнивания по центру
 
   constructor(gameDiv, CoreClass) {
-    super(gameDiv);
+    super(gameDiv); // Инициализация базового класса GameUI с gameDiv
     this._CoreClass = CoreClass;
 
+    // Рассчитываем увеличение по оси X в процентах для размещения карточек
     const xIncrementPercents = 100 / CoreClass.getCardPlaces().width;
 
     this.cardPlaceDivs = {};
-    for (const [ id, [xCount, yCount] ] of Object.entries(CoreClass.getCardPlaces().placeIdToCounts)) {
-      const div = document.createElement('div');
-      div.classList.add('card-place');
-      div.style.width = CARD_WIDTH + 'px';
-      div.style.height = CARD_HEIGHT + 'px';
-      div.style.left = (xCount + 1/2)*xIncrementPercents + '%';
-      div.style.top = ( yCount*(SPACING_SMALL + CARD_HEIGHT) + SPACING_SMALL + CARD_HEIGHT/2 )+'px';
-      gameDiv.appendChild(div);
-      this.cardPlaceDivs[id] = div;
+    for (const [id, [xCount, yCount]] of Object.entries(CoreClass.getCardPlaces().placeIdToCounts)) {
+      const div = document.createElement('div'); // Создаем контейнер для места карты
+      div.classList.add('card-place'); // Добавляем CSS класс
+      div.style.width = CARD_WIDTH + 'px'; // Устанавливаем ширину места карты
+      div.style.height = CARD_HEIGHT + 'px'; // Устанавливаем высоту места карты
+      div.style.left = (xCount + 1 / 2) * xIncrementPercents + '%'; // Позиционируем место по оси X
+      div.style.top = (yCount * (SPACING_SMALL + CARD_HEIGHT) + SPACING_SMALL + CARD_HEIGHT / 2) + 'px'; // Позиционируем по оси Y
+      gameDiv.appendChild(div); // Добавляем div в контейнер gameDiv
+      this.cardPlaceDivs[id] = div; // Сохраняем div в cardPlaceDivs по id
     }
 
-    const cardArray = CoreClass.createCards();
+    const cardArray = CoreClass.createCards(); // Создаем массив карт
     this.cardDivs = new Map();
 
     for (const card of cardArray) {
-      const div = document.createElement('div');
-      div.classList.add('card');
-      div.classList.add(card.suit.color);   // 'red' or 'black'
-      div.style.width = CARD_WIDTH + 'px';
-      div.style.height = CARD_HEIGHT + 'px';
-      div.style.left = xIncrementPercents/2 + '%';
-      div.style.top = (SPACING_SMALL + CARD_HEIGHT/2) + 'px';
+      const div = document.createElement('div'); // Создаем div для каждой карты
+      div.classList.add('card'); // Применяем CSS класс карты
+      div.classList.add(card.suit.color); // Применяем цвет масти ('red' или 'black')
+      // div.style.width = CARD_WIDTH + 'px'; // Устанавливаем ширину карты
+      // div.style.height = CARD_HEIGHT + 'px'; // Устанавливаем высоту карты
+      div.style.left = xIncrementPercents / 2 + '%'; // Устанавливаем начальную позицию по X
+      div.style.top = (SPACING_SMALL + CARD_HEIGHT / 2) + 'px'; // Устанавливаем начальную позицию по Y
 
+      // Специальная обработка для браузера Firefox
       if (navigator.userAgent.toLowerCase().indexOf('firefox') !== -1) {
-        // https://stackoverflow.com/q/29784166
-        // the css file says translate(-50%, -50%) which works in other browsers
-        // the bug doesn't happen if the translate amount is an integer
-        div.style.transform = `translate(-${Math.round(CARD_WIDTH/2)}px, -${Math.round(CARD_HEIGHT/2)}px)`;
+        div.style.transform = `translate(-${Math.round(CARD_WIDTH / 2)}px, -${Math.round(CARD_HEIGHT / 2)}px)`;
       }
 
-      // eslint-disable-next-line
-      for (const loop of [1, 2]) {   // loop 2 times, to create top left and bottom right corner stuff
+      // Создаем два угловых элемента для отображения номера и масти карты
+      for (const loop of [1, 2]) {
         const subDiv = document.createElement('div');
         div.appendChild(subDiv);
 
         const numberSpan = document.createElement('span');
-        numberSpan.classList.add('number');
+        numberSpan.classList.add('number'); // Класс для номера карты
         subDiv.appendChild(numberSpan);
 
         const suitSpan = document.createElement('span');
-        suitSpan.classList.add('suit');
+        suitSpan.classList.add('suit'); // Класс для масти карты
         subDiv.appendChild(suitSpan);
       }
 
-      this.cardDivs.set(card, div);
-      gameDiv.appendChild(div);
+      this.cardDivs.set(card, div); // Сохраняем div карты в Map
+      gameDiv.appendChild(div); // Добавляем карту в gameDiv
 
+      // Подписываемся на события изменения карты
       card.addEventListener('CardChanged', () => this._onCardChanged(card));
-      this._onCardChanged(card);
+      this._onCardChanged(card); // Первоначальная настройка карты
 
+      // Добавляем обработчики событий для перетаскивания карты мышью и касанием
       div.addEventListener('mousedown', event => {
-        if (event.which === 1) {
+        if (event.which === 1) { // Левая кнопка мыши
           this._beginDrag(card, event.clientX, event.clientY);
         }
       });
       div.addEventListener('touchstart', event => {
         this._beginDrag(card, event.changedTouches[0].clientX, event.changedTouches[0].clientY);
-        event.preventDefault();
+        event.preventDefault(); // Предотвращаем дополнительные события касания
       }, { passive: false });
     }
 
+    // Добавляем обработчики перемещения для мыши и касания
     gameDiv.addEventListener('mousemove', event => this._doDrag(event.clientX, event.clientY));
     gameDiv.addEventListener('touchmove', event => {
       this._doDrag(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
-      event.preventDefault();
+      event.preventDefault(); // Предотвращаем дополнительные события касания
     }, { passive: false });
 
-    // this should do the right thing if the cards are dragged out of the
-    // game area or out of the whole browser
+    // Обработчики для завершения перетаскивания карты при выходе из игрового поля
     gameDiv.addEventListener('mouseleave', () => this._endDrag(null));
     gameDiv.addEventListener('mouseup', () => this._endDrag(null));
     gameDiv.addEventListener('touchend', event => this._endDrag(event.target));
 
-    this._draggingState = null;
+    this._draggingState = null; // Состояние для отслеживания процесса перетаскивания
   }
 
   newGame() {
+    // Создание новой игры с текущими картами и переданными аргументами
     this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
-    this.currentGame.addEventListener('CardsMoved', (event => this._onCardsMoved(event)));
-    this.currentGame.deal();
-    super.newGame();
+    this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
+    this.currentGame.deal(); // Начало игры (раздача карт)
+    super.newGame(); // Вызов метода newGame() родительского класса
   }
 
   _onCardChanged(card) {
+    // Метод для обновления отображения карты при изменении её состояния
     const div = this.cardDivs.get(card);
 
     for (const suit of SUITS) {
-      div.classList.remove(suit.color);
+      div.classList.remove(suit.color); // Удаляем старые классы масти
     }
-    div.classList.add(card.suit.color);
+    div.classList.add(card.suit.color); // Устанавливаем новый цвет масти
 
     for (const numberSpan of div.querySelectorAll('.number')) {
-      numberSpan.textContent = card.getNumberString();
+      numberSpan.textContent = card.getNumberString(); // Устанавливаем текст с номером карты
     }
 
     for (const suitSpan of div.querySelectorAll('.suit')) {
-      suitSpan.textContent = card.suit.unicode;
+      suitSpan.textContent = card.suit.unicode; // Устанавливаем символ масти
     }
 
     if (card.visible) {
-      div.classList.add('visible');
+      div.classList.add('visible'); // Если карта видима, добавляем класс 'visible'
     } else {
-      div.classList.remove('visible');
+      div.classList.remove('visible'); // Иначе убираем этот класс
     }
   }
 
   _beginDrag(card, clientX, clientY) {
-    // silently does nothing if already dragging (this._draggingState !== null)
-    // i don't know whether that's possible to have happening with touch events and multiple fingers
+    // Начало перетаскивания карты
     if (this.currentGame.status !== GameStatus.PLAYING || this._draggingState !== null) {
-      return;
+      return; // Прекращаем, если игра не активна или уже происходит перетаскивание
     }
 
-    const oldCardPlaceId = this.currentGame.findCurrentPlaceId(card);
+    const oldCardPlaceId = this.currentGame.findCurrentPlaceId(card); // Идентификатор текущего места карты
     if (!this.currentGame.canMaybeMoveSomewhere(card, oldCardPlaceId)) {
-      return;
+      return; // Проверяем, можно ли вообще переместить карту
     }
 
-    const allCardsAtThePlace = this.currentGame.placeIdToCardArray[oldCardPlaceId];
-    const index = allCardsAtThePlace.indexOf(card);
+    const allCardsAtThePlace = this.currentGame.placeIdToCardArray[oldCardPlaceId]; // Все карты на текущем месте
+    const index = allCardsAtThePlace.indexOf(card); // Индекс карты среди других на этом месте
     if (index < 0) {
-      throw new Error("placeIdToCardArray or findCurrentPlaceId doesn't work");
+      throw new Error("placeIdToCardArray или findCurrentPlaceId не работают корректно");
     }
-    const movingCards = allCardsAtThePlace.slice(index);
+    const movingCards = allCardsAtThePlace.slice(index); // Получаем все карты от текущей до последней на месте
     if (movingCards.length === 0) {
-      throw new Error("the impossible happened");
+      throw new Error("произошла ошибка, movingCards не может быть пустым");
     }
 
     const cardInfos = movingCards.map((card, index) => {
-      const div = this.cardDivs.get(card);
-      const divRect = div.getBoundingClientRect();
+      const div = this.cardDivs.get(card); // Получаем div карты
+      const divRect = div.getBoundingClientRect(); // Координаты div на экране
 
       const oldStyle = {
         left: div.style.left,
         top: div.style.top,
         zIndex: div.style.zIndex,
       };
-      div.style.zIndex = 100 + index;
-      div.classList.add('dragging');
+      div.style.zIndex = 100 + index; // Устанавливаем высокий z-index для карт, которые перетаскиваются
+      div.classList.add('dragging'); // Добавляем класс 'dragging' для карты
 
       return {
         card: card,
         div: div,
         oldStyle: oldStyle,
-        mouseOffsetFromCenterX: clientX - (divRect.left + divRect.right)/2,
-        mouseOffsetFromCenterY: clientY - (divRect.top + divRect.bottom)/2,
+        mouseOffsetFromCenterX: clientX - (divRect.left + divRect.right) / 2, // Смещение по X относительно центра карты
+        mouseOffsetFromCenterY: clientY - (divRect.top + divRect.bottom) / 2, // Смещение по Y относительно центра карты
       };
     });
 
     this._draggingState = {
       oldCardPlaceId: oldCardPlaceId,
       dropPlaceId: null,
-      cardInfos: cardInfos,
+      cardInfos: cardInfos, // Массив с данными о перетаскиваемых картах
       hasMoved: false,
     };
   }
 
-  // may return null
-  _cardPlaceIdFromRelativeCoordinates(x, y) {
-    const totalWidth = this.gameDiv.getBoundingClientRect().width;
-    const xRatio = x / totalWidth;
-    const xCountRaw = Math.floor(xRatio * this._CoreClass.getCardPlaces().width);
+  
+  // может вернуть null, если не удастся найти место
+_cardPlaceIdFromRelativeCoordinates(x, y) {
+  // Получаем общую ширину игрового поля
+  const totalWidth = this.gameDiv.getBoundingClientRect().width;
+  // Вычисляем соотношение X относительно ширины игрового поля
+  const xRatio = x / totalWidth;
+  // Определяем количество мест по оси X (округляя вниз)
+  const xCountRaw = Math.floor(xRatio * this._CoreClass.getCardPlaces().width);
 
-    const yCenterOfYCountZero = SPACING_SMALL + CARD_HEIGHT/2;
-    const yDifferenceBetweenTwoRows = SPACING_SMALL + CARD_HEIGHT;
-    const yDifference = y - yCenterOfYCountZero;
-    const yCountRaw = Math.round(yDifference / yDifferenceBetweenTwoRows);
+  // Определяем центр по оси Y для нулевого количества строк
+  const yCenterOfYCountZero = SPACING_SMALL + CARD_HEIGHT / 2;
+  // Разница по Y между двумя строками карт
+  const yDifferenceBetweenTwoRows = SPACING_SMALL + CARD_HEIGHT;
+  // Разница между переданным Y и центром первой строки
+  const yDifference = y - yCenterOfYCountZero;
+  // Определяем количество мест по оси Y (округляя до ближайшего целого)
+  const yCountRaw = Math.round(yDifference / yDifferenceBetweenTwoRows);
 
-    // this makes the game much more intuitive when card piles get tall (e.g. tableau in klondike)
-    const xCount = putNumberBetween(xCountRaw, 0, this._CoreClass.getCardPlaces().width);
-    const yCount = putNumberBetween(yCountRaw, 0, this._CoreClass.getCardPlaces().height);
+  // Ограничиваем количество по оси X, чтобы оно не выходило за пределы доступных мест
+  const xCount = putNumberBetween(xCountRaw, 0, this._CoreClass.getCardPlaces().width);
+  // Ограничиваем количество по оси Y аналогично
+  const yCount = putNumberBetween(yCountRaw, 0, this._CoreClass.getCardPlaces().height);
 
-    const placeId = this._CoreClass.getCardPlaces().countsToPlaceId[xCount + ',' + yCount];
-    if (placeId === undefined) {
-      return null;
-    }
-    return placeId;
+  // Получаем идентификатор места, основываясь на найденных xCount и yCount
+  const placeId = this._CoreClass.getCardPlaces().countsToPlaceId[xCount + ',' + yCount];
+  // Если место не найдено, возвращаем null
+  if (placeId === undefined) {
+    return null;
+  }
+  // Возвращаем идентификатор места
+  return placeId;
+}
+
+// Обрабатываем перетаскивание карты
+_doDrag(clientX, clientY) {
+  // Проверяем, идет ли игра и существует ли состояние перетаскивания
+  if (this.currentGame.status !== GameStatus.PLAYING || this._draggingState === null) {
+    return; // Если нет, выходим из функции
   }
 
-  _doDrag(clientX, clientY) {
-    // i don't know when this would run when _draggingState is null, see _beginDrag()
-    if (this.currentGame.status !== GameStatus.PLAYING || this._draggingState === null) {
-      return;
+  // Получаем размеры игрового поля
+  const gameDivRect = this.gameDiv.getBoundingClientRect();
+  let firstXRelative = null; // Переменная для первого относительного X
+  let firstYRelative = null; // Переменная для первого относительного Y
+
+  // Обрабатываем каждую карту в состоянии перетаскивания
+  for (const cardInfo of this._draggingState.cardInfos) {
+    // Вычисляем относительное положение карты по X
+    const xRelative = clientX - gameDivRect.left - cardInfo.mouseOffsetFromCenterX;
+    // Вычисляем относительное положение карты по Y
+    const yRelative = clientY - gameDivRect.top - cardInfo.mouseOffsetFromCenterY;
+    // Устанавливаем новые стили для карты (позиция)
+    cardInfo.div.style.left = xRelative + 'px';
+    cardInfo.div.style.top = yRelative + 'px';
+
+    // Запоминаем первое относительное положение, если это первая итерация
+    if (firstXRelative === null && firstYRelative === null) {
+      firstXRelative = xRelative;
+      firstYRelative = yRelative;
     }
+  }
 
-    const gameDivRect = this.gameDiv.getBoundingClientRect();
-    let firstXRelative = null;
-    let firstYRelative = null;
-
+  // Получаем новое место для карты на основе относительных координат
+  const newCardPlaceId = this._cardPlaceIdFromRelativeCoordinates(firstXRelative, firstYRelative);
+  // Проверяем, можно ли переместить карту в новое место
+  if (newCardPlaceId !== null &&
+      this.currentGame.canMove(this._draggingState.cardInfos[0].card, this._draggingState.oldCardPlaceId, newCardPlaceId)) {
+    // Если можно, добавляем класс для визуализации готовности к сбросу
     for (const cardInfo of this._draggingState.cardInfos) {
-      const xRelative = clientX - gameDivRect.left - cardInfo.mouseOffsetFromCenterX;
-      const yRelative = clientY - gameDivRect.top - cardInfo.mouseOffsetFromCenterY;
-      cardInfo.div.style.left = xRelative + 'px';
-      cardInfo.div.style.top = yRelative + 'px';
-
-      if (firstXRelative === null && firstYRelative === null) {
-        firstXRelative = xRelative;
-        firstYRelative = yRelative;
-      }
+      cardInfo.div.classList.add('ready2drop');
     }
-
-    const newCardPlaceId = this._cardPlaceIdFromRelativeCoordinates(firstXRelative, firstYRelative);
-    if (newCardPlaceId !== null &&
-        this.currentGame.canMove(this._draggingState.cardInfos[0].card, this._draggingState.oldCardPlaceId, newCardPlaceId)) {
-      for (const cardInfo of this._draggingState.cardInfos) {
-        cardInfo.div.classList.add('ready2drop');
-      }
-      this._draggingState.dropPlaceId = newCardPlaceId;
-    } else {
-      for (const cardInfo of this._draggingState.cardInfos) {
-        cardInfo.div.classList.remove('ready2drop');
-      }
-      this._draggingState.dropPlaceId = null;
-    }
-    this._draggingState.hasMoved = true;
-  }
-
-  _endDrag(touchElement) {
-    if (this.currentGame.status !== GameStatus.PLAYING) {
-      return;
-    }
-
-    if (this._draggingState === null) {
-      // maybe a card was tapped?
-      if (touchElement !== null) {
-        touchElement.click();
-      }
-      return;
-    }
-
-    if (this._draggingState.dropPlaceId === null) {
-      for (const cardInfo of this._draggingState.cardInfos) {
-        Object.assign(cardInfo.div.style, cardInfo.oldStyle);
-      }
-    } else {
-      this.currentGame.move(this._draggingState.cardInfos[0].card, this._draggingState.oldCardPlaceId, this._draggingState.dropPlaceId);
-      // _onCardsMoved() handles the rest
-    }
-
+    // Запоминаем новое место для сброса
+    this._draggingState.dropPlaceId = newCardPlaceId;
+  } else {
+    // Если нельзя, убираем класс готовности к сбросу
     for (const cardInfo of this._draggingState.cardInfos) {
       cardInfo.div.classList.remove('ready2drop');
-      cardInfo.div.classList.remove('dragging');
     }
+    this._draggingState.dropPlaceId = null; // Обнуляем место для сброса
+  }
+  // Указываем, что карты были перемещены
+  this._draggingState.hasMoved = true;
+}
 
-    // touch compatibility with 'click' events
-    if (touchElement !== null && !this._draggingState.hasMoved) {
-      touchElement.click();
-    }
-
-    this._draggingState = null;
+// Обрабатываем окончание перетаскивания
+_endDrag(touchElement) {
+  // Проверяем, идет ли игра
+  if (this.currentGame.status !== GameStatus.PLAYING) {
+    return; // Если нет, выходим из функции
   }
 
-  // this is ran for each card when cards have been moved
-  // override to customize where the cards go
-  getNextCardOffset(card, movedCards, newPlaceId) {   // eslint-disable-line
-    return [0, 0];
-  }
-
-  _onCardsMoved(event) {
-    const [ xCount, yCount ] = this._CoreClass.getCardPlaces().placeIdToCounts[event.newPlaceId];
-    const xIncrementPercents = 100 / this._CoreClass.getCardPlaces().width;
-    const xCenterPercents = (xCount + 1/2) * xIncrementPercents;
-    const yCenter = SPACING_SMALL + CARD_HEIGHT/2 + (SPACING_SMALL + CARD_HEIGHT)*yCount;
-
-    let zIndex = 1;
-    let xOffset = 0;
-    let yOffset = 0;
-
-    for (const card of this.currentGame.placeIdToCardArray[event.newPlaceId]) {
-      const div = this.cardDivs.get(card);
-      div.style.left = `calc(${xCenterPercents}% + ${xOffset}px)`;
-      div.style.top = (yCenter + yOffset) + 'px';
-      div.style.zIndex = zIndex++;
-
-      const [ xOffsetMore, yOffsetMore ] = this.getNextCardOffset(card, event.cardArray, event.newPlaceId);
-      xOffset += xOffsetMore;
-      yOffset += yOffsetMore;
+  // Если состояние перетаскивания равно null, возможно, была нажата карта
+  if (this._draggingState === null) {
+    if (touchElement !== null) {
+      touchElement.click(); // Симулируем клик по элементу
     }
-
-    // i think this is not possible with just css
-    // this assumes that all y coordinates are in pixels, which would be wrong for x coordinates
-    const maxCardCenterY = Math.max(...( Array.from(this.cardDivs.values()).map(div => +div.style.top.split('px')[0]) ));
-    this.gameDiv.style.height = (maxCardCenterY + CARD_HEIGHT/2 + SPACING_SMALL) + 'px';
+    return; // Выходим из функции
   }
+
+  // Если новое место для сброса равно null, восстанавливаем старый стиль карт
+  if (this._draggingState.dropPlaceId === null) {
+    for (const cardInfo of this._draggingState.cardInfos) {
+      Object.assign(cardInfo.div.style, cardInfo.oldStyle);
+    }
+  } else {
+    // Если новое место задано, перемещаем карту
+    this.currentGame.move(this._draggingState.cardInfos[0].card, this._draggingState.oldCardPlaceId, this._draggingState.dropPlaceId);
+    // _onCardsMoved() обрабатывает дальнейшие действия
+  }
+
+  // Убираем классы, связанные с перетаскиванием
+  for (const cardInfo of this._draggingState.cardInfos) {
+    cardInfo.div.classList.remove('ready2drop');
+    cardInfo.div.classList.remove('dragging');
+  }
+
+  // Обрабатываем совместимость касаний с событиями клика
+  if (touchElement !== null && !this._draggingState.hasMoved) {
+    touchElement.click(); // Симулируем клик по элементу
+  }
+
+  // Обнуляем состояние перетаскивания
+  this._draggingState = null;
+}
+
+// Метод, который вызывается для каждой карты при перемещении
+// Переопределите, чтобы настроить, куда идут карты
+getNextCardOffset(card, movedCards, newPlaceId) {   // eslint-disable-line
+  return [0, 0]; // Возвращает смещение (по умолчанию 0, 0)
+}
+
+// Обрабатываем событие перемещения карт
+_onCardsMoved(event) {
+  // Получаем количество мест по осям X и Y для нового места
+  const [ xCount, yCount ] = this._CoreClass.getCardPlaces().placeIdToCounts[event.newPlaceId];
+  // Вычисляем процентное соотношение по оси X
+  const xIncrementPercents = 100 / this._CoreClass.getCardPlaces().width;
+  // Находим центр по оси X в процентах
+  const xCenterPercents = (xCount + 1/2) * xIncrementPercents;
+  // Определяем координату Y центра
+  const yCenter = SPACING_SMALL + CARD_HEIGHT / 2 + (SPACING_SMALL + CARD_HEIGHT) * yCount;
+
+  let zIndex = 1; // Начальный индекс Z для наложения карт
+  let xOffset = 0; // Смещение по оси X
+  let yOffset = 0; // Смещение по оси Y
+
+  // Обрабатываем каждую карту в новом месте
+  for (const card of this.currentGame.placeIdToCardArray[event.newPlaceId]) {
+    const div = this.cardDivs.get(card); // Получаем элемент карты
+    // Устанавливаем позиции и порядок наложения
+    div.style.left = `calc(${xCenterPercents}% + ${xOffset}px)`;
+    div.style.top = (yCenter + yOffset) + 'px';
+    div.style.zIndex = zIndex++;
+
+    // Получаем дополнительные смещения для следующей карты
+    const [ xOffsetMore, yOffsetMore ] = this.getNextCardOffset(card, event.cardArray, event.newPlaceId);
+    xOffset += xOffsetMore; // Обновляем общее смещение по оси X
+    yOffset += yOffsetMore; // Обновляем общее смещение по оси Y
+  }
+
+  // Обновляем высоту игрового поля на основе координат карт
+  const maxCardCenterY = Math.max(...( Array.from(this.cardDivs.values()).map(div => +div.style.top.split('px')[0]) ));
+  this.gameDiv.style.height = (maxCardCenterY + CARD_HEIGHT / 2 + SPACING_SMALL) + 'px';
+}
+
 }
