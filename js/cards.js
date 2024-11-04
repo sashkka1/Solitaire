@@ -210,6 +210,7 @@ const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
 
 // Определяем размеры карты
 console.log("Ширина экрана: " + screen.width);
+window.Telegram.WebApp.ready();
 const viewportWidth = window.Telegram.WebApp.viewportWidth;
 
 // Вывод ширины в консоль
