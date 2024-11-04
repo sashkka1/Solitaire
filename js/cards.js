@@ -217,7 +217,7 @@ let widthh = window.innerWidth;
 console.log('Current width:', widthh);
 
 let ScreenWidth = screen.width;
-if(widthh >= 720){
+if(widthh > 720){
   widthh = 720;
 }
 const CARD_WIDTH = widthh*0.135;

@@ -42,6 +42,7 @@ body {
     position: absolute;
     top: 88%;
     margin: 2vw;
+    color: black;
 }
 .new-game-button {
     background-color: rgb(255, 255, 255);
