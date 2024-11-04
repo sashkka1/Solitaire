@@ -206,7 +206,7 @@ export class CardGameCore extends GameCore {
 }
 
 // Константа для золотого сечения, используемого в размерах карты
-const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
+// const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
 
 // Определяем размеры карты
 const CARD_WIDTH = 70;
@@ -242,9 +242,10 @@ export class CardGameUI extends GameUI {
     for (const [id, [xCount, yCount]] of Object.entries(CoreClass.getCardPlaces().placeIdToCounts)) {
       const div = document.createElement('div'); // Создаем контейнер для места карты
       div.classList.add('card-place'); // Добавляем CSS класс
-      div.style.width = CARD_WIDTH + 'px'; // Устанавливаем ширину места карты
-      div.style.height = CARD_HEIGHT + 'px'; // Устанавливаем высоту места карты
+      // div.style.width = CARD_WIDTH + 'px'; // Устанавливаем ширину места карты
+      // div.style.height = CARD_HEIGHT + 'px'; // Устанавливаем высоту места карты
       div.style.left = (xCount + 1 / 2) * xIncrementPercents + '%'; // Позиционируем место по оси X
+      // div.style.right = (xCount + 1 / 2) * xIncrementPercents + '%'; // Позиционируем место по оси X
       div.style.top = (yCount * (SPACING_SMALL + CARD_HEIGHT) + SPACING_SMALL + CARD_HEIGHT / 2) + 'px'; // Позиционируем по оси Y
       gameDiv.appendChild(div); // Добавляем div в контейнер gameDiv
       this.cardPlaceDivs[id] = div; // Сохраняем div в cardPlaceDivs по id

@@ -7,7 +7,8 @@ class KlondikeCore extends CardGameCore {
   // Метод возвращает массив строк, определяющий расположение карт
   static getCardPlaceStrings() {
     return [
-      "stock discard - foundation foundation foundation foundation", // Сток, сброс, четыре ячейки фундамента
+      // "stock discard - foundation foundation foundation foundation", // Сток, сброс, четыре ячейки фундамента
+      "foundation foundation foundation foundation - discard stock", // Сток, сброс, четыре ячейки фундамента
       "tableau tableau tableau tableau tableau tableau tableau",      // Семь ячеек игрового стола
     ];
   }

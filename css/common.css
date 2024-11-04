@@ -26,9 +26,9 @@ body {
 .game-area {
     /* width: 960%; */
     /* height: 100%; */
-    background-color: whitesmoke;
+    /* background-color: whitesmoke; */
     /* border: 1px solid gray; */
-    margin: 2vw;
+    /* margin: 2vw; */
 }
 
 .button-place{
@@ -40,7 +40,7 @@ body {
     align-items: end;
     /* background-color: rgb(121, 80, 80); */
     position: absolute;
-    top: 90%;
+    top: 88%;
     margin: 2vw;
 }
 .new-game-button {
@@ -83,8 +83,6 @@ body {
     /* cards use about 100 and a little more, this puts it above them */
     z-index: 200;
 }
-
-
 .status-message {
     font-size: 2em;
     font-weight: bold;
@@ -94,7 +92,6 @@ body {
     border-radius: 10px;
     padding: 10px;
 }
-
 .status-message.hidden {
     display: none;
 }
@@ -112,7 +109,8 @@ body {
     border-radius: 5px;
     transform: translate(-50%, -50%);
     position: absolute;
-    
+    width: 69.93px;
+    height: 97.34px;
 }
 .card-place {
     background-color: #090;
@@ -123,13 +121,15 @@ body {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
+    /* display: flex; */
+    flex-direction: row-reverse;
+    /* transform: translate(50%, -50%); */
 }
 
 .card {
     background-image: url('../materials/Images/Back/back_pattern_1.png');
     background-size: cover;
-    width: 10%;
-    height: 13.92%;
+    /* transform: translate(-50%, -50%); */
 }
 .card.visible {
     /* background-color: whitesmoke; */
@@ -166,3 +166,16 @@ body {
 
 .card.black.visible > div { color: black; }
 .card.red.visible > div { color: red; }
+
+
+
+
+
+@media (max-width: 700px) {
+    
+    .card, .card-place {
+        width: 10vw;
+        height: 13.92vw;
+    }
+    
+}
