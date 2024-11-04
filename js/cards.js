@@ -118,8 +118,10 @@ export class CardGameCore extends GameCore {
     for (const suit of SUITS) {
       for (let number = 1; number <= 13; number++) {
         result.push(new Card(number, suit)); // Создаем карты каждой масти и добавляем в массив
+        console.log(`suit ${SUITS}`);
       }
     }
+    // console.log(`suit ${suit}`);
     return result;
   }
 
@@ -210,14 +212,14 @@ export class CardGameCore extends GameCore {
 
 
 
-const width = window.innerWidth;
-console.log('Current width:', width);
+let widthh = window.innerWidth;
+console.log('Current width:', widthh);
 
 let ScreenWidth = screen.width;
-if(ScreenWidth >= 400){
-  ScreenWidth = 400;
+if(widthh >= 720){
+  widthh = 720;
 }
-const CARD_WIDTH = 320*0.135;
+const CARD_WIDTH = widthh*0.135;
 const CARD_HEIGHT = CARD_WIDTH * 1.390625;
 export const SPACING_SMALL = 0.25 * CARD_HEIGHT; // Маленький интервал
 export const SPACING_MEDIUM = 0.3 * CARD_WIDTH; // Средний интервал переписал
