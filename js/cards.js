@@ -213,7 +213,7 @@ let ScreenWidth = screen.width;
 if(ScreenWidth >= 400){
   ScreenWidth = 400;
 }
-const CARD_WIDTH = ScreenWidth*0.135;
+const CARD_WIDTH = 320*0.135;
 const CARD_HEIGHT = CARD_WIDTH * 1.390625;
 export const SPACING_SMALL = 0.25 * CARD_HEIGHT; // Маленький интервал
 export const SPACING_MEDIUM = 0.3 * CARD_WIDTH; // Средний интервал переписал
