@@ -213,7 +213,7 @@ console.log("Ширина экрана: " + screen.width);
 const viewportWidth = window.Telegram.WebApp.viewportWidth;
 
 // Вывод ширины в консоль
-console.log("Ширина экрана: " + viewportWidth);
+console.log("Ширина экрана:viewportWidth " + viewportWidth);
 
 let ScreenWidth = screen.width;
 if(viewportWidth >= 720){
