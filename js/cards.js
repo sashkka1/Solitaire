@@ -209,8 +209,12 @@ export class CardGameCore extends GameCore {
 const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
 
 // Определяем размеры карты
-// console.log("Ширина экрана: " + screenWidth);
-const CARD_WIDTH = screen.width*0.135;
+console.log("Ширина экрана: " + screen.width);
+let ScreenWidth = screen.width;
+if(ScreenWidth >= 720){
+  ScreenWidth = 720;
+}
+const CARD_WIDTH = ScreenWidth*0.135;
 const CARD_HEIGHT = CARD_WIDTH * 1.390625;
 export const SPACING_SMALL = 0.15 * CARD_HEIGHT; // Маленький интервал
 export const SPACING_MEDIUM = 0.3 * CARD_WIDTH; // Средний интервал переписал

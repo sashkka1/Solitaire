@@ -109,9 +109,6 @@ body {
     border-radius: 5px;
     transform: translate(-50%, -50%);
     position: absolute;
-    /* width: 69.93px;
-    height: 97.34px; */
-    /* top: 70vw; */
 }
 .card-place {
     background-color: #090;
@@ -169,13 +166,3 @@ body {
 
 
 
-
-/* 
-@media (max-width: 700px) {
-    
-    .card, .card-place {
-        width: 13vw;
-        height: 18.096vw;
-    }
-    
-} */
