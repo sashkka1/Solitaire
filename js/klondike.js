@@ -211,9 +211,9 @@ class KlondikeUI extends CardGameUI {
 
 // Запуск кода после загрузки содержимого страницы
 document.addEventListener('DOMContentLoaded', () => {
-  // const tg = window.Telegram.WebApp;
-  // tg.expand();
-  // tg.disableVerticalSwipes();
+  const tg = window.Telegram.WebApp;
+  tg.expand();
+  tg.disableVerticalSwipes();
 
   const gameDiv = document.getElementById('game'); // Находим элемент для игрового поля
   const newGameButton = document.getElementById('new-game-button'); // Находим кнопку для новой игры
