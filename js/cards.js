@@ -209,11 +209,12 @@ export class CardGameCore extends GameCore {
 // const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
 
 // Определяем размеры карты
+// const CARD_WIDTH = 70;
 const CARD_WIDTH = 70;
 const CARD_HEIGHT = CARD_WIDTH * 1.392;
-export const SPACING_SMALL = 0.1 * CARD_HEIGHT; // Маленький интервал
-export const SPACING_MEDIUM = 0.3 * CARD_WIDTH; // Средний интервал
-export const SPACING_BIG = 0.3 * CARD_HEIGHT; // Большой интервал
+export const SPACING_SMALL = 0.15 * CARD_HEIGHT; // Маленький интервал
+export const SPACING_MEDIUM = 0.3 * CARD_WIDTH; // Средний интервал переписал
+export const SPACING_BIG = 0.3 * CARD_HEIGHT; // Большой интервал переписал
 
 // Ограничивает число в пределах min и maxPlus1
 function putNumberBetween(num, min, maxPlus1) {
@@ -244,9 +245,11 @@ export class CardGameUI extends GameUI {
       div.classList.add('card-place'); // Добавляем CSS класс
       // div.style.width = CARD_WIDTH + 'px'; // Устанавливаем ширину места карты
       // div.style.height = CARD_HEIGHT + 'px'; // Устанавливаем высоту места карты
+      // div.style.width = 13 + 'vw'; // Устанавливаем ширину места карты
+      // div.style.height = 18.096 + 'vw'; // Устанавливаем высоту места карты
       div.style.left = (xCount + 1 / 2) * xIncrementPercents + '%'; // Позиционируем место по оси X
-      // div.style.right = (xCount + 1 / 2) * xIncrementPercents + '%'; // Позиционируем место по оси X
       div.style.top = (yCount * (SPACING_SMALL + CARD_HEIGHT) + SPACING_SMALL + CARD_HEIGHT / 2) + 'px'; // Позиционируем по оси Y
+      // div.style.top = (100) + 'px'; // Позиционируем по оси Y
       gameDiv.appendChild(div); // Добавляем div в контейнер gameDiv
       this.cardPlaceDivs[id] = div; // Сохраняем div в cardPlaceDivs по id
     }
@@ -453,6 +456,8 @@ _doDrag(clientX, clientY) {
     // Устанавливаем новые стили для карты (позиция)
     cardInfo.div.style.left = xRelative + 'px';
     cardInfo.div.style.top = yRelative + 'px';
+    // cardInfo.div.style.left = xRelative + 'vw';
+    // cardInfo.div.style.top = yRelative + 'vw';
 
     // Запоминаем первое относительное положение, если это первая итерация
     if (firstXRelative === null && firstYRelative === null) {
@@ -549,6 +554,8 @@ _onCardsMoved(event) {
   for (const card of this.currentGame.placeIdToCardArray[event.newPlaceId]) {
     const div = this.cardDivs.get(card); // Получаем элемент карты
     // Устанавливаем позиции и порядок наложения
+    // div.style.left = `calc(${xCenterPercents}% + ${xOffset}vw)`;
+    // div.style.top = (yCenter + yOffset) + 'vw';
     div.style.left = `calc(${xCenterPercents}% + ${xOffset}px)`;
     div.style.top = (yCenter + yOffset) + 'px';
     div.style.zIndex = zIndex++;
@@ -562,6 +569,8 @@ _onCardsMoved(event) {
   // Обновляем высоту игрового поля на основе координат карт
   const maxCardCenterY = Math.max(...( Array.from(this.cardDivs.values()).map(div => +div.style.top.split('px')[0]) ));
   this.gameDiv.style.height = (maxCardCenterY + CARD_HEIGHT / 2 + SPACING_SMALL) + 'px';
+  // const maxCardCenterY = Math.max(...( Array.from(this.cardDivs.values()).map(div => +div.style.top.split('vw')[0]) ));
+  // this.gameDiv.style.height = (maxCardCenterY + CARD_HEIGHT / 2 + SPACING_SMALL) + 'vw';
 }
 
 }

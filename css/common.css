@@ -111,6 +111,7 @@ body {
     position: absolute;
     width: 69.93px;
     height: 97.34px;
+    top: 70vw;
 }
 .card-place {
     background-color: #090;
@@ -128,8 +129,7 @@ body {
 
 .card {
     background-image: url('../materials/Images/Back/back_pattern_1.png');
-    background-size: cover;
-    /* transform: translate(-50%, -50%); */
+    background-size: cover;/
 }
 .card.visible {
     /* background-color: whitesmoke; */
@@ -174,8 +174,8 @@ body {
 @media (max-width: 700px) {
     
     .card, .card-place {
-        width: 10vw;
-        height: 13.92vw;
+        width: 13vw;
+        height: 18.096vw;
     }
     
 }
