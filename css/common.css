@@ -109,9 +109,9 @@ body {
     border-radius: 5px;
     transform: translate(-50%, -50%);
     position: absolute;
-    width: 69.93px;
-    height: 97.34px;
-    top: 70vw;
+    /* width: 69.93px;
+    height: 97.34px; */
+    /* top: 70vw; */
 }
 .card-place {
     background-color: #090;
