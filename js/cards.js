@@ -208,18 +208,10 @@ export class CardGameCore extends GameCore {
 // Константа для золотого сечения, используемого в размерах карты
 const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
 
-// Определяем размеры карты
-console.log("Ширина экрана:screen.width " + screen.width);
-const viewportWidth = window.Telegram.WebApp.viewportWidth;
-
-const windowWidth = Telegram.WebApp.viewportStableWidth;
-console.log("Ширина окна:windowWidth", windowWidth);
-// Вывод ширины в консоль
-console.log("Ширина экрана:viewportWidth " + viewportWidth);
 
 let ScreenWidth = screen.width;
-if(ScreenWidth >= 720){
-  ScreenWidth = 720;
+if(ScreenWidth >= 400){
+  ScreenWidth = 400;
 }
 const CARD_WIDTH = ScreenWidth*0.135;
 const CARD_HEIGHT = CARD_WIDTH * 1.390625;
