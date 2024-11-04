@@ -206,8 +206,12 @@ export class CardGameCore extends GameCore {
 }
 
 // Константа для золотого сечения, используемого в размерах карты
-const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
+// const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
 
+
+
+const width = window.innerWidth;
+console.log('Current width:', width);
 
 let ScreenWidth = screen.width;
 if(ScreenWidth >= 400){
