@@ -125,13 +125,21 @@ body {
 }
 
 .card {
-    background-image: url('../materials/Images/Back/back_pattern_1.png');
-    background-size: cover;/
+    /* background-image: url('../materials/Images/Back/back_pattern_1.png'); */
+    background-size: cover;
 }
 .card.visible {
-    /* background-color: whitesmoke; */
-    background-image: url('../materials/Images/Front/front_empty.png');
+    /* background-color: aliceblue ; */
+    opacity: 1;
 }
+
+.card.back > div.back{
+    background: url('../materials/Images/Back/back_pattern_1.png');
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
 .card.dragging {
     transition-property: none;
 }
@@ -139,18 +147,19 @@ body {
     border: 5px solid blue;
 }
 
-.card > div {
+/* .card > div {
+    background-image: url('../materials/Images/Back/back_pattern_1.png');
     display: flex;
     position: absolute;
     margin: 3px;
     font-size: 1.3em;
     flex-direction: column;
     align-items: center;
-    opacity: 0;   /* hides everything unless .visible rules override */
+    opacity: 0;   
     transition-property: opacity;
     transition-duration: 0.2s;
 }
-
+hides everything unless .visible rules override
 .card.visible > div {
     opacity: 1;
 }
@@ -162,7 +171,7 @@ body {
 }
 
 .card.black.visible > div { color: black; }
-.card.red.visible > div { color: red; }
+.card.red.visible > div { color: red; } */
 
 
 

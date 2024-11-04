@@ -3,10 +3,10 @@ import { GameCore, GameStatus, GameUI } from './game.js';
 
 // Определяем масти карт с их свойствами (имя, цвет и unicode-символ)
 export const SUITS = [
-  { name: 'spade', color: 'black', unicode: '\u2660' },
-  { name: 'heart', color: 'red', unicode: '\u2665' },
-  { name: 'club', color: 'black', unicode: '\u2663' },
-  { name: 'diamond', color: 'red', unicode: '\u2666' },
+  { name: 'spade', color: 'black', unicode: '\u2660', id: '1' },
+  { name: 'heart', color: 'red', unicode: '\u2665', id: '1'  },
+  { name: 'club', color: 'black', unicode: '\u2663', id: '1'  },
+  { name: 'diamond', color: 'red', unicode: '\u2666', id: '1'  },
 ];
 
 // Определяем класс карты с использованием EventTarget для событий
@@ -115,20 +115,21 @@ export class CardGameCore extends GameCore {
   // Создает и возвращает массив всех карт в колоде
   static createCards() {
     const result = [];
+    let i =0;
     for (const suit of SUITS) {
       for (let number = 1; number <= 13; number++) {
+        i++;
         result.push(new Card(number, suit)); // Создаем карты каждой масти и добавляем в массив
-        console.log(`suit ${SUITS}`);
+        // console.log(`i - ${i}, number - ${number}, name - ${suit.name}, unicode - ${suit.unicode}, color - ${suit.color}`);
+
       }
     }
-    // console.log(`suit ${suit}`);
     return result;
   }
 
   // Конструктор для создания игры с использованием всех карт
   constructor(allCards) {
     super();
-
     for (const card of allCards) {
       card.visible = false; // Устанавливаем все карты невидимыми
     }
@@ -266,7 +267,12 @@ export class CardGameUI extends GameUI {
     const cardArray = CoreClass.createCards(); // Создаем массив карт
     this.cardDivs = new Map();
 
+
+let i =0
+let url = './materials/Images/Front/';
+// div.style.backgroundImage = `url(${url + i + '.png'})`;
     for (const card of cardArray) {
+i++
       const div = document.createElement('div'); // Создаем div для каждой карты
       div.classList.add('card'); // Применяем CSS класс карты
       div.classList.add(card.suit.color); // Применяем цвет масти ('red' или 'black')
@@ -274,7 +280,8 @@ export class CardGameUI extends GameUI {
       div.style.height = CARD_HEIGHT + 'px'; // Устанавливаем высоту карты
       div.style.left = xIncrementPercents / 2 + '%'; // Устанавливаем начальную позицию по X
       div.style.top = (SPACING_SMALL + CARD_HEIGHT / 2) + 'px'; // Устанавливаем начальную позицию по Y
-
+      div.setAttribute('id', i); // Присваиваем id
+      div.style.backgroundImage = `url(${url + i + '.png'})`;
       // Специальная обработка для браузера Firefox
       // if (navigator.userAgent.toLowerCase().indexOf('firefox') !== -1) {
       //   div.style.transform = `translate(-${Math.round(CARD_WIDTH / 2)}px, -${Math.round(CARD_HEIGHT / 2)}px)`;
@@ -284,16 +291,19 @@ export class CardGameUI extends GameUI {
       for (const loop of [1, 2]) {
         const subDiv = document.createElement('div');
         div.appendChild(subDiv);
-
         const numberSpan = document.createElement('span');
-        numberSpan.classList.add('number'); // Класс для номера карты
+        // numberSpan.classList.add('number'); // Класс для номера карты
         subDiv.appendChild(numberSpan);
-
         const suitSpan = document.createElement('span');
-        suitSpan.classList.add('suit'); // Класс для масти карты
+        // suitSpan.classList.add('suit'); // Класс для масти карты
         subDiv.appendChild(suitSpan);
+        // console.log(`i${i}`, `subDiv(${subDiv})`, `numberSpan(${numberSpan})`, `suitSpan(${suitSpan})` );
+        if(loop == 1){
+          subDiv.classList.add('back');
+        }
       }
-
+      const subDiv = document.createElement('div');
+      // console.log(`i${i}`, `card.suit.number(${card.suit.number})`, `card.suit.number(${card.suit.number})`, `card.suit.number(${card.suit.number})` );
       this.cardDivs.set(card, div); // Сохраняем div карты в Map
       gameDiv.appendChild(div); // Добавляем карту в gameDiv
 
@@ -340,23 +350,25 @@ export class CardGameUI extends GameUI {
     // Метод для обновления отображения карты при изменении её состояния
     const div = this.cardDivs.get(card);
 
-    for (const suit of SUITS) {
-      div.classList.remove(suit.color); // Удаляем старые классы масти
-    }
-    div.classList.add(card.suit.color); // Устанавливаем новый цвет масти
+    // for (const suit of SUITS) {
+    //   div.classList.remove(suit.color); // Удаляем старые классы масти
+    // }
+    // div.classList.add(card.suit.color); // Устанавливаем новый цвет масти
 
-    for (const numberSpan of div.querySelectorAll('.number')) {
-      numberSpan.textContent = card.getNumberString(); // Устанавливаем текст с номером карты
-    }
+    // for (const numberSpan of div.querySelectorAll('.number')) {
+    //   numberSpan.textContent = card.getNumberString(); // Устанавливаем текст с номером карты
+    // }
 
-    for (const suitSpan of div.querySelectorAll('.suit')) {
-      suitSpan.textContent = card.suit.unicode; // Устанавливаем символ масти
-    }
+    // for (const suitSpan of div.querySelectorAll('.suit')) {
+    //   suitSpan.textContent = card.suit.unicode; // Устанавливаем символ масти
+    // }
 
     if (card.visible) {
       div.classList.add('visible'); // Если карта видима, добавляем класс 'visible'
+      div.classList.remove('back');
     } else {
       div.classList.remove('visible'); // Иначе убираем этот класс
+      div.classList.add('back');
     }
   }
 
