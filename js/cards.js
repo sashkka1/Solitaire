@@ -209,18 +209,19 @@ export class CardGameCore extends GameCore {
 const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
 
 // Определяем размеры карты
-console.log("Ширина экрана: " + screen.width);
-window.Telegram.WebApp.ready();
+console.log("Ширина экрана:screen.width " + screen.width);
 const viewportWidth = window.Telegram.WebApp.viewportWidth;
 
+const windowWidth = Telegram.WebApp.viewportStableWidth;
+console.log("Ширина окна:windowWidth", windowWidth);
 // Вывод ширины в консоль
 console.log("Ширина экрана:viewportWidth " + viewportWidth);
 
 let ScreenWidth = screen.width;
-if(viewportWidth >= 720){
-  viewportWidth = 720;
+if(ScreenWidth >= 720){
+  ScreenWidth = 720;
 }
-const CARD_WIDTH = viewportWidth*0.135;
+const CARD_WIDTH = ScreenWidth*0.135;
 const CARD_HEIGHT = CARD_WIDTH * 1.390625;
 export const SPACING_SMALL = 0.25 * CARD_HEIGHT; // Маленький интервал
 export const SPACING_MEDIUM = 0.3 * CARD_WIDTH; // Средний интервал переписал
