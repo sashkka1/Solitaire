@@ -144,9 +144,9 @@ body {
 .card.dragging {
     transition-property: none;
 }
-.card.ready2drop {
+/* .card.ready2drop {
     border: 5px solid blue;
-}
+} */
 
 /* .card > div {
     background-image: url('../materials/Images/Back/back_pattern_1.png');
