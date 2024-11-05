@@ -131,7 +131,7 @@ body {
 .card {
     /* background-image: url('../materials/Images/Back/back_pattern_1.png'); */
     background-size: cover;
-    transition-duration: 0.4s;
+    transition-duration: 0.1s;
 }
 .card.visible {
     /* background-color: aliceblue ; */
