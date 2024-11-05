@@ -34,13 +34,14 @@ body {
 .button-place{
     display: flex;
     justify-content: space-around;
-    z-index: 101;
+    z-index: 1010;
     height: 7%;
     width: 96%;
     align-items: end;
     /* background-color: rgb(121, 80, 80); */
     position: absolute;
-    top: 88%;
+    /* top: 88%; */
+    bottom: 2%;
     margin: 2vw;
     color: black;
 }
