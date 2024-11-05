@@ -44,9 +44,10 @@ body {
     bottom: 2%;
     margin: 2vw;
     color: black;
+    background-color: rgb(206, 74, 74);
 }
 .new-game-button {
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(207, 149, 149);
     box-shadow: 4px 4px 2px 2px rgba(0, 0, 0, 0.2);
     border: 1px solid black;
     border-radius: 8px;
@@ -60,6 +61,7 @@ body {
     transition-duration: 0.4s;
 }
 .back-button{
+    background-color: rgb(86, 33, 33);
     height: 7vh;
     width: 14vh;
     box-shadow: 4px 4px 2px 2px rgba(0, 0, 0, 0.2);
