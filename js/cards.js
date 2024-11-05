@@ -222,9 +222,9 @@ if(widthh > 720){
 }
 const CARD_WIDTH = widthh*0.135;
 const CARD_HEIGHT = CARD_WIDTH * 1.390625;
-export const SPACING_SMALL = 0.25 * CARD_HEIGHT; // Маленький интервал
+export const SPACING_SMALL = 0.15 * CARD_HEIGHT; // Маленький интервал
 export const SPACING_MEDIUM = 0.3 * CARD_WIDTH; // Средний интервал переписал
-export const SPACING_BIG = 0.3 * CARD_HEIGHT; // Большой интервал переписал
+export const SPACING_BIG =0.24 * CARD_HEIGHT; // Большой интервал переписал
 
 // Ограничивает число в пределах min и maxPlus1
 function putNumberBetween(num, min, maxPlus1) {
