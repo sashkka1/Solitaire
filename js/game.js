@@ -47,6 +47,11 @@ export class GameUI {
     this.currentGame.addEventListener('StatusChanged', () => this._onStatusChanged());
     this._onStatusChanged(); // Обновляем отображение статуса игры при ее запуске
   }
+  // backButton() {
+  //   if (this.currentGame === null) {
+  //     throw new Error("newGame() не был переопределен или не установил currentGame");
+  //   }
+  // }
 
   // Метод для обновления интерфейса в зависимости от текущего статуса игры
   _onStatusChanged() {

@@ -36,6 +36,9 @@ class KlondikeCore extends CardGameCore {
       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбце
     }
   }
+  asdfsa(){
+    this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
+  }
 
   // Проверяет, можно ли потенциально переместить карту из указанного места
   canMaybeMoveSomewhere(card, sourcePlaceId) {
@@ -214,12 +217,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const tg = window.Telegram.WebApp;
   tg.expand();
   tg.disableVerticalSwipes();
-
+  // asdfsa();
+  // _onStatusChanged();
   const gameDiv = document.getElementById('game'); // Находим элемент для игрового поля
   const newGameButton = document.getElementById('new-game-button'); // Находим кнопку для новой игры
+  const backButton = document.getElementById('back-button'); // шаг назад
 
   let PickInput = 1;
   const ui = new KlondikeUI(gameDiv); // Создаем новый экземпляр UI игры
   ui.newGame(+PickInput); // Запускаем новую игру с количеством карт из pickInput
   newGameButton.addEventListener('click', () => ui.newGame(+PickInput)); // Обрабатываем клик по кнопке для новой игры
+  backButton.addEventListener('click', () => ui.backButton()); // Обрабатываем клик по кнопке для возврата назад
+  // const test = new KlondikeUI(gameDiv);
 });
