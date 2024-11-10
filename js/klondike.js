@@ -1,6 +1,6 @@
 // Импортируем необходимые классы и константы из других файлов
 import { GameStatus } from './game.js';
-import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG } from './cards.js';
+import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js';
 
 // Создаем класс ядра игры для пасьянса Клондайк, наследуя CardGameCore
 class KlondikeCore extends CardGameCore {
@@ -36,9 +36,7 @@ class KlondikeCore extends CardGameCore {
       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбце
     }
   }
-  asdfsa(){
-    this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-  }
+
 
   // Проверяет, можно ли потенциально переместить карту из указанного места
   canMaybeMoveSomewhere(card, sourcePlaceId) {
@@ -217,12 +215,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const tg = window.Telegram.WebApp;
   tg.expand();
   tg.disableVerticalSwipes();
-  // asdfsa();
-  // _onStatusChanged();
   const gameDiv = document.getElementById('game'); // Находим элемент для игрового поля
   const newGameButton = document.getElementById('new-game-button'); // Находим кнопку для новой игры
   const backButton = document.getElementById('back-button'); // шаг назад
-
   let PickInput = 1;
   const ui = new KlondikeUI(gameDiv); // Создаем новый экземпляр UI игры
   ui.newGame(+PickInput); // Запускаем новую игру с количеством карт из pickInput

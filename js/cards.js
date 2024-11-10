@@ -11,6 +11,23 @@ export const SUITS = [
 let i =0;
 let testId =52, testCardPlace ='fondation0';
 let duplicateCardArray;
+let gameIsStart = 0;
+let gameIsStart2 = 0;
+
+
+let block = document.getElementById('check-desire-button-cancel');
+block.addEventListener('click', () => {
+  let elements = document.getElementById("check-desire-box");
+        elements.classList.remove('normal');
+});
+block = document.getElementById('backk');
+block.addEventListener('click', () => {
+  let elements = document.getElementById("check-desire-box");
+        elements.classList.remove('normal');
+});
+
+
+
 // const rows = 3; // начальное количество строк
 // const columns = 1; // количество столбцов
 // let backArray = Array.from({ length: columns }, () => new Array(rows).fill(0));
@@ -388,11 +405,40 @@ export class CardGameUI extends GameUI {
   }
 
   newGame() {
-    // Создание новой игры с текущими картами и переданными аргументами
-    this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
-    this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
-    this.currentGame.deal(); // Начало игры (раздача карт)
-    super.newGame(); // Вызов метода newGame() родительского класса
+    if(gameIsStart2 ==0){ // первый заход, позволяем разложить карты
+      this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
+      this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
+      this.currentGame.deal(); // Начало игры (раздача карт)
+      super.newGame(); // Вызов метода newGame() родительского класса
+    }else{
+      if(gameIsStart ==0){ // изменений нет, просто начинаем новую
+        this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
+        this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
+        this.currentGame.deal(); // Начало игры (раздача карт)
+        super.newGame(); // Вызов метода newGame() родительского класса
+      }else{
+        let elements = document.getElementById("check-desire-box");
+        elements.classList.add('normal');
+        let i =0;
+        block = document.getElementById('check-desire-button-ok');
+        block.addEventListener('click', () => {
+          i++
+          let elements = document.getElementById("check-desire-box");
+          elements.classList.remove('normal');
+          if(i==0){
+          }
+          else{
+            this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
+            this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
+            this.currentGame.deal(); // Начало игры (раздача карт)
+            super.newGame(); // Вызов метода newGame() родительского класса
+            i=0
+            gameIsStart=0;
+          }
+        });
+      }
+    }
+    gameIsStart2 ++;
   }
   backButton(){
     document.getElementById('back-button').innerHTML = "Test 4";
@@ -633,6 +679,8 @@ _endDrag(touchElement) {
       Object.assign(cardInfo.div.style, cardInfo.oldStyle);
     }
   } else {
+    gameIsStart++;
+    // console.log(`gameIsStart - ${gameIsStart}`);
     // Если новое место задано, перемещаем карту
     // console.log(`target.id - ${touchElement.id}`);
     // testId = touchElement.id;

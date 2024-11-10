@@ -14,21 +14,93 @@
     border: 0;
 }
 
-body {
-    /* height: 100%;   javascript sets height, but that can't make it smaller than this */
+main{
     background-color: #0a0;
     display: flex;
+    height: 100vh;
+    width: 100vw;
     flex-direction: column;
     justify-content: space-between;
+    position: absolute;
+    z-index: 1;
+}
+body {
+    /* height: 100%;   javascript sets height, but that can't make it smaller than this */
+    /* background-color: #0a0;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    flex-direction: column;
+    justify-content: space-between; */
     /* transition-property: height;
     transition-duration: 0.5s; */
 }
 .game-area {
-    /* width: 960%; */
-    /* height: 100%; */
-    /* background-color: whitesmoke; */
-    /* border: 1px solid gray; */
-    /* margin: 2vw; */
+}
+.normal{
+    z-index: 100001;
+}
+.check-desire-box{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: larger;
+}
+.check-desire-box .backk{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition-duration: 0.4s;
+    background-color: rgba(0, 0, 0, 0.7); /* Цвет затемнения с прозрачностью */
+}
+
+.check-desire{
+    transition-duration: 0.4s;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    background-color: rgb(255, 255, 255); 
+    opacity: 1;
+    width: 80%;
+    height: 20%;
+    z-index: 0;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    border-radius: 16px;
+}
+
+.check-desire-text{
+    /* width: 50%; */
+    /* opacity: 0.7; */
+}
+.check-desire-button-place{
+    display: flex;
+    justify-content: space-around;
+    height: 30%;
+    width: 100%;
+    margin: 2vw;
+}
+.check-desire-button{
+    box-shadow: 4px 4px 2px 2px rgba(0, 0, 0, 0.2);
+    border: 1px solid black;
+    border-radius: 8px;
+    height: 100%;
+    width: 20%;
+    align-self: center;
+    transition-duration: 0.4s;
+}
+.check-desire-button:active {
+    transform: scale(0.9);
+    transition-duration: 0.4s;
+    box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
+    transform: translate(4px, 4px);
 }
 
 .button-place{
@@ -36,42 +108,41 @@ body {
     justify-content: space-around;
     z-index: 1010;
     height: 7%;
-    width: 96%;
+    width: 96vw;
     align-items: end;
-    /* background-color: rgb(121, 80, 80); */
     position: absolute;
-    /* top: 88%; */
     bottom: 2%;
     margin: 2vw;
     color: black;
-    background-color: rgb(206, 74, 74);
 }
 .new-game-button {
-    background-color: rgb(207, 149, 149);
     box-shadow: 4px 4px 2px 2px rgba(0, 0, 0, 0.2);
     border: 1px solid black;
     border-radius: 8px;
     height: 100%;
-    width: 60vw;
+    width: 60%;
     align-self: center;
     transition-duration: 0.4s;
 }
 .new-game-button:active {
-    background-color: rgb(233, 111, 111);
+    transform: scale(0.9);
     transition-duration: 0.4s;
+    box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
+    transform: translate(4px, 4px);
 }
 .back-button{
-    background-color: rgb(86, 33, 33);
     height: 7vh;
-    width: 14vh;
+    width: 24%;
     box-shadow: 4px 4px 2px 2px rgba(0, 0, 0, 0.2);
     border: 1px solid black;
     border-radius: 8px;
     transition-duration: 0.4s;
 }
 .back-button:active {
-    background-color: rgb(233, 111, 111);
+    transform: scale(0.9);
     transition-duration: 0.4s;
+    box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
+    transform: translate(4px, 4px);
 }
 
 
