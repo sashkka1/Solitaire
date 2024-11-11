@@ -11,11 +11,29 @@ export const SUITS = [
 let i =0;
 let testId =52, testCardPlace ='fondation0';
 let duplicateCardArray;
+
+let cardOldPlace='';
+let cardIdMove = -1;
+let cardVisible = 0;
+let countOfVisibleCard = 0;
+
 let gameIsStart = 0;
 let gameIsStart2 = 0;
 
+let a = 0;
+let block = document.getElementById('check-autocomplete');
+if(a == 0){
+  let block = document.getElementById('check-autocomplete');
+  block.classList.add('normal');
+  console.log('asdf');
+}
+// block.addEventListener('click', () => {
+//   let elements = document.getElementById("check-desire-box");
+//         elements.classList.remove('normal');
 
-let block = document.getElementById('check-desire-button-cancel');
+// });
+
+block = document.getElementById('check-desire-button-cancel');
 block.addEventListener('click', () => {
   let elements = document.getElementById("check-desire-box");
         elements.classList.remove('normal');
@@ -27,19 +45,6 @@ block.addEventListener('click', () => {
 });
 
 
-
-// const rows = 3; // начальное количество строк
-// const columns = 1; // количество столбцов
-// let backArray = Array.from({ length: columns }, () => new Array(rows).fill(0));
-
-// function printTable(array) {
-//   console.table(array);
-// }
-// function addRow(backArray, id, visible, placeid) {
-//   // Добавляем новую строку в двумерный массив
-//   let  newRow = [id, visible, placeid];
-//   backArray.push(newRow);
-// }
 // Определяем класс карты с использованием EventTarget для событий
 
 export class Card extends EventTarget {
@@ -206,7 +211,33 @@ export class CardGameCore extends GameCore {
 
       // Выводим в консоль оба массива
       // console.table(cardArray);
+      cardOldPlace = newPlaceId;
+      // console.log(`cardIdMove - ${newPlaceId}`);
+      // const div = this.cardDivs.get(cardArray);
+      // cardIdMove
+      // console.log(`cardVisible - ${cardVisible}`);
+      // if(newPlaceId != "discard"){
+      //   cardVisible++;
+      //   console.log(`cardVisible - ${cardVisible}`);
+      // }
+      // console.log(`cardIdMove - ${cardIdMove}`);
+      // console.log(`cardArray[0].number - ${cardArray[cardIdMove].number}`);
+      // if (cardArray.Card.visible) {
+      //   cardVisible = cardVisible + 1;
+      //   console.log(`cardVisibleadd - ${cardVisible}`);
+      //   div.classList.add('visible'); // Если карта видима, добавляем класс 'visible'
+      //   div.classList.remove('back');
+      // } else {
+      //   console.log(`cardVisibleremove - ${cardVisible}`);
+      //   cardVisible = cardVisible - 1;
+      //   div.classList.remove('visible'); // Иначе убираем этот класс
+      //   div.classList.add('back');
+      // }
 
+
+
+
+      
     if (setStatus && this.checkWin()) {
       this.status = GameStatus.WIN; // Обновляем статус на "победа" при достижении условий
     }
@@ -244,6 +275,7 @@ export class CardGameCore extends GameCore {
 
   // Реализует перемещение карты в новое место
   rawMove(card, sourcePlaceId, destPlaceId) {
+
     const sourceArray = this.placeIdToCardArray[sourcePlaceId];
     // console.table(card);
     const index = sourceArray.indexOf(card);
@@ -252,6 +284,25 @@ export class CardGameCore extends GameCore {
       throw new Error("card and sourcePlaceId don't match"); // Ошибка, если карта не найдена в указанном месте
     }
     const moving = sourceArray.splice(index); // Извлекаем карты для перемещения
+
+    // cardOldPlace = sourcePlaceId;
+    // console.table(card);
+      // console.log(`cardIdMove - ${cardIdMove}`);
+      // console.log(`sourcePlaceId - ${sourcePlaceId}`);
+      // console.log(`destPlaceId - ${destPlaceId}`);
+
+      if(sourcePlaceId == "discard"){
+        if(destPlaceId != "discard"){
+          cardVisible++;
+          console.log(`cardVisible - ${cardVisible}`);
+        }
+      }
+      // if(sourcePlaceId != "discard"){
+      //   cardVisible++;
+      //   console.log(`cardVisible - ${cardVisible}`);
+      // }
+      // console.log(`cardIdMove - ${cardIdMove}`);
+      // console.log(`cardArray[0].number - ${cardArray[cardIdMove].number}`);
     this.moveCards(moving, destPlaceId); // Перемещаем карты
   }
 
@@ -496,20 +547,12 @@ export class CardGameUI extends GameUI {
     // Метод для обновления отображения карты при изменении её состояния
     const div = this.cardDivs.get(card);
 
-    // for (const suit of SUITS) {
-    //   div.classList.remove(suit.color); // Удаляем старые классы масти
-    // }
-    // div.classList.add(card.suit.color); // Устанавливаем новый цвет масти
-
-    // for (const numberSpan of div.querySelectorAll('.number')) {
-    //   numberSpan.textContent = card.getNumberString(); // Устанавливаем текст с номером карты
-    // }
-
-    // for (const suitSpan of div.querySelectorAll('.suit')) {
-    //   suitSpan.textContent = card.suit.unicode; // Устанавливаем символ масти
-    // }
-
     if (card.visible) {
+      if(cardOldPlace != "discard"){
+          cardVisible++;
+          // console.log(`cardOldPlace - ${cardOldPlace}`);
+          // console.log(`cardVisible - ${cardVisible}`);
+        }
       div.classList.add('visible'); // Если карта видима, добавляем класс 'visible'
       div.classList.remove('back');
     } else {
@@ -665,6 +708,9 @@ _endDrag(touchElement) {
   }
   // console.table(touchElement);
   // console.log(`target.id - ${touchElement.id}`);
+  if (touchElement && touchElement.id !== "undefined") {
+    cardIdMove = touchElement.id;
+  } 
   // Если состояние перетаскивания равно null, возможно, была нажата карта
   if (this._draggingState === null) {
     if (touchElement !== null) {

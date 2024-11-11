@@ -152,6 +152,17 @@ class KlondikeUI extends CardGameUI {
   constructor(gameDiv) {
     super(gameDiv, KlondikeCore);
 
+
+    // привязка автокомплита к кнопке
+    let block = document.getElementById('check-autocomplete');
+    block.addEventListener('click', () => {
+      let elements = document.getElementById("check-desire-box");
+            elements.classList.remove('normal');
+            while( this.currentGame.moveAnyCardToAnyFoundationIfPossible() ){}
+    });
+
+
+
     // Добавляем обработчик клика на сток
     this.cardPlaceDivs.stock.addEventListener('click', () => this._onClick(null));
 
@@ -187,7 +198,7 @@ class KlondikeUI extends CardGameUI {
     }
 
     if (card === null) {
-      while( this.currentGame.moveAnyCardToAnyFoundationIfPossible() ){} // Перемещаем все возможные карты в foundation
+      // while( this.currentGame.moveAnyCardToAnyFoundationIfPossible() ){} // Перемещаем все возможные карты в foundation
     } else {
       this.currentGame.moveCardToAnyFoundationIfPossible(card, this.currentGame.findCurrentPlaceId(card)); // Перемещаем конкретную карту в foundation
     }

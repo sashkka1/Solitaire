@@ -21,8 +21,7 @@ main{
     display: flex;
     height: 100vh;
     width: 100vw;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: column; 
     position: absolute;
     z-index: 1;
 }
@@ -59,7 +58,6 @@ body {
     position: absolute;
     background-color: rgba(0, 0, 0, 0.7); /* Цвет затемнения с прозрачностью */
 }
-
 .check-desire{
     padding-top: 10%;
     padding-bottom: 10%;
@@ -75,7 +73,6 @@ body {
     flex-direction: column;
     border-radius: 16px;
 }
-
 .check-desire-text{
     /* width: 50%; */
     /* opacity: 0.7; */
@@ -94,14 +91,41 @@ body {
     height: 100%;
     width: 20%;
     align-self: center;
-    transition-duration: 5.4s;
+    transition-duration: 0.4s;
 }
 .check-desire-button:active {
-    transform: scale(0.9);
     transition-duration: 0.4s;
     box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
     transform: translate(4px, 4px);
 }
+
+
+.check-autocomplete{
+    position: absolute;
+    width: 40vw;
+    height: 7vh;
+    left: 30vw;
+    bottom: 15vh;
+    /* z-index: 3; */
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    /* flex-direction: column; */
+    font-size: larger;
+    background-color: whitesmoke;
+    box-shadow: 4px 4px 2px 2px rgba(0, 0, 0, 0.2);
+    border: 1px solid black;
+    border-radius: 8px;
+    align-self: center;
+    transition-duration: 0.4s;
+}
+.check-autocomplete:active {
+    transition-duration: 0.4s;
+    box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
+    transform: translate(4px, 4px);
+}
+
 
 .button-place{
     display: flex;
@@ -125,7 +149,6 @@ body {
     transition-duration: 0.4s;
 }
 .new-game-button:active {
-    transform: scale(0.9);
     transition-duration: 0.4s;
     box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
     transform: translate(4px, 4px);
@@ -139,7 +162,6 @@ body {
     transition-duration: 0.4s;
 }
 .back-button:active {
-    transform: scale(0.9);
     transition-duration: 0.4s;
     box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
     transform: translate(4px, 4px);
