@@ -21,9 +21,9 @@ let gameIsStart = 0;
 let gameIsStart2 = 0;
 
 let a = 0;
-let block = document.getElementById('check-autocomplete');
+let block = document.getElementById('check-autocomplete-button');
 if(a == 0){
-  let block = document.getElementById('check-autocomplete');
+  let block = document.getElementById('check-autocomplete-button');
   block.classList.add('normal');
   console.log('asdf');
 }

@@ -100,7 +100,7 @@ body {
 }
 
 
-.check-autocomplete{
+.check-autocomplete-button{
     position: absolute;
     width: 40vw;
     height: 7vh;
@@ -112,15 +112,14 @@ body {
     align-items: center;
     justify-content: center;
     /* flex-direction: column; */
-    font-size: larger;
-    background-color: whitesmoke;
+    background-color: rgb(255, 255, 255);
     box-shadow: 4px 4px 2px 2px rgba(0, 0, 0, 0.2);
     border: 1px solid black;
     border-radius: 8px;
     align-self: center;
     transition-duration: 0.4s;
 }
-.check-autocomplete:active {
+.check-autocomplete-button:active {
     transition-duration: 0.4s;
     box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
     transform: translate(4px, 4px);
