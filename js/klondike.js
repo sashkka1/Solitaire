@@ -6,7 +6,7 @@ import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} f
 
 
 
-let autoVisible = 0;
+let autoVisible = 1;
 
 
 // Создаем класс ядра игры для пасьянса Клондайк, наследуя CardGameCore
@@ -44,19 +44,24 @@ class KlondikeCore extends CardGameCore {
 
 
 
-
+      // // делает видимыми карты
       // let sourcePlaceIdUltimate ='tableau';
-      //   let f = 1;
-      //   let sourcePlaceId = sourcePlaceIdUltimate + i;
-      //   let sourceArray = this.placeIdToCardArray[sourcePlaceId];
-      //   while (f <= sourceArray.length) {
-      //     cardsToMove[cardsToMove.length - f].visible = true;
-      //     // sourceArray[sourceArray.length - f].visible == true;
-      //       f++;
-      //   }
-
-
+      // let f = 1;
+      // let sourcePlaceId = sourcePlaceIdUltimate + i;
+      // let sourceArray = this.placeIdToCardArray[sourcePlaceId];
+      // while (f <= sourceArray.length) {
+      //   cardsToMove[cardsToMove.length - f].visible = true;
+      //     f++;
+      // }
     }
+
+    // делает видимыми колоду
+    // let ccardsToMove = this.placeIdToCardArray.stock; // Извлекаем нужное количество карт из стока
+    // let f=1;
+    // while (f <= ccardsToMove.length) {
+    //   ccardsToMove[ccardsToMove.length - f].visible = true;
+    //     f++;
+    // }
   }
 
 
@@ -131,12 +136,6 @@ class KlondikeCore extends CardGameCore {
     }
     const isTopmost = (sourceArrayIndex === sourceArray.length - 1); // Проверка, является ли карта верхней
 
-    if (isTopmost) {
-//
-      // if (destPlaceId === 'stock' || destPlaceId === 'discard' || !card.visible) {
-      //   return false; // Нельзя перемещать невидимые карты или карты в сток/сброс
-      // }
-//
       if (destPlaceId.startsWith('foundation')) {
         if (destArray.length === 0) {
           return (card.number === 1); // На пустой foundation можно переместить только туза
@@ -144,20 +143,6 @@ class KlondikeCore extends CardGameCore {
         const topmostCard = destArray[destArray.length - 1];
         return (card.suit === topmostCard.suit && card.number === topmostCard.number + 1); // Только карты той же масти и на единицу больше
       }
-    } else {
-//
-      // if (!( sourcePlaceId.startsWith('tableau') && destPlaceId.startsWith('tableau') && card.visible )) {
-      //   return false; // В stack перемещать можно только из tableau в tableau и если карта видимая
-      // }
-//
-    }
-
-    if (!destPlaceId.startsWith('tableau')) {
-      throw new Error("bug"); // Ошибка, если место назначения не tableau
-    }
-    if (destArray.length === 0) {
-      return (card.number === 13); // На пустой tableau можно положить только короля
-    }
     const topmostCard = destArray[destArray.length - 1];
     return (card.suit.color !== topmostCard.suit.color && card.number === topmostCard.number - 1); // Цвета мастей должны отличаться, номер меньше на 1
   }
@@ -169,7 +154,7 @@ class KlondikeCore extends CardGameCore {
     if (sourcePlaceId.startsWith('tableau') && sourceArray.length !== 0) {
       sourceArray[sourceArray.length - 1].visible = true; // Открывает верхнюю карту в tableau, если она закрыта
       
-
+      let a=0;
 
       // реализация понимания того есть ли открытые карты на доске
       let sourcePlaceIdUltimate ='tableau';
@@ -179,17 +164,28 @@ class KlondikeCore extends CardGameCore {
         let sourceArray = this.placeIdToCardArray[sourcePlaceId];
         while (f <= sourceArray.length) {
             if(sourceArray[sourceArray.length - f].visible == false){
-              autoVisible++;
+              a++;
             }
             f++;
         }
       }
-      if(autoVisible == 0){
-        let block = document.getElementById('check-autocomplete-button');
-        block.classList.add('normal-auto');
+      // autoVisible = 1;
+      if(a == 0){
+        autoVisible = 0;
       }
-      autoVisible = 0;
+      a=0;
+      
     }
+    // console.log(`stock - ${this.placeIdToCardArray.stock.length},autoVisible - ${autoVisible}, discard - ${this.placeIdToCardArray.discard.length}`)
+    if(this.placeIdToCardArray.stock.length == 0){
+      if(this.placeIdToCardArray.discard.length <=1){
+        if(autoVisible == 0){
+          let block = document.getElementById('check-autocomplete-button');
+          block.classList.add('normal-auto');
+        }
+      }
+    }
+    // autoVisible = 1;
   }
 
   // Перемещает карты из стока в сброс или возвращает все карты из сброса в сток
@@ -231,31 +227,75 @@ class KlondikeCore extends CardGameCore {
 
   // Перемещает все карты в foundation, если это возможно
   moveAnyCardToAnyFoundationIfPossible() {
-
-      // let sourcePlaceIdUltimate ='tableau';
-      // for(let i =0;i<7;i++){
-      //   let f = 1;
-      //   let sourcePlaceId = sourcePlaceIdUltimate + i;
-      //   let sourceArray = this.placeIdToCardArray[sourcePlaceId];
-      //   while (f <= sourceArray.length) {
-      //       if(sourceArray[sourceArray.length - f].visible == false){
-      //         autoVisible++;
-      //       }
-      //       f++;
-      //   }
-      // }
-
-
-    for ( const id of this.constructor.getCardPlaces().kindToPlaceIds.tableau.concat(['stock']) ) {
+    autoVisible = 1;
+    for ( const id of this.constructor.getCardPlaces().kindToPlaceIds.tableau.concat(['discard']) ) {
       const array = this.placeIdToCardArray[id];
-      console.table(array);
       if (array.length !== 0 && this.moveCardToAnyFoundationIfPossibleAuto(array[array.length - 1], id)) {
         return true;
       }
     }
     return false;
   }
+
+
+  moveAnyCardToAnyFoundationIfPossibleAuto() {
+
+    for(let foundid=0; foundid<4;foundid++){
+      // console.log(`foundid - ${foundid}`);
+      let foundaton ='foundaton';
+      let actualFoundaton ='foundaton'+foundid;
+
+      let tableau ='tableau';
+      for(let i =0;i<7;i++){// перебераем все 7 столбов скартами
+        let f = 1;
+        let actualTableau = tableau + i;
+        let array = this.placeIdToCardArray[actualTableau];
+        while (f <= array.length) {// перебираем каждую карту в столбе
+          // if (this.canMoveAuto(array[array.length - f], actualTableau, foundid)) {
+            // this.moveAuto(array[array.length - f], actualTableau, foundid);
+            console.log(`this.canMoveAuto(array[array.length - f], actualTableau, foundid) - ${this.canMoveAuto(array[array.length - f], actualTableau, actualFoundaton)}`);
+            // return true;
+          // }
+
+
+          
+            f++;
+        }
+      }
+
+      // let ccardsToMove = this.placeIdToCardArray.stock; // Извлекаем нужное количество карт из стока
+      // f=1;
+      // while (f <= ccardsToMove.length) {
+      //   ccardsToMove[ccardsToMove.length - f].visible = true;
+      //     f++;
+      // }
+
+    }
+
+
+      // let sourcePlaceIdUltimate ='tableau';
+      // f = 1;
+      // let sourcePlaceId = sourcePlaceIdUltimate + i;
+      // let sourceArray = this.placeIdToCardArray[sourcePlaceId];
+      // while (f <= sourceArray.length) {
+      //   cardsToMove[cardsToMove.length - f].visible = true;
+      //     f++;
+      // }
+
+      // let ccardsToMove = this.placeIdToCardArray.stock; // Извлекаем нужное количество карт из стока
+      // f=1;
+      // while (f <= ccardsToMove.length) {
+      //   ccardsToMove[ccardsToMove.length - f].visible = true;
+      //     f++;
+      // }
+
+
+    // (this.canMoveAuto(card, sourcePlaceId, foundationId)) {
+    //   this.moveAuto(card, sourcePlaceId, foundationId);
+
 }
+}
+
 
 // Создаем класс пользовательского интерфейса для игры в пасьянс Клондайк
 class KlondikeUI extends CardGameUI {

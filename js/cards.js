@@ -518,8 +518,17 @@ export class CardGameUI extends GameUI {
 
   autoButton(){
     while( this.currentGame.moveAnyCardToAnyFoundationIfPossible() ){}
+    let block = document.getElementById('check-autocomplete-button');
+    block.classList.remove('normal-auto');
   }
   backButton(){
+    let ccardsToMove = this.currentGame.placeIdToCardArray.stock; // Извлекаем нужное количество карт из стока
+    let f=1;
+    while (f <= ccardsToMove.length) {
+      ccardsToMove[ccardsToMove.length - f].visible = true;
+        f++;
+    }
+
     // let block = document.getElementById('check-autocomplete-button');
     // block.classList.add('normal-auto');
     // while( this.currentGame.moveAnyCardToAnyFoundationIfPossible() ){}
