@@ -2,8 +2,16 @@
 import { GameStatus } from './game.js';
 import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js';
 
+
+
+
+
+let autoVisible = 0;
+
+
 // Создаем класс ядра игры для пасьянса Клондайк, наследуя CardGameCore
 class KlondikeCore extends CardGameCore {
+
   // Метод возвращает массив строк, определяющий расположение карт
   static getCardPlaceStrings() {
     return [
@@ -25,7 +33,6 @@ class KlondikeCore extends CardGameCore {
     const foundationArrays = this.constructor.getCardPlaces().kindToPlaceIds.foundation.map(id => this.placeIdToCardArray[id]);
     return foundationArrays.every(cardArray => (cardArray.length === 13)); // Проверка, есть ли 13 карт в каждой стопке фундамента
   }
-
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
@@ -61,6 +68,7 @@ class KlondikeCore extends CardGameCore {
 
   // Проверяет, можно ли переместить карту из одного места в другое
   canMove(card, sourcePlaceId, destPlaceId) {
+
     const sourceArray = this.placeIdToCardArray[sourcePlaceId];
     const destArray = this.placeIdToCardArray[destPlaceId];
 
@@ -100,10 +108,30 @@ class KlondikeCore extends CardGameCore {
   // Перемещает карту без дополнительных проверок
   rawMove(card, sourcePlaceId, destPlaceId) {
     super.rawMove(card, sourcePlaceId, destPlaceId);
-
     const sourceArray = this.placeIdToCardArray[sourcePlaceId];
     if (sourcePlaceId.startsWith('tableau') && sourceArray.length !== 0) {
       sourceArray[sourceArray.length - 1].visible = true; // Открывает верхнюю карту в tableau, если она закрыта
+      
+
+
+      // реализация понимания того есть ли открытые карты на доске
+      let sourcePlaceIdUltimate ='tableau';
+      for(let i =0;i<7;i++){
+        let f = 1;
+        sourcePlaceId = sourcePlaceIdUltimate + i;
+        let sourceArray = this.placeIdToCardArray[sourcePlaceId];
+        while (f <= sourceArray.length) {
+            if(sourceArray[sourceArray.length - f].visible == false){
+              autoVisible++;
+            }
+            f++;
+        }
+      }
+      if(autoVisible == 0){
+        let block = document.getElementById('check-autocomplete-button');
+        block.classList.add('normal-auto');
+      }
+      autoVisible = 0;
     }
   }
 
@@ -151,16 +179,7 @@ class KlondikeCore extends CardGameCore {
 class KlondikeUI extends CardGameUI {
   constructor(gameDiv) {
     super(gameDiv, KlondikeCore);
-
-
-    // привязка автокомплита к кнопке
-    let block = document.getElementById('check-autocomplete');
-    block.addEventListener('click', () => {
-      let elements = document.getElementById("check-desire-box");
-            elements.classList.remove('normal');
-            while( this.currentGame.moveAnyCardToAnyFoundationIfPossible() ){}
-    });
-
+    
 
 
     // Добавляем обработчик клика на сток
@@ -181,6 +200,7 @@ class KlondikeUI extends CardGameUI {
     gameDiv.addEventListener('auxclick', () => this._onAuxClick(null));
   }
 
+
   // Обработка клика на карту или сток
   _onClick(card) {
     if (this.currentGame.status !== GameStatus.PLAYING) {
@@ -189,6 +209,7 @@ class KlondikeUI extends CardGameUI {
     if (card === null || this.currentGame.placeIdToCardArray.stock.includes(card)) {
       this.currentGame.stockToDiscard(); // Перемещаем карты из стока в сброс
     }
+    // console.table(card);
   }
 
   // Обработка правого клика на карту или игровое поле
@@ -218,9 +239,6 @@ class KlondikeUI extends CardGameUI {
 
 
 
-
-
-
 // Запуск кода после загрузки содержимого страницы
 document.addEventListener('DOMContentLoaded', () => {
   const tg = window.Telegram.WebApp;
@@ -229,10 +247,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const gameDiv = document.getElementById('game'); // Находим элемент для игрового поля
   const newGameButton = document.getElementById('new-game-button'); // Находим кнопку для новой игры
   const backButton = document.getElementById('back-button'); // шаг назад
+  const autoButton = document.getElementById('check-autocomplete-button'); // шаг назад
   let PickInput = 1;
   const ui = new KlondikeUI(gameDiv); // Создаем новый экземпляр UI игры
   ui.newGame(+PickInput); // Запускаем новую игру с количеством карт из pickInput
   newGameButton.addEventListener('click', () => ui.newGame(+PickInput)); // Обрабатываем клик по кнопке для новой игры
   backButton.addEventListener('click', () => ui.backButton()); // Обрабатываем клик по кнопке для возврата назад
+  autoButton.addEventListener('click', () => ui.autoButton());
   // const test = new KlondikeUI(gameDiv);
 });
