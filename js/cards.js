@@ -278,6 +278,9 @@ export class CardGameCore extends GameCore {
   canMove(card, sourcePlaceId, destPlaceId) {
     throw new Error("wasn't overrided"); // Заглушка для проверки допустимого перемещения
   }
+  canMoveAuto(card, sourcePlaceId, destPlaceId) {
+    throw new Error("wasn't overrided"); // Заглушка для проверки допустимого перемещения
+  }
 
   // Реализует перемещение карты в новое место
   rawMove(card, sourcePlaceId, destPlaceId) {
@@ -320,6 +323,14 @@ export class CardGameCore extends GameCore {
 
     this.rawMove(card, sourcePlaceId, destPlaceId); // Выполняем перемещение
   }
+
+  moveAuto(card, sourcePlaceId, destPlaceId) {
+    if (!this.canMoveAuto(card, sourcePlaceId, destPlaceId)) {
+      throw new Error("invalid move"); // Ошибка, если перемещение недопустимо
+    }
+
+    this.rawMove(card, sourcePlaceId, destPlaceId); // Выполняем перемещение
+  }
 }
 
 // Константа для золотого сечения, используемого в размерах карты
@@ -336,9 +347,9 @@ if(widthh > 720){
 }
 const CARD_WIDTH = widthh*0.135;
 const CARD_HEIGHT = CARD_WIDTH * 1.390625;
-export const SPACING_SMALL = 0.23 * CARD_HEIGHT; // Маленький интервал
+export const SPACING_SMALL = 0.15 * CARD_HEIGHT; // Маленький интервал
 export const SPACING_MEDIUM = 0.3 * CARD_WIDTH; // Средний интервал переписал
-export const SPACING_BIG =0.23 * CARD_HEIGHT; // Большой интервал переписал
+export const SPACING_BIG = 0.35 * CARD_HEIGHT; // Большой интервал переписал
 
 // Ограничивает число в пределах min и maxPlus1
 function putNumberBetween(num, min, maxPlus1) {
