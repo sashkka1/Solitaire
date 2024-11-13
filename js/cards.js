@@ -10,7 +10,7 @@ export const SUITS = [
 ];
 let i =0;
 // let testId =52, testCardPlace ='fondation0';
-let duplicateCardArray, oldPlace, newPlace;
+let duplicateCardArray, oldPlace, newPlace, oldId;
 
 // let cardOldPlace='';
 // let cardIdMove = -1;
@@ -40,6 +40,7 @@ block.addEventListener('click', () => {
   let elements = document.getElementById("check-desire-box");
         elements.classList.remove('normal');
 });
+
 
 
 // Определяем класс карты с использованием EventTarget для событий
@@ -192,79 +193,30 @@ export class CardGameCore extends GameCore {
 
   // Перемещает карты в новое место и проверяет статус игры
   moveCards(cardArray, newPlaceId, setStatus = true) {
-    // console.table(cardArray);
 
     duplicateCardArray = Array.from(cardArray);
     newPlace = newPlaceId;
+    // console.table(this._allCards);
     // console.table(duplicateCardArray);
-    // console.log(`cardArray[0].number - ${cardArray[0].number}`);
-    // testCard[0].number = cardArray[0].number;
-    // console.log(`testCard[0]._number - ${testCard[0].number}`);
     this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
-    // console.table(this.placeIdToCardArray[newPlaceId]);
-// const duplicateCardArray = Array.from(cardArray);
+
     const event = new Event('CardsMoved');
     event.newPlaceId = newPlaceId;
     // console.log(`newPlaceId- ${newPlaceId}`);
     event.cardArray = cardArray;
     this.dispatchEvent(event); // Отправляем событие перемещения карт
 
-      // Выводим в консоль оба массива
-      // console.table(cardArray);
-
-      // cardOldPlace = newPlaceId;
-
-      // console.log(`cardIdMove - ${newPlaceId}`);
-      // const div = this.cardDivs.get(cardArray);
-      // cardIdMove
-      // console.log(`cardVisible - ${cardVisible}`);
-      // if(newPlaceId != "discard"){
-      //   cardVisible++;
-      //   console.log(`cardVisible - ${cardVisible}`);
-      // }
-      // console.log(`cardIdMove - ${cardIdMove}`);
-      // console.log(`cardArray[0].number - ${cardArray[cardIdMove].number}`);
-      // if (cardArray.Card.visible) {
-      //   cardVisible = cardVisible + 1;
-      //   console.log(`cardVisibleadd - ${cardVisible}`);
-      //   div.classList.add('visible'); // Если карта видима, добавляем класс 'visible'
-      //   div.classList.remove('back');
-      // } else {
-      //   console.log(`cardVisibleremove - ${cardVisible}`);
-      //   cardVisible = cardVisible - 1;
-      //   div.classList.remove('visible'); // Иначе убираем этот класс
-      //   div.classList.add('back');
-      // }
-      // if(gameIsStart >0){
-        // this.currentGame.autoButton();
-        // console.log(this.currentGame.stockToDiscard());
-        // this.currentGame.stockToDiscard();
-        // this.currentGame._cardInSomeTableau(cardArray);
-      // }
-      // console.log(this.currentGame.care_cardInSomeTableau(cardArray));
-
-
-      
     if (setStatus && this.checkWin()) {
       this.status = GameStatus.WIN; // Обновляем статус на "победа" при достижении условий
     }
   }
   
-  // backButton2() {
-  //   document.getElementById('back-button').innerHTML = "Test 4";
-  //   const cardData = this._allCards.map(card => ({
-  //     number: card._number,
-  //     suit: card._suit.name,
-  //     visible: card._visible
-  //   }));
-  //   console.table(cardData);
-  // }
 
   // Находит текущее место, где находится карта
   findCurrentPlaceId(card) {
     for (const [id, cardArray] of Object.entries(this.placeIdToCardArray)) {
       if (cardArray.includes(card)) {
-        oldPlace = id;
+        // oldPlace = id;
         return id; // Возвращаем ID места, если карта найдена
       }
     }
@@ -295,25 +247,6 @@ export class CardGameCore extends GameCore {
       throw new Error("card and sourcePlaceId don't match"); // Ошибка, если карта не найдена в указанном месте
     }
     const moving = sourceArray.splice(index); // Извлекаем карты для перемещения
-
-    // cardOldPlace = sourcePlaceId;
-    // console.table(card);
-      // console.log(`cardIdMove - ${cardIdMove}`);
-      // console.log(`sourcePlaceId - ${sourcePlaceId}`);
-      // console.log(`destPlaceId - ${destPlaceId}`);
-
-      // if(sourcePlaceId == "discard"){
-      //   if(destPlaceId != "discard"){
-      //     cardVisible++;
-      //     console.log(`cardVisible - ${cardVisible}`);
-      //   }
-      // }
-      // if(sourcePlaceId != "discard"){
-      //   cardVisible++;
-      //   console.log(`cardVisible - ${cardVisible}`);
-      // }
-      // console.log(`cardIdMove - ${cardIdMove}`);
-      // console.log(`cardArray[0].number - ${cardArray[cardIdMove].number}`);
     this.moveCards(moving, destPlaceId); // Перемещаем карты
   }
 
@@ -524,81 +457,58 @@ export class CardGameUI extends GameUI {
     block.classList.remove('normal-auto');
   }
   backButton(){
-    this.currentGame.moveCards(duplicateCardArray, oldPlace, this.setStatus = true);
-    console.table(duplicateCardArray);
-    console.log(`newPlace - ${newPlace}, oldPlace - ${oldPlace}`);
-    // let ccardsToMove = this.currentGame.placeIdToCardArray.stock; // Извлекаем нужное количество карт из стока
-    // let f=1;
-    // while (f <= ccardsToMove.length) {
-    //   ccardsToMove[ccardsToMove.length - f].visible = true;
-    //     f++;
+      console.log(`stock - ${this.currentGame.placeIdToCardArray.stock.length}`);
+      console.log(`discard - ${this.currentGame.placeIdToCardArray.discard.length}`);
+
+    // if(duplicateCardArray !="undefined"){
+    //   // console.log(`newPlace - ${newPlace}, oldPlace - ${oldPlace}, oldId - ${oldId}}`);
+    //   // console.table(duplicateCardArray);
+    //   // this.currentGame.moveCards(duplicateCardArray, oldPlace, this.setStatus = true);
+    //   console.table(this.currentGame._allCards);
+    //   // console.table(this.currentGame._allCards);
+    //   // this.currentGame.moveCards(this.currentGame._allCards[this.currentGame._allCards.length - 2], oldPlace, false);
+    //   // this.currentGame._allCards[this.currentGame._allCards.length - 3].visible = false;
+    //   // this.currentGame.moveCards(duplicateCardArray, oldPlace);
+
+    //   this.currentGame.rawMove(this.currentGame._allCards.length - 3, oldPlace, newPlace);
+
+
+    //   // oldPlace = "foundation1";
+
+
+
+
+    //   // moveCards рабочий
+    //   // this.currentGame.moveCards(duplicateCardArray, oldPlace);
+
+    //   // moveCards все из него и работает
+    //   // this.currentGame.placeIdToCardArray[oldPlace].push(...duplicateCardArray); // Перемещаем карты
+
+    //   // const event = new Event('CardsMoved');
+    //   // event.newPlaceId = oldPlace;
+    //   // event.cardArray = duplicateCardArray;
+    //   // this.currentGame.dispatchEvent(event);
+
+
+
+
+
+
+
+
+
+
+
+    //   duplicateCardArray ="undefined";
     // }
 
-    // let block = document.getElementById('check-autocomplete-button');
-    // block.classList.add('normal-auto');
-    // while( this.currentGame.moveAnyCardToAnyFoundationIfPossible() ){}
   }
-    // document.getElementById('back-button').innerHTML = "Test 4";
-    // let test = document.getElementById('back-button');
-    // this.currentGame.move(duplicateCardArray, testCardPlace, testCardPlace);
-    // console.table(duplicateCardArray);
-    // console.log(`testId - ${testId}, testCardPlace - ${testCardPlace}`);
-    // duplicateCardArray.push(...duplicateCardArray); // Перемещаем карты
-    // console.table(this.placeIdToCardArray[newPlaceId]);
-// const duplicateCardArray = Array.from(cardArray);
-    // const event = new Event('CardsMoved');
-    // event.newPlaceId = testCardPlace;
-    // event.cardArray = duplicateCardArray;
-    // this.dispatchEvent(event); // Отправляем событие перемещения карт
-
-      // Выводим в консоль оба массива
-      // console.table(cardArray);
-
-    // if (setStatus && this.checkWin()) {
-    //   this.status = GameStatus.WIN; // Обновляем статус на "победа" при достижении условий
-    // }
-// 
-    // console.log(`this._draggingState.cardInfos[0].card  ${this._draggingState.cardInfos[0].card}`);
-    // this.currentGame.move(this._draggingState.cardInfos[0].card, this._draggingState.oldCardPlaceId, this._draggingState.dropPlaceId);
-  // }
-  // back() {
-  //   const cardStates = [];
-
-  //   // Перебираем все карты и извлекаем их состояния
-  //   for (const [card, div] of this.cardDivs) {
-  //       cardStates.push({
-  //           number: card.number,        // Получаем номер карты
-  //           suit: card.suit.name,      // Получаем масть карты
-  //           visible: card.visible       // Получаем видимость карты
-  //       });
-  //   }
-  //   document.getElementById('back-button').innerHTML = "Test 4";
-  //   // Выводим таблицу в консоль
-  //   console.table(cardStates);
-  // }
-  // back() {
-  //   // Проверяем, есть ли сохраненные дублированные состояния
-  //   // document.getElementById('back-button').innerHTML = "Test 4";
-  //   // if (this.duplicatedCardArrays.length > 0) {
-  //   //     const lastDuplicatedArray = this.duplicatedCardArrays.pop(); // Извлекаем последнее состояние
-
-  //   //     // Вызываем moveCards и передаем извлеченный массив
-  //   //     this.moveCards(lastDuplicatedArray, 'yourDestinationPlaceId'); // Замените 'yourDestinationPlaceId' на нужный идентификатор места
-  //   // } else {
-  //   //     console.log('Нет сохраненных состояний для возврата.');
-  //   // }
-  // }
-
+    
   _onCardChanged(card) {
     // Метод для обновления отображения карты при изменении её состояния
     const div = this.cardDivs.get(card);
 
     if (card.visible) {
-      // if(cardOldPlace != "discard"){
-      //     cardVisible++;
-      //     // console.log(`cardOldPlace - ${cardOldPlace}`);
-      //     // console.log(`cardVisible - ${cardVisible}`);
-      //   }
       div.classList.add('visible'); // Если карта видима, добавляем класс 'visible'
       div.classList.remove('back');
     } else {
@@ -655,6 +565,7 @@ export class CardGameUI extends GameUI {
       dropPlaceId: null,
       cardInfos: cardInfos, // Массив с данными о перетаскиваемых картах
       hasMoved: false,
+      index: index,
     };
   }
 
@@ -729,6 +640,8 @@ _doDrag(clientX, clientY) {
   // Проверяем, можно ли переместить карту в новое место
   if (newCardPlaceId !== null &&
       this.currentGame.canMove(this._draggingState.cardInfos[0].card, this._draggingState.oldCardPlaceId, newCardPlaceId)) {
+      oldPlace = this._draggingState.oldCardPlaceId;
+      oldId = this._draggingState.index;
     // Если можно, добавляем класс для визуализации готовности к сбросу
     for (const cardInfo of this._draggingState.cardInfos) {
       cardInfo.div.classList.add('ready2drop');

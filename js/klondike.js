@@ -330,10 +330,18 @@ class KlondikeUI extends CardGameUI {
       return;
     }
     if (card === null || this.currentGame.placeIdToCardArray.stock.includes(card)) {
-      // if(stockCurrent == 1){
+      // console.log(`stock - ${this.currentGame.placeIdToCardArray.stock.length}`);
+      // console.log(`discard - ${this.currentGame.placeIdToCardArray.discard.length}`);
+      if(this.currentGame.placeIdToCardArray.discard.length === 0){
+        if(stockCurrent === 1){
+          this.currentGame.stockToDiscard();
+        }
+        stockCurrent = 1;
+      }else{
         this.currentGame.stockToDiscard(); // Перемещаем карты из стока в сброс
-      // }
-      // stockCurrent=1;
+      }
+
+      this.currentGame.stockToDiscard(); // Перемещаем карты из стока в сброс
     }
     // console.table(card);
   }
