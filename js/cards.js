@@ -10,7 +10,7 @@ export const SUITS = [
 ];
 let i =0;
 // let testId =52, testCardPlace ='fondation0';
-// let duplicateCardArray;
+let duplicateCardArray, oldPlace, newPlace;
 
 // let cardOldPlace='';
 // let cardIdMove = -1;
@@ -194,8 +194,8 @@ export class CardGameCore extends GameCore {
   moveCards(cardArray, newPlaceId, setStatus = true) {
     // console.table(cardArray);
 
-    // duplicateCardArray = Array.from(cardArray);
-
+    duplicateCardArray = Array.from(cardArray);
+    newPlace = newPlaceId;
     // console.table(duplicateCardArray);
     // console.log(`cardArray[0].number - ${cardArray[0].number}`);
     // testCard[0].number = cardArray[0].number;
@@ -205,6 +205,7 @@ export class CardGameCore extends GameCore {
 // const duplicateCardArray = Array.from(cardArray);
     const event = new Event('CardsMoved');
     event.newPlaceId = newPlaceId;
+    // console.log(`newPlaceId- ${newPlaceId}`);
     event.cardArray = cardArray;
     this.dispatchEvent(event); // Отправляем событие перемещения карт
 
@@ -234,12 +235,12 @@ export class CardGameCore extends GameCore {
       //   div.classList.remove('visible'); // Иначе убираем этот класс
       //   div.classList.add('back');
       // }
-      if(gameIsStart >0){
+      // if(gameIsStart >0){
         // this.currentGame.autoButton();
         // console.log(this.currentGame.stockToDiscard());
         // this.currentGame.stockToDiscard();
         // this.currentGame._cardInSomeTableau(cardArray);
-      }
+      // }
       // console.log(this.currentGame.care_cardInSomeTableau(cardArray));
 
 
@@ -263,6 +264,7 @@ export class CardGameCore extends GameCore {
   findCurrentPlaceId(card) {
     for (const [id, cardArray] of Object.entries(this.placeIdToCardArray)) {
       if (cardArray.includes(card)) {
+        oldPlace = id;
         return id; // Возвращаем ID места, если карта найдена
       }
     }
@@ -522,12 +524,15 @@ export class CardGameUI extends GameUI {
     block.classList.remove('normal-auto');
   }
   backButton(){
-    let ccardsToMove = this.currentGame.placeIdToCardArray.stock; // Извлекаем нужное количество карт из стока
-    let f=1;
-    while (f <= ccardsToMove.length) {
-      ccardsToMove[ccardsToMove.length - f].visible = true;
-        f++;
-    }
+    this.currentGame.moveCards(duplicateCardArray, oldPlace, this.setStatus = true);
+    console.table(duplicateCardArray);
+    console.log(`newPlace - ${newPlace}, oldPlace - ${oldPlace}`);
+    // let ccardsToMove = this.currentGame.placeIdToCardArray.stock; // Извлекаем нужное количество карт из стока
+    // let f=1;
+    // while (f <= ccardsToMove.length) {
+    //   ccardsToMove[ccardsToMove.length - f].visible = true;
+    //     f++;
+    // }
 
     // let block = document.getElementById('check-autocomplete-button');
     // block.classList.add('normal-auto');
