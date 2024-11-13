@@ -7,7 +7,7 @@ import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} f
 
 
 let autoVisible = 1;
-let stockCurrent = 0;
+let stockCurrent = 1;
 
 
 // Создаем класс ядра игры для пасьянса Клондайк, наследуя CardGameCore
@@ -331,8 +331,8 @@ class KlondikeUI extends CardGameUI {
       return;
     }
     if (card === null || this.currentGame.placeIdToCardArray.stock.includes(card)) {
-      // console.log(`stock - ${this.currentGame.placeIdToCardArray.stock.length}`);
-      // console.log(`discard - ${this.currentGame.placeIdToCardArray.discard.length}`);
+      console.log(`stock - ${this.currentGame.placeIdToCardArray.stock.length}`);
+      console.log(`discard - ${this.currentGame.placeIdToCardArray.discard.length}`);
       if(this.currentGame.placeIdToCardArray.discard.length === 0){
         if(stockCurrent === 1){
           this.currentGame.stockToDiscard();
@@ -342,7 +342,7 @@ class KlondikeUI extends CardGameUI {
         this.currentGame.stockToDiscard(); // Перемещаем карты из стока в сброс
       }
 
-      this.currentGame.stockToDiscard(); // Перемещаем карты из стока в сброс
+      // this.currentGame.stockToDiscard(); // Перемещаем карты из стока в сброс
     }
     // console.table(card);
   }
