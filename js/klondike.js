@@ -8,6 +8,9 @@ import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} f
 
 let autoVisible = 1;
 let stockCurrent = 1;
+const tg = window.Telegram.WebApp;
+    tg.platform;
+    console.log(`tg.platform; - ${tg.platform;}`);
 
 
 // Создаем класс ядра игры для пасьянса Клондайк, наследуя CardGameCore
