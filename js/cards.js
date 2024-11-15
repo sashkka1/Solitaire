@@ -441,13 +441,13 @@ export class CardGameUI extends GameUI {
   }
   backButton(){
     if(backCard !="undefined"){
-      this.currentGame.rawMove(backCard, newPlace, oldPlace);
-
 
       const sourceArray = this.currentGame.placeIdToCardArray[oldPlace];
       if(sourceArray.length > 1){
-        sourceArray[sourceArray.length - 2].visible = false;
+        sourceArray[sourceArray.length - 1].visible = false;
       }
+
+      this.currentGame.rawMove(backCard, newPlace, oldPlace);
 
       const event = new Event('CardsMoved');
       event.newPlaceId = oldPlace;
