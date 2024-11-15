@@ -452,9 +452,10 @@ export class CardGameUI extends GameUI {
   }
 
   autoButton(){
-    while( this.currentGame.moveAnyCardToAnyFoundationIfPossible() ){}
+    this.currentGame.forAuto();
     let block = document.getElementById('check-autocomplete-button');
     block.classList.remove('normal-auto');
+
   }
   backButton(){
       console.log(`stock - ${this.currentGame.placeIdToCardArray.stock.length}`);

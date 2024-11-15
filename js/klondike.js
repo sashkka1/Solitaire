@@ -10,6 +10,9 @@ let autoVisible = 1;
 let stockCurrent = 1;
 
 
+
+
+
 // Создаем класс ядра игры для пасьянса Клондайк, наследуя CardGameCore
 class KlondikeCore extends CardGameCore {
 
@@ -45,7 +48,7 @@ class KlondikeCore extends CardGameCore {
 
 
 
-      // // делает видимыми карты
+      // делает видимыми карты
       // let sourcePlaceIdUltimate ='tableau';
       // let f = 1;
       // let sourcePlaceId = sourcePlaceIdUltimate + i;
@@ -126,27 +129,6 @@ class KlondikeCore extends CardGameCore {
     return (card.suit.color !== topmostCard.suit.color && card.number === topmostCard.number - 1); // Цвета мастей должны отличаться, номер меньше на 1
   }
 
-  canMoveAuto(card, sourcePlaceId, destPlaceId) {
-
-    const sourceArray = this.placeIdToCardArray[sourcePlaceId];
-    const destArray = this.placeIdToCardArray[destPlaceId];
-
-    const sourceArrayIndex = sourceArray.indexOf(card);
-    if (sourceArrayIndex < 0) {
-      throw new Error("card and sourcePlaceId don't match"); // Ошибка, если карта не найдена в исходном месте
-    }
-    const isTopmost = (sourceArrayIndex === sourceArray.length - 1); // Проверка, является ли карта верхней
-
-      if (destPlaceId.startsWith('foundation')) {
-        if (destArray.length === 0) {
-          return (card.number === 1); // На пустой foundation можно переместить только туза
-        }
-        const topmostCard = destArray[destArray.length - 1];
-        return (card.suit === topmostCard.suit && card.number === topmostCard.number + 1); // Только карты той же масти и на единицу больше
-      }
-    const topmostCard = destArray[destArray.length - 1];
-    return (card.suit.color !== topmostCard.suit.color && card.number === topmostCard.number - 1); // Цвета мастей должны отличаться, номер меньше на 1
-  }
 
   // Перемещает карту без дополнительных проверок
   rawMove(card, sourcePlaceId, destPlaceId) {
@@ -156,7 +138,6 @@ class KlondikeCore extends CardGameCore {
       sourceArray[sourceArray.length - 1].visible = true; // Открывает верхнюю карту в tableau, если она закрыта
       
       let a=0;
-
       // реализация понимания того есть ли открытые карты на доске
       let sourcePlaceIdUltimate ='tableau';
       for(let i =0;i<7;i++){
@@ -178,14 +159,14 @@ class KlondikeCore extends CardGameCore {
       
     }
     // console.log(`stock - ${this.placeIdToCardArray.stock.length},autoVisible - ${autoVisible}, discard - ${this.placeIdToCardArray.discard.length}`)
-    if(this.placeIdToCardArray.stock.length == 0){
-      if(this.placeIdToCardArray.discard.length <=1){
+    // if(this.placeIdToCardArray.stock.length == 0){
+      // if(this.placeIdToCardArray.discard.length <=1){
         if(autoVisible == 0){
           let block = document.getElementById('check-autocomplete-button');
           block.classList.add('normal-auto');
         }
-      }
-    }
+      // }
+    // }
     // autoVisible = 1;
   }
 
@@ -217,85 +198,59 @@ class KlondikeCore extends CardGameCore {
     }
     return false;
   }
-  moveCardToAnyFoundationIfPossibleAuto(card, sourcePlaceId) {
-    for (const foundationId of this.constructor.getCardPlaces().kindToPlaceIds.foundation) {
-      if (this.canMoveAuto(card, sourcePlaceId, foundationId)) {
-        this.moveAuto(card, sourcePlaceId, foundationId);
-        return true;
-      }
-    }
-    return false;
-  }
 
   // Перемещает все карты в foundation, если это возможно
   moveAnyCardToAnyFoundationIfPossible() {
     autoVisible = 1;
     for ( const id of this.constructor.getCardPlaces().kindToPlaceIds.tableau.concat(['discard']) ) {
       const array = this.placeIdToCardArray[id];
-      if (array.length !== 0 && this.moveCardToAnyFoundationIfPossibleAuto(array[array.length - 1], id)) {
+      // console.table(array);
+      if (array.length !== 0 && this.moveCardToAnyFoundationIfPossible(array[array.length - 1], id)) {
         return true;
       }
     }
     return false;
   }
 
-
-  moveAnyCardToAnyFoundationIfPossibleAuto() {
-
-    for(let foundid=0; foundid<4;foundid++){
-      // console.log(`foundid - ${foundid}`);
-      let foundaton ='foundaton';
-      let actualFoundaton ='foundaton'+foundid;
-
-      let tableau ='tableau';
-      for(let i =0;i<7;i++){// перебераем все 7 столбов скартами
-        let f = 1;
-        let actualTableau = tableau + i;
-        let array = this.placeIdToCardArray[actualTableau];
-        while (f <= array.length) {// перебираем каждую карту в столбе
-          // if (this.canMoveAuto(array[array.length - f], actualTableau, foundid)) {
-            // this.moveAuto(array[array.length - f], actualTableau, foundid);
-            console.log(`this.canMoveAuto(array[array.length - f], actualTableau, foundid) - ${this.canMoveAuto(array[array.length - f], actualTableau, actualFoundaton)}`);
-            // return true;
-          // }
-
-
-          
-            f++;
-        }
-      }
-
-      // let ccardsToMove = this.placeIdToCardArray.stock; // Извлекаем нужное количество карт из стока
-      // f=1;
-      // while (f <= ccardsToMove.length) {
-      //   ccardsToMove[ccardsToMove.length - f].visible = true;
-      //     f++;
-      // }
-
+  discardToStockAuto(){
+    for (const card of this.placeIdToCardArray.discard) {
+      card.visible = false; // Закрываем все карты в сбросе
     }
+    stockCurrent = 0;
+    this.moveCards(this.placeIdToCardArray.discard, 'stock'); // Перемещаем карты обратно в сток
+    this.placeIdToCardArray.discard.length = 0; // Очищаем сброс
+  }
+  stockToDiscardAuto() {
+    let a =1;
+      const cardArray = this.placeIdToCardArray.stock.splice(0, a); // Берем указанное количество карт из стока
+      this.moveCards(cardArray, 'discard'); // Перемещаем их в сброс
+      for (const card of cardArray) {
+        card.visible = true; // Открываем каждую карту
+      }
+  }
+
+  forAuto(){
+    let cardsStock = this.placeIdToCardArray.stock.length;
+    let cardsDiscard = this.placeIdToCardArray.discard.length;
+    let card = cardsStock + cardsDiscard;
+    for(;card !=0;){
+      this.discardToStockAuto();
+      cardsStock = this.placeIdToCardArray.stock.length;
+      for(let i=0; i != cardsStock;i++){
+        console.log(`i - ${i}`);
+        this.stockToDiscardAuto();
+        while( this.moveAnyCardToAnyFoundationIfPossible() ){};
+      }
+      cardsStock = this.placeIdToCardArray.stock.length;
+      cardsDiscard = this.placeIdToCardArray.discard.length;
+      card = cardsStock + cardsDiscard;
+    }
+  }
 
 
-      // let sourcePlaceIdUltimate ='tableau';
-      // f = 1;
-      // let sourcePlaceId = sourcePlaceIdUltimate + i;
-      // let sourceArray = this.placeIdToCardArray[sourcePlaceId];
-      // while (f <= sourceArray.length) {
-      //   cardsToMove[cardsToMove.length - f].visible = true;
-      //     f++;
-      // }
-
-      // let ccardsToMove = this.placeIdToCardArray.stock; // Извлекаем нужное количество карт из стока
-      // f=1;
-      // while (f <= ccardsToMove.length) {
-      //   ccardsToMove[ccardsToMove.length - f].visible = true;
-      //     f++;
-      // }
 
 
-    // (this.canMoveAuto(card, sourcePlaceId, foundationId)) {
-    //   this.moveAuto(card, sourcePlaceId, foundationId);
-
-}
+  
 }
 
 
