@@ -46,9 +46,7 @@ class KlondikeCore extends CardGameCore {
       this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбце
 
-
-
-      // делает видимыми карты
+      //  //  // делает видимыми карты
       // let sourcePlaceIdUltimate ='tableau';
       // let f = 1;
       // let sourcePlaceId = sourcePlaceIdUltimate + i;
@@ -67,7 +65,6 @@ class KlondikeCore extends CardGameCore {
     //     f++;
     // }
   }
-
 
   // Проверяет, можно ли потенциально переместить карту из указанного места
   canMaybeMoveSomewhere(card, sourcePlaceId) {
@@ -151,23 +148,16 @@ class KlondikeCore extends CardGameCore {
             f++;
         }
       }
-      // autoVisible = 1;
       if(a == 0){
         autoVisible = 0;
       }
       a=0;
       
     }
-    // console.log(`stock - ${this.placeIdToCardArray.stock.length},autoVisible - ${autoVisible}, discard - ${this.placeIdToCardArray.discard.length}`)
-    // if(this.placeIdToCardArray.stock.length == 0){
-      // if(this.placeIdToCardArray.discard.length <=1){
-        if(autoVisible == 0){
-          let block = document.getElementById('check-autocomplete-button');
-          block.classList.add('normal-auto');
-        }
-      // }
-    // }
-    // autoVisible = 1;
+    if(autoVisible == 0){
+      let block = document.getElementById('check-autocomplete-button');
+      block.classList.add('normal-auto');
+    }
   }
 
   // Перемещает карты из стока в сброс или возвращает все карты из сброса в сток
@@ -204,7 +194,6 @@ class KlondikeCore extends CardGameCore {
     autoVisible = 1;
     for ( const id of this.constructor.getCardPlaces().kindToPlaceIds.tableau.concat(['discard']) ) {
       const array = this.placeIdToCardArray[id];
-      // console.table(array);
       if (array.length !== 0 && this.moveCardToAnyFoundationIfPossible(array[array.length - 1], id)) {
         return true;
       }
@@ -237,7 +226,6 @@ class KlondikeCore extends CardGameCore {
       this.discardToStockAuto();
       cardsStock = this.placeIdToCardArray.stock.length;
       for(let i=0; i != cardsStock;i++){
-        console.log(`i - ${i}`);
         this.stockToDiscardAuto();
         while( this.moveAnyCardToAnyFoundationIfPossible() ){};
       }
@@ -246,11 +234,6 @@ class KlondikeCore extends CardGameCore {
       card = cardsStock + cardsDiscard;
     }
   }
-
-
-
-
-  
 }
 
 
@@ -302,19 +285,12 @@ class KlondikeUI extends CardGameUI {
         }
       }
     }
-    // console.table(card);
   }
 
   // Обработка правого клика на карту или игровое поле
   _onAuxClick(card) {
     if (this.currentGame.status !== GameStatus.PLAYING) {
       return;
-    }
-
-    if (card === null) {
-      // while( this.currentGame.moveAnyCardToAnyFoundationIfPossible() ){} // Перемещаем все возможные карты в foundation
-    } else {
-      this.currentGame.moveCardToAnyFoundationIfPossible(card, this.currentGame.findCurrentPlaceId(card)); // Перемещаем конкретную карту в foundation
     }
   }
 
@@ -347,5 +323,4 @@ document.addEventListener('DOMContentLoaded', () => {
   newGameButton.addEventListener('click', () => ui.newGame(+PickInput)); // Обрабатываем клик по кнопке для новой игры
   backButton.addEventListener('click', () => ui.backButton()); // Обрабатываем клик по кнопке для возврата назад
   autoButton.addEventListener('click', () => ui.autoButton());
-  // const test = new KlondikeUI(gameDiv);
 });
