@@ -10,7 +10,7 @@ export const SUITS = [
 ];
 let i =0;
 // let testId =52, testCardPlace ='fondation0';
-let duplicateCardArray, oldPlace, newPlace, oldId, backCard;
+let oldPlace, newPlace, backCard, whatChange, beforeVisible, oldId;
 let gameIsStart = 0;
 let gameIsStart2 = 0;
 let block;
@@ -227,10 +227,7 @@ export class CardGameCore extends GameCore {
   rawMove(card, sourcePlaceId, destPlaceId) {
 
     const sourceArray = this.placeIdToCardArray[sourcePlaceId];
-    // console.table(card);
     const index = sourceArray.indexOf(card);
-    // console.log(`index ${index}`);
-    // console.table(sourceArray);
     if (index === -1) {
       throw new Error("card and sourcePlaceId don't match"); // Ошибка, если карта не найдена в указанном месте
     }
@@ -250,8 +247,6 @@ export class CardGameCore extends GameCore {
 
 }
 
-// Константа для золотого сечения, используемого в размерах карты
-// const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
 
 
 
@@ -303,11 +298,8 @@ export class CardGameUI extends GameUI {
       }
       div.style.width = CARD_WIDTH + 'px'; // Устанавливаем ширину места карты
       div.style.height = CARD_HEIGHT + 'px'; // Устанавливаем высоту места карты
-      // div.style.width = 13 + 'vw'; // Устанавливаем ширину места карты
-      // div.style.height = 18.096 + 'vw'; // Устанавливаем высоту места карты
       div.style.left = (xCount + 1 / 2) * xIncrementPercents + '%'; // Позиционируем место по оси X
       div.style.top = (yCount * (SPACING_SMALL + CARD_HEIGHT) + SPACING_SMALL + CARD_HEIGHT / 2) + 'px'; // Позиционируем по оси Y
-      // div.style.top = (100) + 'px'; // Позиционируем по оси Y
       gameDiv.appendChild(div); // Добавляем div в контейнер gameDiv
       this.cardPlaceDivs[id] = div; // Сохраняем div в cardPlaceDivs по id
     }
@@ -331,12 +323,8 @@ export class CardGameUI extends GameUI {
       div.setAttribute('id', i); // Присваиваем id
       card.suit.id = i;
 
-      // console.log(`i${i}`, `subDiv(${subDiv})`, `numberSpan(${numberSpan})`, `suitSpan(${suitSpan})` );
       div.style.backgroundImage = `url(${url + i + '.png'})`;
-      // Специальная обработка для браузера Firefox
-      // if (navigator.userAgent.toLowerCase().indexOf('firefox') !== -1) {
-      //   div.style.transform = `translate(-${Math.round(CARD_WIDTH / 2)}px, -${Math.round(CARD_HEIGHT / 2)}px)`;
-      // }
+
 
       // Создаем два угловых элемента для отображения номера и масти карты
       for (const loop of [1, 2]) {
@@ -442,17 +430,50 @@ export class CardGameUI extends GameUI {
   backButton(){
     if(backCard !="undefined"){
 
-      const sourceArray = this.currentGame.placeIdToCardArray[oldPlace];
-      if(sourceArray.length > 1){
-        sourceArray[sourceArray.length - 1].visible = false;
+      if(whatChange == "stock"){
+
+        let discard = this.currentGame.placeIdToCardArray.discard.length;
+        let stock = this.currentGame.placeIdToCardArray.stock.length;
+        let summ = discard + stock;
+
+        while((summ) > 0){
+          summ--;
+          this.currentGame.stockToDiscardAuto();
+        }
+
+        this.currentGame.discardToStockAuto();
+
+        if(discard == 0){
+          discard = stock+1;
+        }
+
+        while((discard-1) > 0){
+          discard--;
+          this.currentGame.stockToDiscardAuto();
+        }
+      }else if(whatChange == "table"){
+        let a= "discard";
+        if(oldPlace != a){
+          if(beforeVisible != true){
+            const sourceArray = this.currentGame.placeIdToCardArray[oldPlace];
+            if(oldId > 0){
+              sourceArray[oldId - 1].visible = false;
+            }
+            // if(sourceArray.length >= 1){
+            //   sourceArray[sourceArray.length -1].visible = false;
+            // }
+          }
+        }
+        this.currentGame.rawMove(backCard, newPlace, oldPlace);
+  
+        // const event = new Event('CardsMoved');
+        // event.newPlaceId = oldPlace;
+        // event.cardArray = backCard;
+        // this.currentGame.dispatchEvent(event); // Отправляем событие перемещения карт
+  
       }
 
-      this.currentGame.rawMove(backCard, newPlace, oldPlace);
 
-      const event = new Event('CardsMoved');
-      event.newPlaceId = oldPlace;
-      event.cardArray = backCard;
-      this.currentGame.dispatchEvent(event); // Отправляем событие перемещения карт
 
       backCard ="undefined";
     }
@@ -480,9 +501,10 @@ export class CardGameUI extends GameUI {
 
     const oldCardPlaceId = this.currentGame.findCurrentPlaceId(card); // Идентификатор текущего места карты
     if (!this.currentGame.canMaybeMoveSomewhere(card, oldCardPlaceId)) {
+      whatChange = "stock";
+      backCard = 'a'
       return; // Проверяем, можно ли вообще переместить карту
     }
-
     const allCardsAtThePlace = this.currentGame.placeIdToCardArray[oldCardPlaceId]; // Все карты на текущем месте
     const index = allCardsAtThePlace.indexOf(card); // Индекс карты среди других на этом месте
     
@@ -579,10 +601,7 @@ _doDrag(clientX, clientY) {
     // Устанавливаем новые стили для карты (позиция)
     cardInfo.div.style.left = xRelative + 'px';
     cardInfo.div.style.top = yRelative + 'px';
-    // console.log(`yRelative ${yRelative}`);
-    // cardInfo.div.style.left = xRelative + 'vw';
-    // cardInfo.div.style.top = yRelative + 'vw';
-
+    
     // Запоминаем первое относительное положение, если это первая итерация
     if (firstXRelative === null && firstYRelative === null) {
       firstXRelative = xRelative;
@@ -595,10 +614,27 @@ _doDrag(clientX, clientY) {
   // Проверяем, можно ли переместить карту в новое место
   if (newCardPlaceId !== null &&
       this.currentGame.canMove(this._draggingState.cardInfos[0].card, this._draggingState.oldCardPlaceId, newCardPlaceId)) {
+
+
       oldPlace = this._draggingState.oldCardPlaceId;
-      oldId = this._draggingState.index;
       backCard = this._draggingState.cardInfos[0].card;
       newPlace = newCardPlaceId;
+      whatChange = "table";
+      oldId =this._draggingState.index;
+
+
+      let a = "discard";
+      beforeVisible = false;
+      const sourceArray = this.currentGame.placeIdToCardArray[oldPlace];
+      if(oldPlace != a){
+        if(oldId > 0){
+          if(sourceArray[oldId - 1].visible == true){
+            beforeVisible = true;
+          }
+        }
+      }
+      
+
     // Если можно, добавляем класс для визуализации готовности к сбросу
     for (const cardInfo of this._draggingState.cardInfos) {
       cardInfo.div.classList.add('ready2drop');
@@ -622,11 +658,6 @@ _endDrag(touchElement) {
   if (this.currentGame.status !== GameStatus.PLAYING) {
     return; // Если нет, выходим из функции
   }
-  // console.table(touchElement);
-  // console.log(`target.id - ${touchElement.id}`);
-  // if (touchElement && touchElement.id !== "undefined") {
-  //   cardIdMove = touchElement.id;
-  // } 
   // Если состояние перетаскивания равно null, возможно, была нажата карта
   if (this._draggingState === null) {
     if (touchElement !== null) {

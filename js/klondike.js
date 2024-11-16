@@ -209,6 +209,7 @@ class KlondikeCore extends CardGameCore {
     this.moveCards(this.placeIdToCardArray.discard, 'stock'); // Перемещаем карты обратно в сток
     this.placeIdToCardArray.discard.length = 0; // Очищаем сброс
   }
+  
   stockToDiscardAuto() {
     let a =1;
       const cardArray = this.placeIdToCardArray.stock.splice(0, a); // Берем указанное количество карт из стока
