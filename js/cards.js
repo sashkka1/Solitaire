@@ -387,6 +387,7 @@ export class CardGameUI extends GameUI {
       this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
       this.currentGame.deal(); // Начало игры (раздача карт)
       super.newGame(); // Вызов метода newGame() родительского класса
+      this.currentGame.stockCurrentDefolt();
       autocomplete.classList.remove('normal-auto');
     }else{
       if(gameIsStart ==0){ // изменений нет, просто начинаем новую
@@ -394,6 +395,7 @@ export class CardGameUI extends GameUI {
         this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
         this.currentGame.deal(); // Начало игры (раздача карт)
         super.newGame(); // Вызов метода newGame() родительского класса
+        this.currentGame.stockCurrentDefolt();
         autocomplete.classList.remove('normal-auto');
       }else{
         let elements = document.getElementById("check-desire-box");
@@ -411,6 +413,7 @@ export class CardGameUI extends GameUI {
             this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
             this.currentGame.deal(); // Начало игры (раздача карт)
             super.newGame(); // Вызов метода newGame() родительского класса
+            this.currentGame.stockCurrentDefolt();
             autocomplete.classList.remove('normal-auto');
             i=0
             gameIsStart=0;
@@ -459,18 +462,9 @@ export class CardGameUI extends GameUI {
             if(oldId > 0){
               sourceArray[oldId - 1].visible = false;
             }
-            // if(sourceArray.length >= 1){
-            //   sourceArray[sourceArray.length -1].visible = false;
-            // }
           }
         }
         this.currentGame.rawMove(backCard, newPlace, oldPlace);
-  
-        // const event = new Event('CardsMoved');
-        // event.newPlaceId = oldPlace;
-        // event.cardArray = backCard;
-        // this.currentGame.dispatchEvent(event); // Отправляем событие перемещения карт
-  
       }
 
 
@@ -615,14 +609,14 @@ _doDrag(clientX, clientY) {
   if (newCardPlaceId !== null &&
       this.currentGame.canMove(this._draggingState.cardInfos[0].card, this._draggingState.oldCardPlaceId, newCardPlaceId)) {
 
-
+      // сохранение данных для кнопки back
       oldPlace = this._draggingState.oldCardPlaceId;
       backCard = this._draggingState.cardInfos[0].card;
       newPlace = newCardPlaceId;
       whatChange = "table";
       oldId =this._draggingState.index;
 
-
+      // проверка на то была ли открыта карта-1 перед последним перетаскиванием для кнопки back
       let a = "discard";
       beforeVisible = false;
       const sourceArray = this.currentGame.placeIdToCardArray[oldPlace];

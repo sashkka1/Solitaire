@@ -235,6 +235,11 @@ class KlondikeCore extends CardGameCore {
       card = cardsStock + cardsDiscard;
     }
   }
+
+
+  stockCurrentDefolt(){
+    stockCurrent = 1;
+  }
 }
 
 
