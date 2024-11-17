@@ -59,8 +59,12 @@ export class GameUI {
       this._statusMessagePara.classList.remove('hidden');    // Показываем сообщение
       this._statusMessagePara.textContent = "Game Over :(";  // Сообщение о проигрыше
     } else if (this.currentGame.status === GameStatus.WIN) {
-      this._statusMessagePara.classList.remove('hidden');    // Показываем сообщение
-      this._statusMessagePara.textContent = "You win :)";    // Сообщение о победе
+      let block = document.getElementById('win-box');
+      block.classList.add('normal-win');
+      let buttonPlace = document.getElementById('button-place');
+      buttonPlace.classList.remove('normal');
+      // this._statusMessagePara.classList.remove('hidden');    // Показываем сообщение
+      // this._statusMessagePara.textContent = "You win :)";    // Сообщение о победе
     } else if (this.currentGame.status === GameStatus.PLAYING) {
       this._statusMessagePara.classList.add('hidden');       // Скрываем сообщение
       this._statusMessagePara.textContent = "";              // Сбрасываем текст

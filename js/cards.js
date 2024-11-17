@@ -23,7 +23,6 @@ let aa =0, aaa;
 
 
 
-
 // кнопка отмены при проверке создания новой игры
 block = document.getElementById('check-desire-button-cancel');
 block.addEventListener('click', () => {
@@ -382,6 +381,7 @@ export class CardGameUI extends GameUI {
 
   newGame() {// проверяю на то была ли игра уже начата чтобы решить выставлять блок решением пользователя о продолжении или новой игре
     let autocomplete = document.getElementById('check-autocomplete-button');
+    let buttonPlace = document.getElementById('button-place');
     if(gameIsStart2 ==0){ // первый заход, позволяем разложить карты
       this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
       this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
@@ -389,6 +389,7 @@ export class CardGameUI extends GameUI {
       super.newGame(); // Вызов метода newGame() родительского класса
       this.currentGame.stockCurrentDefolt();
       autocomplete.classList.remove('normal-auto');
+      buttonPlace.classList.add('normal');
     }else{
       if(gameIsStart ==0){ // изменений нет, просто начинаем новую
         this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
@@ -397,6 +398,7 @@ export class CardGameUI extends GameUI {
         super.newGame(); // Вызов метода newGame() родительского класса
         this.currentGame.stockCurrentDefolt();
         autocomplete.classList.remove('normal-auto');
+        buttonPlace.classList.add('normal');
       }else{
         let elements = document.getElementById("check-desire-box");
         elements.classList.add('normal');
@@ -415,12 +417,23 @@ export class CardGameUI extends GameUI {
             super.newGame(); // Вызов метода newGame() родительского класса
             this.currentGame.stockCurrentDefolt();
             autocomplete.classList.remove('normal-auto');
+            buttonPlace.classList.add('normal');
             i=0
             gameIsStart=0;
           }
         });
       }
     }
+    let block = document.getElementById('win-box');
+        block.addEventListener('click', () => {
+          this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
+          this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
+          this.currentGame.deal(); // Начало игры (раздача карт)
+          super.newGame(); // Вызов метода newGame() родительского класса
+          this.currentGame.stockCurrentDefolt();
+          block.classList.remove('normal-win');
+          buttonPlace.classList.add('normal');
+        });
     gameIsStart2 ++;
   }
 

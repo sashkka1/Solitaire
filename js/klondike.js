@@ -10,9 +10,6 @@ let autoVisible = 1;
 let stockCurrent = 1;
 
 
-
-
-
 // Создаем класс ядра игры для пасьянса Клондайк, наследуя CardGameCore
 class KlondikeCore extends CardGameCore {
 
