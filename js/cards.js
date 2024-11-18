@@ -403,7 +403,7 @@ export class CardGameUI extends GameUI {
         let elements = document.getElementById("check-desire-box");
         elements.classList.add('normal');
         let i =0;
-        block = document.getElementById('check-desire-button-ok');
+        let block = document.getElementById('check-desire-button-ok');
         block.addEventListener('click', () => {
           i++
           let elements = document.getElementById("check-desire-box");
