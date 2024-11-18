@@ -288,6 +288,8 @@ class KlondikeUI extends CardGameUI {
         }
       }
     }
+    let buttonBack = document.getElementById('back-button');
+    buttonBack.classList.remove('lock');
   }
 
   // Обработка правого клика на карту или игровое поле

@@ -22,7 +22,6 @@ let aa =0, aaa;
 
 
 
-
 // кнопка отмены при проверке создания новой игры
 block = document.getElementById('check-desire-button-cancel');
 block.addEventListener('click', () => {
@@ -188,7 +187,6 @@ export class CardGameCore extends GameCore {
 
   // Перемещает карты в новое место и проверяет статус игры
   moveCards(cardArray, newPlaceId, setStatus = true) {
-
       this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
   
       const event = new Event('CardsMoved');
@@ -224,7 +222,8 @@ export class CardGameCore extends GameCore {
 
   // Реализует перемещение карты в новое место
   rawMove(card, sourcePlaceId, destPlaceId) {
-
+    let buttonBack = document.getElementById('back-button');
+    buttonBack.classList.remove('lock');
     const sourceArray = this.placeIdToCardArray[sourcePlaceId];
     const index = sourceArray.indexOf(card);
     if (index === -1) {
@@ -382,6 +381,8 @@ export class CardGameUI extends GameUI {
   newGame() {// проверяю на то была ли игра уже начата чтобы решить выставлять блок решением пользователя о продолжении или новой игре
     let autocomplete = document.getElementById('check-autocomplete-button');
     let buttonPlace = document.getElementById('button-place');
+    let buttonBack = document.getElementById('back-button');
+    buttonBack.classList.add('lock');
     if(gameIsStart2 ==0){ // первый заход, позволяем разложить карты
       this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
       this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
@@ -484,7 +485,8 @@ export class CardGameUI extends GameUI {
 
       backCard ="undefined";
     }
-
+    let buttonBack = document.getElementById('back-button');
+    buttonBack.classList.add('lock');
   }
     
   _onCardChanged(card) {

@@ -47,6 +47,8 @@ body {
 }
 .game-area {
 }
+
+/* Для изменения состояния блоков которые появляются */
 .normal-win{
     z-index: 100002;
 }
@@ -56,6 +58,13 @@ body {
 .normal-auto{
     z-index: 100000;
 }
+.lock{
+    background-color: grey;
+    pointer-events: none;
+}
+
+
+/* Для проверки хочет ли пользователь начать новую игру  */
 .check-desire-box{
     position: absolute;
     width: 100vw;
@@ -114,7 +123,7 @@ body {
     transform: translate(4px, 4px);
 }
 
-
+/* Для кнопки автокомплита  */
 .check-autocomplete-button{
     position: absolute;
     width: 40vw;
@@ -140,10 +149,11 @@ body {
     transform: translate(4px, 4px);
 }
 
-.opacity{
+/* .opacity{
     opacity: 0;
-}
+} */
 
+/* Для блока с кнопками внизу */
 .button-place{
     display: flex;
     justify-content: space-around;
@@ -208,7 +218,7 @@ body {
 } */
 
 
-
+/* Для победного сообщения */
 .win-box{
     position: absolute;
     width: 100vw;
@@ -252,7 +262,7 @@ body {
 
 
 
-
+/* Для отображение карт */
 .card, .card-place {
     /* card size is defined in the javascript because it's much easier that way imo */
     border-radius: 5px;
