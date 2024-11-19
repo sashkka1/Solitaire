@@ -55,7 +55,7 @@ class KlondikeCore extends CardGameCore {
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
 
-    console.log('Test 2');
+    console.log('Test 3');
         let arrayCardSafe = Array.from(this._allCards);
     console.log('arrayCardSafeOld 0');
 
@@ -69,17 +69,18 @@ class KlondikeCore extends CardGameCore {
         console.error('error with get', err);
         console.log(`haveArray - ${haveArray}`);
         return;
-      }else{
-        if (haveArray === null || haveArray === undefined) {
-          console.log('haveArray empty');
-          console.log(`haveArray - ${haveArray}`);
-          let haveArrayNew = 1;
-          window.Telegram.WebApp.CloudStorage.setItem("haveArray", haveArrayNew);
-        }else{
-          console.log('haveArray true');
-          console.log(`haveArray - ${haveArray}`);
-        }
       }
+      if (haveArray === null || haveArray === undefined) {
+        console.log('haveArray empty');
+        console.log(`haveArray - ${haveArray}`);
+        let haveArrayNew = 1;
+        window.Telegram.WebApp.CloudStorage.setItem("haveArray", haveArrayNew);
+        return;
+      }else{
+        console.log('haveArray true');
+        console.log(`haveArray - ${haveArray}`);
+      }
+      
 
         
     });
