@@ -37,11 +37,44 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
+
+    let arrayCardSafe = Array.from(this._allCards);
+    console.table(arrayCardSafe);
+    console.log('arrayCardSafeOld 0');
+      console.table(arrayCardSafe);
+    window.Telegram.WebApp.CloudStorage.getItem("arrayCardSafe", (err, arrayCardSafeOld) => {
+      console.log('arrayCardSafeOld 1');
+      console.table(arrayCardSafeOld);
+      if(arrayCardSafeOld === null){
+        console.log('arrayCardSafeOld 2');
+        console.table(arrayCardSafeOld);
+        window.Telegram.WebApp.CloudStorage.setItem("arrayCardSafe", arrayCardSafe);
+      } else{
+        this._allCards = arrayCardSafeOld;
+        console.log('arrayCardSafeOld 3');
+        console.table(arrayCardSafeOld);
+      }
+        
+    });
+
+
+
+
+
+
+
+
+
+
+
     for (let i = 0; i < 7; i++) {
       const howManyCardsToMove = i + 1;
       const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
       this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбце
+
+
+
 
       //  //  // делает видимыми карты
       // let sourcePlaceIdUltimate ='tableau';
