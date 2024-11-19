@@ -10,6 +10,23 @@ let autoVisible = 1;
 let stockCurrent = 1;
 
 
+async function setItemInCloudStorage(key, value) {
+  try {
+      await window.Telegram.WebApp.CloudStorage.setItem(key, JSON.stringify(value));
+      console.log(`Item set for key: "${key}"`);
+  } catch (error) {
+      console.error(`Error setting item for key "${key}":`, error);
+  }
+}
+
+
+
+
+
+
+
+
+
 // Создаем класс ядра игры для пасьянса Клондайк, наследуя CardGameCore
 class KlondikeCore extends CardGameCore {
 
@@ -45,15 +62,21 @@ class KlondikeCore extends CardGameCore {
     window.Telegram.WebApp.CloudStorage.getItem("arrayCardSafe", (err, arrayCardSafeOld) => {
       console.log('arrayCardSafeOld 1');
       console.table(arrayCardSafeOld);
-      if(arrayCardSafeOld === null){
-        console.log('arrayCardSafeOld 2');
-        console.table(arrayCardSafeOld);
-        window.Telegram.WebApp.CloudStorage.setItem("arrayCardSafe", arrayCardSafe);
-      } else{
-        this._allCards = arrayCardSafeOld;
-        console.log('arrayCardSafeOld 3');
-        console.table(arrayCardSafeOld);
+      if (err) {
+        console.error('Error retrieving arrayCardSafe:', err);
+        return; // Exit if there's an error
+      }else{
+        if (arrayCardSafeOld === null || arrayCardSafeOld === undefined) {
+          console.log('arrayCardSafeOld 2');
+          console.table(arrayCardSafeOld);
+          window.Telegram.WebApp.CloudStorage.setItem("arrayCardSafe", arrayCardSafe);
+        }else{
+          this._allCards = arrayCardSafeOld;
+          console.log('arrayCardSafeOld 3');
+          console.table(this._allCards);
+        }
       }
+
         
     });
 
