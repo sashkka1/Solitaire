@@ -55,31 +55,55 @@ class KlondikeCore extends CardGameCore {
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
 
-    console.log('Test 1');
-    let arrayCardSafe = Array.from(this._allCards);
-    console.table(arrayCardSafe);
+    console.log('Test 2');
+        let arrayCardSafe = Array.from(this._allCards);
     console.log('arrayCardSafeOld 0');
-      console.table(arrayCardSafe);
-    window.Telegram.WebApp.CloudStorage.getItem("arrayCardSafe", (err, arrayCardSafeOld) => {
-      console.log('arrayCardSafeOld 1');
-      console.table(arrayCardSafeOld);
+
+    
+
+
+    window.Telegram.WebApp.CloudStorage.getItem("haveArray", (err, haveArray) => {
+      console.log('in get');
+      console.log(`haveArray - ${haveArray}`);
       if (err) {
-        console.error('Error retrieving arrayCardSafe:', err);
-        return; // Exit if there's an error
+        console.error('error with get', err);
+        console.log(`haveArray - ${haveArray}`);
+        return;
       }else{
-        if (arrayCardSafeOld === null || arrayCardSafeOld === undefined) {
-          console.log('arrayCardSafeOld 2');
-          console.table(arrayCardSafeOld);
-          window.Telegram.WebApp.CloudStorage.setItem("arrayCardSafe", arrayCardSafe);
+        if (haveArray === null || haveArray === undefined) {
+          console.log('haveArray empty');
+          console.log(`haveArray - ${haveArray}`);
+          let haveArrayNew = 1;
+          window.Telegram.WebApp.CloudStorage.setItem("haveArray", haveArrayNew);
         }else{
-          this._allCards = arrayCardSafeOld;
-          console.log('arrayCardSafeOld 3');
-          console.table(this._allCards);
+          console.log('haveArray true');
+          console.log(`haveArray - ${haveArray}`);
         }
       }
 
         
     });
+
+    // window.Telegram.WebApp.CloudStorage.getItem("arrayCardSafe", (err, arrayCardSafeOld) => {
+    //   console.log('arrayCardSafeOld 1');
+    //   console.table(arrayCardSafeOld);
+    //   if (err) {
+    //     console.error('Error retrieving arrayCardSafe:', err);
+    //     return; // Exit if there's an error
+    //   }else{
+    //     if (arrayCardSafeOld === null || arrayCardSafeOld === undefined) {
+    //       console.log('arrayCardSafeOld 2');
+    //       console.table(arrayCardSafeOld);
+    //       window.Telegram.WebApp.CloudStorage.setItem("arrayCardSafe", arrayCardSafe);
+    //     }else{
+    //       this._allCards = arrayCardSafeOld;
+    //       console.log('arrayCardSafeOld 3');
+    //       console.table(this._allCards);
+    //     }
+    //   }
+
+        
+    // });
 
 
 
