@@ -55,7 +55,7 @@ class KlondikeCore extends CardGameCore {
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
 
-    console.log('Test 6');
+    console.log('Test 7');
     let arrayCardSafe = Array.from(this._allCards);
 
     
@@ -83,25 +83,32 @@ class KlondikeCore extends CardGameCore {
 
 
 
-    window.Telegram.WebApp.CloudStorage.setItem("arrayCardSafe", arrayCardSafe);
-    // window.Telegram.WebApp.CloudStorage.getItem("arrayCardSafe", (err, arrayCardSafeOld) => {
-    //   console.log('arrayCardSafeOld 1');
-    //   console.table(arrayCardSafeOld);
-    //   if (err) {
-    //     console.error('Error retrieving arrayCardSafe:', err);
-    //     return; // Exit if there's an error
-    //   }
-    //   if (arrayCardSafeOld === null || arrayCardSafeOld === undefined || arrayCardSafeOld === "") {
-    //     console.log('arrayCardSafeOld 2');
-    //     console.table(arrayCardSafeOld);
-    //     window.Telegram.WebApp.CloudStorage.setItem("arrayCardSafe", arrayCardSafe);
-    //     return; // Exit if there's an error
-    //   }else{
-    //     this._allCards = arrayCardSafeOld;
-    //     console.log('arrayCardSafeOld 3');
-    //     console.table(this._allCards);
-    //   }
-    // });
+    // window.Telegram.WebApp.CloudStorage.setItem("arrayCardSafe", arrayCardSafe);
+    window.Telegram.WebApp.CloudStorage.getItem("arrayCardSafe", (err, arrayCardSafeOld) => {
+      console.log('arrayCardSafeOld 1');
+      console.table(arrayCardSafeOld);
+      if (err) {
+        console.error('Error retrieving arrayCardSafe:', err);
+        return; // Exit if there's an error
+      }
+      if (arrayCardSafeOld === null || arrayCardSafeOld === undefined || arrayCardSafeOld === "") {
+        console.log('arrayCardSafeOld 2');
+        console.table(arrayCardSafeOld);
+        window.Telegram.WebApp.CloudStorage.setItem("arrayCardSafe", arrayCardSafe);
+        return; // Exit if there's an error
+      }else{
+        this._allCards = arrayCardSafeOld;
+        console.log('arrayCardSafeOld 3');
+        console.table(this._allCards);
+        this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
+        for (let i = 0; i < 7; i++) {
+          const howManyCardsToMove = i + 1;
+          const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+          this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+          cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбце
+        }
+      }
+    });
 
 
 
@@ -113,11 +120,11 @@ class KlondikeCore extends CardGameCore {
 
 
 
-    for (let i = 0; i < 7; i++) {
-      const howManyCardsToMove = i + 1;
-      const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-      this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-      cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбце
+    // for (let i = 0; i < 7; i++) {
+    //   const howManyCardsToMove = i + 1;
+    //   const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+    //   this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+    //   cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбце
 
 
 
@@ -131,7 +138,7 @@ class KlondikeCore extends CardGameCore {
       //   cardsToMove[cardsToMove.length - f].visible = true;
       //     f++;
       // }
-    }
+    // }
 
     // делает видимыми колоду
     // let ccardsToMove = this.placeIdToCardArray.stock; // Извлекаем нужное количество карт из стока
