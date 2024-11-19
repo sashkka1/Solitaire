@@ -188,7 +188,7 @@ export class CardGameCore extends GameCore {
   // Перемещает карты в новое место и проверяет статус игры
   moveCards(cardArray, newPlaceId, setStatus = true) {
       this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
-  
+      
       const event = new Event('CardsMoved');
       event.newPlaceId = newPlaceId;
       event.cardArray = cardArray;
@@ -444,6 +444,7 @@ export class CardGameUI extends GameUI {
     block.classList.remove('normal-auto');
 
   }
+
   backButton(){
     if(backCard !="undefined"){
 

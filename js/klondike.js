@@ -55,6 +55,7 @@ class KlondikeCore extends CardGameCore {
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
 
+    console.log('Test 1');
     let arrayCardSafe = Array.from(this._allCards);
     console.table(arrayCardSafe);
     console.log('arrayCardSafeOld 0');
