@@ -55,7 +55,7 @@ class KlondikeCore extends CardGameCore {
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
 
-    console.log('Test 3');
+    console.log('Test 4');
         let arrayCardSafe = Array.from(this._allCards);
     console.log('arrayCardSafeOld 0');
 
@@ -70,7 +70,7 @@ class KlondikeCore extends CardGameCore {
         console.log(`haveArray - ${haveArray}`);
         return;
       }
-      if (haveArray === null || haveArray === undefined) {
+      if (haveArray === null || haveArray === undefined || haveArray === "") {
         console.log('haveArray empty');
         console.log(`haveArray - ${haveArray}`);
         let haveArrayNew = 1;
