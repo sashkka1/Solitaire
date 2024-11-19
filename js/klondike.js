@@ -55,9 +55,8 @@ class KlondikeCore extends CardGameCore {
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
 
-    console.log('Test 5');
-        let arrayCardSafe = Array.from(this._allCards);
-    console.log('arrayCardSafeOld 0');
+    console.log('Test 6');
+    let arrayCardSafe = Array.from(this._allCards);
 
     
 
@@ -80,32 +79,29 @@ class KlondikeCore extends CardGameCore {
     //     console.log('haveArray true');
     //     console.log(`haveArray - ${haveArray}`);
     //   }
-      
-
-        
     // });
 
-    window.Telegram.WebApp.CloudStorage.getItem("arrayCardSafe", (err, arrayCardSafeOld) => {
-      console.log('arrayCardSafeOld 1');
-      console.table(arrayCardSafeOld);
-      if (err) {
-        console.error('Error retrieving arrayCardSafe:', err);
-        return; // Exit if there's an error
-      }
-      if (arrayCardSafeOld === null || arrayCardSafeOld === undefined || arrayCardSafeOld === "") {
-        console.log('arrayCardSafeOld 2');
-        console.table(arrayCardSafeOld);
-        window.Telegram.WebApp.CloudStorage.setItem("arrayCardSafe", arrayCardSafe);
-        return; // Exit if there's an error
-      }else{
-        this._allCards = arrayCardSafeOld;
-        console.log('arrayCardSafeOld 3');
-        console.table(this._allCards);
-      }
-      
 
-        
-    });
+
+    window.Telegram.WebApp.CloudStorage.setItem("arrayCardSafe", arrayCardSafe);
+    // window.Telegram.WebApp.CloudStorage.getItem("arrayCardSafe", (err, arrayCardSafeOld) => {
+    //   console.log('arrayCardSafeOld 1');
+    //   console.table(arrayCardSafeOld);
+    //   if (err) {
+    //     console.error('Error retrieving arrayCardSafe:', err);
+    //     return; // Exit if there's an error
+    //   }
+    //   if (arrayCardSafeOld === null || arrayCardSafeOld === undefined || arrayCardSafeOld === "") {
+    //     console.log('arrayCardSafeOld 2');
+    //     console.table(arrayCardSafeOld);
+    //     window.Telegram.WebApp.CloudStorage.setItem("arrayCardSafe", arrayCardSafe);
+    //     return; // Exit if there's an error
+    //   }else{
+    //     this._allCards = arrayCardSafeOld;
+    //     console.log('arrayCardSafeOld 3');
+    //     console.table(this._allCards);
+    //   }
+    // });
 
 
 
