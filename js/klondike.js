@@ -55,11 +55,11 @@ class KlondikeCore extends CardGameCore {
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
 
-    console.log('Test 2');
+    console.log('Test 3');
     let arrayCardSafe = Array.from(this._allCards);
     let tg = window.Telegram.WebApp.CloudStorage;
-    tg.getKeys(callback);
-    console.log(callback);
+    // tg.getKeys(callback);
+    // console.log(callback);
     console.log(tg.getKeys(callback));
 
     let array = [1,2,4,3,6,5,8,7,9,0];
