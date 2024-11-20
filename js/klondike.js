@@ -57,7 +57,7 @@ class KlondikeCore extends CardGameCore {
 
     console.log('Test 1');
     let arrayCardSafe = Array.from(this._allCards);
-    tg = window.Telegram.WebApp.CloudStorage;
+    let tg = window.Telegram.WebApp.CloudStorage;
     tg.getKeys(callback);
     console.log(callback);
     console.log(tg.getKeys(callback));
