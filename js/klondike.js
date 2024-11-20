@@ -65,21 +65,21 @@ class KlondikeCore extends CardGameCore {
   }
   // Метод распределения карт при начале игры
   deal() {
-    // this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
     for (let i = 0; i < 7; i++) {
       const howManyCardsToMove = i + 1;
       const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
       this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-      cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбце
+      cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
     }
-    
+
+
     const jsonString = JSON.stringify(this._allCards);
     console.log('1');
-    setItemInCloudStorage("1", jsonString);
+    // setItemInCloudStorage("1", jsonString);
     console.log('2');
-    // getItemFromCloudStorage("1");
-    // console.log('3');
+    getItemFromCloudStorage("1");
+    console.log('3');
     // document.getElementById('new-game-button').innerHTML = "Test 9";
     // let arrayCardSafe = Array.from(this._allCards);
     // let tg = window.Telegram.WebApp.CloudStorage;
@@ -361,7 +361,9 @@ class KlondikeCore extends CardGameCore {
     let cardsStock = this.placeIdToCardArray.stock.length;
     let cardsDiscard = this.placeIdToCardArray.discard.length;
     let card = cardsStock + cardsDiscard;
-    for(;card !=0;){
+    console.log(`forauto - ${card}`)
+    for(;card !=-1;){
+      console.log(`card - ${card}`)
       this.discardToStockAuto();
       cardsStock = this.placeIdToCardArray.stock.length;
       for(let i=0; i != cardsStock;i++){
