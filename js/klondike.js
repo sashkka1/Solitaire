@@ -12,29 +12,29 @@ let stockCurrent = 1;
 
 
 
-async function setItemInCloudStorage(key, array) {
-  await window.Telegram.WebApp.CloudStorage.setItem(key, JSON.stringify(array));
-  console.log('set');
-}
+// async function setItemInCloudStorage(key, array) {
+//   await window.Telegram.WebApp.CloudStorage.setItem(key, JSON.stringify(array));
+//   console.log('set');
+// }
 
 
-async function getItemFromCloudStorage(key) {
-  const storedArray = await window.Telegram.WebApp.CloudStorage.getItem(key);
-  console.log(`get storedArray  ${storedArray}`);
-  console.table(storedArray);
-  console.log(`get storedArray2  ${storedArray[0]}`);
-  for(let i=0;storedArray;i++){
+// async function getItemFromCloudStorage(key) {
+//   const storedArray = await window.Telegram.WebApp.CloudStorage.getItem(key);
+//   console.log(`get storedArray  ${storedArray}`);
+//   console.table(storedArray);
+//   console.log(`get storedArray2  ${storedArray[0]}`);
+//   for(let i=0;storedArray;i++){
 
-    console.log(`storedArray  ${storedArray[i]}`);
-  }
-  if (storedArray) {
-      myArray = JSON.parse(storedArray);
-      console.log(`myArray  ${myArray}`);
-  } else {
-      console.log('Массив не найден в облачном хранилище.');
-  }
-  return myArray;
-}
+//     console.log(`storedArray  ${storedArray[i]}`);
+//   }
+//   if (storedArray) {
+//       myArray = JSON.parse(storedArray);
+//       console.log(`myArray  ${myArray}`);
+//   } else {
+//       console.log('Массив не найден в облачном хранилище.');
+//   }
+//   return myArray;
+// }
 
 
 
@@ -73,22 +73,19 @@ class KlondikeCore extends CardGameCore {
       this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбце
     }
+    
+    // document.getElementById('new-game-button').innerHTML = "Test 9";
+    // let arrayCardSafe = Array.from(this._allCards);
+    // let tg = window.Telegram.WebApp.CloudStorage;
 
+    // let array = [1,2,4,3,6,5,8,7,9,0];
+    // let a =1,b,c;
 
-
-
-    document.getElementById('new-game-button').innerHTML = "Test 9";
-    let arrayCardSafe = Array.from(this._allCards);
-    let tg = window.Telegram.WebApp.CloudStorage;
-
-    let array = [1,2,4,3,6,5,8,7,9,0];
-    let a =1,b,c;
-
-    // tg.setItem("havearray", array);
-    setItemInCloudStorage("getArray",array);
-    console.log('set true');
-    array = getItemFromCloudStorage("getArray");
-    console.table(array);
+    // // tg.setItem("havearray", array);
+    // setItemInCloudStorage("getArray",array);
+    // console.log('set true');
+    // array = getItemFromCloudStorage("getArray");
+    // console.table(array);
     // tg.getItem("getArray", (err, getArray) => {
     //   console.log('in get');
     //   console.table(getArray);
