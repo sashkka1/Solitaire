@@ -29,24 +29,13 @@ async function getItemFromCloudStorage(key) {
   });
   console.log('Get complite');
 }
-// async function getItemFromCloudStorage(key) {
-//   const storedArray = await window.Telegram.WebApp.CloudStorage.getItem(key);
-//   console.log(`get storedArray  ${storedArray}`);
-//   console.table(storedArray);
-//   console.log(`get storedArray2  ${storedArray[0]}`);
-//   for(let i=0;storedArray;i++){
-
-//     console.log(`storedArray  ${storedArray[i]}`);
-//   }
-//   if (storedArray) {
-//       myArray = JSON.parse(storedArray);
-//       console.log(`myArray  ${myArray}`);
-//   } else {
-//       console.log('Массив не найден в облачном хранилище.');
-//   }
-//   return myArray;
-// }
-
+function fetchData() {
+  return new Promise((resolve) => {
+      setTimeout(() => {
+          resolve("Данные загружены");
+      }, 2000); // Имитация задержки в 2 секунды
+  });
+}
 
 
 
@@ -89,8 +78,8 @@ class KlondikeCore extends CardGameCore {
     console.log('1');
     setItemInCloudStorage("1", jsonString);
     console.log('2');
-    getItemFromCloudStorage("1");
-    console.log('3');
+    // getItemFromCloudStorage("1");
+    // console.log('3');
     // document.getElementById('new-game-button').innerHTML = "Test 9";
     // let arrayCardSafe = Array.from(this._allCards);
     // let tg = window.Telegram.WebApp.CloudStorage;
