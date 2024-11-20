@@ -13,13 +13,13 @@ let stockCurrent = 1;
 
 
 async function setItemInCloudStorage(key, array) {
-  await window.Telegram.WebApp.storage.setItem(key, JSON.stringify(array));
+  await window.Telegram.WebApp.CloudStorage.setItem(key, JSON.stringify(array));
   console.log('set');
 }
 
 
 async function getItemFromCloudStorage(key) {
-  const storedArray = await window.Telegram.WebApp.storage.getItem('myArrayKey');
+  const storedArray = await window.Telegram.WebApp.CloudStorage.getItem(key);
   console.log(`get storedArray  ${storedArray}`);
   if (storedArray) {
       myArray = JSON.parse(storedArray);
@@ -59,7 +59,7 @@ class KlondikeCore extends CardGameCore {
   }
   // Метод распределения карт при начале игры
   deal() {
-    this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
+    // this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
     for (let i = 0; i < 7; i++) {
       const howManyCardsToMove = i + 1;
@@ -71,7 +71,7 @@ class KlondikeCore extends CardGameCore {
 
 
 
-    document.getElementById('new-game-button').innerHTML = "Test 7";
+    document.getElementById('new-game-button').innerHTML = "Test 8";
     let arrayCardSafe = Array.from(this._allCards);
     let tg = window.Telegram.WebApp.CloudStorage;
 
