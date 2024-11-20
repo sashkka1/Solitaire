@@ -55,26 +55,59 @@ class KlondikeCore extends CardGameCore {
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
 
-    console.log('Test 9');
+    console.log('Test 1');
     let arrayCardSafe = Array.from(this._allCards);
+    tg = window.Telegram.WebApp.CloudStorage;
+    tg.getKeys(callback);
+    console.log(callback);
+    console.log(tg.getKeys(callback));
 
-    
-    window.Telegram.WebApp.CloudStorage.getItem("arrayCardSafe", (err, arrayCardSafeOld) => {
-      console.log('arrayCardSafeOld 1');
-      console.table(arrayCardSafeOld);
-        this._allCards = JSON.parse(arrayCardSafeOld);
-        // this._allCards = arrayCardSafeOld;
-        console.log('arrayCardSafeOld 3');
-        console.table(this._allCards);
-        this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-        for (let i = 0; i < 7; i++) {
-          const howManyCardsToMove = i + 1;
-          const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-          this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-          cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбце
-        }
-      
+    let array = [1,2,4,3,6,5,8,7,9,0];
+    let a =1,b,c;
+
+    tg.setItem("havearray", array);
+    console.log('set true');
+    for(let i =0;i<100;i++){
+      b=a;
+      c=b;
+      a++
+    }
+    console.log('set true2');
+    tg.getItem("havearray", (err, getArray) => {
+      console.log('in get');
+      console.table(getArray);
+      if (err) {
+        console.error('error with get', err);
+        console.log(`getArray - ${getArray}`);
+        return;
+      }
+      if (getArray === null || getArray === undefined || getArray === "") {
+        console.log('getArray empty');
+        console.log(`getArray - ${getArray}`);
+        window.Telegram.WebApp.CloudStorage.setItem("getArray", array);
+        return;
+      }else{
+        console.log('getArray true');
+        console.log(`getArray - ${getArray}`);
+      }
     });
+
+    // tg.getItem("arrayCardSafe", (err, arrayCardSafeOld) => {
+    //   console.log('arrayCardSafeOld 1');
+    //   console.table(arrayCardSafeOld);
+    //     this._allCards = JSON.parse(arrayCardSafeOld);
+    //     // this._allCards = arrayCardSafeOld;
+    //     console.log('arrayCardSafeOld 3');
+    //     console.table(this._allCards);
+    //     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
+    //     for (let i = 0; i < 7; i++) {
+    //       const howManyCardsToMove = i + 1;
+    //       const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+    //       this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+    //       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбце
+    //     }
+      
+    // });
 
     // window.Telegram.WebApp.CloudStorage.getItem("haveArray", (err, haveArray) => {
     //   console.log('in get');
