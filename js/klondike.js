@@ -77,9 +77,9 @@ class KlondikeCore extends CardGameCore {
     // const jsonString = JSON.stringify(this._allCards);
     // console.log('1');
     // setItemInCloudStorage("1", jsonString);
-    // console.log('2');
-    // getItemFromCloudStorage("1");
-    // console.log('3');
+    console.log('2');
+    getItemFromCloudStorage("1");
+    console.log('3');
     // document.getElementById('new-game-button').innerHTML = "Test 9";
     // let arrayCardSafe = Array.from(this._allCards);
     // let tg = window.Telegram.WebApp.CloudStorage;
