@@ -12,10 +12,10 @@ let stockCurrent = 1;
 
 
 
-// async function setItemInCloudStorage(key, array) {
-//   await window.Telegram.WebApp.CloudStorage.setItem(key, JSON.stringify(array));
-//   console.log('set');
-// }
+async function setItemInCloudStorage(key, array) {
+  await window.Telegram.WebApp.CloudStorage.setItem(key, array);
+  console.log('set');
+}
 
 
 // async function getItemFromCloudStorage(key) {
@@ -74,6 +74,8 @@ class KlondikeCore extends CardGameCore {
       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбце
     }
     
+    const jsonString = JSON.stringify(this._allCards);
+    setItemInCloudStorage("1", jsonString);
     // document.getElementById('new-game-button').innerHTML = "Test 9";
     // let arrayCardSafe = Array.from(this._allCards);
     // let tg = window.Telegram.WebApp.CloudStorage;
