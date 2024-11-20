@@ -71,7 +71,8 @@ class KlondikeCore extends CardGameCore {
 
 
 
-
+    
+    
     document.getElementById('new-game-button').innerHTML = "Test 7";
     let arrayCardSafe = Array.from(this._allCards);
     let tg = window.Telegram.WebApp.CloudStorage;
