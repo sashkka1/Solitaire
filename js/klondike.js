@@ -21,6 +21,12 @@ async function setItemInCloudStorage(key, array) {
 async function getItemFromCloudStorage(key) {
   const storedArray = await window.Telegram.WebApp.CloudStorage.getItem(key);
   console.log(`get storedArray  ${storedArray}`);
+  console.table(storedArray);
+  console.log(`get storedArray2  ${storedArray[0]}`);
+  for(let i=0;storedArray;i++){
+
+    console.log(`storedArray  ${storedArray[i]}`);
+  }
   if (storedArray) {
       myArray = JSON.parse(storedArray);
       console.log(`myArray  ${myArray}`);
@@ -71,7 +77,7 @@ class KlondikeCore extends CardGameCore {
 
 
 
-    document.getElementById('new-game-button').innerHTML = "Test 8";
+    document.getElementById('new-game-button').innerHTML = "Test 9";
     let arrayCardSafe = Array.from(this._allCards);
     let tg = window.Telegram.WebApp.CloudStorage;
 
