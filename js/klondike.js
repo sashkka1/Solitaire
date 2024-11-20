@@ -12,12 +12,23 @@ let stockCurrent = 1;
 
 
 
-async function setItemInCloudStorage(key, array) {
-  await window.Telegram.WebApp.CloudStorage.setItem(key, array);
-  console.log('set');
+
+async function setItemInCloudStorage(key,value) {
+  console.table(value);
+  console.table(JSON.stringify(value));
+  console.log('Set start');
+  await window.Telegram.WebApp.CloudStorage.setItem(key, JSON.stringify(value));
+  console.log('Set complite');
 }
 
-
+async function getItemFromCloudStorage(key) {
+  console.log('Get start');
+  await window.Telegram.WebApp.CloudStorage.getItem(key, (err, storedValue) => {
+      console.log(`вывод 1  ${storedValue}`);
+      console.table(JSON.parse(storedValue));
+  });
+  console.log('Get complite');
+}
 // async function getItemFromCloudStorage(key) {
 //   const storedArray = await window.Telegram.WebApp.CloudStorage.getItem(key);
 //   console.log(`get storedArray  ${storedArray}`);
@@ -75,7 +86,11 @@ class KlondikeCore extends CardGameCore {
     }
     
     const jsonString = JSON.stringify(this._allCards);
+    console.log('1');
     setItemInCloudStorage("1", jsonString);
+    console.log('2');
+    getItemFromCloudStorage("1");
+    console.log('3');
     // document.getElementById('new-game-button').innerHTML = "Test 9";
     // let arrayCardSafe = Array.from(this._allCards);
     // let tg = window.Telegram.WebApp.CloudStorage;
