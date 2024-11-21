@@ -102,6 +102,8 @@ class KlondikeCore extends CardGameCore {
             console.table(combinedArray);
             console.table(storedValue1);
             console.table(storedValue2);
+            this._allCards = combinedArray;
+            console.table(this._allCards);
             }
           });
         }

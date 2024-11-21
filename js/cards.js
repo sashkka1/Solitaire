@@ -186,23 +186,22 @@ export class CardGameCore extends GameCore {
   // Перемещает карты в новое место и проверяет статус игры
   moveCards(cardArray, newPlaceId, setStatus = true) {
 
-      for(let i=0;i<cardArray.length;i++){
-        cardArray[i]._placeId = newPlaceId;
-      }
+    for(let i=0;i<cardArray.length;i++){
+      cardArray[i]._placeId = newPlaceId;
+    }
 
-    const splitArray1 = this._allCards.slice(0, 25);
-    const splitArray2 = this._allCards.slice(25, 52);
-
-    window.Telegram.WebApp.CloudStorage.removeItem("saveCardOne");
-    window.Telegram.WebApp.CloudStorage.setItem("saveCardOne", JSON.stringify(splitArray1));
-    console.log('Set1 complite');
-
-    window.Telegram.WebApp.CloudStorage.removeItem("saveCardOne");
-    window.Telegram.WebApp.CloudStorage.setItem("saveCardOne", JSON.stringify(splitArray2));
-    console.log('Set2 complite');
-
-
-      // console.table(this._allCards);
+    if(gameIsStart > 0){
+      const splitArray1 = this._allCards.slice(0, 25);
+      const splitArray2 = this._allCards.slice(25, 52);
+  
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCardOne");
+      window.Telegram.WebApp.CloudStorage.setItem("saveCardOne", JSON.stringify(splitArray1));
+      console.log('Set1 complite');
+  
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCardOne");
+      window.Telegram.WebApp.CloudStorage.setItem("saveCardOne", JSON.stringify(splitArray2));
+      console.log('Set2 complite');
+    }
       this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
       
       const event = new Event('CardsMoved');
