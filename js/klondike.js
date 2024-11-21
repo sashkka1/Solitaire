@@ -14,6 +14,7 @@ let stockCurrent = 1;
 
 
 async function setItemInCloudStorage(key,value) {
+  await window.Telegram.WebApp.CloudStorage.removeItem(key);
   console.table(value);
   console.table(JSON.stringify(value));
   console.log('Set start');
@@ -78,58 +79,63 @@ class KlondikeCore extends CardGameCore {
 
 
     // const jsonString = JSON.stringify(this._allCards);
-    // console.log('1');
-    // setItemInCloudStorage("1", jsonString);
+    console.log('1');
+    setItemInCloudStorage("1", this._allCards);
     console.log('2');
-    getItemFromCloudStorage("1");
-    console.log('3');
-    window.Telegram.WebApp.CloudStorage.getItem("1", (err, array) => {
-      console.log('array - ');
-      console.table(array);
-      console.log('this._allCards - ');
-      console.table(this._allCards);
-      if (err) {
-        console.error('Error retrieving arrayCardSafe:', err);
-        return; // Exit if there's an error
-      }
-      if (array === null || array === undefined || array === "") {
-        console.log('get empty');
-        console.table(array);
-        window.Telegram.WebApp.CloudStorage.setItem("1", JSON.stringify(this._allCards));
-        return; // Exit if there's an error
-      }else{
-        console.log('get true');
-        console.table(array);
-      }
+    // getItemFromCloudStorage("1");
+    // console.log('3');
 
-      window.Telegram.WebApp.CloudStorage.setItem("1", this._allCards);
-    });
-    window.Telegram.WebApp.CloudStorage.getItem("arrayCardSafe", (err, arrayCardSafeOld) => {
-      console.log('arrayCardSafeOld 1');
-      console.table(arrayCardSafeOld);
-      if (err) {
-        console.error('Error retrieving arrayCardSafe:', err);
-        return; // Exit if there's an error
-      }
-      if (arrayCardSafeOld === null || arrayCardSafeOld === undefined || arrayCardSafeOld === "") {
-        console.log('arrayCardSafeOld 2');
-        console.table(arrayCardSafeOld);
-        window.Telegram.WebApp.CloudStorage.setItem("arrayCardSafe", arrayCardSafe);
-        return; // Exit if there's an error
-      }else{
-        this._allCards = JSON.parse(arrayCardSafeOld);
-        // this._allCards = arrayCardSafeOld;
-        console.log('arrayCardSafeOld 3');
-        console.table(this._allCards);
-        this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-        for (let i = 0; i < 7; i++) {
-          const howManyCardsToMove = i + 1;
-          const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-          this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-          cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбце
-        }
-      }
-    });
+
+    // window.Telegram.WebApp.CloudStorage.getItem("1", (err, array) => {
+    //   console.log('array - ');
+    //   console.table(array);
+    //   console.log('this._allCards - ');
+    //   console.table(this._allCards);
+    //   if (err) {
+    //     console.error('Error retrieving arrayCardSafe:', err);
+    //     return; // Exit if there's an error
+    //   }
+    //   if (array === null || array === undefined || array === "") {
+    //     console.log('get empty');
+    //     console.table(array);
+    //     window.Telegram.WebApp.CloudStorage.setItem("1", JSON.stringify(this._allCards));
+    //     return; // Exit if there's an error
+    //   }else{
+    //     console.log('get true');
+    //     console.table(array);
+    //   }
+
+    //   window.Telegram.WebApp.CloudStorage.setItem("1", this._allCards);
+    // });
+
+
+
+    // window.Telegram.WebApp.CloudStorage.getItem("arrayCardSafe", (err, arrayCardSafeOld) => {
+    //   console.log('arrayCardSafeOld 1');
+    //   console.table(arrayCardSafeOld);
+    //   if (err) {
+    //     console.error('Error retrieving arrayCardSafe:', err);
+    //     return; // Exit if there's an error
+    //   }
+    //   if (arrayCardSafeOld === null || arrayCardSafeOld === undefined || arrayCardSafeOld === "") {
+    //     console.log('arrayCardSafeOld 2');
+    //     console.table(arrayCardSafeOld);
+    //     window.Telegram.WebApp.CloudStorage.setItem("arrayCardSafe", arrayCardSafe);
+    //     return; // Exit if there's an error
+    //   }else{
+    //     this._allCards = JSON.parse(arrayCardSafeOld);
+    //     // this._allCards = arrayCardSafeOld;
+    //     console.log('arrayCardSafeOld 3');
+    //     console.table(this._allCards);
+    //     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
+    //     for (let i = 0; i < 7; i++) {
+    //       const howManyCardsToMove = i + 1;
+    //       const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+    //       this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+    //       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбце
+    //     }
+    //   }
+    // });
     // document.getElementById('new-game-button').innerHTML = "Test 9";
     // let arrayCardSafe = Array.from(this._allCards);
     // let tg = window.Telegram.WebApp.CloudStorage;
