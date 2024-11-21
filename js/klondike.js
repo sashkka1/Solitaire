@@ -20,23 +20,23 @@ let stockCurrent = 1;
 //   console.log('Set complite');
 // }
 
-async function getItemFromCloudStorage(key) {
-    await window.Telegram.WebApp.CloudStorage.getItem("1", (err, storedValue1) => {
-    console.log('вывод 1');
-    console.table(JSON.parse(storedValue1));
-    storedValue1 = JSON.parse(storedValue1);
-    window.Telegram.WebApp.CloudStorage.getItem("2", (err, storedValue2) => {
-      console.log('вывод 2');
-      console.table(JSON.parse(storedValue2));
-      storedValue2 = JSON.parse(storedValue2);
-    let combinedArray = [...storedValue1, ...storedValue2];
-    console.log('вывод 3');
-    console.table(combinedArray);
+// async function getItemFromCloudStorage(key) {
+//     await window.Telegram.WebApp.CloudStorage.getItem("1", (err, storedValue1) => {
+//     console.log('вывод 1');
+//     console.table(JSON.parse(storedValue1));
+//     storedValue1 = JSON.parse(storedValue1);
+//     window.Telegram.WebApp.CloudStorage.getItem("2", (err, storedValue2) => {
+//       console.log('вывод 2');
+//       console.table(JSON.parse(storedValue2));
+//       storedValue2 = JSON.parse(storedValue2);
+//     let combinedArray = [...storedValue1, ...storedValue2];
+//     console.log('вывод 3');
+//     console.table(combinedArray);
     
-    });
-    return combinedArray;
-  });
-}
+//     });
+//     return combinedArray;
+//   });
+// }
 // function fetchData() {
 //   return new Promise((resolve) => {
 //       setTimeout(() => {
@@ -364,10 +364,20 @@ class KlondikeCore extends CardGameCore {
       //   });
       //   return combinedArray;
       // });
-      let aa = getItemFromCloudStorage("1");
-      console.log('вывод 4');
-      console.table(aa);
-      console.log(aa);
+
+      window.Telegram.WebApp.CloudStorage.getItem("1", (err, storedValue1) => {
+        console.log('вывод 1');
+        // console.table(JSON.parse(storedValue1));
+        storedValue1 = JSON.parse(storedValue1);
+        window.Telegram.WebApp.CloudStorage.getItem("2", (err, storedValue2) => {
+        // console.log('вывод 2');
+        // console.table(JSON.parse(storedValue2));
+        storedValue2 = JSON.parse(storedValue2);
+        let combinedArray = [...storedValue1, ...storedValue2];
+        console.log('вывод 3');
+        console.table(combinedArray);
+        });
+      });
 
 
 

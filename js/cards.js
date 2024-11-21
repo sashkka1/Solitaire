@@ -19,7 +19,6 @@ let aa =0, aaa;
 
 
 
-
 // кнопка отмены при проверке создания новой игры
 block = document.getElementById('check-desire-button-cancel');
 block.addEventListener('click', () => {
@@ -192,21 +191,17 @@ export class CardGameCore extends GameCore {
 
       // console.log("1");
 
-      // for(let i=0;i<cardArray.length;i++){
-      //   // find(cardArray[i]);
-      //   // console.log(cardArray[i]);
-      //   let a;
-      //   for (const [id, cardArray] of Object.entries(this.placeIdToCardArray)) {
-      //     if (cardArray.includes(cardArray[i])) {
-      //       // return id; // Возвращаем ID места, если карта найдена
-      //       a=id;
-      //       console.log(a);
-      //       break;
-      //     }
-      //   };
-      //   // this.currentGame.findPlaceId(cardArray[i]);
-      //   // console.log(findCurrentPlaceId(this._allCards[i]));
-      // }
+      for(let i=0;i<cardArray.length;i++){
+        // find(cardArray[i]);
+        // console.log(cardArray[i]);
+        // for (const [id, cardArray] of Object.entries(this.placeIdToCardArray)) {
+        //   if (cardArray.includes(cardArray[i])) {
+        //     return id; // Возвращаем ID места, если карта найдена
+        //   }
+        // };
+        // this.currentGame.findPlaceId(cardArray[i]);
+        // console.log(findCurrentPlaceId(this._allCards[i]));
+      }
       // this._allCards[i]._placeId = this.findCurrentPlaceId(this._allCards[i]);
 
 
