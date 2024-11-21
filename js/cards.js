@@ -185,27 +185,11 @@ export class CardGameCore extends GameCore {
 
   // Перемещает карты в новое место и проверяет статус игры
   moveCards(cardArray, newPlaceId, setStatus = true) {
-      // console.table(cardArray );
-      // cardArray.placeId = this.findCurrentPlaceId(cardArray);
-      // console.log(cardArray.length);
-
-      // console.log("1");
 
       for(let i=0;i<cardArray.length;i++){
-        // find(cardArray[i]);
-        // console.log(cardArray[i]);
-        // for (const [id, cardArray] of Object.entries(this.placeIdToCardArray)) {
-        //   if (cardArray.includes(cardArray[i])) {
-        //     return id; // Возвращаем ID места, если карта найдена
-        //   }
-        // };
-        // this.currentGame.findPlaceId(cardArray[i]);
-        // console.log(findCurrentPlaceId(this._allCards[i]));
+        cardArray[i]._placeId = newPlaceId;
       }
-      // this._allCards[i]._placeId = this.findCurrentPlaceId(this._allCards[i]);
-
-
-
+      console.table(this._allCards);
       this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
       
       const event = new Event('CardsMoved');

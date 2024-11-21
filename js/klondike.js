@@ -80,9 +80,9 @@ class KlondikeCore extends CardGameCore {
       this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
     }
-    for(let i=0;i<52;i++){
-      this._allCards[i]._placeId = this.findCurrentPlaceId(this._allCards[i]);
-    }
+    // for(let i=0;i<52;i++){
+    //   this._allCards[i]._placeId = this.findCurrentPlaceId(this._allCards[i]);
+    // }
       // cardArray.placeId = this.findCurrentPlaceId(cardArray);
       // console.log(this.findCurrentPlaceId(cardArray));
       // this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
@@ -344,26 +344,6 @@ class KlondikeCore extends CardGameCore {
     const sourceArray = this.placeIdToCardArray[sourcePlaceId];
     if (sourcePlaceId.startsWith('tableau') && sourceArray.length !== 0) {
       sourceArray[sourceArray.length - 1].visible = true; // Открывает верхнюю карту в tableau, если она закрыта
-      // card._placeId = this.findCurrentPlaceId(card);
-      // console.log(`rawMove ${card}`);
-
-      // console.log("2");
-
-      // let aa = window.Telegram.WebApp.CloudStorage.getItem("1", (err, storedValue1) => {
-      //   console.log('вывод 1');
-      //   console.table(JSON.parse(storedValue1));
-      //   storedValue1 = JSON.parse(storedValue1);
-      //   window.Telegram.WebApp.CloudStorage.getItem("2", (err, storedValue2) => {
-      //     console.log('вывод 2');
-      //     console.table(JSON.parse(storedValue2));
-      //     storedValue2 = JSON.parse(storedValue2);
-      //   let combinedArray = [...storedValue1, ...storedValue2];
-      //   console.log('вывод 3');
-      //   console.table(combinedArray);
-        
-      //   });
-      //   return combinedArray;
-      // });
 
       window.Telegram.WebApp.CloudStorage.getItem("1", (err, storedValue1) => {
         console.log('вывод 1');
