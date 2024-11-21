@@ -202,6 +202,11 @@ export class CardGameCore extends GameCore {
       window.Telegram.WebApp.CloudStorage.setItem("saveCardTwo", JSON.stringify(splitArray2));
       console.log('Set2 complite');
     }
+
+
+
+
+    
       this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
       
       const event = new Event('CardsMoved');
