@@ -74,7 +74,11 @@ class KlondikeCore extends CardGameCore {
       this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
     }
-    console.log( this._allCards[0]);
+    // console.log( this._allCards[0]);
+
+
+
+
     // console.log(this._allCards);
     // const jsonString = JSON.stringify(this._allCards);
     // console.log('1');
@@ -83,12 +87,20 @@ class KlondikeCore extends CardGameCore {
     // getItemFromCloudStorage("1");
     // console.log('3');
 
-
+    const splitArray1 = combinedArray.slice(0, 25);
+    const splitArray2 = combinedArray.slice(25, 51);
     window.Telegram.WebApp.CloudStorage.removeItem("1");
-    console.table(this._allCards);
-    console.table(JSON.stringify(this._allCards));
-    window.Telegram.WebApp.CloudStorage.setItem("1", JSON.stringify(JSON.stringify(this._allCards)));
-    console.log('Set complite');
+    console.table(splitArray1);
+    console.table(JSON.stringify(splitArray1));
+    window.Telegram.WebApp.CloudStorage.setItem("1", JSON.stringify(JSON.stringify(splitArray1)));
+    console.log('Set1 complite');
+
+    window.Telegram.WebApp.CloudStorage.removeItem("2");
+    console.table(splitArray2);
+    console.table(JSON.stringify(splitArray2));
+    window.Telegram.WebApp.CloudStorage.setItem("2", JSON.stringify(JSON.stringify(splitArray2)));
+    console.log('Set2 complite');
+    
 
 
     // window.Telegram.WebApp.CloudStorage.getItem("1", (err, array) => {
@@ -340,15 +352,27 @@ class KlondikeCore extends CardGameCore {
         console.log(storedValue);
       });
 
+      window.Telegram.WebApp.CloudStorage.getItem("2", (err, storedValue) => {
+        console.log('вывод 2');
+        console.table(JSON.parse(storedValue));
+        console.table(storedValue);
+        console.log(storedValue);
+      });
+
 
 
       // console.log(this._allCards);
+
       // let foundation0 = this.placeIdToCardArray["foundation0"], foundation1 = this.placeIdToCardArray["foundation1"], foundation2 = this.placeIdToCardArray["foundation2"], foundation3 = this.placeIdToCardArray["foundation3"];
       // let tableau0 = this.placeIdToCardArray["tableau0"], tableau1 = this.placeIdToCardArray["tableau1"], tableau2 = this.placeIdToCardArray["tableau2"], tableau3 = this.placeIdToCardArray["tableau3"], tableau4 = this.placeIdToCardArray["tableau4"], tableau5 = this.placeIdToCardArray["tableau5"], tableau6 = this.placeIdToCardArray["tableau6"];
-      // console.table(tableau0);
-      // console.table(tableau1);
-      // console.table(tableau2);
-      // console.table(tableau3);
+      // let stock = this.placeIdToCardArray["stock"];
+      // let discard = this.placeIdToCardArray["discard"];
+      // console.table(stock);
+      // console.table(discard);
+      // console.table(tableau6);
+      // console.table(tableau4);
+
+
       // let placeId =this.findCurrentPlaceId(this._allCards[0]); 
       // let id = this.placeIdToCardArray[placeId];
       // console.log(this._allCards[0]);

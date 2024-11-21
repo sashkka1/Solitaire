@@ -45,6 +45,7 @@ export class Card extends EventTarget {
     this._number = number; // Устанавливаем номер карты (от 1 до 13)
     this._suit = suit; // Устанавливаем масть карты
     this._visible = false; // Изначально карта невидима
+    this._placeId = "";
   }
 
   // Возвращает строковое представление номера карты (A, J, Q, K или число)
