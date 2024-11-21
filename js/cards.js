@@ -189,7 +189,20 @@ export class CardGameCore extends GameCore {
       for(let i=0;i<cardArray.length;i++){
         cardArray[i]._placeId = newPlaceId;
       }
-      console.table(this._allCards);
+
+    const splitArray1 = this._allCards.slice(0, 25);
+    const splitArray2 = this._allCards.slice(25, 52);
+
+    window.Telegram.WebApp.CloudStorage.removeItem("saveCardOne");
+    window.Telegram.WebApp.CloudStorage.setItem("saveCardOne", JSON.stringify(splitArray1));
+    console.log('Set1 complite');
+
+    window.Telegram.WebApp.CloudStorage.removeItem("saveCardOne");
+    window.Telegram.WebApp.CloudStorage.setItem("saveCardOne", JSON.stringify(splitArray2));
+    console.log('Set2 complite');
+
+
+      // console.table(this._allCards);
       this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
       
       const event = new Event('CardsMoved');

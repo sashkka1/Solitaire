@@ -6,9 +6,10 @@ import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} f
 let i =0;
 
 
+
 let autoVisible = 1;
 let stockCurrent = 1;
-
+let checkFirstTry =0;
 
 
 // async function setItemInCloudStorage(key,value) {
@@ -74,6 +75,42 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
+
+    if(checkFirstTry == 0){
+      window.Telegram.WebApp.CloudStorage.getItem("saveCardOne", (err, storedValue1) => {
+        if (err) {
+          console.error('Error retrieving arrayCardSafe:', err);
+          return; // Exit if there's an error
+        }
+        if (storedValue1 === null || storedValue1 === undefined || storedValue1 === "") {
+          console.log('get empty');
+          return; // Exit if there's an error
+        }else{
+          window.Telegram.WebApp.CloudStorage.getItem("saveCardTwo", (err, storedValue2) => {
+            if (err) {
+              console.error('Error retrieving arrayCardSafe:', err);
+              return; // Exit if there's an error
+            }
+            if (storedValue2 === null || storedValue2 === undefined || storedValue2 === "") {
+              console.log('get empty');
+              return; // Exit if there's an error
+            }else{
+            console.log('вывод 2');
+            storedValue2 = JSON.parse(storedValue2);
+            let combinedArray = [...storedValue1, ...storedValue2];
+            console.log('вывод 3');
+            console.table(combinedArray);
+            console.table(storedValue1);
+            console.table(storedValue2);
+            }
+          });
+        }
+      });
+      
+    }
+    checkFirstTry++;
+
+
     for (let i = 0; i < 7; i++) {
       const howManyCardsToMove = i + 1;
       const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
@@ -86,21 +123,40 @@ class KlondikeCore extends CardGameCore {
       // cardArray.placeId = this.findCurrentPlaceId(cardArray);
       // console.log(this.findCurrentPlaceId(cardArray));
       // this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
-      console.table(this._allCards);
+      // console.table(this._allCards);
 
 
 
+      // window.Telegram.WebApp.CloudStorage.getItem("1", (err, storedValue1) => {
+      //   console.log('вывод 1');
+      //   // console.table(JSON.parse(storedValue1));
+      //   storedValue1 = JSON.parse(storedValue1);
+      //   window.Telegram.WebApp.CloudStorage.getItem("2", (err, storedValue2) => {
+      //   // console.log('вывод 2');
+      //   // console.table(JSON.parse(storedValue2));
+      //   storedValue2 = JSON.parse(storedValue2);
+      //   let combinedArray = [...storedValue1, ...storedValue2];
+      //   console.log('вывод 3');
+      //   console.table(combinedArray);
+      //   });
+      // });
 
-    const splitArray1 = this._allCards.slice(0, 25);
-    const splitArray2 = this._allCards.slice(25, 52);
+      // for(let i =0;i<52;i++){
+      //   console.log(i);
+      //   this.currentGame.rawMove(backCard, newPlace, oldPlace);
+      // }
 
-    window.Telegram.WebApp.CloudStorage.removeItem("1");
-    window.Telegram.WebApp.CloudStorage.setItem("1", JSON.stringify(splitArray1));
-    console.log('Set1 complite');
 
-    window.Telegram.WebApp.CloudStorage.removeItem("2");
-    window.Telegram.WebApp.CloudStorage.setItem("2", JSON.stringify(splitArray2));
-    console.log('Set2 complite');
+    // const splitArray1 = this._allCards.slice(0, 25);
+    // const splitArray2 = this._allCards.slice(25, 52);
+
+    // window.Telegram.WebApp.CloudStorage.removeItem("1");
+    // window.Telegram.WebApp.CloudStorage.setItem("1", JSON.stringify(splitArray1));
+    // console.log('Set1 complite');
+
+    // window.Telegram.WebApp.CloudStorage.removeItem("2");
+    // window.Telegram.WebApp.CloudStorage.setItem("2", JSON.stringify(splitArray2));
+    // console.log('Set2 complite');
     
 
 
@@ -345,22 +401,24 @@ class KlondikeCore extends CardGameCore {
     if (sourcePlaceId.startsWith('tableau') && sourceArray.length !== 0) {
       sourceArray[sourceArray.length - 1].visible = true; // Открывает верхнюю карту в tableau, если она закрыта
 
-      window.Telegram.WebApp.CloudStorage.getItem("1", (err, storedValue1) => {
-        console.log('вывод 1');
-        // console.table(JSON.parse(storedValue1));
-        storedValue1 = JSON.parse(storedValue1);
-        window.Telegram.WebApp.CloudStorage.getItem("2", (err, storedValue2) => {
-        // console.log('вывод 2');
-        // console.table(JSON.parse(storedValue2));
-        storedValue2 = JSON.parse(storedValue2);
-        let combinedArray = [...storedValue1, ...storedValue2];
-        console.log('вывод 3');
-        console.table(combinedArray);
-        });
-      });
+      // // window.Telegram.WebApp.CloudStorage.getItem("1", (err, storedValue1) => {
+      // //   console.log('вывод 1');
+      // //   // console.table(JSON.parse(storedValue1));
+      // //   storedValue1 = JSON.parse(storedValue1);
+      // //   window.Telegram.WebApp.CloudStorage.getItem("2", (err, storedValue2) => {
+      // //   // console.log('вывод 2');
+      // //   // console.table(JSON.parse(storedValue2));
+      // //   storedValue2 = JSON.parse(storedValue2);
+      // //   let combinedArray = [...storedValue1, ...storedValue2];
+      // //   console.log('вывод 3');
+      // //   console.table(combinedArray);
+      // //   });
+      // // });
 
-
-
+      // for(let i =0;i<52;i++){
+      //   console.log(i);
+      //   this.currentGame.rawMove(backCard, newPlace, oldPlace);
+      // }
 
 
 
