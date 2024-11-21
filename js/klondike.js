@@ -87,8 +87,8 @@ class KlondikeCore extends CardGameCore {
     // getItemFromCloudStorage("1");
     // console.log('3');
 
-    const splitArray1 = combinedArray.slice(0, 25);
-    const splitArray2 = combinedArray.slice(25, 51);
+    const splitArray1 = this._allCards.slice(0, 25);
+    const splitArray2 = this._allCards.slice(25, 51);
     window.Telegram.WebApp.CloudStorage.removeItem("1");
     console.table(splitArray1);
     console.table(JSON.stringify(splitArray1));
