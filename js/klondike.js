@@ -92,13 +92,15 @@ class KlondikeCore extends CardGameCore {
     window.Telegram.WebApp.CloudStorage.removeItem("1");
     console.table(splitArray1);
     console.table(JSON.stringify(splitArray1));
-    window.Telegram.WebApp.CloudStorage.setItem("1", JSON.stringify(JSON.stringify(splitArray1)));
+    // window.Telegram.WebApp.CloudStorage.setItem("1", JSON.stringify(JSON.stringify(splitArray1)));
+    window.Telegram.WebApp.CloudStorage.setItem("1", splitArray1);
     console.log('Set1 complite');
 
     window.Telegram.WebApp.CloudStorage.removeItem("2");
     console.table(splitArray2);
     console.table(JSON.stringify(splitArray2));
-    window.Telegram.WebApp.CloudStorage.setItem("2", JSON.stringify(JSON.stringify(splitArray2)));
+    // window.Telegram.WebApp.CloudStorage.setItem("2", JSON.stringify(JSON.stringify(splitArray2)));
+    window.Telegram.WebApp.CloudStorage.setItem("2", splitArray2);
     console.log('Set2 complite');
     
 
