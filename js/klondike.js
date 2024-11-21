@@ -75,7 +75,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    console.log("Test 3");
+    console.log("Test 4");
     if(checkFirstTry == 0){
       window.Telegram.WebApp.CloudStorage.getItem("saveCardOne", (err, storedValue1) => {
         if (err) {
