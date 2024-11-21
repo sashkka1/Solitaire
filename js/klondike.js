@@ -75,7 +75,7 @@ class KlondikeCore extends CardGameCore {
       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
     }
     console.log( this._allCards[0]);
-
+    // console.log(this._allCards);
     // const jsonString = JSON.stringify(this._allCards);
     // console.log('1');
     // setItemInCloudStorage("1", this._allCards);
@@ -341,20 +341,19 @@ class KlondikeCore extends CardGameCore {
       });
 
 
-      let old = 'discard';
-      // console.log(this.placeIdToCardArray[old].length-1);
-      // let i=0;
-      if(f==10){
-        console.log(f);
-        console.log(this._allCards);
-        this.deal();
-      }else{      
-        f++;
-        console.log(f);}
-
 
       // console.log(this._allCards);
-      // console.log(this.findCurrentPlaceId(this._allCards[52]));
+      // let foundation0 = this.placeIdToCardArray["foundation0"], foundation1 = this.placeIdToCardArray["foundation1"], foundation2 = this.placeIdToCardArray["foundation2"], foundation3 = this.placeIdToCardArray["foundation3"];
+      // let tableau0 = this.placeIdToCardArray["tableau0"], tableau1 = this.placeIdToCardArray["tableau1"], tableau2 = this.placeIdToCardArray["tableau2"], tableau3 = this.placeIdToCardArray["tableau3"], tableau4 = this.placeIdToCardArray["tableau4"], tableau5 = this.placeIdToCardArray["tableau5"], tableau6 = this.placeIdToCardArray["tableau6"];
+      // console.table(tableau0);
+      // console.table(tableau1);
+      // console.table(tableau2);
+      // console.table(tableau3);
+      // let placeId =this.findCurrentPlaceId(this._allCards[0]); 
+      // let id = this.placeIdToCardArray[placeId];
+      // console.log(this._allCards[0]);
+      // console.log(placeId);
+      // console.log(id);
 
 
 
