@@ -20,8 +20,6 @@ let aa =0, aaa;
 
 
 
-
-
 // кнопка отмены при проверке создания новой игры
 block = document.getElementById('check-desire-button-cancel');
 block.addEventListener('click', () => {
@@ -188,12 +186,31 @@ export class CardGameCore extends GameCore {
 
   // Перемещает карты в новое место и проверяет статус игры
   moveCards(cardArray, newPlaceId, setStatus = true) {
-      // console.table(cardArray[0]);
+      // console.table(cardArray );
       // cardArray.placeId = this.findCurrentPlaceId(cardArray);
-      // console.log(this.findCurrentPlaceId(cardArray));
+      // console.log(cardArray.length);
+
+      // console.log("1");
+
+      // for(let i=0;i<cardArray.length;i++){
+      //   // find(cardArray[i]);
+      //   // console.log(cardArray[i]);
+      //   let a;
+      //   for (const [id, cardArray] of Object.entries(this.placeIdToCardArray)) {
+      //     if (cardArray.includes(cardArray[i])) {
+      //       // return id; // Возвращаем ID места, если карта найдена
+      //       a=id;
+      //       console.log(a);
+      //       break;
+      //     }
+      //   };
+      //   // this.currentGame.findPlaceId(cardArray[i]);
+      //   // console.log(findCurrentPlaceId(this._allCards[i]));
+      // }
+      // this._allCards[i]._placeId = this.findCurrentPlaceId(this._allCards[i]);
 
 
-      
+
       this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
       
       const event = new Event('CardsMoved');
