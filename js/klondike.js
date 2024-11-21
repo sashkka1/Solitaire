@@ -26,6 +26,9 @@ async function getItemFromCloudStorage(key) {
   await window.Telegram.WebApp.CloudStorage.getItem(key, (err, storedValue) => {
       console.log(`вывод 1  ${storedValue}`);
       console.table(JSON.parse(storedValue));
+      console.log(`вывод 2`);
+      console.table(storedValue);
+      console.log(`вывод 3`);
   });
   console.log('Get complite');
 }
@@ -81,13 +84,15 @@ class KlondikeCore extends CardGameCore {
     getItemFromCloudStorage("1");
     console.log('3');
     window.Telegram.WebApp.CloudStorage.getItem("1", (err, array) => {
+      console.log('array - ');
       console.table(array);
+      console.log('this._allCards - ');
       console.table(this._allCards);
       if (err) {
         console.error('Error retrieving arrayCardSafe:', err);
         return; // Exit if there's an error
       }
-      if (arrayCardSafeOld === null || arrayCardSafeOld === undefined || arrayCardSafeOld === "") {
+      if (array === null || array === undefined || array === "") {
         console.log('get empty');
         console.table(array);
         window.Telegram.WebApp.CloudStorage.setItem("1", JSON.stringify(this._allCards));
