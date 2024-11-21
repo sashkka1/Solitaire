@@ -11,8 +11,6 @@ let stockCurrent = 1;
 
 
 
-
-
 async function setItemInCloudStorage(key,value) {
   await window.Telegram.WebApp.CloudStorage.removeItem(key);
   console.table(value);
@@ -76,14 +74,21 @@ class KlondikeCore extends CardGameCore {
       this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
     }
-
+    console.log( this._allCards[0]);
 
     // const jsonString = JSON.stringify(this._allCards);
     // console.log('1');
     // setItemInCloudStorage("1", this._allCards);
-    console.log('2');
-    getItemFromCloudStorage("1");
-    console.log('3');
+    // console.log('2');
+    // getItemFromCloudStorage("1");
+    // console.log('3');
+
+
+    window.Telegram.WebApp.CloudStorage.removeItem("1");
+    console.table(this._allCards);
+    console.table(JSON.stringify(this._allCards));
+    window.Telegram.WebApp.CloudStorage.setItem("1", JSON.stringify(JSON.stringify(this._allCards)));
+    console.log('Set complite');
 
 
     // window.Telegram.WebApp.CloudStorage.getItem("1", (err, array) => {
@@ -328,6 +333,31 @@ class KlondikeCore extends CardGameCore {
     if (sourcePlaceId.startsWith('tableau') && sourceArray.length !== 0) {
       sourceArray[sourceArray.length - 1].visible = true; // Открывает верхнюю карту в tableau, если она закрыта
       
+      window.Telegram.WebApp.CloudStorage.getItem("1", (err, storedValue) => {
+        console.log('вывод 1');
+        console.table(JSON.parse(storedValue));
+        console.table(storedValue);
+        console.log(storedValue);
+      });
+
+
+      let old = 'discard';
+      // console.log(this.placeIdToCardArray[old].length-1);
+      // let i=0;
+      if(f==10){
+        console.log(f);
+        console.log(this._allCards);
+        this.deal();
+      }else{      
+        f++;
+        console.log(f);}
+
+
+      // console.log(this._allCards);
+      // console.log(this.findCurrentPlaceId(this._allCards[52]));
+
+
+
       let a=0;
       // реализация понимания того есть ли открытые карты на доске
       let sourcePlaceIdUltimate ='tableau';
