@@ -198,8 +198,8 @@ export class CardGameCore extends GameCore {
       window.Telegram.WebApp.CloudStorage.setItem("saveCardOne", JSON.stringify(splitArray1));
       console.log('Set1 complite');
   
-      window.Telegram.WebApp.CloudStorage.removeItem("saveCardOne");
-      window.Telegram.WebApp.CloudStorage.setItem("saveCardOne", JSON.stringify(splitArray2));
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCardTwo");
+      window.Telegram.WebApp.CloudStorage.setItem("saveCardTwo", JSON.stringify(splitArray2));
       console.log('Set2 complite');
     }
       this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
