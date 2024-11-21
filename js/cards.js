@@ -194,11 +194,11 @@ export class CardGameCore extends GameCore {
       const splitArray1 = this._allCards.slice(0, 25);
       const splitArray2 = this._allCards.slice(25, 52);
   
-      // window.Telegram.WebApp.CloudStorage.removeItem("saveCardOne");
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCardOne");
       window.Telegram.WebApp.CloudStorage.setItem("saveCardOne", JSON.stringify(splitArray1));
       console.log('Set1 complite');
   
-      // window.Telegram.WebApp.CloudStorage.removeItem("saveCardTwo");
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCardTwo");
       window.Telegram.WebApp.CloudStorage.setItem("saveCardTwo", JSON.stringify(splitArray2));
       console.log('Set2 complite');
     }
