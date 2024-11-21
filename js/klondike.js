@@ -74,30 +74,24 @@ class KlondikeCore extends CardGameCore {
       this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
     }
-    // console.log( this._allCards[0]);
+    for(let i=0;i<52;i++){
+      this._allCards[i]._placeId = this.findCurrentPlaceId(this._allCards[i]);
+    }
+      // cardArray.placeId = this.findCurrentPlaceId(cardArray);
+      // console.log(this.findCurrentPlaceId(cardArray));
+      // this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
+      // console.table(this._allCards);
 
 
 
-
-    // console.log(this._allCards);
-    // const jsonString = JSON.stringify(this._allCards);
-    // console.log('1');
-    // setItemInCloudStorage("1", this._allCards);
-    // console.log('2');
-    // getItemFromCloudStorage("1");
-    // console.log('3');
 
     const splitArray1 = this._allCards.slice(0, 25);
     const splitArray2 = this._allCards.slice(25, 51);
     window.Telegram.WebApp.CloudStorage.removeItem("1");
-    // console.table(splitArray1);
-    // console.table(JSON.stringify(splitArray1));
     window.Telegram.WebApp.CloudStorage.setItem("1", JSON.stringify(splitArray1));
     console.log('Set1 complite');
 
     window.Telegram.WebApp.CloudStorage.removeItem("2");
-    // console.table(splitArray2);
-    // console.table(JSON.stringify(splitArray2));
     window.Telegram.WebApp.CloudStorage.setItem("2", JSON.stringify(splitArray2));
     console.log('Set2 complite');
     
@@ -344,23 +338,31 @@ class KlondikeCore extends CardGameCore {
     const sourceArray = this.placeIdToCardArray[sourcePlaceId];
     if (sourcePlaceId.startsWith('tableau') && sourceArray.length !== 0) {
       sourceArray[sourceArray.length - 1].visible = true; // Открывает верхнюю карту в tableau, если она закрыта
-      
+      card._placeId = this.findCurrentPlaceId(card);
+      console.log(`rawMove ${card}`);
+
+
+
       let aa = window.Telegram.WebApp.CloudStorage.getItem("1", (err, storedValue1) => {
         console.log('вывод 1');
         console.table(JSON.parse(storedValue1));
-        console.table(storedValue1);
-        console.log(storedValue1);
+        storedValue1 = JSON.parse(storedValue1);
+        // console.table(storedValue1);
+        // console.log(storedValue1);
         window.Telegram.WebApp.CloudStorage.getItem("2", (err, storedValue2) => {
           console.log('вывод 2');
           console.table(JSON.parse(storedValue2));
-          console.table(storedValue2);
-          console.log(storedValue2);
+          storedValue2 = JSON.parse(storedValue2);
+          // console.table(storedValue2);
+          // console.log(storedValue2);
         let combinedArray = [...storedValue1, ...storedValue2];
+        console.log('вывод 3');
         console.table(combinedArray);
         
         });
         return combinedArray;
       });
+      console.log('вывод 4');
       console.table(aa);
       console.log(aa);
 
