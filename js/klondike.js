@@ -76,45 +76,68 @@ class KlondikeCore extends CardGameCore {
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
     console.log("Test 5");
+    // if(checkFirstTry == 0){
+    //   console.log('start try get');
+    //   window.Telegram.WebApp.CloudStorage.getItem("saveCardOne", (err, storedValue1) => {
+    //     if (err) {
+    //       console.error('Error retrieving arrayCardSafe:', err);
+    //       return; // Exit if there's an error
+    //     }
+    //     if (storedValue1 === null || storedValue1 === undefined || storedValue1 === "") {
+    //       console.log('get1 empty');
+    //       return; // Exit if there's an error
+    //     }else{
+    //       console.log('storedValue1 good');
+    //       storedValue1 = JSON.parse(storedValue1);
+    //       window.Telegram.WebApp.CloudStorage.getItem("saveCardTwo", (err, storedValue2) => {
+    //         if (err) {
+    //           console.error('Error retrieving arrayCardSafe:', err);
+    //           return; // Exit if there's an error
+    //         }
+    //         if (storedValue2 === null || storedValue2 === undefined || storedValue2 === "") {
+    //           console.log('get2 empty');
+    //           return; // Exit if there's an error
+    //         }else{
+    //         console.log('storedValue2 good');
+    //         storedValue2 = JSON.parse(storedValue2);
+    //         let combinedArray = [...storedValue1, ...storedValue2];
+    //         console.log('combinedArray');
+    //         console.table(combinedArray);
+    //         // this._allCards = combinedArray;
+    //         // console.log('this._allCards');
+    //         // console.table(this._allCards);
+    //         }
+    //       });
+    //     }
+    //   });
+      
+    // }
+    // checkFirstTry++;
+
     if(checkFirstTry == 0){
-      console.log('start try get');
-      window.Telegram.WebApp.CloudStorage.getItem("saveCardOne", (err, storedValue1) => {
+      console.log('storedValue good');
+      window.Telegram.WebApp.CloudStorage.getItem("saveCardTwo", (err, storedValue) => {
         if (err) {
           console.error('Error retrieving arrayCardSafe:', err);
           return; // Exit if there's an error
         }
-        if (storedValue1 === null || storedValue1 === undefined || storedValue1 === "") {
-          console.log('get1 empty');
+        if (storedValue === null || storedValue === undefined || storedValue === "") {
+          console.log('get empty');
           return; // Exit if there's an error
         }else{
-          console.log('storedValue1 good');
-          storedValue1 = JSON.parse(storedValue1);
-          window.Telegram.WebApp.CloudStorage.getItem("saveCardTwo", (err, storedValue2) => {
-            if (err) {
-              console.error('Error retrieving arrayCardSafe:', err);
-              return; // Exit if there's an error
-            }
-            if (storedValue2 === null || storedValue2 === undefined || storedValue2 === "") {
-              console.log('get2 empty');
-              return; // Exit if there's an error
-            }else{
-            console.log('storedValue2 good');
-            storedValue2 = JSON.parse(storedValue2);
-            let combinedArray = [...storedValue1, ...storedValue2];
-            console.log('combinedArray');
-            console.table(combinedArray);
-            // this._allCards = combinedArray;
-            // console.log('this._allCards');
-            // console.table(this._allCards);
-            }
-          });
+        console.log('storedValue good');
+        storedValue = JSON.parse(storedValue);
+        console.table(storedValue);
+        // this._allCards = combinedArray;
+        // console.log('this._allCards');
+        // console.table(this._allCards);
         }
       });
-      
     }
     checkFirstTry++;
-
-
+    // console.table(this._allCards);
+    // console.table(JSON.stringify(this._allCards));
+    
     for (let i = 0; i < 7; i++) {
       const howManyCardsToMove = i + 1;
       const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока

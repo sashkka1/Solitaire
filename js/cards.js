@@ -39,10 +39,11 @@ block.addEventListener('click', () => {
 export class Card extends EventTarget {
   constructor(number, suit, id) {
     super(); // Вызов конструктора родительского класса EventTarget
-    this._number = number; // Устанавливаем номер карты (от 1 до 13)
-    this._suit = suit; // Устанавливаем масть карты
-    this._visible = false; // Изначально карта невидима
-    this._placeId = "";
+    // this._number = number; // Устанавливаем номер карты (от 1 до 13)
+    // this._suit = suit; // Устанавливаем масть карты
+    this.v = false; // Изначально карта невидима
+    this.p = "";
+    this.i = "0";
   }
 
   // Возвращает строковое представление номера карты (A, J, Q, K или число)
@@ -59,12 +60,12 @@ export class Card extends EventTarget {
   // Геттеры и сеттеры для свойств number, suit и visible
   get number() { return this._number; }
   get suit() { return this._suit; }
-  get visible() { return this._visible; }
+  get visible() { return this.v; }
   // get id() { return this.id; }
 
   set number(value) { this._number = value; this.dispatchEvent(new Event('CardChanged')); }
   set suit(value) { this._suit = value; this.dispatchEvent(new Event('CardChanged')); }
-  set visible(value) { this._visible = value; this.dispatchEvent(new Event('CardChanged')); }
+  set visible(value) { this.v = value; this.dispatchEvent(new Event('CardChanged')); }
   // set id(value) { this.id = value; this.dispatchEvent(new Event('CardChanged')); }
 }
 
@@ -145,13 +146,14 @@ export class CardGameCore extends GameCore {
   // Создает и возвращает массив всех карт в колоде
   static createCards() {
     const result = [];
-    let uniqueId  =1;
+    // let uniqueId  =1;
     for (const suit of SUITS) {
       for (let number = 1; number <= 13; number++) {
-        suit.id = uniqueId;
-        result.push(new Card(number, suit,)); // Создаем карты каждой масти и добавляем в массив
+        // suit.id = uniqueId;
+        result.push(new Card()); // Создаем карты каждой масти и добавляем в массив
+        // result.push(new Card(number, suit, )); // Создаем карты каждой масти и добавляем в массив
         // console.log(`suit.id - ${suit.id}, number - ${number}, name - ${suit.name}`);
-        uniqueId ++;
+        // uniqueId ++;
       }
     }
     return result;
@@ -187,26 +189,34 @@ export class CardGameCore extends GameCore {
   moveCards(cardArray, newPlaceId, setStatus = true) {
 
     for(let i=0;i<cardArray.length;i++){
-      cardArray[i]._placeId = newPlaceId;
+      cardArray[i].p = newPlaceId;
     }
 
+    // if(gameIsStart > 0){
+    //   const splitArray1 = this._allCards.slice(0, 25);
+    //   const splitArray2 = this._allCards.slice(25, 52);
+  
+    //   window.Telegram.WebApp.CloudStorage.removeItem("saveCardOne");
+    //   window.Telegram.WebApp.CloudStorage.setItem("saveCardOne", JSON.stringify(splitArray1));
+    //   console.log('Set1 complite');
+  
+    //   window.Telegram.WebApp.CloudStorage.removeItem("saveCardTwo");
+    //   window.Telegram.WebApp.CloudStorage.setItem("saveCardTwo", JSON.stringify(splitArray2));
+    //   console.log('Set2 complite');
+    // }
     if(gameIsStart > 0){
-      const splitArray1 = this._allCards.slice(0, 25);
-      const splitArray2 = this._allCards.slice(25, 52);
-  
+
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(this._allCards));
+      console.log('Set complite');
       window.Telegram.WebApp.CloudStorage.removeItem("saveCardOne");
-      window.Telegram.WebApp.CloudStorage.setItem("saveCardOne", JSON.stringify(splitArray1));
-      console.log('Set1 complite');
-  
       window.Telegram.WebApp.CloudStorage.removeItem("saveCardTwo");
-      window.Telegram.WebApp.CloudStorage.setItem("saveCardTwo", JSON.stringify(splitArray2));
-      console.log('Set2 complite');
     }
 
 
 
 
-    
+
       this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
       
       const event = new Event('CardsMoved');
@@ -244,6 +254,7 @@ export class CardGameCore extends GameCore {
   rawMove(card, sourcePlaceId, destPlaceId) {
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.remove('lock');
+    console.log('asdd');
     const sourceArray = this.placeIdToCardArray[sourcePlaceId];
     const index = sourceArray.indexOf(card);
     if (index === -1) {
@@ -333,14 +344,14 @@ export class CardGameUI extends GameUI {
 
       const div = document.createElement('div'); // Создаем div для каждой карты
       div.classList.add('card'); // Применяем CSS класс карты
-      div.classList.add(card.suit.color); // Применяем цвет масти ('red' или 'black')
+      // div.classList.add(card.suit.color); // Применяем цвет масти ('red' или 'black')
       div.style.width = CARD_WIDTH + 'px'; // Устанавливаем ширину карты
       div.style.height = CARD_HEIGHT + 'px'; // Устанавливаем высоту карты
       div.style.left = xIncrementPercents / 2 + '%'; // Устанавливаем начальную позицию по X
       div.style.top = (SPACING_SMALL + CARD_HEIGHT / 2) + 'px'; // Устанавливаем начальную позицию по Y
-      div.setAttribute('id', i); // Присваиваем id
-      card.suit.id = i;
-
+      // div.setAttribute('id', i); // Присваиваем id
+      // card.suit.id = i;
+      card.i = i;
       div.style.backgroundImage = `url(${url + i + '.png'})`;
 
 
