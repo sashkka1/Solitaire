@@ -129,6 +129,20 @@ class KlondikeCore extends CardGameCore {
         console.log('storedValue good');
         storedValue = JSON.parse(storedValue);
         console.table(storedValue);
+
+
+
+        for(let i=0;i<this._allCards.length;i++){
+          this._allCards[i].v = storedValue[i][0];
+          this._allCards[i].p = storedValue[i][2];
+          this._allCards[i].i = storedValue[i][3];
+        }
+        console.table(this._allCards);
+
+
+
+
+
         }
       });
     }
