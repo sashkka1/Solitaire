@@ -39,8 +39,8 @@ block.addEventListener('click', () => {
 export class Card extends EventTarget {
   constructor(number, suit, id) {
     super(); // Вызов конструктора родительского класса EventTarget
-    // this._number = number; // Устанавливаем номер карты (от 1 до 13)
-    // this._suit = suit; // Устанавливаем масть карты
+    this._number = number; // Устанавливаем номер карты (от 1 до 13)
+    this._suit = suit; // Устанавливаем масть карты
     this.v = false; // Изначально карта невидима
     this.p = "";
     this.i = "0";
@@ -150,8 +150,8 @@ export class CardGameCore extends GameCore {
     for (const suit of SUITS) {
       for (let number = 1; number <= 13; number++) {
         // suit.id = uniqueId;
-        result.push(new Card()); // Создаем карты каждой масти и добавляем в массив
-        // result.push(new Card(number, suit, )); // Создаем карты каждой масти и добавляем в массив
+        // result.push(new Card()); // Создаем карты каждой масти и добавляем в массив
+        result.push(new Card(number, suit, )); // Создаем карты каждой масти и добавляем в массив
         // console.log(`suit.id - ${suit.id}, number - ${number}, name - ${suit.name}`);
         // uniqueId ++;
       }
@@ -204,14 +204,15 @@ export class CardGameCore extends GameCore {
     //   window.Telegram.WebApp.CloudStorage.setItem("saveCardTwo", JSON.stringify(splitArray2));
     //   console.log('Set2 complite');
     // }
-    if(gameIsStart > 0){
-saveCard
-      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-      window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(this._allCards));
-      console.log('Set complite');
-      window.Telegram.WebApp.CloudStorage.removeItem("saveCardOne");
-      window.Telegram.WebApp.CloudStorage.removeItem("saveCardTwo");
-    }
+
+    // if(gameIsStart > 0){
+
+    //   window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+    //   window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(this._allCards));
+    //   console.log('Set complite');
+    //   window.Telegram.WebApp.CloudStorage.removeItem("saveCardOne");
+    //   window.Telegram.WebApp.CloudStorage.removeItem("saveCardTwo");
+    // }
 
 
 
@@ -254,7 +255,7 @@ saveCard
   rawMove(card, sourcePlaceId, destPlaceId) {
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.remove('lock');
-    console.log('asdd');
+    
     const sourceArray = this.placeIdToCardArray[sourcePlaceId];
     const index = sourceArray.indexOf(card);
     if (index === -1) {

@@ -114,27 +114,28 @@ class KlondikeCore extends CardGameCore {
     // }
     // checkFirstTry++;
 
-    if(checkFirstTry == 0){
-      console.log('get start');
-      window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
-        if (err) {
-          console.error('Error retrieving arrayCardSafe:', err);
-          return; // Exit if there's an error
-        }
-        if (storedValue === null || storedValue === undefined || storedValue === "") {
-          console.log('get empty');
-          return; // Exit if there's an error
-        }else{
-        console.log('storedValue good');
-        storedValue = JSON.parse(storedValue);
-        console.table(storedValue);
-        // this._allCards = combinedArray;
-        // console.log('this._allCards');
-        // console.table(this._allCards);
-        }
-      });
-    }
-    checkFirstTry++;
+    // if(checkFirstTry == 0){
+    //   console.log('get start');
+    //   window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
+    //     if (err) {
+    //       console.error('Error retrieving arrayCardSafe:', err);
+    //       return; // Exit if there's an error
+    //     }
+    //     if (storedValue === null || storedValue === undefined || storedValue === "") {
+    //       console.log('get empty');
+    //       return; // Exit if there's an error
+    //     }else{
+    //     console.log('storedValue good');
+    //     storedValue = JSON.parse(storedValue);
+    //     console.table(storedValue);
+    //     // this._allCards = combinedArray;
+    //     // console.log('this._allCards');
+    //     // console.table(this._allCards);
+    //     }
+    //   });
+    // }
+    // checkFirstTry++;
+
     // console.table(this._allCards);
     // console.table(JSON.stringify(this._allCards));
     
