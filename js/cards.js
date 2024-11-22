@@ -207,6 +207,7 @@ export class CardGameCore extends GameCore {
 
     if(gameIsStart > 0){
       const splitArray = this._allCards.slice(0, 10);
+      console.table(splitArray);
       window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(splitArray));
       console.log('Set complite');
