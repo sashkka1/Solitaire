@@ -205,14 +205,12 @@ export class CardGameCore extends GameCore {
     //   console.log('Set2 complite');
     // }
 
-    // if(gameIsStart > 0){
-
-    //   window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-    //   window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(this._allCards));
-    //   console.log('Set complite');
-    //   window.Telegram.WebApp.CloudStorage.removeItem("saveCardOne");
-    //   window.Telegram.WebApp.CloudStorage.removeItem("saveCardTwo");
-    // }
+    if(gameIsStart > 0){
+      const splitArray = this._allCards.slice(0, 10);
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(splitArray));
+      console.log('Set complite');
+    }
 
 
 
@@ -255,7 +253,7 @@ export class CardGameCore extends GameCore {
   rawMove(card, sourcePlaceId, destPlaceId) {
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.remove('lock');
-    
+
     const sourceArray = this.placeIdToCardArray[sourcePlaceId];
     const index = sourceArray.indexOf(card);
     if (index === -1) {
