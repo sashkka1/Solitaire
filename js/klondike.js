@@ -78,100 +78,62 @@ class KlondikeCore extends CardGameCore {
     console.log("Test 6");
 
     // if(checkFirstTry == 0){
-    //   console.log('start try get');
-    //   window.Telegram.WebApp.CloudStorage.getItem("saveCardOne", (err, storedValue1) => {
+    //   console.log('get start');
+    //   window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
     //     if (err) {
     //       console.error('Error retrieving arrayCardSafe:', err);
     //       return; // Exit if there's an error
     //     }
-    //     if (storedValue1 === null || storedValue1 === undefined || storedValue1 === "") {
-    //       console.log('get1 empty');
+    //     if (storedValue === null || storedValue === undefined || storedValue === "") {
+    //       console.log('get empty');
     //       return; // Exit if there's an error
     //     }else{
-    //       console.log('storedValue1 good');
-    //       storedValue1 = JSON.parse(storedValue1);
-    //       window.Telegram.WebApp.CloudStorage.getItem("saveCardTwo", (err, storedValue2) => {
-    //         if (err) {
-    //           console.error('Error retrieving arrayCardSafe:', err);
-    //           return; // Exit if there's an error
+    //     console.log('storedValue good');
+    //     storedValue = JSON.parse(storedValue);
+    //     console.table(storedValue);
+
+
+    //     let colorValue,numberValue,unicodeValue,nameValue;
+    //     for(let i=0;i<this._allCards.length;i++){
+    //       this._allCards[i].v = storedValue[i][0];
+    //       this._allCards[i].p = storedValue[i][1];
+    //       this._allCards[i].i = storedValue[i][2];
+    //       if(this._allCards[i].i >=1){
+    //         colorValue ="black";
+    //         unicodeValue = '\u2660';
+    //         nameValue ="spade";
+    //         numberValue = this._allCards[i].i;
+    //         if(this._allCards[i].i >=14){
+    //           colorValue ="red";
+    //           unicodeValue = '\u2665';
+    //           nameValue ="heart";
+    //           numberValue = this._allCards[i].i - 13;
+    //           if(this._allCards[i].i >=27){
+    //             colorValue ="black";
+    //             unicodeValue = '\u2663';
+    //             nameValue ="club";
+    //             numberValue = this._allCards[i].i - 26;
+    //             if(this._allCards[i].i >=40){
+    //               colorValue ="red";
+    //               unicodeValue = '\u2666';
+    //               nameValue ="diamond";
+    //               numberValue = this._allCards[i].i - 39;
+    //             }
+    //           }
     //         }
-    //         if (storedValue2 === null || storedValue2 === undefined || storedValue2 === "") {
-    //           console.log('get2 empty');
-    //           return; // Exit if there's an error
-    //         }else{
-    //         console.log('storedValue2 good');
-    //         storedValue2 = JSON.parse(storedValue2);
-    //         let combinedArray = [...storedValue1, ...storedValue2];
-    //         console.log('combinedArray');
-    //         console.table(combinedArray);
-    //         // this._allCards = combinedArray;
-    //         // console.log('this._allCards');
-    //         // console.table(this._allCards);
-    //         }
-    //       });
+    //       }
+    //       this._allCards[i]._number= numberValue;
+    //       this._allCards[i]._suit.name= nameValue;
+    //       this._allCards[i]._suit.color = colorValue;
+    //       this._allCards[i]._suit.unicode= unicodeValue;
+    //     }
+    //     console.table(this._allCards);
+
+
     //     }
     //   });
-      
     // }
     // checkFirstTry++;
-
-    if(checkFirstTry == 0){
-      console.log('get start');
-      window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
-        if (err) {
-          console.error('Error retrieving arrayCardSafe:', err);
-          return; // Exit if there's an error
-        }
-        if (storedValue === null || storedValue === undefined || storedValue === "") {
-          console.log('get empty');
-          return; // Exit if there's an error
-        }else{
-        console.log('storedValue good');
-        storedValue = JSON.parse(storedValue);
-        console.table(storedValue);
-
-
-        let colorValue,numberValue,unicodeValue,nameValue;
-        for(let i=0;i<this._allCards.length;i++){
-          this._allCards[i].v = storedValue[i][0];
-          this._allCards[i].p = storedValue[i][1];
-          this._allCards[i].i = storedValue[i][2];
-          if(this._allCards[i].i >=1){
-            colorValue ="black";
-            unicodeValue = '\u2660';
-            nameValue ="spade";
-            numberValue = this._allCards[i].i;
-            if(this._allCards[i].i >=14){
-              colorValue ="red";
-              unicodeValue = '\u2665';
-              nameValue ="heart";
-              numberValue = this._allCards[i].i - 13;
-              if(this._allCards[i].i >=27){
-                colorValue ="black";
-                unicodeValue = '\u2663';
-                nameValue ="club";
-                numberValue = this._allCards[i].i - 26;
-                if(this._allCards[i].i >=40){
-                  colorValue ="red";
-                  unicodeValue = '\u2666';
-                  nameValue ="diamond";
-                  numberValue = this._allCards[i].i - 39;
-                }
-              }
-            }
-          }
-          this._allCards[i]._number= numberValue;
-          this._allCards[i]._suit.name= nameValue;
-          this._allCards[i]._suit.color = colorValue;
-          this._allCards[i]._suit.unicode= unicodeValue;
-        }
-        console.table(this._allCards);
-
-
-        }
-      });
-    }
-    checkFirstTry++;
 
     // console.table(this._allCards);
     // console.table(JSON.stringify(this._allCards));
