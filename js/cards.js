@@ -205,7 +205,7 @@ export class CardGameCore extends GameCore {
     //   console.log('Set2 complite');
     // }
     if(gameIsStart > 0){
-
+saveCard
       window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(this._allCards));
       console.log('Set complite');
