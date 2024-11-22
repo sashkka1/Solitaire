@@ -129,24 +129,80 @@ class KlondikeCore extends CardGameCore {
         console.log('storedValue good');
         storedValue = JSON.parse(storedValue);
         console.table(storedValue);
-
-
-
-        for(let i=0;i<this._allCards.length;i++){
-          this._allCards[i].v = storedValue[i][0];
-          this._allCards[i].p = storedValue[i][2];
-          this._allCards[i].i = storedValue[i][3];
-        }
-        console.table(this._allCards);
-
-
-
-
-
-        }
-      });
+      }
+    });
     }
     checkFirstTry++;
+
+
+    // console.table(this._allCards);
+        // let b=[];
+        // let f=0;
+        // for(let i=0;i<this._allCards.length;i++){
+        //   let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i];
+        //   b[f] = a;
+        //   f++;
+        // }
+        // let storedValue = b;
+        // for(let i=0;i<this._allCards.length;i++){
+        //   this._allCards[i].v = storedValue[i][0];
+        //   this._allCards[i].p = storedValue[i][1];
+        //   this._allCards[i].i = storedValue[i][2];
+        // }
+        // for(let i=0;i<this._allCards.length;i++){
+        //   this._allCards[i]._number ='-';
+        //   this._allCards[i]._suit.name ='-';
+        //   this._allCards[i]._suit.color ='-';
+        //   this._allCards[i]._suit.unicode ='-';
+        // }
+
+        // let colorValue,numberValue,unicodeValue,nameValue;
+        // for(let i=0;i<this._allCards.length;i++){
+        //   if(this._allCards[i].i >=1){
+        //     colorValue ="black";
+        //     unicodeValue = '\u2660';
+        //     nameValue ="spade";
+        //     if(this._allCards[i].i >=14){
+        //       colorValue ="red";
+        //       unicodeValue = '\u2665';
+        //       nameValue ="heart";
+        //       if(this._allCards[i].i >=27){
+        //         colorValue ="black";
+        //         unicodeValue = '\u2663';
+        //         nameValue ="club";
+        //         if(this._allCards[i].i >=40){
+        //           colorValue ="red";
+        //           unicodeValue = '\u2666';
+        //           nameValue ="diamond";
+        //         }
+        //       }
+        //     }
+        //   }
+        //   if(nameValue ==="spade"){
+        //     numberValue = 
+        //     if(){
+        //       if(){
+        //         if(){
+            
+        //         }
+        //       }
+        //     }
+        //   }
+        //   // this._allCards[i]._number= numberValue;
+        //   this._allCards[i]._suit.name= nameValue;
+        //   this._allCards[i]._suit.color = colorValue;
+        //   this._allCards[i]._suit.unicode= unicodeValue;
+        // }
+        // console.table(this._allCards);
+
+
+
+
+
+    //     }
+    //   });
+    // }
+    // checkFirstTry++;
 
     // console.table(this._allCards);
     // console.table(JSON.stringify(this._allCards));
