@@ -75,7 +75,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 6";
+    document.getElementById('new-game-button').innerHTML = "Test 7";
 
     if(checkFirstTry == 0){
       console.log('get start');
@@ -107,7 +107,7 @@ class KlondikeCore extends CardGameCore {
         console.table(this._allCards);
         console.table(storedValue);
         let colorValue,numberValue,unicodeValue,nameValue;
-        for(let i=52;i>0;i--){
+        for(let i=51;i>=0;i--){
           console.log('start', i);
           this._allCards[i].v = storedValue[i][0];
           // if(storedValue[i][0] == true){this._allCards[i].visible = true }
