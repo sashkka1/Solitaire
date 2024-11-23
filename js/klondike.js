@@ -75,86 +75,86 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 10";
+    document.getElementById('new-game-button').innerHTML = "Test 1";
 
     // let index = 0;
-    if(checkFirstTry == 0){
-      console.log('get start');
-      window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
-        if (err) {
-          console.error('Error retrieving arrayCardSafe:', err);
-          for (let i = 0; i < 7; i++) {
-            const howManyCardsToMove = i + 1;
-            const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-            this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-            cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-          }
-          return; // Exit if there's an error
-        }
-        if (storedValue === null || storedValue === undefined || storedValue === "") {
-          console.log('get empty');
-          for (let i = 0; i < 7; i++) {
-            const howManyCardsToMove = i + 1;
-            const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-            this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-            cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-          }
-          return; // Exit if there's an error
-        }else{
-        console.log('storedValue good');
-        storedValue = JSON.parse(storedValue);
-        // console.table(storedValue);
-        // index ++;
+    // if(checkFirstTry == 0){
+    //   console.log('get start');
+    //   window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
+    //     if (err) {
+    //       console.error('Error retrieving arrayCardSafe:', err);
+    //       for (let i = 0; i < 7; i++) {
+    //         const howManyCardsToMove = i + 1;
+    //         const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+    //         this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+    //         cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+    //       }
+    //       return; // Exit if there's an error
+    //     }
+    //     if (storedValue === null || storedValue === undefined || storedValue === "") {
+    //       console.log('get empty');
+    //       for (let i = 0; i < 7; i++) {
+    //         const howManyCardsToMove = i + 1;
+    //         const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+    //         this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+    //         cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+    //       }
+    //       return; // Exit if there's an error
+    //     }else{
+    //     console.log('storedValue good');
+    //     storedValue = JSON.parse(storedValue);
+    //     // console.table(storedValue);
+    //     // index ++;
 
-        let colorValue,numberValue,unicodeValue,nameValue;
-        for(let i=0;i<52;i++){
-          this._allCards[i].v = storedValue[i][0];
-          // this._allCards[i].p = storedValue[i][1];
-          this._allCards[i].i = storedValue[i][2];
-          if(this._allCards[i].i >=1){
-            colorValue ="black";
-            unicodeValue = '\u2660';
-            nameValue ="spade";
-            numberValue = this._allCards[i].i;
-            if(this._allCards[i].i >=14){
-              colorValue ="red";
-              unicodeValue = '\u2665';
-              nameValue ="heart";
-              numberValue = this._allCards[i].i - 13;
-              if(this._allCards[i].i >=27){
-                colorValue ="black";
-                unicodeValue = '\u2663';
-                nameValue ="club";
-                numberValue = this._allCards[i].i - 26;
-                if(this._allCards[i].i >=40){
-                  colorValue ="red";
-                  unicodeValue = '\u2666';
-                  nameValue ="diamond";
-                  numberValue = this._allCards[i].i - 39;
-                }
-              }
-            }
-          }
-          this._allCards[i]._number = numberValue;
-          this._allCards[i]._suit.name = nameValue;
-          this._allCards[i]._suit.color = colorValue;
-          this._allCards[i]._suit.unicode = unicodeValue;
-          // console.log('this._allCards[i]', this._allCards[i], 'this._allCards[i].p',this._allCards[i].p);
+    //     let colorValue,numberValue,unicodeValue,nameValue;
+    //     for(let i=0;i<52;i++){
+    //       this._allCards[i].v = storedValue[i][0];
+    //       // this._allCards[i].p = storedValue[i][1];
+    //       this._allCards[i].i = storedValue[i][2];
+    //       if(this._allCards[i].i >=1){
+    //         colorValue ="black";
+    //         unicodeValue = '\u2660';
+    //         nameValue ="spade";
+    //         numberValue = this._allCards[i].i;
+    //         if(this._allCards[i].i >=14){
+    //           colorValue ="red";
+    //           unicodeValue = '\u2665';
+    //           nameValue ="heart";
+    //           numberValue = this._allCards[i].i - 13;
+    //           if(this._allCards[i].i >=27){
+    //             colorValue ="black";
+    //             unicodeValue = '\u2663';
+    //             nameValue ="club";
+    //             numberValue = this._allCards[i].i - 26;
+    //             if(this._allCards[i].i >=40){
+    //               colorValue ="red";
+    //               unicodeValue = '\u2666';
+    //               nameValue ="diamond";
+    //               numberValue = this._allCards[i].i - 39;
+    //             }
+    //           }
+    //         }
+    //       }
+    //       this._allCards[i]._number = numberValue;
+    //       this._allCards[i]._suit.name = nameValue;
+    //       this._allCards[i]._suit.color = colorValue;
+    //       this._allCards[i]._suit.unicode = unicodeValue;
+    //       // console.log('this._allCards[i]', this._allCards[i], 'this._allCards[i].p',this._allCards[i].p);
 
-          const div = document.getElementById(this._allCards[i].i); // Создаем div для каждой карты
+    //       const div = document.getElementById(this._allCards[i].i); // Создаем div для каждой карты
           
-          div.style.backgroundImage = `url(${this._allCards[i].i + '.png'})`;
-          console.log('ins');
-          this.rawMove(this._allCards[i], this._allCards[i].p, storedValue[i][1]);
-          // this.moveCards(this._allCards[i], this._allCards[i].p);
-        }
-        console.log('after');
-        console.table(this._allCards);
+    //       div.style.backgroundImage = `url(${this._allCards[i].i + '.png'})`;
+    //       console.log('ins');
+    //       this.rawMove(this._allCards[i], this._allCards[i].p, storedValue[i][1]);
+    //       // this.moveCards(this._allCards[i], this._allCards[i].p);
+    //     }
+    //     console.log('after');
+    //     console.table(this._allCards);
 
-        }
-      });
-    }
-    checkFirstTry++;
+    //     }
+    //   });
+    // }
+    // checkFirstTry++;
 
 
     // if(index == 0){
