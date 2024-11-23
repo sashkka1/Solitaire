@@ -108,7 +108,7 @@ class KlondikeCore extends CardGameCore {
 
         let colorValue,numberValue,unicodeValue,nameValue;
         console.log('this._allCards', this._allCards.length);
-        for(let i=0;i<this._allCards.length;i++){
+        for(let i=0;i<52;i++){
           console.log('i - ', i);
           this._allCards[i].v = storedValue[i][0];
           this._allCards[i].p = storedValue[i][1];
@@ -141,8 +141,8 @@ class KlondikeCore extends CardGameCore {
           this._allCards[i]._suit.name= nameValue;
           this._allCards[i]._suit.color = colorValue;
           this._allCards[i]._suit.unicode= unicodeValue;
-          console.log('this._allCards[i]', this._allCards[i], 'this._allCards[i].p',this._allCards[i].p);
           console.log('this._allCards', this._allCards.length);
+          // console.log('this._allCards[i]', this._allCards[i], 'this._allCards[i].p',this._allCards[i].p);
           // this.rawMove(this._allCards[i], 'stock', this._allCards[i].p);
           // this.moveCards(this._allCards[i], this._allCards[i].p);
         }
