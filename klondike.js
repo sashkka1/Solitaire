@@ -109,8 +109,8 @@ class KlondikeCore extends CardGameCore {
         let colorValue,numberValue,unicodeValue,nameValue;
         for(let i=0;i<52;i++){
           this._allCards[i].v = storedValue[i][0];
-          if(storedValue[i][0] == true){this._allCards[i].visible = true }
-          this._allCards[i].p = storedValue[i][1];
+          // if(storedValue[i][0] == true){this._allCards[i].visible = true }
+          // this._allCards[i].p = storedValue[i][1];
           this._allCards[i].i = storedValue[i][2];
           if(this._allCards[i].i >=1){
             colorValue ="black";
@@ -145,8 +145,9 @@ class KlondikeCore extends CardGameCore {
           const div = document.getElementById(this._allCards[i].i); // Создаем div для каждой карты
           
           div.style.backgroundImage = `./materials/Images/Front/${this._allCards[i].i + '.png'}`;
-          const cardsToMove = this.placeIdToCardArray.stock.splice(-1);
-          this.moveCards(cardsToMove, storedValue[i][1]);
+          // const cardsToMove = this.placeIdToCardArray.stock.splice(-1);
+          this.moveCards(this._allCards[i], storedValue[i][1]);
+          this._allCards[i].p = storedValue[i][1];
         }
         console.table(this._allCards);
         // for(let i=0;i<52;i++){
