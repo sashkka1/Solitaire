@@ -192,21 +192,21 @@ export class CardGameCore extends GameCore {
       cardArray[i].p = newPlaceId;
     }
 
-    // if(gameIsStart > 0){
-    //   let b=[];
-    //   let f=0;
-    //   for(let i=0;i<this._allCards.length;i++){
-    //     let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i];
-    //     b[f] = a;
-    //     f++;
-    //   }
-    //   // console.log('b');
-    //   // console.table(b);
-    //   // console.table(this._allCards);
-    //   window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-    //   window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
-    //   console.log('Set complite');
-    // }
+    if(gameIsStart > 0){
+      let b=[];
+      let f=0;
+      for(let i=0;i<this._allCards.length;i++){
+        let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i];
+        b[f] = a;
+        f++;
+      }
+      // console.log('b');
+      // console.table(b);
+      // console.table(this._allCards);
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
+      console.log('Set complite');
+    }
 
 
 
