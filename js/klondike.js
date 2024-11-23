@@ -75,7 +75,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    console.log("Test 6");
+    console.log("Test 7");
 
     let index = 0;
     if(checkFirstTry == 0){
