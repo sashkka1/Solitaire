@@ -75,7 +75,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 8";
+    document.getElementById('new-game-button').innerHTML = "Test 9";
 
     let index = 0;
     if(checkFirstTry == 0){
@@ -109,7 +109,7 @@ class KlondikeCore extends CardGameCore {
         let colorValue,numberValue,unicodeValue,nameValue;
         for(let i=0;i<52;i++){
           this._allCards[i].v = storedValue[i][0];
-          this._allCards[i].p = storedValue[i][1];
+          // this._allCards[i].p = storedValue[i][1];
           this._allCards[i].i = storedValue[i][2];
           if(this._allCards[i].i >=1){
             colorValue ="black";
@@ -145,9 +145,10 @@ class KlondikeCore extends CardGameCore {
           
           // div.style.backgroundImage = `url(${this._allCards[i].i + '.png'})`;
           
-          this.rawMove(this._allCards[i], this._allCards[i].p, 'stock');
+          this.rawMove(this._allCards[i], this._allCards[i].p, storedValue[i][1]);
           // this.moveCards(this._allCards[i], this._allCards[i].p);
         }
+        this.rawMove(this._allCards[25], 'stock', 'foundation2');
         console.table(this._allCards);
 
         }
@@ -253,47 +254,6 @@ class KlondikeCore extends CardGameCore {
     const sourceArray = this.placeIdToCardArray[sourcePlaceId];
     if (sourcePlaceId.startsWith('tableau') && sourceArray.length !== 0) {
       sourceArray[sourceArray.length - 1].visible = true; // Открывает верхнюю карту в tableau, если она закрыта
-
-      // // window.Telegram.WebApp.CloudStorage.getItem("1", (err, storedValue1) => {
-      // //   console.log('вывод 1');
-      // //   // console.table(JSON.parse(storedValue1));
-      // //   storedValue1 = JSON.parse(storedValue1);
-      // //   window.Telegram.WebApp.CloudStorage.getItem("2", (err, storedValue2) => {
-      // //   // console.log('вывод 2');
-      // //   // console.table(JSON.parse(storedValue2));
-      // //   storedValue2 = JSON.parse(storedValue2);
-      // //   let combinedArray = [...storedValue1, ...storedValue2];
-      // //   console.log('вывод 3');
-      // //   console.table(combinedArray);
-      // //   });
-      // // });
-
-      // for(let i =0;i<52;i++){
-      //   console.log(i);
-      //   this.currentGame.rawMove(backCard, newPlace, oldPlace);
-      // }
-
-
-
-      // console.log(this._allCards);
-
-      // let foundation0 = this.placeIdToCardArray["foundation0"], foundation1 = this.placeIdToCardArray["foundation1"], foundation2 = this.placeIdToCardArray["foundation2"], foundation3 = this.placeIdToCardArray["foundation3"];
-      // let tableau0 = this.placeIdToCardArray["tableau0"], tableau1 = this.placeIdToCardArray["tableau1"], tableau2 = this.placeIdToCardArray["tableau2"], tableau3 = this.placeIdToCardArray["tableau3"], tableau4 = this.placeIdToCardArray["tableau4"], tableau5 = this.placeIdToCardArray["tableau5"], tableau6 = this.placeIdToCardArray["tableau6"];
-      // let stock = this.placeIdToCardArray["stock"];
-      // let discard = this.placeIdToCardArray["discard"];
-      // console.table(stock);
-      // console.table(discard);
-      // console.table(tableau6);
-      // console.table(tableau4);
-
-
-      // let placeId =this.findCurrentPlaceId(this._allCards[0]); 
-      // let id = this.placeIdToCardArray[placeId];
-      // console.log(this._allCards[0]);
-      // console.log(placeId);
-      // console.log(id);
-
-
 
       let a=0;
       // реализация понимания того есть ли открытые карты на доске
