@@ -105,9 +105,10 @@ class KlondikeCore extends CardGameCore {
         // console.table(storedValue);
         // index ++;
         console.table(this._allCards);
-        console.table(this._allCardsstoredValue);
+        console.table(storedValue);
         let colorValue,numberValue,unicodeValue,nameValue;
         for(let i=0;i<52;i++){
+          console.log('start', i);
           this._allCards[i].v = storedValue[i][0];
           // if(storedValue[i][0] == true){this._allCards[i].visible = true }
           // this._allCards[i].p = storedValue[i][1];
@@ -148,8 +149,10 @@ class KlondikeCore extends CardGameCore {
           // const cardsToMove = this.placeIdToCardArray.stock.splice(-1);
           this.moveCards(this._allCards[i], storedValue[i][1]);
           this._allCards[i].p = storedValue[i][1];
+          console.log('end', i);
         }
         console.table(this._allCards);
+        console.log('all good');
         // for(let i=0;i<52;i++){
         //     let div = document.getElementById(this._allCards[i].i);
         //     div.style.backgroundImage = `./materials/Images/Front/${this._allCards[i].i + '.png'}`;
