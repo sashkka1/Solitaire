@@ -75,8 +75,9 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 2";
-
+    document.getElementById('new-game-button').innerHTML = "Test 3";
+    console.log('this._allCards start');
+    console.table(this._allCards);
     if(checkFirstTry == 0){
       console.log('get start');
       window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
@@ -104,8 +105,8 @@ class KlondikeCore extends CardGameCore {
           storedValue = JSON.parse(storedValue);
           // console.table(storedValue);
           // index ++;
-          // console.table(this._allCards);
-          // console.table(storedValue);
+          console.log('this._allCards before');
+          console.table(this._allCards);
           let colorValue,numberValue,unicodeValue,nameValue;
           for(let i=0;i<52;i++){
             this._allCards[i].v = storedValue[i][0];
@@ -144,15 +145,19 @@ class KlondikeCore extends CardGameCore {
             // const div = document.getElementById(this._allCards[i].i); // Создаем div для каждой карты
             // div.style.backgroundImage = `./materials/Images/Front/${this._allCards[i].i + '.png'}`;
           }
+          console.log('this._allCards after');
           console.table(this._allCards);
 
           console.log('all good');
           for(let i=0;i<52;i++){
+            console.log('i',i);
             let cardsToMove = this.placeIdToCardArray.stock.splice(-1);
             console.log('cardsToMove');
             console.table(cardsToMove);
-            console.log('this._allCards[i]');
-            console.table(this._allCards[i]);
+            console.log('a');
+            let a=this._allCards[i];
+            console.table(a);
+            console.log('cardsToMove',this._allCards[i].i);
             this.moveCards(cardsToMove, this._allCards[i].i);
             // this._allCards[i].p = storedValue[i][1];
           }
