@@ -75,7 +75,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 7";
+    document.getElementById('new-game-button').innerHTML = "Test 8";
 
     let index = 0;
     if(checkFirstTry == 0){
@@ -135,20 +135,20 @@ class KlondikeCore extends CardGameCore {
               }
             }
           }
-          this._allCards[i]._number= numberValue;
-          this._allCards[i]._suit.name= nameValue;
+          this._allCards[i]._number = numberValue;
+          this._allCards[i]._suit.name = nameValue;
           this._allCards[i]._suit.color = colorValue;
-          this._allCards[i]._suit.unicode= unicodeValue;
+          this._allCards[i]._suit.unicode = unicodeValue;
           // console.log('this._allCards[i]', this._allCards[i], 'this._allCards[i].p',this._allCards[i].p);
 
           // const div = document.getElementById(this._allCards[i].i); // Создаем div для каждой карты
           
           // div.style.backgroundImage = `url(${this._allCards[i].i + '.png'})`;
           
-          this.rawMove(this._allCards[i], 'stock', this._allCards[i].p);
+          this.rawMove(this._allCards[i], this._allCards[i].p, 'stock');
           // this.moveCards(this._allCards[i], this._allCards[i].p);
         }
-        // console.table(this._allCards);
+        console.table(this._allCards);
 
         }
       });
