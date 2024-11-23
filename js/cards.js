@@ -192,19 +192,6 @@ export class CardGameCore extends GameCore {
       cardArray[i].p = newPlaceId;
     }
 
-    // if(gameIsStart > 0){
-    //   const splitArray1 = this._allCards.slice(0, 25);
-    //   const splitArray2 = this._allCards.slice(25, 52);
-  
-    //   window.Telegram.WebApp.CloudStorage.removeItem("saveCardOne");
-    //   window.Telegram.WebApp.CloudStorage.setItem("saveCardOne", JSON.stringify(splitArray1));
-    //   console.log('Set1 complite');
-  
-    //   window.Telegram.WebApp.CloudStorage.removeItem("saveCardTwo");
-    //   window.Telegram.WebApp.CloudStorage.setItem("saveCardTwo", JSON.stringify(splitArray2));
-    //   console.log('Set2 complite');
-    // }
-
     if(gameIsStart > 0){
       let b=[];
       let f=0;
@@ -216,13 +203,10 @@ export class CardGameCore extends GameCore {
       console.log('b');
       console.table(b);
       console.table(this._allCards);
-      // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-      // window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
       console.log('Set complite');
     }
-
-
-
 
 
 
