@@ -75,7 +75,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 5";
+    document.getElementById('new-game-button').innerHTML = "Test 6";
 
     let index = 0;
     if(checkFirstTry == 0){
@@ -148,7 +148,7 @@ class KlondikeCore extends CardGameCore {
           this.rawMove(this._allCards[i], 'stock', this._allCards[i].p);
           // this.moveCards(this._allCards[i], this._allCards[i].p);
         }
-        console.table(this._allCards);
+        // console.table(this._allCards);
 
         }
       });
@@ -158,12 +158,12 @@ class KlondikeCore extends CardGameCore {
 
     // if(index == 0){
     //   console.log('standart');
-      for (let i = 0; i < 7; i++) {
-        const howManyCardsToMove = i + 1;
-        const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-        this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-        cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-      }
+      // for (let i = 0; i < 7; i++) {
+      //   const howManyCardsToMove = i + 1;
+      //   const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+      //   this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+      //   cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+      // }
     // }
 
 
