@@ -75,7 +75,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 8";
+    document.getElementById('new-game-button').innerHTML = "Test 9";
 
     if(checkFirstTry == 0){
       console.log('get start');
@@ -114,25 +114,21 @@ class KlondikeCore extends CardGameCore {
           this._allCards[i].p = storedValue[i][1];
           this._allCards[i].i = storedValue[i][2];
           if(this._allCards[i].i >=1){
-            console.log('start1', i);
             colorValue ="black";
             unicodeValue = '\u2660';
             nameValue ="spade";
             numberValue = this._allCards[i].i;
             if(this._allCards[i].i >=14){
-              console.log('start2', i);
               colorValue ="red";
               unicodeValue = '\u2665';
               nameValue ="heart";
               numberValue = this._allCards[i].i - 13;
               if(this._allCards[i].i >=27){
-                console.log('start3', i);
                 colorValue ="black";
                 unicodeValue = '\u2663';
                 nameValue ="club";
                 numberValue = this._allCards[i].i - 26;
                 if(this._allCards[i].i >=40){
-                  console.log('start4', i);
                   colorValue ="red";
                   unicodeValue = '\u2666';
                   nameValue ="diamond";
@@ -141,21 +137,21 @@ class KlondikeCore extends CardGameCore {
               }
             }
           }
-          console.log('start5', i);
           this._allCards[i]._number = numberValue;
           this._allCards[i]._suit.name = nameValue;
           this._allCards[i]._suit.color = colorValue;
           this._allCards[i]._suit.unicode = unicodeValue;
           // console.log('this._allCards[i]', this._allCards[i], 'this._allCards[i].p',this._allCards[i].p);
-          console.log('start6', i);
           const div = document.getElementById(this._allCards[i].i); // Создаем div для каждой карты
           
           div.style.backgroundImage = `./materials/Images/Front/${this._allCards[i].i + '.png'}`;
-          console.log('start7', i);
+          console.table(cardsToMove);
           const cardsToMove = this.placeIdToCardArray.stock.splice(-1);
-          console.log('cardsToMove', cardsToMove);
+          console.log('cardsToMove');
+          console.table(cardsToMove);
+          console.log('this._allCards[i]');
+          console.table(this._allCards[i]);
           this.moveCards(cardsToMove, storedValue[i][1]);
-          console.log('start8', i);
           // this._allCards[i].p = storedValue[i][1];
           console.log('end', i);
         }
