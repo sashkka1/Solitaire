@@ -75,7 +75,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 5";
+    document.getElementById('new-game-button').innerHTML = "Test 6";
 
     if(checkFirstTry == 0){
       console.log('get start');
@@ -107,7 +107,7 @@ class KlondikeCore extends CardGameCore {
         console.table(this._allCards);
         console.table(storedValue);
         let colorValue,numberValue,unicodeValue,nameValue;
-        for(let i=0;i<52;i++){
+        for(let i=52;i>0;i--){
           console.log('start', i);
           this._allCards[i].v = storedValue[i][0];
           // if(storedValue[i][0] == true){this._allCards[i].visible = true }
@@ -152,8 +152,9 @@ class KlondikeCore extends CardGameCore {
           
           div.style.backgroundImage = `./materials/Images/Front/${this._allCards[i].i + '.png'}`;
           console.log('start7', i);
-          // const cardsToMove = this.placeIdToCardArray.stock.splice(-1);
-          this.moveCards(this._allCards[i], storedValue[i][1]);
+          const cardsToMove = this.placeIdToCardArray.stock.splice(-1);
+          console.log('cardsToMove', cardsToMove);
+          this.moveCards(cardsToMove, storedValue[i][1]);
           console.log('start8', i);
           this._allCards[i].p = storedValue[i][1];
           console.log('end', i);
