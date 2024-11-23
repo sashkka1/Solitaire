@@ -75,7 +75,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 5";
+    document.getElementById('new-game-button').innerHTML = "Test 6";
     console.log('this._allCards start');
     console.table(this._allCards);
     if(checkFirstTry == 0){
@@ -105,8 +105,8 @@ class KlondikeCore extends CardGameCore {
           storedValue = JSON.parse(storedValue);
           // console.table(storedValue);
           // index ++;
-          console.log('this._allCards before');
-          console.table(this._allCards);
+          // console.log('this._allCards before');
+          // console.table(this._allCards);
           let colorValue,numberValue,unicodeValue,nameValue;
           for(let i=0;i<52;i++){
             this._allCards[i].v = storedValue[i][0];
@@ -145,16 +145,16 @@ class KlondikeCore extends CardGameCore {
             // const div = document.getElementById(this._allCards[i].i); // Создаем div для каждой карты
             // div.style.backgroundImage = `./materials/Images/Front/${this._allCards[i].i + '.png'}`;
           }
-          console.log('this._allCards after');
-          console.table(this._allCards);
+          // console.log('this._allCards after');
+          // console.table(this._allCards);
 
-          console.log('all good');
+          console.log('all good', 'stock.lenght', this.placeIdToCardArray.stock.length);
           for(let i=51;i>=0;i--){
             console.log('i',i);
             let cardsToMove = this.placeIdToCardArray.stock.splice(-1);
-            console.log('cardsToMove');
+
+            console.log('cardsToMove','this._allCards[i].p',this._allCards[i].p,'stock.lenght', this.placeIdToCardArray.stock.length);
             console.table(cardsToMove);
-            console.log('this._allCards[i].p',this._allCards[i].p);
             this.moveCards(cardsToMove, this._allCards[i].p);
             // this._allCards[i].p = storedValue[i][1];
           }
