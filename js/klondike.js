@@ -75,7 +75,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    console.log("Test 7");
+    console.log("Test 8");
 
     let index = 0;
     if(checkFirstTry == 0){
@@ -83,16 +83,28 @@ class KlondikeCore extends CardGameCore {
       window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
         if (err) {
           console.error('Error retrieving arrayCardSafe:', err);
+          for (let i = 0; i < 7; i++) {
+            const howManyCardsToMove = i + 1;
+            const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+            this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+            cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+          }
           return; // Exit if there's an error
         }
         if (storedValue === null || storedValue === undefined || storedValue === "") {
           console.log('get empty');
+          for (let i = 0; i < 7; i++) {
+            const howManyCardsToMove = i + 1;
+            const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+            this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+            cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+          }
           return; // Exit if there's an error
         }else{
         console.log('storedValue good');
         storedValue = JSON.parse(storedValue);
         // console.table(storedValue);
-        index ++;
+        // index ++;
 
         let colorValue,numberValue,unicodeValue,nameValue;
         for(let i=0;i<this._allCards.length;i++){
@@ -137,15 +149,15 @@ class KlondikeCore extends CardGameCore {
     checkFirstTry++;
 
 
-    if(index == 0){
-      console.log('standart');
-      for (let i = 0; i < 7; i++) {
-        const howManyCardsToMove = i + 1;
-        const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-        this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-        cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-      }
-    }
+    // if(index == 0){
+    //   console.log('standart');
+    //   for (let i = 0; i < 7; i++) {
+    //     const howManyCardsToMove = i + 1;
+    //     const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+    //     this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+    //     cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+    //   }
+    // }
 
 
       //  //  // делает видимыми карты
