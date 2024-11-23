@@ -192,21 +192,21 @@ export class CardGameCore extends GameCore {
       cardArray[i].p = newPlaceId;
     }
 
-    // if(gameIsStart > 0){
-    //   let b=[];
-    //   let f=0;
-    //   for(let i=0;i<this._allCards.length;i++){
-    //     let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i];
-    //     b[f] = a;
-    //     f++;
-    //   }
-    //   // console.log('b');
-    //   // console.table(b);
-    //   // console.table(this._allCards);
-    //   window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-    //   window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
-    //   console.log('Set complite');
-    // }
+    if(gameIsStart > 0){
+      let b=[];
+      let f=0;
+      for(let i=0;i<this._allCards.length;i++){
+        let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i];
+        b[f] = a;
+        f++;
+      }
+      // console.log('b');
+      // console.table(b);
+      // console.table(this._allCards);
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
+      console.log('Set complite');
+    }
 
 
 
@@ -342,7 +342,7 @@ export class CardGameUI extends GameUI {
       div.style.height = CARD_HEIGHT + 'px'; // Устанавливаем высоту карты
       div.style.left = xIncrementPercents / 2 + '%'; // Устанавливаем начальную позицию по X
       div.style.top = (SPACING_SMALL + CARD_HEIGHT / 2) + 'px'; // Устанавливаем начальную позицию по Y
-      // div.setAttribute('id', i); // Присваиваем id
+      div.setAttribute('id', i); // Присваиваем id
       // card.suit.id = i;
       card.i = i;
       div.style.backgroundImage = `url(${url + i + '.png'})`;
@@ -469,6 +469,7 @@ export class CardGameUI extends GameUI {
   }
 
   backButton(){
+    console.table(backCard);
     if(backCard !="undefined"){
 
       if(whatChange == "stock"){

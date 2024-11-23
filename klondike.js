@@ -158,25 +158,40 @@ class KlondikeCore extends CardGameCore {
 
 
 
+      // for (let i = 0; i < 7; i++) {
+      //   const howManyCardsToMove = i + 1;
+      //   const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+      //   this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+      //   cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+      // }
+
+      // let a=[];
+      // for(let i=0;i<this._allCards.length;i++){
+      //   a[i] = this._allCards[i].p;
+      // }
+      // let a = ['stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'tableau6', 'tableau6', 'tableau6', 'tableau6', 'tableau6', 'tableau6', 'tableau6', 'tableau5', 'tableau5', 'tableau5', 'tableau5', 'tableau5', 'tableau5', 'tableau4', 'tableau4', 'tableau4', 'tableau4', 'tableau4', 'tableau3', 'tableau3', 'tableau3', 'tableau3', 'tableau2', 'tableau2', 'tableau2', 'tableau1', 'tableau1', 'tableau0']
+      // console.log(a);
+      // // this.moveCards(this._allCards, 'stock', false);
+      // // console.table(this._allCards);
+      // for(let i=0;i<52;i++){
+      //   // let div = document.getElementById(this._allCards[i].i);
+      //   // div.style.backgroundImage = `./materials/Images/Front/${this._allCards[i].i + '.png'}`;\
+      //   // console.table(this._allCards)
+      //   // let aa=2;
+      //   // const cardsToMove = this.placeIdToCardArray.stock.splice(-aa);
+      //   // console.table(cardsToMove);
+      //   // this.moveCards(cardsToMove, 'tableau5');
+      //   // this.forNewGame(this._allCards[33], 'stock', 'foundation0');
+      //   this.rawMove(this._allCards[i], 'stock', a[i]);
+      //   console.log('a[i]',a[i]);
+      // }
       for (let i = 0; i < 7; i++) {
         const howManyCardsToMove = i + 1;
         const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
         this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
         cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
       }
-
-      let a=[];
-      for(let i=0;i<this._allCards.length;i++){
-        a[i] = this._allCards[i].p;
-      }
-      for(let i=0;i<52;i++){
-        const div = document.getElementById(this._allCards[i].i);
-        
-        div.style.backgroundImage = `url(${this._allCards[i].i + '.png'})`;
-        // console.log('ins');
-        // this.rawMove(this._allCards[i], this._allCards[i].p, storedValue[i][1]);
-        // this.moveCards(this._allCards[i], this._allCards[i].p);
-      }
+      // }
 
 
       //  //  // делает видимыми карты
