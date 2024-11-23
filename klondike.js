@@ -75,7 +75,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 1";
+    document.getElementById('new-game-button').innerHTML = "Test 2";
 
     if(checkFirstTry == 0){
       console.log('get start');
@@ -100,68 +100,68 @@ class KlondikeCore extends CardGameCore {
           }
           return; // Exit if there's an error
         }else{
-        console.log('storedValue good');
-        storedValue = JSON.parse(storedValue);
-        // console.table(storedValue);
-        // index ++;
-        console.table(this._allCards);
-        console.table(storedValue);
-        let colorValue,numberValue,unicodeValue,nameValue;
-        for(let i=0;i<52;i++){
-          this._allCards[i].v = storedValue[i][0];
-          if(storedValue[i][0] == true){this._allCards[i].visible = true }
-          this._allCards[i].p = storedValue[i][1];
-          this._allCards[i].i = storedValue[i][2];
-          if(this._allCards[i].i >=1){
-            colorValue ="black";
-            unicodeValue = '\u2660';
-            nameValue ="spade";
-            numberValue = this._allCards[i].i;
-            if(this._allCards[i].i >=14){
-              colorValue ="red";
-              unicodeValue = '\u2665';
-              nameValue ="heart";
-              numberValue = this._allCards[i].i - 13;
-              if(this._allCards[i].i >=27){
-                colorValue ="black";
-                unicodeValue = '\u2663';
-                nameValue ="club";
-                numberValue = this._allCards[i].i - 26;
-                if(this._allCards[i].i >=40){
-                  colorValue ="red";
-                  unicodeValue = '\u2666';
-                  nameValue ="diamond";
-                  numberValue = this._allCards[i].i - 39;
+          console.log('storedValue good');
+          storedValue = JSON.parse(storedValue);
+          // console.table(storedValue);
+          // index ++;
+          // console.table(this._allCards);
+          // console.table(storedValue);
+          let colorValue,numberValue,unicodeValue,nameValue;
+          for(let i=0;i<52;i++){
+            this._allCards[i].v = storedValue[i][0];
+            if(storedValue[i][0] == true){this._allCards[i].visible = true }
+            this._allCards[i].p = storedValue[i][1];
+            this._allCards[i].i = storedValue[i][2];
+            if(this._allCards[i].i >=1){
+              colorValue ="black";
+              unicodeValue = '\u2660';
+              nameValue ="spade";
+              numberValue = this._allCards[i].i;
+              if(this._allCards[i].i >=14){
+                colorValue ="red";
+                unicodeValue = '\u2665';
+                nameValue ="heart";
+                numberValue = this._allCards[i].i - 13;
+                if(this._allCards[i].i >=27){
+                  colorValue ="black";
+                  unicodeValue = '\u2663';
+                  nameValue ="club";
+                  numberValue = this._allCards[i].i - 26;
+                  if(this._allCards[i].i >=40){
+                    colorValue ="red";
+                    unicodeValue = '\u2666';
+                    nameValue ="diamond";
+                    numberValue = this._allCards[i].i - 39;
+                  }
                 }
               }
             }
+            this._allCards[i]._number = numberValue;
+            this._allCards[i]._suit.name = nameValue;
+            this._allCards[i]._suit.color = colorValue;
+            this._allCards[i]._suit.unicode = unicodeValue;
+
+            // const div = document.getElementById(this._allCards[i].i); // Создаем div для каждой карты
+            // div.style.backgroundImage = `./materials/Images/Front/${this._allCards[i].i + '.png'}`;
           }
-          this._allCards[i]._number = numberValue;
-          this._allCards[i]._suit.name = nameValue;
-          this._allCards[i]._suit.color = colorValue;
-          this._allCards[i]._suit.unicode = unicodeValue;
+          console.table(this._allCards);
 
-          const div = document.getElementById(this._allCards[i].i); // Создаем div для каждой карты
-          div.style.backgroundImage = `./materials/Images/Front/${this._allCards[i].i + '.png'}`;
-        }
-        console.table(this._allCards);
-
-        console.log('all good');
-        // for(let i=0;i<52;i++){
-        //   let cardsToMove = this.placeIdToCardArray.stock.splice(-1);
-        //   console.log('cardsToMove');
-        //   console.table(cardsToMove);
-        //   console.log('this._allCards[i]');
-        //   console.table(this._allCards[i]);
-        //   this.moveCards(cardsToMove, storedValue[i][1]);
-        //   // this._allCards[i].p = storedValue[i][1];
-        // }
-for (let i = 0; i < 7; i++) {
-        const howManyCardsToMove = i + 1;
-        const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-        this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-        cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-      }
+          console.log('all good');
+          for(let i=0;i<52;i++){
+            let cardsToMove = this.placeIdToCardArray.stock.splice(-1);
+            console.log('cardsToMove');
+            console.table(cardsToMove);
+            console.log('this._allCards[i]');
+            console.table(this._allCards[i]);
+            this.moveCards(cardsToMove, this._allCards[i].i);
+            // this._allCards[i].p = storedValue[i][1];
+          }
+          // for (let i = 0; i < 7; i++) {
+          //   const howManyCardsToMove = i + 1;
+          //   const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+          //   this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+          //   cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+          // }
         }
       });
     }
