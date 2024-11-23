@@ -75,9 +75,9 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 9";
+    document.getElementById('new-game-button').innerHTML = "Test 10";
 
-    let index = 0;
+    // let index = 0;
     if(checkFirstTry == 0){
       console.log('get start');
       window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
@@ -141,14 +141,14 @@ class KlondikeCore extends CardGameCore {
           this._allCards[i]._suit.unicode = unicodeValue;
           // console.log('this._allCards[i]', this._allCards[i], 'this._allCards[i].p',this._allCards[i].p);
 
-          // const div = document.getElementById(this._allCards[i].i); // Создаем div для каждой карты
+          const div = document.getElementById(this._allCards[i].i); // Создаем div для каждой карты
           
-          // div.style.backgroundImage = `url(${this._allCards[i].i + '.png'})`;
-          
+          div.style.backgroundImage = `url(${this._allCards[i].i + '.png'})`;
+          console.log('ins');
           this.rawMove(this._allCards[i], this._allCards[i].p, storedValue[i][1]);
           // this.moveCards(this._allCards[i], this._allCards[i].p);
         }
-        this.rawMove(this._allCards[25], 'stock', 'foundation2');
+        console.log('after');
         console.table(this._allCards);
 
         }
@@ -159,12 +159,12 @@ class KlondikeCore extends CardGameCore {
 
     // if(index == 0){
     //   console.log('standart');
-      // for (let i = 0; i < 7; i++) {
-      //   const howManyCardsToMove = i + 1;
-      //   const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-      //   this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-      //   cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-      // }
+    //   for (let i = 0; i < 7; i++) {
+    //     const howManyCardsToMove = i + 1;
+    //     const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+    //     this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+    //     cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+    //   }
     // }
 
 
