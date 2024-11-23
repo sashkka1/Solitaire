@@ -75,7 +75,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 10";
+    document.getElementById('new-game-button').innerHTML = "Test 1";
 
     if(checkFirstTry == 0){
       console.log('get start');
@@ -107,8 +107,7 @@ class KlondikeCore extends CardGameCore {
         console.table(this._allCards);
         console.table(storedValue);
         let colorValue,numberValue,unicodeValue,nameValue;
-        for(let i=51;i>=0;i--){
-          console.log('start', i);
+        for(let i=0;i<52;i++){
           this._allCards[i].v = storedValue[i][0];
           if(storedValue[i][0] == true){this._allCards[i].visible = true }
           this._allCards[i].p = storedValue[i][1];
@@ -141,59 +140,32 @@ class KlondikeCore extends CardGameCore {
           this._allCards[i]._suit.name = nameValue;
           this._allCards[i]._suit.color = colorValue;
           this._allCards[i]._suit.unicode = unicodeValue;
-          // console.log('this._allCards[i]', this._allCards[i], 'this._allCards[i].p',this._allCards[i].p);
+
           const div = document.getElementById(this._allCards[i].i); // Создаем div для каждой карты
-          
           div.style.backgroundImage = `./materials/Images/Front/${this._allCards[i].i + '.png'}`;
-          let cardsToMove = this.placeIdToCardArray.stock.splice(-1);
-          console.log('cardsToMove');
-          console.table(cardsToMove);
-          console.log('this._allCards[i]');
-          console.table(this._allCards[i]);
-          this.moveCards(cardsToMove, storedValue[i][1]);
-          // this._allCards[i].p = storedValue[i][1];
-          console.log('end', i);
         }
         console.table(this._allCards);
+
         console.log('all good');
         // for(let i=0;i<52;i++){
-        //     let div = document.getElementById(this._allCards[i].i);
-        //     div.style.backgroundImage = `./materials/Images/Front/${this._allCards[i].i + '.png'}`;
-
-        //     const cardsToMove = this.placeIdToCardArray.stock.splice(-1);
-        //     this.moveCards(cardsToMove, a[i]);
-            // console.table(this._allCards)
-            // let aa=2;
-            // const cardsToMove = this.placeIdToCardArray.stock.splice(-aa);
-            // console.table(cardsToMove);
-            // this.moveCards(cardsToMove, 'tableau5');
-            // this.forNewGame(this._allCards[33], 'stock', 'foundation0');
-            // this.rawMove(this._allCards[i], 'stock', a[i]);
-            // console.log('a[i]',a[i]);
-          // }
-
+        //   let cardsToMove = this.placeIdToCardArray.stock.splice(-1);
+        //   console.log('cardsToMove');
+        //   console.table(cardsToMove);
+        //   console.log('this._allCards[i]');
+        //   console.table(this._allCards[i]);
+        //   this.moveCards(cardsToMove, storedValue[i][1]);
+        //   // this._allCards[i].p = storedValue[i][1];
+        // }
+for (let i = 0; i < 7; i++) {
+        const howManyCardsToMove = i + 1;
+        const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+        this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+        cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+      }
         }
       });
     }
     checkFirstTry++;
-
-// let inn = 0;
-// for(let i=0;i<52;i++){
-//   if(inn == 4){
-//     this._allCards[i].visible = true;
-//     console.log('s');
-//     inn =0;
-//   }
-//   inn++;
-// }
-
-
-      // let a = ['stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'stock', 'tableau6', 'tableau6', 'tableau6', 'tableau6', 'tableau6', 'tableau6', 'tableau6', 'tableau5', 'tableau5', 'tableau5', 'tableau5', 'tableau5', 'tableau5', 'tableau4', 'tableau4', 'tableau4', 'tableau4', 'tableau4', 'tableau3', 'tableau3', 'tableau3', 'tableau3', 'tableau2', 'tableau2', 'tableau2', 'tableau1', 'tableau1', 'tableau0']
-      // for(let i=0;i<52;i++){
-      //   const cardsToMove = this.placeIdToCardArray.stock.splice(-1);
-      //   this.moveCards(cardsToMove, a[i]);
-      // }
-
       // for (let i = 0; i < 7; i++) {
       //   const howManyCardsToMove = i + 1;
       //   const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
