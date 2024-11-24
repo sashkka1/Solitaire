@@ -153,9 +153,9 @@ class KlondikeCore extends CardGameCore {
             console.log('i',i);
             let cardsToMove = this.placeIdToCardArray.stock.splice(-1);
 
-            let test = this._allCards[51-1].p
+            let test = this._allCards[51-i].p
 
-            console.log('cardsToMove','this._allCards[i].p',this._allCards[i].p,'stock.lenght', this.placeIdToCardArray.stock.length);
+            console.log('cardsToMove','test',test);
             console.table(cardsToMove);
             this.moveCards(cardsToMove, test);
             // this._allCards[i].p = storedValue[i][1];
