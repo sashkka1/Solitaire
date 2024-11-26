@@ -47,147 +47,148 @@ class KlondikeCore extends CardGameCore {
     console.table(this._allCards);
     if(checkFirstTry == 0){
       console.log('get start');
-      // window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
-      //   if (err) {
-      //     console.error('Error retrieving arrayCardSafe:', err);
-      //     for (let i = 0; i < 7; i++) {
-      //       const howManyCardsToMove = i + 1;
-      //       const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-      //       this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-      //       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-      //     }
-      //     return; // Exit if there's an error
-      //   }
-      //   if (storedValue === null || storedValue === undefined || storedValue === "") {
-      //     console.log('get empty');
-      //     for (let i = 0; i < 7; i++) {
-      //       const howManyCardsToMove = i + 1;
-      //       const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-      //       this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-      //       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-      //     }
-      //     return; // Exit if there's an error
-      //   }else{
-      //     console.log('storedValue good');
-      //     storedValue = JSON.parse(storedValue);
-      //     console.table(storedValue);
-      //     console.log('storedValue[45].p',storedValue[5][3]);
-      //     for(let i=0;i<52;i++){
-      //       let j=i;
-      //       for(j;j<52;j++){
-      //         if(storedValue[i][1] == storedValue[j][1] && storedValue[i][3] > storedValue[j][3]){
-      //           let a = storedValue[j];
-      //           storedValue[j] = storedValue[i];
-      //           storedValue[i] = a;
-      //           j=i;
-      //         }
-      //       }
-      //     }
-      //     console.table(storedValue);
-      //     for(let i=0;i<52;i++){
-      //       let j=0;
-      //       for(j;j<52;j++){
-      //         if(storedValue[i][2] == this._allCards[j].i){
-      //           this.rawMoveForGet(this._allCards[j], 'stock',storedValue[i][1]);
-      //             this._allCards[j].in = storedValue[i][3];
-      //             if( storedValue[i][0] == true){this._allCards[j].visible = true }
-      //         }
-      //         let sourceArray = this.placeIdToCardArray['stock'];
-      //         this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
-      //       }
-      //     }
+      window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
+        if (err) {
+          console.error('Error retrieving arrayCardSafe:', err);
+          for (let i = 0; i < 7; i++) {
+            const howManyCardsToMove = i + 1;
+            const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+            this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+            cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+          }
+          return; // Exit if there's an error
+        }
+        if (storedValue === null || storedValue === undefined || storedValue === "") {
+          console.log('get empty');
+          for (let i = 0; i < 7; i++) {
+            const howManyCardsToMove = i + 1;
+            const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+            this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+            cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+          }
+          return; // Exit if there's an error
+        }else{
+          console.log('storedValue good');
+          storedValue = JSON.parse(storedValue);
+          console.table(storedValue);
+          console.log('storedValue[45].p',storedValue[5][3]);
+          for(let i=0;i<52;i++){
+            let j=i;
+            for(j;j<52;j++){
+              if(storedValue[i][1] == storedValue[j][1] && storedValue[i][3] > storedValue[j][3]){
+                let a = storedValue[j];
+                storedValue[j] = storedValue[i];
+                storedValue[i] = a;
+                j=i;
+              }
+            }
+          }
+          console.table(storedValue);
+          for(let i=0;i<52;i++){
+            let j=0;
+            for(j;j<52;j++){
+              if(storedValue[i][2] == this._allCards[j].i){
+                this.rawMoveForGet(this._allCards[j], 'stock',storedValue[i][1]);
+                  this._allCards[j].in = storedValue[i][3];
+                  if( storedValue[i][0] == true){this._allCards[j].visible = true }
+              }
+              let sourceArray = this.placeIdToCardArray['stock'];
+              this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
+            }
+          }
 
 
-      //     // let test1 =[
-      //     //   {"_number":4,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"discard","i":17,"in":0},
-      //     //   {"_number":9,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"discard","i":22,"in":1},
-      //     //   {"_number":3,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"discard","i":16,"in":2},
-      //     //   {"_number":1,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":40,"in":3},
-      //     //   {"_number":6,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":45,"in":4},
-      //     //   {"_number":8,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"discard","i":8,"in":5},
-      //     //   {"_number":7,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":33,"in":6},
-      //     //   {"_number":2,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":41,"in":7},
-      //     //   {"_number":3,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":29,"in":8},
-      //     //   {"_number":12,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":51,"in":9},
-      //     //   {"_number":12,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":38,"in":10},
-      //     //   {"_number":10,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":49,"in":11},
-      //     //   {"_number":12,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"discard","i":12,"in":12},
-      //     //   {"_number":11,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"discard","i":11,"in":13},
-      //     //   {"_number":8,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":34,"in":14},
-      //     //   {"_number":2,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":28,"in":15},
-      //     //   {"_number":2,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"discard","i":2,"in":16},
-      //     //   {"_number":1,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"foundation2","i":27,"in":0},
-      //     //   {"_number":11,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"stock","i":50,"in":18},
-      //     //   {"_number":13,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"stock","i":26,"in":19},
-      //     //   {"_number":4,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"stock","i":43,"in":20},
-      //     //   {"_number":9,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"stock","i":9,"in":21},
-      //     //   {"_number":8,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"stock","i":21,"in":22},
-      //     //   {"_number":12,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"stock","i":25,"in":23},
-      //     //   {"_number":6,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":false,"p":"tableau6","i":32,"in":0},
-      //     //   {"_number":13,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau6","i":52,"in":1},
-      //     //   {"_number":6,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau6","i":6,"in":2},
-      //     //   {"_number":7,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau6","i":46,"in":3},
-      //     //   {"_number":9,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau6","i":48,"in":4},
-      //     //   {"_number":4,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":false,"p":"tableau6","i":30,"in":5},
-      //     //   {"_number":2,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"tableau6","i":15,"in":6},
-      //     //   {"_number":6,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"tableau5","i":19,"in":0},
-      //     //   {"_number":3,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau5","i":3,"in":1},
-      //     //   {"_number":7,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau5","i":7,"in":2},
-      //     //   {"_number":3,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau5","i":42,"in":3},
-      //     //   {"_number":10,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"tableau5","i":36,"in":4},
-      //     //   {"_number":9,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"tableau1","i":35,"in":3},
-      //     //   {"_number":5,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau4","i":44,"in":0},
-      //     //   {"_number":5,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"tableau4","i":18,"in":1},
-      //     //   {"_number":4,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau4","i":4,"in":2},
-      //     //   {"_number":1,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"tableau4","i":14,"in":3},
-      //     //   {"_number":7,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"tableau4","i":20,"in":4},
-      //     //   {"_number":13,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau3","i":13,"in":0},
-      //     //   {"_number":13,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":false,"p":"tableau3","i":39,"in":1},
-      //     //   {"_number":5,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"tableau3","i":5,"in":2},
-      //     //   {"_number":10,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"tableau2","i":10,"in":2},
-      //     //   {"_number":1,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau2","i":1,"in":0},
-      //     //   {"_number":11,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"tableau2","i":24,"in":1},
-      //     //   {"_number":8,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"tableau1","i":47,"in":4},
-      //     //   {"_number":5,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":false,"p":"tableau1","i":31,"in":0},
-      //     //   {"_number":11,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"tableau1","i":37,"in":1},
-      //     //   {"_number":10,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"tableau1","i":23,"in":2}
-      //     // ];
-      //     // for(let i=0;i<52;i++){
-      //     //   let j=i;
-      //     //   for(j;j<52;j++){
-      //     //     if(test1[i].p == test1[j].p && test1[i].in > test1[j].in){
-      //     //       let a = test1[j];
-      //     //       test1[j] = test1[i];
-      //     //       test1[i] = a;
-      //     //       j=i;
-      //     //     }
-      //     //   }
-      //     // }
-      //     // for(let i=0;i<52;i++){
-      //     //   let j=0;
-      //     //   for(j;j<52;j++){
-      //     //     if(test1[i].i == this._allCards[j].i){
-      //     //       this.rawMoveForGet(this._allCards[j], 'stock',test1[i].p);
-      //     //         this._allCards[j].in = test1[i].in;
-      //     //         if( test1[i].v == true){this._allCards[j].visible = true }
-      //     //     }
-      //     //     let sourceArray = this.placeIdToCardArray['stock'];
-      //     //     this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
-      //     //   }
-      //     // }
 
-      //   }
-      // });
+
+        }
+      });
     }
     checkFirstTry++;
-    for (let i = 0; i < 7; i++) {
-      const howManyCardsToMove = i + 1;
-      const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-      this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-      cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-    }
-      
-
+    // for (let i = 0; i < 7; i++) {
+    //   const howManyCardsToMove = i + 1;
+    //   const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+    //   this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+    //   cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+    // }
+    
+    let dlasdfkajdsk;
+// let test1 =[
+          //   {"_number":4,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"discard","i":17,"in":0},
+          //   {"_number":9,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"discard","i":22,"in":1},
+          //   {"_number":3,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"discard","i":16,"in":2},
+          //   {"_number":1,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":40,"in":3},
+          //   {"_number":6,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":45,"in":4},
+          //   {"_number":8,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"discard","i":8,"in":5},
+          //   {"_number":7,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":33,"in":6},
+          //   {"_number":2,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":41,"in":7},
+          //   {"_number":3,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":29,"in":8},
+          //   {"_number":12,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":51,"in":9},
+          //   {"_number":12,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":38,"in":10},
+          //   {"_number":10,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":49,"in":11},
+          //   {"_number":12,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"discard","i":12,"in":12},
+          //   {"_number":11,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"discard","i":11,"in":13},
+          //   {"_number":8,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":34,"in":14},
+          //   {"_number":2,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":28,"in":15},
+          //   {"_number":2,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"discard","i":2,"in":16},
+          //   {"_number":1,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"foundation2","i":27,"in":0},
+          //   {"_number":11,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"stock","i":50,"in":18},
+          //   {"_number":13,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"stock","i":26,"in":19},
+          //   {"_number":4,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"stock","i":43,"in":20},
+          //   {"_number":9,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"stock","i":9,"in":21},
+          //   {"_number":8,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"stock","i":21,"in":22},
+          //   {"_number":12,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"stock","i":25,"in":23},
+          //   {"_number":6,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":false,"p":"tableau6","i":32,"in":0},
+          //   {"_number":13,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau6","i":52,"in":1},
+          //   {"_number":6,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau6","i":6,"in":2},
+          //   {"_number":7,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau6","i":46,"in":3},
+          //   {"_number":9,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau6","i":48,"in":4},
+          //   {"_number":4,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":false,"p":"tableau6","i":30,"in":5},
+          //   {"_number":2,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"tableau6","i":15,"in":6},
+          //   {"_number":6,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"tableau5","i":19,"in":0},
+          //   {"_number":3,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau5","i":3,"in":1},
+          //   {"_number":7,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau5","i":7,"in":2},
+          //   {"_number":3,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau5","i":42,"in":3},
+          //   {"_number":10,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"tableau5","i":36,"in":4},
+          //   {"_number":9,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"tableau1","i":35,"in":3},
+          //   {"_number":5,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau4","i":44,"in":0},
+          //   {"_number":5,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"tableau4","i":18,"in":1},
+          //   {"_number":4,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau4","i":4,"in":2},
+          //   {"_number":1,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"tableau4","i":14,"in":3},
+          //   {"_number":7,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"tableau4","i":20,"in":4},
+          //   {"_number":13,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau3","i":13,"in":0},
+          //   {"_number":13,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":false,"p":"tableau3","i":39,"in":1},
+          //   {"_number":5,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"tableau3","i":5,"in":2},
+          //   {"_number":10,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"tableau2","i":10,"in":2},
+          //   {"_number":1,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau2","i":1,"in":0},
+          //   {"_number":11,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"tableau2","i":24,"in":1},
+          //   {"_number":8,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"tableau1","i":47,"in":4},
+          //   {"_number":5,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":false,"p":"tableau1","i":31,"in":0},
+          //   {"_number":11,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"tableau1","i":37,"in":1},
+          //   {"_number":10,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"tableau1","i":23,"in":2}
+          // ];
+          // for(let i=0;i<52;i++){
+          //   let j=i;
+          //   for(j;j<52;j++){
+          //     if(test1[i].p == test1[j].p && test1[i].in > test1[j].in){
+          //       let a = test1[j];
+          //       test1[j] = test1[i];
+          //       test1[i] = a;
+          //       j=i;
+          //     }
+          //   }
+          // }
+          // for(let i=0;i<52;i++){
+          //   let j=0;
+          //   for(j;j<52;j++){
+          //     if(test1[i].i == this._allCards[j].i){
+          //       this.rawMoveForGet(this._allCards[j], 'stock',test1[i].p);
+          //         this._allCards[j].in = test1[i].in;
+          //         if( test1[i].v == true){this._allCards[j].visible = true }
+          //     }
+          //     let sourceArray = this.placeIdToCardArray['stock'];
+          //     this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
+          //   }
+          // }
 let lasdfkajdsk;
       //  //  // делает видимыми карты
       // let sourcePlaceIdUltimate ='tableau';
