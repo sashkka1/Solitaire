@@ -102,15 +102,17 @@ class KlondikeCore extends CardGameCore {
 
         }
       });
+    } else{
+      for (let i = 0; i < 7; i++) {
+        const howManyCardsToMove = i + 1;
+        const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+        this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+        cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+      }
     }
     checkFirstTry++;
-    // for (let i = 0; i < 7; i++) {
-    //   const howManyCardsToMove = i + 1;
-    //   const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-    //   this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-    //   cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-    // }
-    
+
+
     let dlasdfkajdsk;
 // let test1 =[
           //   {"_number":4,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"discard","i":17,"in":0},
