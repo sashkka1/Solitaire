@@ -193,21 +193,6 @@ export class CardGameCore extends GameCore {
       cardArray[i].p = newPlaceId;
     }
 
-    if(gameIsStart > 0){
-      let b=[];
-      let f=0;
-      for(let i=0;i<this._allCards.length;i++){
-        let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
-        b[f] = a;
-        f++;
-      }
-      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-      window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
-      console.log('Set complite');
-    }
-
-
-
     this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
     
     const event = new Event('CardsMoved');
@@ -221,6 +206,19 @@ export class CardGameCore extends GameCore {
     for(let i=0;i<cardArray.length;i++){
       let sourceArray = this.placeIdToCardArray[newPlaceId];
       cardArray[i].in = sourceArray.indexOf(cardArray[i]);
+    }
+
+    if(gameIsStart > 0){
+      let b=[];
+      let f=0;
+      for(let i=0;i<this._allCards.length;i++){
+        let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
+        b[f] = a;
+        f++;
+      }
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
+      console.log('Set complite',b);
     }
   }
   
