@@ -211,6 +211,18 @@ export class CardGameCore extends GameCore {
     if(gameIsStart > 0){
       let b=[];
       let f=0;
+
+      let sourceArray = this.placeIdToCardArray[oldPlace];
+      if(sourceArray.length !== 0){
+        for(let i=0;i<52;i++){
+          if((sourceArray.length-1) == this._allCards[i].in && this._allCards[i].p == oldPlace){
+            this._allCards[i].v = true;
+            i = 52;
+          }
+        }
+      }
+
+
       for(let i=0;i<this._allCards.length;i++){
         let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
         b[f] = a;
