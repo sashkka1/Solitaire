@@ -44,6 +44,7 @@ export class Card extends EventTarget {
     this.v = false; // Изначально карта невидима
     this.p = "";
     this.i = "0";
+    this.in = "-1";
   }
 
   // Возвращает строковое представление номера карты (A, J, Q, K или число)
@@ -190,23 +191,28 @@ export class CardGameCore extends GameCore {
 
     for(let i=0;i<cardArray.length;i++){
       cardArray[i].p = newPlaceId;
+
     }
 
-    if(gameIsStart > 0){
-      let b=[];
-      let f=0;
-      for(let i=0;i<this._allCards.length;i++){
-        let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i];
-        b[f] = a;
-        f++;
-      }
-      // console.log('b');
-      // console.table(b);
-      // console.table(this._allCards);
-      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-      window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
-      console.log('Set complite');
-    }
+    // console.log('this._allCards move');
+    // console.table(this._allCards);
+    // let a =JSON.stringify(this._allCards);
+    // console.table(a);
+    // if(gameIsStart > 0){
+    //   let b=[];
+    //   let f=0;
+    //   for(let i=0;i<this._allCards.length;i++){
+    //     let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i];
+    //     b[f] = a;
+    //     f++;
+    //   }
+    //   // console.log('b');
+    //   // console.table(b);
+    //   // console.table(this._allCards);
+    //   window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+    //   window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
+    //   console.log('Set complite');
+    // }
 
 
 
@@ -220,6 +226,28 @@ export class CardGameCore extends GameCore {
       if (setStatus && this.checkWin()) {
         this.status = GameStatus.WIN; // Обновляем статус на "победа" при достижении условий
       }
+      for(let i=0;i<cardArray.length;i++){
+        let sourceArray = this.placeIdToCardArray[newPlaceId];
+        cardArray[i].in = sourceArray.indexOf(cardArray[i]);
+      }
+      // console.table(this._allCards);
+      // if(gameIsStart>0){
+      //   for(let i=0;i<52;i++){
+      //     let placeOld = this._allCards[i].p;
+      //     let idOld = this._allCards[i].in;
+      //     for(let j=0;j<52;j++){
+      //       let placeNew = this._allCards[j].p;
+      //       let idNew = this._allCards[j].in;
+      //       if(placeOld == placeNew && idOld < idNew){
+      //         // console.log("i",i,"j",j,'placeOld',placeOld,'idOld',idOld,'placeNew',placeNew,'idNew',idNew);
+      //         let a = this._allCards[j];
+      //         this._allCards[j] = this._allCards[i];
+      //         this._allCards[i] = a;
+      //       }
+      //     }
+      //   }
+      //   console.table(this._allCards);
+      // }
   }
   
 
@@ -244,7 +272,7 @@ export class CardGameCore extends GameCore {
   }
 
   // Реализует перемещение карты в новое место
-  rawMove(card, sourcePlaceId, destPlaceId) {
+  rawMove(card, sourcePlaceId, destPlaceId,) {
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.remove('lock');
 
@@ -256,6 +284,26 @@ export class CardGameCore extends GameCore {
     const moving = sourceArray.splice(index); // Извлекаем карты для перемещения
     this.moveCards(moving, destPlaceId); // Перемещаем карты
   }
+
+  rawMoveForGet(card, last, neww) {
+    console.log('index', card.in);
+    let buttonBack = document.getElementById('back-button');
+    buttonBack.classList.remove('lock');
+
+    // console.table(card);
+    // console.table(this.placeIdToCardArray[last]);
+    const sourceArray = this.placeIdToCardArray[last];
+    console.table(sourceArray);
+    const index = sourceArray.indexOf(card);
+    // console.log(index);
+    if (index === -1) {
+      throw new Error("card and sourcePlaceId don't match"); // Ошибка, если карта не найдена в указанном месте
+    }
+    const moving = sourceArray.splice(card.in,1); // Извлекаем карты для перемещения
+    // console.table(moving);
+    this.moveCards(moving, neww); // Перемещаем карты
+  }
+
 
   // Осуществляет перемещение карты с проверкой возможности
   move(card, sourcePlaceId, destPlaceId) {
@@ -469,7 +517,6 @@ export class CardGameUI extends GameUI {
   }
 
   backButton(){
-    console.table(backCard);
     if(backCard !="undefined"){
 
       if(whatChange == "stock"){
@@ -504,6 +551,27 @@ export class CardGameUI extends GameUI {
           }
         }
         this.currentGame.rawMove(backCard, newPlace, oldPlace);
+
+        let div = document.getElementById(backCard.i); // Создаем div для каждой карты
+        let url = './materials/Images/Front/';
+        // div.style.backgroundImage = `url(${url + backCard.i + '.png'})`;
+        console.log(div);
+
+
+        let test1 =[
+          {"_number":9,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":35}];
+        console.table(backCard);
+        backCard._number = test1[0]._number;
+        backCard._suit.name = test1[0]._suit.name;
+        backCard._suit.color = test1[0]._suit.color;
+        backCard._suit.unicode = test1[0]._suit.unicode;
+        backCard.v = test1[0].v;
+        backCard.p = test1[0].p;
+        backCard.i = test1[0].i;
+        if( test1[0].v == true){backCard.visible = true }
+        div = document.getElementById(backCard.i); // Создаем div для каждой карты
+        // div.style.backgroundColor = `red`;
+        console.log(div);
       }
 
 
