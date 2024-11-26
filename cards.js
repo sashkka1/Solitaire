@@ -191,63 +191,37 @@ export class CardGameCore extends GameCore {
 
     for(let i=0;i<cardArray.length;i++){
       cardArray[i].p = newPlaceId;
-
     }
 
-    // console.log('this._allCards move');
-    // console.table(this._allCards);
-    // let a =JSON.stringify(this._allCards);
-    // console.table(a);
-    // if(gameIsStart > 0){
-    //   let b=[];
-    //   let f=0;
-    //   for(let i=0;i<this._allCards.length;i++){
-    //     let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i];
-    //     b[f] = a;
-    //     f++;
-    //   }
-    //   // console.log('b');
-    //   // console.table(b);
-    //   // console.table(this._allCards);
-    //   window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-    //   window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
-    //   console.log('Set complite');
-    // }
-
-
-
-      this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
-      
-      const event = new Event('CardsMoved');
-      event.newPlaceId = newPlaceId;
-      event.cardArray = cardArray;
-      this.dispatchEvent(event); // Отправляем событие перемещения карт
-  
-      if (setStatus && this.checkWin()) {
-        this.status = GameStatus.WIN; // Обновляем статус на "победа" при достижении условий
+    if(gameIsStart > 0){
+      let b=[];
+      let f=0;
+      for(let i=0;i<this._allCards.length;i++){
+        let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
+        b[f] = a;
+        f++;
       }
-      for(let i=0;i<cardArray.length;i++){
-        let sourceArray = this.placeIdToCardArray[newPlaceId];
-        cardArray[i].in = sourceArray.indexOf(cardArray[i]);
-      }
-      // console.table(this._allCards);
-      // if(gameIsStart>0){
-      //   for(let i=0;i<52;i++){
-      //     let placeOld = this._allCards[i].p;
-      //     let idOld = this._allCards[i].in;
-      //     for(let j=0;j<52;j++){
-      //       let placeNew = this._allCards[j].p;
-      //       let idNew = this._allCards[j].in;
-      //       if(placeOld == placeNew && idOld < idNew){
-      //         // console.log("i",i,"j",j,'placeOld',placeOld,'idOld',idOld,'placeNew',placeNew,'idNew',idNew);
-      //         let a = this._allCards[j];
-      //         this._allCards[j] = this._allCards[i];
-      //         this._allCards[i] = a;
-      //       }
-      //     }
-      //   }
-      //   console.table(this._allCards);
-      // }
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
+      console.log('Set complite');
+    }
+
+
+
+    this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
+    
+    const event = new Event('CardsMoved');
+    event.newPlaceId = newPlaceId;
+    event.cardArray = cardArray;
+    this.dispatchEvent(event); // Отправляем событие перемещения карт
+
+    if (setStatus && this.checkWin()) {
+      this.status = GameStatus.WIN; // Обновляем статус на "победа" при достижении условий
+    }
+    for(let i=0;i<cardArray.length;i++){
+      let sourceArray = this.placeIdToCardArray[newPlaceId];
+      cardArray[i].in = sourceArray.indexOf(cardArray[i]);
+    }
   }
   
 

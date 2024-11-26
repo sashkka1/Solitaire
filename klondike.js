@@ -41,291 +41,125 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    // document.getElementById('new-game-button').innerHTML = "Test 9";
-    // for (let i = 0; i < 7; i++) {
-    //   const howManyCardsToMove = i + 1;
-    //   const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-    //   this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-    //   cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-    // }
-    // console.table(this._allCards);
-    // for(let i=0;i<52;i++){
-    // let div = document.getElementById(this._allCards.i); // Создаем div для каждой карты
-    // let url = './materials/Images/Front/';
-    // div.style.backgroundImage = `url(${url + this._allCards.i + '.png'})`;
-    // }
+    document.getElementById('new-game-button').innerHTML = "Test 0";
 
-    // for(let i=0;i<52;i++){
-    //   console.log('i',i);
-    //   // let cardsToMove = this.placeIdToCardArray.stock.splice(0,1);
-    //   // console.table(JSON.parse('['+JSON.stringify(stock2[i]) + ']'));
-    //   // console.table(this.placeIdToCardArray.stock.splice(0,1));
-    //   // this.rawMove(JSON.parse('['+JSON.stringify(stock2[i]) + ']'), 'stock',test1[i].p);
-    //   // this.moveCards(JSON.parse('['+JSON.stringify(stock2[i]) + ']'),test1[i].p);
-    // }
-    // console.log('this._allCards start');
-    // console.table(this._allCards);
-    // if(checkFirstTry == 0){
-    //   console.log('get start');
-    //   window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
-    //     if (err) {
-    //       console.error('Error retrieving arrayCardSafe:', err);
-    //       for (let i = 0; i < 7; i++) {
-    //         const howManyCardsToMove = i + 1;
-    //         const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-    //         this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-    //         cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-    //       }
-    //       return; // Exit if there's an error
-    //     }
-    //     if (storedValue === null || storedValue === undefined || storedValue === "") {
-    //       console.log('get empty');
-    //       for (let i = 0; i < 7; i++) {
-    //         const howManyCardsToMove = i + 1;
-    //         const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-    //         this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-    //         cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-    //       }
-    //       return; // Exit if there's an error
-    //     }else{
-    //       console.log('storedValue good');
-    //       storedValue = JSON.parse(storedValue);
+    console.log('this._allCards start');
+    console.table(this._allCards);
+    if(checkFirstTry == 0){
+      console.log('get start');
+      window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
+        if (err) {
+          console.error('Error retrieving arrayCardSafe:', err);
+          for (let i = 0; i < 7; i++) {
+            const howManyCardsToMove = i + 1;
+            const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+            this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+            cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+          }
+          return; // Exit if there's an error
+        }
+        if (storedValue === null || storedValue === undefined || storedValue === "") {
+          console.log('get empty');
+          for (let i = 0; i < 7; i++) {
+            const howManyCardsToMove = i + 1;
+            const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+            this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+            cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+          }
+          return; // Exit if there's an error
+        }else{
+          console.log('storedValue good');
+          storedValue = JSON.parse(storedValue);
+          console.table(storedValue);
 
-          // let colorValue,numberValue,unicodeValue,nameValue;
+          // let test1 =[
+          //   {"_number":4,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"discard","i":17,"in":0},
+          //   {"_number":9,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"discard","i":22,"in":1},
+          //   {"_number":3,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"discard","i":16,"in":2},
+          //   {"_number":1,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":40,"in":3},
+          //   {"_number":6,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":45,"in":4},
+          //   {"_number":8,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"discard","i":8,"in":5},
+          //   {"_number":7,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":33,"in":6},
+          //   {"_number":2,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":41,"in":7},
+          //   {"_number":3,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":29,"in":8},
+          //   {"_number":12,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":51,"in":9},
+          //   {"_number":12,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":38,"in":10},
+          //   {"_number":10,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":49,"in":11},
+          //   {"_number":12,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"discard","i":12,"in":12},
+          //   {"_number":11,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"discard","i":11,"in":13},
+          //   {"_number":8,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":34,"in":14},
+          //   {"_number":2,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":28,"in":15},
+          //   {"_number":2,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"discard","i":2,"in":16},
+          //   {"_number":1,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"foundation2","i":27,"in":0},
+          //   {"_number":11,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"stock","i":50,"in":18},
+          //   {"_number":13,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"stock","i":26,"in":19},
+          //   {"_number":4,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"stock","i":43,"in":20},
+          //   {"_number":9,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"stock","i":9,"in":21},
+          //   {"_number":8,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"stock","i":21,"in":22},
+          //   {"_number":12,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"stock","i":25,"in":23},
+          //   {"_number":6,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":false,"p":"tableau6","i":32,"in":0},
+          //   {"_number":13,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau6","i":52,"in":1},
+          //   {"_number":6,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau6","i":6,"in":2},
+          //   {"_number":7,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau6","i":46,"in":3},
+          //   {"_number":9,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau6","i":48,"in":4},
+          //   {"_number":4,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":false,"p":"tableau6","i":30,"in":5},
+          //   {"_number":2,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"tableau6","i":15,"in":6},
+          //   {"_number":6,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"tableau5","i":19,"in":0},
+          //   {"_number":3,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau5","i":3,"in":1},
+          //   {"_number":7,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau5","i":7,"in":2},
+          //   {"_number":3,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau5","i":42,"in":3},
+          //   {"_number":10,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"tableau5","i":36,"in":4},
+          //   {"_number":9,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"tableau1","i":35,"in":3},
+          //   {"_number":5,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau4","i":44,"in":0},
+          //   {"_number":5,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"tableau4","i":18,"in":1},
+          //   {"_number":4,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau4","i":4,"in":2},
+          //   {"_number":1,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"tableau4","i":14,"in":3},
+          //   {"_number":7,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"tableau4","i":20,"in":4},
+          //   {"_number":13,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau3","i":13,"in":0},
+          //   {"_number":13,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":false,"p":"tableau3","i":39,"in":1},
+          //   {"_number":5,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"tableau3","i":5,"in":2},
+          //   {"_number":10,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"tableau2","i":10,"in":2},
+          //   {"_number":1,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau2","i":1,"in":0},
+          //   {"_number":11,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"tableau2","i":24,"in":1},
+          //   {"_number":8,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"tableau1","i":47,"in":4},
+          //   {"_number":5,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":false,"p":"tableau1","i":31,"in":0},
+          //   {"_number":11,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"tableau1","i":37,"in":1},
+          //   {"_number":10,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"tableau1","i":23,"in":2}
+          // ];
           // for(let i=0;i<52;i++){
-          //   this._allCards[i].v = storedValue[i][0];
-          //   if(storedValue[i][0] == true){this._allCards[i].visible = true }
-          //   this._allCards[i].p = storedValue[i][1];
-          //   this._allCards[i].i = storedValue[i][2];
-          //   if(this._allCards[i].i >=1){
-          //     colorValue ="black";
-          //     unicodeValue = '\u2660';
-          //     nameValue ="spade";
-          //     numberValue = this._allCards[i].i;
-          //     if(this._allCards[i].i >=14){
-          //       colorValue ="red";
-          //       unicodeValue = '\u2665';
-          //       nameValue ="heart";
-          //       numberValue = this._allCards[i].i - 13;
-          //       if(this._allCards[i].i >=27){
-          //         colorValue ="black";
-          //         unicodeValue = '\u2663';
-          //         nameValue ="club";
-          //         numberValue = this._allCards[i].i - 26;
-          //         if(this._allCards[i].i >=40){
-          //           colorValue ="red";
-          //           unicodeValue = '\u2666';
-          //           nameValue ="diamond";
-          //           numberValue = this._allCards[i].i - 39;
-          //         }
-          //       }
-          //     }
-          //   }
-          //   this._allCards[i]._number = numberValue;
-          //   this._allCards[i]._suit.name = nameValue;
-          //   this._allCards[i]._suit.color = colorValue;
-          //   this._allCards[i]._suit.unicode = unicodeValue;
-
-          //   // const div = document.getElementById(this._allCards[i].i); // Создаем div для каждой карты
-          //   // div.style.backgroundImage = `./materials/Images/Front/${this._allCards[i].i + '.png'}`;
-          // }
-          // console.log('this._allCards after');
-          // console.table(JSON.stringify(this._allCards));
-          let test1 =[
-            {"_number":4,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"discard","i":17,"in":0},
-            {"_number":9,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"discard","i":22,"in":1},
-            {"_number":3,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"discard","i":16,"in":2},
-            {"_number":1,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":40,"in":3},
-            {"_number":6,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":45,"in":4},
-            {"_number":8,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"discard","i":8,"in":5},
-            {"_number":7,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":33,"in":6},
-            {"_number":2,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":41,"in":7},
-            {"_number":3,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":29,"in":8},
-            {"_number":12,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":51,"in":9},
-            {"_number":12,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":38,"in":10},
-            {"_number":10,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"discard","i":49,"in":11},
-            {"_number":12,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"discard","i":12,"in":12},
-            {"_number":11,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"discard","i":11,"in":13},
-            {"_number":8,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":34,"in":14},
-            {"_number":2,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":28,"in":15},
-            {"_number":2,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"discard","i":2,"in":16},
-            {"_number":1,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"foundation2","i":27,"in":0},
-            {"_number":11,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"stock","i":50,"in":18},
-            {"_number":13,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"stock","i":26,"in":19},
-            {"_number":4,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"stock","i":43,"in":20},
-            {"_number":9,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"stock","i":9,"in":21},
-            {"_number":8,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"stock","i":21,"in":22},
-            {"_number":12,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"stock","i":25,"in":23},
-            {"_number":6,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":false,"p":"tableau6","i":32,"in":0},
-            {"_number":13,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau6","i":52,"in":1},
-            {"_number":6,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau6","i":6,"in":2},
-            {"_number":7,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau6","i":46,"in":3},
-            {"_number":9,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau6","i":48,"in":4},
-            {"_number":4,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":false,"p":"tableau6","i":30,"in":5},
-            {"_number":2,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"tableau6","i":15,"in":6},
-            {"_number":6,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"tableau5","i":19,"in":0},
-            {"_number":3,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau5","i":3,"in":1},
-            {"_number":7,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau5","i":7,"in":2},
-            {"_number":3,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau5","i":42,"in":3},
-            {"_number":10,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"tableau5","i":36,"in":4},
-            {"_number":9,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"tableau1","i":35,"in":3},
-            {"_number":5,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":false,"p":"tableau4","i":44,"in":0},
-            {"_number":5,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"tableau4","i":18,"in":1},
-            {"_number":4,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau4","i":4,"in":2},
-            {"_number":1,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":false,"p":"tableau4","i":14,"in":3},
-            {"_number":7,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"tableau4","i":20,"in":4},
-            {"_number":13,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau3","i":13,"in":0},
-            {"_number":13,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":false,"p":"tableau3","i":39,"in":1},
-            {"_number":5,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"tableau3","i":5,"in":2},
-            {"_number":10,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":true,"p":"tableau2","i":10,"in":2},
-            {"_number":1,"_suit":{"name":"spade","color":"black","unicode":"♠"},"v":false,"p":"tableau2","i":1,"in":0},
-            {"_number":11,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"tableau2","i":24,"in":1},
-            {"_number":8,"_suit":{"name":"diamond","color":"red","unicode":"♦"},"v":true,"p":"tableau1","i":47,"in":4},
-            {"_number":5,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":false,"p":"tableau1","i":31,"in":0},
-            {"_number":11,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"tableau1","i":37,"in":1},
-            {"_number":10,"_suit":{"name":"heart","color":"red","unicode":"♥"},"v":true,"p":"tableau1","i":23,"in":2}
-          ];
-          // console.table(this.placeIdToCardArray.stock);
-          // let test2 = [];
-          // for(let i=0;i<52;i++){
-          //   test2[51-i] = test1[i];
-          // }
-          // console.table(test1);
-          // console.table(this.placeIdToCardArray.stock);
-          // for(let i=0;i<52;i++){
-          //   this._allCards[i]._number = test1[i]._number;
-          //   this._allCards[i]._suit.name = test1[i]._suit.name;
-          //   this._allCards[i]._suit.color = test1[i]._suit.color;
-          //   this._allCards[i]._suit.unicode = test1[i]._suit.unicode;
-          //   this._allCards[i].v = test1[i].v;
-          //   this._allCards[i].p = test1[i].p;
-          //   this._allCards[i].i = test1[i].i;
-          //   if( test1[i].v == true){this._allCards[i].visible = true }
-          //   const div = document.getElementById(this._allCards[i].i); // Создаем div для каждой карты
-          //   div.style.backgroundImage = `./materials/Images/Front/${this._allCards[i].i + '.png'}`;
-          // }
-          // let index=1;
-          // let stock2  = this._allCards;
-          // // this._allCards =test1;
-          // console.table(this._allCards);
-
-
-
-
-
-
-
-          // console.table(this._allCards);
-          // for(let i=0;i<52;i++){
-          //   let placeOld = this._allCards[i].p;
-          //   let idOld = this._allCards[i].in;
           //   let j=i;
           //   for(j;j<52;j++){
-          //     let placeNew = this._allCards[j].p;
-          //     let idNew = this._allCards[j].in;
-          //     if(placeOld == placeNew && idOld > idNew){
-          //       // console.log("i",i,"j",j,'placeOld',placeOld,'idOld',idOld,'placeNew',placeNew,'idNew',idNew);
-          //       let a = this._allCards[j];
-          //       this._allCards[j] = this._allCards[i];
-          //       this._allCards[i] = a;
+          //     if(test1[i].p == test1[j].p && test1[i].in > test1[j].in){
+          //       let a = test1[j];
+          //       test1[j] = test1[i];
+          //       test1[i] = a;
           //       j=i;
           //     }
           //   }
           // }
-          // console.table(this._allCards);
-
-
-          // console.table(test1);
-          for(let i=0;i<52;i++){
-            let j=i;
-            for(j;j<52;j++){
-              if(test1[i].p == test1[j].p && test1[i].in > test1[j].in){
-                let a = test1[j];
-                test1[j] = test1[i];
-                test1[i] = a;
-                j=i;
-              }
-            }
-          }
-          for(let i=0;i<52;i++){
-            let j=0;
-            for(j;j<52;j++){
-              if(test1[i].i == this._allCards[j].i){
-                console.log('this._allCards[j].in', this._allCards[j].in);
-                this.rawMoveForGet(this._allCards[j], 'stock',test1[i].p);
-                  this._allCards[j].in = test1[i].in;
-                  if( test1[i].v == true){this._allCards[j].visible = true }
-              }
-              let sourceArray = this.placeIdToCardArray['stock'];
-              this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
-            }
-
-          }
-
-
-
-
-            
-
           // for(let i=0;i<52;i++){
-          //   this.rawMoveForGet(this._allCards[i], 'stock',test1[i].p);
-          //   let div = document.getElementById(this._allCards[i].i);
-          //   // console.log(div, 'div.id',div.id,'div.style.backgroundImage',div.style.backgroundImage);
-          //   div.id = test1[i].i;
-          //   // div.style.backgroundImage = `url("./materials/Images/Front/${test1[i].i + '.png'}")`;
-          //   console.log(div, 'div.id',div.id,'div.style.backgroundImage',div.style.backgroundImage);
-          //   console.log(test1[i]);
-          //   this._allCards[i]._number = test1[i]._number;
-          //   this._allCards[i]._suit.name = test1[i]._suit.name;
-          //   this._allCards[i]._suit.color = test1[i]._suit.color;
-          //   this._allCards[i]._suit.unicode = test1[i]._suit.unicode;
-          //   this._allCards[i].v = test1[i].v;
-          //   this._allCards[i].p = test1[i].p;
-          //   this._allCards[i].i = test1[i].i;
-          //   this._allCards[i].in = test1[i].in;
-          //   if( test1[i].v == true){this._allCards[i].visible = true }
-          // }
-          // console.table(test1);
-          // console.table(this._allCards);
-          // for(let i=0;i<52;i++){
-          //   let div = document.getElementById(this._allCards[i].i);
-          //   // console.log(div, 'div.id',div.id,'div.style.backgroundImage',div.style.backgroundImage);
-          //   div.id = test1[i].i;
-          //   div.style.backgroundImage = `url("./materials/Images/Front/${test1[i].i + '.png'}")`;
-          //   console.log(div, 'div.id',div.id,'div.style.backgroundImage',div.style.backgroundImage);
-          //   console.log(test1[i]);
-          //   this._allCards[i]._number = test1[i]._number;
-          //   this._allCards[i]._suit.name = test1[i]._suit.name;
-          //   this._allCards[i]._suit.color = test1[i]._suit.color;
-          //   this._allCards[i]._suit.unicode = test1[i]._suit.unicode;
-          //   this._allCards[i].v = test1[i].v;
-          //   this._allCards[i].p = test1[i].p;
-          //   this._allCards[i].i = test1[i].i;
-          //   this._allCards[i].in = test1[i].in;
-          //   if( test1[i].v == true){this._allCards[i].visible = true }
-          // }
-          
-
-
-
-          // for(let i=0;i<52;i++){
-          //     const div = document.getElementById(this._allCards[i].i); // Создаем div для каждой карты
-          // //     console.log(div);
-          //     div.style.backgroundImage = './materials/Images/Back/back_pattern_1.png';
+          //   let j=0;
+          //   for(j;j<52;j++){
+          //     if(test1[i].i == this._allCards[j].i){
+          //       this.rawMoveForGet(this._allCards[j], 'stock',test1[i].p);
+          //         this._allCards[j].in = test1[i].in;
+          //         if( test1[i].v == true){this._allCards[j].visible = true }
+          //     }
+          //     let sourceArray = this.placeIdToCardArray['stock'];
+          //     this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
+          //   }
           // }
 
-    //     }
-    //   });
-    // }
-    // checkFirstTry++;
-    //   for (let i = 0; i < 7; i++) {
-    //     const howManyCardsToMove = i + 1;
-    //     const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-    //     this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-    //     cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-    //   }
-    //   console.log('this._allCards start');
-    // console.table(this._allCards);
+        }
+      });
+    }
+    checkFirstTry++;
+    for (let i = 0; i < 7; i++) {
+      const howManyCardsToMove = i + 1;
+      const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+      this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+      cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+    }
       
 
 let lasdfkajdsk;
