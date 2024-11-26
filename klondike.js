@@ -71,11 +71,11 @@ class KlondikeCore extends CardGameCore {
           console.log('storedValue good');
           storedValue = JSON.parse(storedValue);
           console.table(storedValue);
-          console.log('storedValue[5].p',storedValue[5].p);
+          console.log('storedValue[45].p',storedValue[5][3]);
           for(let i=0;i<52;i++){
             let j=i;
             for(j;j<52;j++){
-              if(storedValue[i].p == storedValue[j].p && storedValue[i].in > storedValue[j].in){
+              if(storedValue[i][1] == storedValue[j][1] && storedValue[i][3] > storedValue[j][3]){
                 let a = storedValue[j];
                 storedValue[j] = storedValue[i];
                 storedValue[i] = a;
@@ -87,10 +87,10 @@ class KlondikeCore extends CardGameCore {
           for(let i=0;i<52;i++){
             let j=0;
             for(j;j<52;j++){
-              if(storedValue[i].i == this._allCards[j].i){
-                this.rawMoveForGet(this._allCards[j], 'stock',storedValue[i].p);
-                  this._allCards[j].in = storedValue[i].in;
-                  if( storedValue[i].v == true){this._allCards[j].visible = true }
+              if(storedValue[i][2] == this._allCards[j].i){
+                this.rawMoveForGet(this._allCards[j], 'stock',storedValue[i][1]);
+                  this._allCards[j].in = storedValue[i][3];
+                  if( storedValue[i][0] == true){this._allCards[j].visible = true }
               }
               let sourceArray = this.placeIdToCardArray['stock'];
               this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
