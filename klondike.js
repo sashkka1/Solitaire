@@ -103,6 +103,7 @@ class KlondikeCore extends CardGameCore {
         }
       });
     } else{
+      console.log('normal start');
       for (let i = 0; i < 7; i++) {
         const howManyCardsToMove = i + 1;
         const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока

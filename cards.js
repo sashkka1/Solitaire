@@ -203,6 +203,8 @@ export class CardGameCore extends GameCore {
     if (setStatus && this.checkWin()) {
       this.status = GameStatus.WIN; // Обновляем статус на "победа" при достижении условий
     }
+    console.log('this._allCards start');
+    console.table(this._allCards);
     for(let i=0;i<cardArray.length;i++){
       let sourceArray = this.placeIdToCardArray[newPlaceId];
       cardArray[i].in = sourceArray.indexOf(cardArray[i]);
@@ -270,14 +272,14 @@ export class CardGameCore extends GameCore {
   }
 
   rawMoveForGet(card, last, neww) {
-    console.log('index', card.in);
+    // console.log('index', card.in);
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.remove('lock');
 
     // console.table(card);
     // console.table(this.placeIdToCardArray[last]);
     const sourceArray = this.placeIdToCardArray[last];
-    console.table(sourceArray);
+    // console.table(sourceArray);
     const index = sourceArray.indexOf(card);
     // console.log(index);
     if (index === -1) {
