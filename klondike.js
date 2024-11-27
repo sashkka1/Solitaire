@@ -41,7 +41,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 0";
+    document.getElementById('new-game-button').innerHTML = "Test 1";
 
     console.log('this._allCards start');
     console.table(this._allCards);
@@ -83,8 +83,8 @@ class KlondikeCore extends CardGameCore {
               }
             }
           }
-          // console.log('storedValue sort');
-          // console.table(storedValue);
+          console.log('storedValue sort');
+          console.table(storedValue);
           // console.log('this._allCards sort');
           // console.table(this._allCards);
           for(let i=0;i<52;i++){
@@ -92,18 +92,18 @@ class KlondikeCore extends CardGameCore {
             for(j;j<52;j++){
               let sourceArray = this.placeIdToCardArray['stock'];
               this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
-              console.log('get 1 in',this._allCards[i].in);
+              // console.log('get 1 in',this._allCards[j].in);
               if(storedValue[i][2] == this._allCards[j].i){
                 this.rawMoveForGet(this._allCards[j], 'stock',storedValue[i][1]);
                 this._allCards[j].in = storedValue[i][3];
                 if( storedValue[i][0] == true){this._allCards[j].visible = true }
-                console.log('get 2 in',this._allCards[i].in);
+                // console.log('get 2 in',this._allCards[j].in,'storedValue[i][3]',storedValue[i][3]);
               }
 
             }
           }
-          // console.log('this._allCards after ');
-          // console.table(this._allCards);
+          console.log('this._allCards after ');
+          console.table(this._allCards);
 
 
 
@@ -459,6 +459,22 @@ class KlondikeUI extends CardGameUI {
     }
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.remove('lock');
+
+    if(gameIsStart > 0){
+      let b=[];
+      let f=0;
+
+      for(let i=0;i<this._allCards.length;i++){
+        let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
+        b[f] = a;
+        f++;
+      }
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
+      console.log('Stock complite');
+      console.table(b);
+    }
+
   }
 
   // Обработка правого клика на карту или игровое поле
