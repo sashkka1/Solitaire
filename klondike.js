@@ -68,7 +68,7 @@ class KlondikeCore extends CardGameCore {
           }
           return; // Exit if there's an error
         }else{
-          console.log('storedValue good');
+          console.log('storedValue');
           storedValue = JSON.parse(storedValue);
           console.table(storedValue);
           console.log('storedValue[45].p',storedValue[5][3]);
@@ -83,6 +83,7 @@ class KlondikeCore extends CardGameCore {
               }
             }
           }
+          console.log('storedValue sort');
           console.table(storedValue);
           for(let i=0;i<52;i++){
             let j=0;
@@ -96,7 +97,8 @@ class KlondikeCore extends CardGameCore {
               this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
             }
           }
-
+          console.log('this._allCards after ');
+          console.table(this._allCards);
 
 
 

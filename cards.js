@@ -203,10 +203,11 @@ export class CardGameCore extends GameCore {
     if (setStatus && this.checkWin()) {
       this.status = GameStatus.WIN; // Обновляем статус на "победа" при достижении условий
     }
-    console.log('this._allCards start');
+    console.log('moveCards start');
     console.table(this._allCards);
+    console.log('newPlaceId',newPlaceId,'cardArray[0].p',cardArray[0].p);
     for(let i=0;i<cardArray.length;i++){
-      let sourceArray = this.placeIdToCardArray[newPlaceId];
+      let sourceArray = this.placeIdToCardArray[cardArray[0].p];
       cardArray[i].in = sourceArray.indexOf(cardArray[i]);
     }
 
