@@ -207,10 +207,8 @@ export class CardGameCore extends GameCore {
     for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
-      console.log('moveCards in',this._allCards[i].in);
     }
-    console.log('moveCards end');
-    console.table(this._allCards);
+
 
     if(gameIsStart > 0){ // сохранение в тг клаудстор
       let b=[];
@@ -464,7 +462,7 @@ export class CardGameUI extends GameUI {
           if(i==0){
           }
           else{
-            window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+            // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
             this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
             this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
             this.currentGame.deal(); // Начало игры (раздача карт)
