@@ -85,6 +85,8 @@ class KlondikeCore extends CardGameCore {
           }
           console.log('storedValue sort');
           console.table(storedValue);
+          console.log('this._allCards sort');
+          console.table(this._allCards);
           for(let i=0;i<52;i++){
             let j=0;
             for(j;j<52;j++){
