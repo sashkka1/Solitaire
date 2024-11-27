@@ -363,20 +363,6 @@ class KlondikeUI extends CardGameUI {
     }
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.remove('lock');
-
-    if(gameIsStart > 0){// реализация сохраниения положения карт при клике на сток
-      let b=[];
-      let f=0;
-
-      for(let i=0;i<this._allCards.length;i++){
-        let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
-        b[f] = a;
-        f++;
-      }
-      // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-      window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
-    }
-
   }
 
   // Обработка правого клика на карту или игровое поле
