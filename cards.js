@@ -216,8 +216,11 @@ export class CardGameCore extends GameCore {
     for(let i=0;i<52;i++){
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
-      console.log('newPlaceId',newPlaceId,'cardArray[0].p',cardArray[0].p,'sourceArray.indexOf(cardArray[i])',sourceArray.indexOf(cardArray[i]));
+      console.log('sourceArray.indexOf(cardArray[i])',sourceArray.indexOf(cardArray[i]),'this._allCards[i].in',this._allCards[i].in);
     }
+    console.log('moveCards end');
+    console.table(this._allCards);
+
     if(gameIsStart > 0){
       let b=[];
       let f=0;
@@ -231,7 +234,6 @@ export class CardGameCore extends GameCore {
           }
         }
       }
-
 
       for(let i=0;i<this._allCards.length;i++){
         let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
