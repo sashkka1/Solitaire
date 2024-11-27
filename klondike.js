@@ -41,7 +41,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 5";
+    document.getElementById('new-game-button').innerHTML = "Test 6";
 
     console.log('this._allCards start');
     console.table(this._allCards);
@@ -85,18 +85,18 @@ class KlondikeCore extends CardGameCore {
           }
           console.log('storedValue sort');
           console.table(storedValue);
-          // for(let i=0;i<52;i++){
+          for(let i=0;i<52;i++){
             let j=0;
             for(j;j<52;j++){
-              if(storedValue[i][2] == this._allCards[j].i){
-                this.rawMoveForGet(this._allCards[j], 'stock',storedValue[i][1]);
-                  this._allCards[j].in = storedValue[i][3];
-                  if( storedValue[i][0] == true){this._allCards[j].visible = true }
-              }
               let sourceArray = this.placeIdToCardArray['stock'];
               this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
+              if(storedValue[i][2] == this._allCards[j].i){
+                this.rawMoveForGet(this._allCards[j], 'stock',storedValue[i][1]);
+                this._allCards[j].in = storedValue[i][3];
+                if( storedValue[i][0] == true){this._allCards[j].visible = true }
+              }
             }
-          // }
+          }
           console.log('this._allCards after ');
           console.table(this._allCards);
 
