@@ -203,8 +203,8 @@ export class CardGameCore extends GameCore {
     if (setStatus && this.checkWin()) {
       this.status = GameStatus.WIN; // Обновляем статус на "победа" при достижении условий
     }
-    console.log('moveCards start');
-    console.table(this._allCards);
+    // console.log('moveCards start');
+    // console.table(this._allCards);
     // console.log('newPlaceId',newPlaceId,'cardArray[0].p',cardArray[0].p);
     // for(let i=0;i<cardArray.length;i++){
     //   let sourceArray = this.placeIdToCardArray[cardArray[0].p];
@@ -216,10 +216,10 @@ export class CardGameCore extends GameCore {
     for(let i=0;i<52;i++){
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
-      console.log('indexOf(this._allCards[i])',sourceArray.indexOf(this._allCards[i]),'this._allCards[i].in',this._allCards[i].in);
+      console.log('moveCards in',this._allCards[i].in);
     }
-    console.log('moveCards end');
-    console.table(this._allCards);
+    // console.log('moveCards end');
+    // console.table(this._allCards);
 
     if(gameIsStart > 0){
       let b=[];
@@ -239,10 +239,11 @@ export class CardGameCore extends GameCore {
         let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
         b[f] = a;
         f++;
+        console.log('moveCards new array in',this._allCards[i].in);
       }
       window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
-      console.log('Set complite',b);
+      // console.log('Set complite',b);
     }
   }
   
