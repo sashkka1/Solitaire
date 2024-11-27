@@ -189,7 +189,7 @@ export class CardGameCore extends GameCore {
   // Перемещает карты в новое место и проверяет статус игры
   moveCards(cardArray, newPlaceId, setStatus = true) {
 
-    for(let i=0;i<cardArray.length;i++){
+    for(let i=0;i<cardArray.length;i++){// актуализвация положения карты
       cardArray[i].p = newPlaceId;
     }
 
@@ -204,7 +204,7 @@ export class CardGameCore extends GameCore {
       this.status = GameStatus.WIN; // Обновляем статус на "победа" при достижении условий
     }
 
-    for(let i=0;i<52;i++){
+    for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
       console.log('moveCards in',this._allCards[i].in);
@@ -212,12 +212,12 @@ export class CardGameCore extends GameCore {
     console.log('moveCards end');
     console.table(this._allCards);
 
-    if(gameIsStart > 0){
+    if(gameIsStart > 0){ // сохранение в тг клаудстор
       let b=[];
       let f=0;
 
       let sourceArray = this.placeIdToCardArray[oldPlace];
-      if(sourceArray.length !== 0){
+      if(sourceArray.length !== 0){ // если последнее действие открывает карту
         for(let i=0;i<52;i++){
           if((sourceArray.length-1) == this._allCards[i].in && this._allCards[i].p == oldPlace){
             this._allCards[i].v = true;
@@ -230,12 +230,9 @@ export class CardGameCore extends GameCore {
         let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
         b[f] = a;
         f++;
-        // console.log('moveCards new array in',this._allCards[i].in);
       }
       window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
-      console.log('Set complite');
-      console.table(b);
     }
   }
   
@@ -274,22 +271,16 @@ export class CardGameCore extends GameCore {
     this.moveCards(moving, destPlaceId); // Перемещаем карты
   }
 
-  rawMoveForGet(card, last, neww) {
-    // console.log('index', card.in);
+  rawMoveForGet(card, last, neww) { // для реализации перемещения карт при возврате их из тг клаудстор
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.remove('lock');
 
-    // console.table(card);
-    // console.table(this.placeIdToCardArray[last]);
     const sourceArray = this.placeIdToCardArray[last];
-    // console.table(sourceArray);
     const index = sourceArray.indexOf(card);
-    // console.log(index);
     if (index === -1) {
       throw new Error("card and sourcePlaceId don't match"); // Ошибка, если карта не найдена в указанном месте
     }
     const moving = sourceArray.splice(card.in,1); // Извлекаем карты для перемещения
-    // console.table(moving);
     this.moveCards(moving, neww); // Перемещаем карты
   }
 
@@ -473,6 +464,7 @@ export class CardGameUI extends GameUI {
           if(i==0){
           }
           else{
+            window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
             this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
             this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
             this.currentGame.deal(); // Начало игры (раздача карт)
