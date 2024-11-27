@@ -207,11 +207,16 @@ export class CardGameCore extends GameCore {
     console.table(this._allCards);
     // console.log('newPlaceId',newPlaceId,'cardArray[0].p',cardArray[0].p);
     for(let i=0;i<cardArray.length;i++){
-      console.log('newPlaceId',newPlaceId,'cardArray[0].p',cardArray[0].p,'sourceArray.indexOf(cardArray[i])',sourceArray.indexOf(cardArray[i]));
       let sourceArray = this.placeIdToCardArray[cardArray[0].p];
       cardArray[i].in = sourceArray.indexOf(cardArray[i]);
+      console.log('newPlaceId',newPlaceId,'cardArray[0].p',cardArray[0].p,'sourceArray.indexOf(cardArray[i])',sourceArray.indexOf(cardArray[i]));
+
     }
 
+    // for(let i=0;i<52;i++){
+    //   let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
+    //   this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
+    // }
     if(gameIsStart > 0){
       let b=[];
       let f=0;
