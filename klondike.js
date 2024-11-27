@@ -373,7 +373,7 @@ class KlondikeUI extends CardGameUI {
         b[f] = a;
         f++;
       }
-      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
     }
 

@@ -229,7 +229,7 @@ export class CardGameCore extends GameCore {
         b[f] = a;
         f++;
       }
-      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
     }
   }
