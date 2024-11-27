@@ -85,7 +85,7 @@ class KlondikeCore extends CardGameCore {
           }
           console.log('storedValue sort');
           console.table(storedValue);
-          for(let i=0;i<52;i++){
+          // for(let i=0;i<52;i++){
             let j=0;
             for(j;j<52;j++){
               if(storedValue[i][2] == this._allCards[j].i){
@@ -96,7 +96,7 @@ class KlondikeCore extends CardGameCore {
               let sourceArray = this.placeIdToCardArray['stock'];
               this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
             }
-          }
+          // }
           console.log('this._allCards after ');
           console.table(this._allCards);
 
