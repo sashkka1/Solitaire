@@ -457,19 +457,18 @@ export class CardGameUI extends GameUI {
         elements.classList.add('normal');
         let block = document.getElementById('check-desire-button-ok');
         block.addEventListener('click', () => {
-          i++
+          gameIsStart=0;
+          console.log('New game2');
+          window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
           let elements = document.getElementById("check-desire-box");
           elements.classList.remove('normal');
-            this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
-            this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
-            this.currentGame.deal(); // Начало игры (раздача карт)
-            super.newGame(); // Вызов метода newGame() родительского класса
-            this.currentGame.stockCurrentDefolt();
-            autocomplete.classList.remove('normal-auto');
-            buttonPlace.classList.add('normal');
-            console.log('New game2');
-            window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-            gameIsStart=0;
+          this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
+          this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
+          this.currentGame.deal(); // Начало игры (раздача карт)
+          super.newGame(); // Вызов метода newGame() родительского класса
+          this.currentGame.stockCurrentDefolt();
+          autocomplete.classList.remove('normal-auto');
+          buttonPlace.classList.add('normal');
         });
       }
     }
