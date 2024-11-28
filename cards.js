@@ -443,8 +443,6 @@ export class CardGameUI extends GameUI {
       buttonPlace.classList.add('normal');
     }else{
       if(gameIsStart ==0){ // изменений нет, просто начинаем новую
-        console.log('New game1');
-        window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
         this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
         this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
         this.currentGame.deal(); // Начало игры (раздача карт)
@@ -452,20 +450,16 @@ export class CardGameUI extends GameUI {
         this.currentGame.stockCurrentDefolt();
         autocomplete.classList.remove('normal-auto');
         buttonPlace.classList.add('normal');
+        console.log('New game1');
+        window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       }else{
         let elements = document.getElementById("check-desire-box");
         elements.classList.add('normal');
-        // let i =0;
         let block = document.getElementById('check-desire-button-ok');
         block.addEventListener('click', () => {
-          console.log('New game2');
-          window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
           i++
           let elements = document.getElementById("check-desire-box");
           elements.classList.remove('normal');
-          // if(i==0){
-          // }
-          // else{
             this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
             this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
             this.currentGame.deal(); // Начало игры (раздача карт)
@@ -473,9 +467,9 @@ export class CardGameUI extends GameUI {
             this.currentGame.stockCurrentDefolt();
             autocomplete.classList.remove('normal-auto');
             buttonPlace.classList.add('normal');
-            // i=0
+            console.log('New game2');
+            window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
             gameIsStart=0;
-          // }
         });
       }
     }
