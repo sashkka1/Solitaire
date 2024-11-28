@@ -462,7 +462,7 @@ export class CardGameUI extends GameUI {
           if(i==0){
           }
           else{
-            // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+            window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
             this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
             this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
             this.currentGame.deal(); // Начало игры (раздача карт)
