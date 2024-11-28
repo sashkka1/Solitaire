@@ -442,6 +442,8 @@ export class CardGameUI extends GameUI {
       autocomplete.classList.remove('normal-auto');
       buttonPlace.classList.add('normal');
     }else{
+      console.log('New game1');
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       if(gameIsStart ==0){ // изменений нет, просто начинаем новую
         this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
         this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
