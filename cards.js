@@ -188,7 +188,6 @@ export class CardGameCore extends GameCore {
 
   // Перемещает карты в новое место и проверяет статус игры
   moveCards(cardArray, newPlaceId, setStatus = true) {
-
     for(let i=0;i<cardArray.length;i++){// актуализвация положения карты
       cardArray[i].p = newPlaceId;
     }
@@ -231,6 +230,7 @@ export class CardGameCore extends GameCore {
       }
       // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
+      console.log("Save good");
     }
   }
   
