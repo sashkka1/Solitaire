@@ -218,11 +218,9 @@ export class CardGameCore extends GameCore {
           }
         }
       }
-      let asdf = this.placeIdToCardArray['discard']
-      if((asdf.length-1) >=0){
-        console.log(asdf[asdf.length-1].visible);
+      let asdf = this.placeIdToCardArray['discard'];
+      if((this.placeIdToCardArray['discard'].length-1) >=0){
         asdf[asdf.length-1].visible=true;
-        console.log(asdf[asdf.length-1].visible);
       }
 
       for(let i=0;i<this._allCards.length;i++){
@@ -234,7 +232,7 @@ export class CardGameCore extends GameCore {
       // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
       // localStorage.setItem("saveCard", JSON.stringify(b));
-      console.log("Save good");
+      // console.log("Save good");
       // console.table(b);
     }
   }
@@ -460,7 +458,6 @@ export class CardGameUI extends GameUI {
         this.currentGame.stockCurrentDefolt();
         autocomplete.classList.remove('normal-auto');
         buttonPlace.classList.add('normal');
-        console.log('New game1');
         window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       }else{
         let elements = document.getElementById("check-desire-box");
@@ -468,7 +465,6 @@ export class CardGameUI extends GameUI {
         let block = document.getElementById('check-desire-button-ok');
         block.addEventListener('click', () => {
           gameIsStart=0;
-          console.log('New game2');
           window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
           let elements = document.getElementById("check-desire-box");
           elements.classList.remove('normal');

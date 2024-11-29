@@ -38,13 +38,12 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 7";
+    // document.getElementById('new-game-button').innerHTML = "Test 7";
     for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
     }
     if(checkFirstTry == 0){
-      
       console.log('get start');
       window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
         if (storedValue === null || storedValue === undefined || storedValue === "") {
@@ -58,7 +57,6 @@ class KlondikeCore extends CardGameCore {
           return; // Exit if there's an error
         }else{
           console.log('get good');
-          // console.table(storedValue);
           storedValue = JSON.parse(storedValue);
           // console.table(storedValue);
           for(let i=0;i<52;i++){ // упорядочивание элементов в массиве по убыванию для того чтобы корректно дальше выводил
