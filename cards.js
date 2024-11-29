@@ -188,6 +188,7 @@ export class CardGameCore extends GameCore {
 
   // Перемещает карты в новое место и проверяет статус игры
   moveCards(cardArray, newPlaceId, setStatus = true) {
+    console.log('moveCards1');
     for(let i=0;i<cardArray.length;i++){// актуализвация положения карты
       cardArray[i].p = newPlaceId;
     }
@@ -198,7 +199,7 @@ export class CardGameCore extends GameCore {
     event.newPlaceId = newPlaceId;
     event.cardArray = cardArray;
     this.dispatchEvent(event); // Отправляем событие перемещения карт
-
+    console.log('moveCards2');
     if (setStatus && this.checkWin()) {
       this.status = GameStatus.WIN; // Обновляем статус на "победа" при достижении условий
     }
@@ -206,9 +207,10 @@ export class CardGameCore extends GameCore {
     for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
+      console.log('moveCards3');
     }
 
-
+    console.log('moveCards4');
     if(gameIsStart > 0){ // сохранение в тг клаудстор
       let b=[];
       let f=0;
@@ -272,14 +274,16 @@ export class CardGameCore extends GameCore {
   rawMoveForGet(card, last, neww) { // для реализации перемещения карт при возврате их из тг клаудстор
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.remove('lock');
-
+console.log('rawMoveForGet1');
     const sourceArray = this.placeIdToCardArray[last];
     const index = sourceArray.indexOf(card);
     if (index === -1) {
       throw new Error("card and sourcePlaceId don't match"); // Ошибка, если карта не найдена в указанном месте
     }
     const moving = sourceArray.splice(card.in,1); // Извлекаем карты для перемещения
+    console.log('rawMoveForGet2');
     this.moveCards(moving, neww); // Перемещаем карты
+    console.log('rawMoveForGet3');
   }
 
 

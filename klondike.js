@@ -41,7 +41,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 1";
+    document.getElementById('new-game-button').innerHTML = "Test 2";
 
     if(checkFirstTry == 0){
       console.log('get start');
@@ -87,10 +87,10 @@ class KlondikeCore extends CardGameCore {
               let sourceArray = this.placeIdToCardArray['stock'];
               this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
               if(storedValue[i][2] == this._allCards[j].i){
-                console.log(this._allCards[j],'this._allCards[j]',storedValue[i][1],'storedValue[i][1]');
-                this.rawMoveForGet(this._allCards[j], 'stock',storedValue[i][1]);
                 this._allCards[j].in = storedValue[i][3];
                 if( storedValue[i][0] == true){this._allCards[j].visible = true }
+                this.rawMoveForGet(this._allCards[j], 'stock',storedValue[i][1]);
+                console.log(this._allCards[j],'this._allCards[j]',storedValue[i][1],'storedValue[i][1]');
               }
             }
           }
@@ -190,7 +190,6 @@ class KlondikeCore extends CardGameCore {
 
   rawMoveForGet(card, sourcePlaceId, destPlaceId) { // переопределение rawMove для реализации разложения полученных из тг клаудстор карт
     super.rawMoveForGet(card, sourcePlaceId, destPlaceId);
-    const sourceArray = this.placeIdToCardArray[sourcePlaceId];
     if(autoVisible == 0){
       let block = document.getElementById('check-autocomplete-button');
       block.classList.add('normal-auto');
