@@ -83,7 +83,9 @@ class KlondikeCore extends CardGameCore {
           console.table(storedValue);
           for(let i=0;i<52;i++){ // непосредственно разложение карт после получения и изменения данных карт на новые
             let j=0;
+            console.log('for i',i);
             for(j;j<52;j++){
+              console.log('for j1',j);
               let sourceArray = this.placeIdToCardArray['stock'];
               this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
               if(storedValue[i][2] == this._allCards[j].i){
@@ -92,6 +94,7 @@ class KlondikeCore extends CardGameCore {
                 this.rawMoveForGet(this._allCards[j], 'stock',storedValue[i][1]);
                 console.log(this._allCards[j],'this._allCards[j]',storedValue[i][1],'storedValue[i][1]');
               }
+              console.log('for j2',j);
             }
           }
         }
