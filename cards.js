@@ -218,9 +218,12 @@ export class CardGameCore extends GameCore {
           }
         }
       }
-      console.log((this.placeIdToCardArray['discard'].length-1).visible);
-      (this.placeIdToCardArray['discard'].length-1).visible=true;
-      console.log((this.placeIdToCardArray['discard'].length-1).visible);
+      if((this.placeIdToCardArray['discard'].length-1) >0){
+        console.log((this.placeIdToCardArray['discard'].length-1).visible);
+        (this.placeIdToCardArray['discard'].length-1).visible=true;
+        console.log((this.placeIdToCardArray['discard'].length-1).visible);
+      }
+
       for(let i=0;i<this._allCards.length;i++){
         if( this._allCards[i].v == true){this._allCards[i].visible = true }
         let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
