@@ -2,7 +2,6 @@
 import { GameStatus } from './game.js';
 import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js';
 
-
 let i =0;
 
 
@@ -10,8 +9,6 @@ let i =0;
 let autoVisible = 1;
 let stockCurrent = 1;
 let checkFirstTry =0;
-
-
 
 
 // Создаем класс ядра игры для пасьянса Клондайк, наследуя CardGameCore
@@ -41,21 +38,15 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 5";
-
+    document.getElementById('new-game-button').innerHTML = "Test 6";
+    for(let i=0;i<52;i++){ // актуализация индекса карты
+      let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
+      this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
+    }
     if(checkFirstTry == 0){
+      
       console.log('get start');
       window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
-        if (err) {
-          console.error('Error retrieving arrayCardSafe:', err);
-          for (let i = 0; i < 7; i++) {
-            const howManyCardsToMove = i + 1;
-            const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-            this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-            cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-          }
-          return; // Exit if there's an error
-        }
         if (storedValue === null || storedValue === undefined || storedValue === "") {
           console.log('get empty');
           for (let i = 0; i < 7; i++) {
@@ -69,6 +60,7 @@ class KlondikeCore extends CardGameCore {
           console.log('get good');
           console.table(storedValue);
           storedValue = JSON.parse(storedValue);
+          console.table(storedValue);
           for(let i=0;i<52;i++){ // упорядочивание элементов в массиве по убыванию для того чтобы корректно дальше выводил
             let j=i;
             for(j;j<52;j++){
@@ -80,29 +72,17 @@ class KlondikeCore extends CardGameCore {
               }
             }
           }
-          console.table(storedValue);
           for(let i=0;i<52;i++){ // непосредственно разложение карт после получения и изменения данных карт на новые
             let j=0;
-            // console.log('for i',i);
             for(j;j<52;j++){
-              // console.log('for j1',j);
               let sourceArray = this.placeIdToCardArray['stock'];
               this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
               if(storedValue[i][2] == this._allCards[j].i){
                 this.rawMoveForGet(this._allCards[j], 'stock',storedValue[i][1]);
-                // console.log('new in 2',this._allCards[j].in);
                 this._allCards[j].in = storedValue[i][3];
-                // console.log('new in 3',this._allCards[j].in);
                 if( storedValue[i][0] == true){this._allCards[j].visible = true }
-                console.log(this._allCards[j],'this._allCards[j]',storedValue[i][1],'storedValue[i][1]');
               }
-              // console.log('for j2',j);
             }
-          }
-          for(let i=0;i<52;i++){ // актуализация индекса карты
-            let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
-            this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
-            console.log('new in 2',this._allCards[i].in);
           }
         }
       });

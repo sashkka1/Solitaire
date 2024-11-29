@@ -1,6 +1,5 @@
 // Импортируем модули GameCore, GameStatus и GameUI из файла game.js
 import { GameCore, GameStatus, GameUI} from './game.js';
-
 // Определяем масти карт с их свойствами (имя, цвет и unicode-символ)
 export const SUITS = [
   { name: 'spade', color: 'black', unicode: '\u2660'},
@@ -14,7 +13,7 @@ let oldPlace, newPlace, backCard, whatChange, beforeVisible, oldId;
 let gameIsStart = 0;
 let gameIsStart2 = 0;
 let block;
-
+// let b =0;
 let aa =0, aaa;
 
 
@@ -188,7 +187,6 @@ export class CardGameCore extends GameCore {
 
   // Перемещает карты в новое место и проверяет статус игры
   moveCards(cardArray, newPlaceId, setStatus = true) {
-    // console.log('moveCards1');
     for(let i=0;i<cardArray.length;i++){// актуализвация положения карты
       cardArray[i].p = newPlaceId;
     }
@@ -199,7 +197,6 @@ export class CardGameCore extends GameCore {
     event.newPlaceId = newPlaceId;
     event.cardArray = cardArray;
     this.dispatchEvent(event); // Отправляем событие перемещения карт
-    // console.log('moveCards2');
     if (setStatus && this.checkWin()) {
       this.status = GameStatus.WIN; // Обновляем статус на "победа" при достижении условий
     }
@@ -207,10 +204,7 @@ export class CardGameCore extends GameCore {
     for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
-      console.log('new in 1',this._allCards[i].in);
-      // console.log('moveCards3');
     }
-    // console.log('moveCards4');
     if(gameIsStart > 0){ // сохранение в тг клаудстор
       let b=[];
       let f=0;
@@ -226,27 +220,19 @@ export class CardGameCore extends GameCore {
       }
 
       for(let i=0;i<this._allCards.length;i++){
+        if( this._allCards[i].v == true){this._allCards[i].visible = true }
         let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
         b[f] = a;
         f++;
       }
       // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
+      // localStorage.setItem("saveCard", JSON.stringify(b));
       console.log("Save good");
+      console.table(b);
     }
   }
 
-  moveCardsForGet(cardArray, newPlaceId, setStatus = true){
-    this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
-    console.log('moveCardsForGet');
-    const event = new Event('CardsMoved');
-    event.newPlaceId = newPlaceId;
-    event.cardArray = cardArray;
-    this.dispatchEvent(event); // Отправляем событие перемещения карт
-    if (setStatus && this.checkWin()) {
-      this.status = GameStatus.WIN; // Обновляем статус на "победа" при достижении условий
-    }
-  }
   
   
 
@@ -290,13 +276,13 @@ export class CardGameCore extends GameCore {
 // console.log('rawMoveForGet1');
     const sourceArray = this.placeIdToCardArray[last];
     const index = sourceArray.indexOf(card);
-    console.log(index,'index',sourceArray,'sourceArray');
+    // console.log(index,'index',sourceArray,'sourceArray');
     if (index === -1) {
       throw new Error("card and sourcePlaceId don't match"); // Ошибка, если карта не найдена в указанном месте
     }
     const moving = sourceArray.splice(card.in,1); // Извлекаем карты для перемещения
     // console.log('rawMoveForGet2');
-    this.moveCardsForGet(moving, neww); // Перемещаем карты
+    this.moveCards(moving, neww); // Перемещаем карты
     // console.log('rawMoveForGet3');
   }
 
