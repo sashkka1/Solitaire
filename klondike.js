@@ -38,7 +38,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 6";
+    document.getElementById('new-game-button').innerHTML = "Test 7";
     for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
@@ -58,9 +58,9 @@ class KlondikeCore extends CardGameCore {
           return; // Exit if there's an error
         }else{
           console.log('get good');
-          console.table(storedValue);
+          // console.table(storedValue);
           storedValue = JSON.parse(storedValue);
-          console.table(storedValue);
+          // console.table(storedValue);
           for(let i=0;i<52;i++){ // упорядочивание элементов в массиве по убыванию для того чтобы корректно дальше выводил
             let j=i;
             for(j;j<52;j++){
