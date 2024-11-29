@@ -238,7 +238,7 @@ export class CardGameCore extends GameCore {
 
   moveCardsForGet(cardArray, newPlaceId, setStatus = true){
     this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
-    
+    console.log('moveCardsForGet');
     const event = new Event('CardsMoved');
     event.newPlaceId = newPlaceId;
     event.cardArray = cardArray;
@@ -290,6 +290,7 @@ export class CardGameCore extends GameCore {
 // console.log('rawMoveForGet1');
     const sourceArray = this.placeIdToCardArray[last];
     const index = sourceArray.indexOf(card);
+    console.log(index,'index',sourceArray,'sourceArray');
     if (index === -1) {
       throw new Error("card and sourcePlaceId don't match"); // Ошибка, если карта не найдена в указанном месте
     }
