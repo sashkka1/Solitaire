@@ -207,9 +207,9 @@ export class CardGameCore extends GameCore {
     for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
+      console.log('new in 1',this._allCards[i].in);
       console.log('moveCards3');
     }
-    console.log('new in 1',this._allCards[i].in);
     console.log('moveCards4');
     if(gameIsStart > 0){ // сохранение в тг клаудстор
       let b=[];
