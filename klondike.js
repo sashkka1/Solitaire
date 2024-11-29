@@ -41,7 +41,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 2";
+    document.getElementById('new-game-button').innerHTML = "Test 3";
 
     if(checkFirstTry == 0){
       console.log('get start');
@@ -89,9 +89,11 @@ class KlondikeCore extends CardGameCore {
               let sourceArray = this.placeIdToCardArray['stock'];
               this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
               if(storedValue[i][2] == this._allCards[j].i){
-                this._allCards[j].in = storedValue[i][3];
-                if( storedValue[i][0] == true){this._allCards[j].visible = true }
                 this.rawMoveForGet(this._allCards[j], 'stock',storedValue[i][1]);
+                console.log('new in 2',this._allCards[j].in);
+                this._allCards[j].in = storedValue[i][3];
+                console.log('new in 3',this._allCards[j].in);
+                if( storedValue[i][0] == true){this._allCards[j].visible = true }
                 console.log(this._allCards[j],'this._allCards[j]',storedValue[i][1],'storedValue[i][1]');
               }
               console.log('for j2',j);

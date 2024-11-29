@@ -209,7 +209,7 @@ export class CardGameCore extends GameCore {
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
       console.log('moveCards3');
     }
-
+    console.log('new in 1',this._allCards[i].in);
     console.log('moveCards4');
     if(gameIsStart > 0){ // сохранение в тг клаудстор
       let b=[];
