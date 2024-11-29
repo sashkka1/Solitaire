@@ -41,7 +41,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 3";
+    document.getElementById('new-game-button').innerHTML = "Test 4";
 
     if(checkFirstTry == 0){
       console.log('get start');
@@ -83,21 +83,26 @@ class KlondikeCore extends CardGameCore {
           console.table(storedValue);
           for(let i=0;i<52;i++){ // непосредственно разложение карт после получения и изменения данных карт на новые
             let j=0;
-            console.log('for i',i);
+            // console.log('for i',i);
             for(j;j<52;j++){
-              console.log('for j1',j);
+              // console.log('for j1',j);
               let sourceArray = this.placeIdToCardArray['stock'];
               this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
               if(storedValue[i][2] == this._allCards[j].i){
                 this.rawMoveForGet(this._allCards[j], 'stock',storedValue[i][1]);
-                console.log('new in 2',this._allCards[j].in);
+                // console.log('new in 2',this._allCards[j].in);
                 this._allCards[j].in = storedValue[i][3];
-                console.log('new in 3',this._allCards[j].in);
+                // console.log('new in 3',this._allCards[j].in);
                 if( storedValue[i][0] == true){this._allCards[j].visible = true }
                 console.log(this._allCards[j],'this._allCards[j]',storedValue[i][1],'storedValue[i][1]');
               }
-              console.log('for j2',j);
+              // console.log('for j2',j);
             }
+          }
+          for(let i=0;i<52;i++){ // актуализация индекса карты
+            let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
+            this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
+            console.log('new in 2',this._allCards[i].in);
           }
         }
       });
