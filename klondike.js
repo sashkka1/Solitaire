@@ -87,6 +87,7 @@ class KlondikeCore extends CardGameCore {
               let sourceArray = this.placeIdToCardArray['stock'];
               this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
               if(storedValue[i][2] == this._allCards[j].i){
+                console.log(this._allCards[j],'this._allCards[j]',storedValue[i][1],'storedValue[i][1]');
                 this.rawMoveForGet(this._allCards[j], 'stock',storedValue[i][1]);
                 this._allCards[j].in = storedValue[i][3];
                 if( storedValue[i][0] == true){this._allCards[j].visible = true }
