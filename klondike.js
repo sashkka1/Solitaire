@@ -1,6 +1,6 @@
 // Импортируем необходимые классы и константы из других файлов
-import { GameStatus } from './game.js';
-import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js';
+import { GameStatus } from './game.js?v=1.0.8';
+import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.0.8';
 
 let i =0;
 

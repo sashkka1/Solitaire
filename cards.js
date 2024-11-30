@@ -190,9 +190,8 @@ export class CardGameCore extends GameCore {
     for(let i=0;i<cardArray.length;i++){// актуализвация положения карты
       cardArray[i].p = newPlaceId;
     }
-
-    this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
     
+    this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
     const event = new Event('CardsMoved');
     event.newPlaceId = newPlaceId;
     event.cardArray = cardArray;
