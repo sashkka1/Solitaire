@@ -217,10 +217,10 @@ export class CardGameCore extends GameCore {
           }
         }
       }
-      let asdf = this.placeIdToCardArray['discard'];
-      if((this.placeIdToCardArray['discard'].length-1) >=0){
-        asdf[asdf.length-1].visible=true;
-      }
+      // let asdf = this.placeIdToCardArray['discard'];
+      // if((this.placeIdToCardArray['discard'].length-1) >=0){
+      //   asdf[asdf.length-1].visible=true;
+      // }
 
       for(let i=0;i<this._allCards.length;i++){
         if( this._allCards[i].v == true){this._allCards[i].visible = true }

@@ -382,8 +382,8 @@ document.addEventListener('DOMContentLoaded', () => {
   tg.expand();
   tg.disableVerticalSwipes();
   console.log(tg.isFullscreen); 
-    tg.requestFullscreen();
-    console.log(tg.isFullscreen); 
+    // tg.requestFullscreen();
+    // console.log(tg.isFullscreen); 
   const gameDiv = document.getElementById('game'); // Находим элемент для игрового поля
   const newGameButton = document.getElementById('new-game-button'); // Находим кнопку для новой игры
   const backButton = document.getElementById('back-button'); // шаг назад
