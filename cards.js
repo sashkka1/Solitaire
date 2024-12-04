@@ -554,28 +554,28 @@ export class CardGameUI extends GameUI {
             }
           }
         }
-        this.currentGame.rawMove(backCard, newPlace, oldPlace);
-
+        // this.currentGame.rawMove(backCard, newPlace, oldPlace);
+        this.moveCardsForStock(backCard, oldPlace);
         let div = document.getElementById(backCard.i); // Создаем div для каждой карты
         let url = './materials/Images/Front/';
         // div.style.backgroundImage = `url(${url + backCard.i + '.png'})`;
         console.log(div);
 
 
-        let test1 =[
-          {"_number":9,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":35}];
-        console.table(backCard);
-        backCard._number = test1[0]._number;
-        backCard._suit.name = test1[0]._suit.name;
-        backCard._suit.color = test1[0]._suit.color;
-        backCard._suit.unicode = test1[0]._suit.unicode;
-        backCard.v = test1[0].v;
-        backCard.p = test1[0].p;
-        backCard.i = test1[0].i;
-        if( test1[0].v == true){backCard.visible = true }
-        div = document.getElementById(backCard.i); // Создаем div для каждой карты
-        // div.style.backgroundColor = `red`;
-        console.log(div);
+        // let test1 =[
+        //   {"_number":9,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":35}];
+        // console.table(backCard);
+        // backCard._number = test1[0]._number;
+        // backCard._suit.name = test1[0]._suit.name;
+        // backCard._suit.color = test1[0]._suit.color;
+        // backCard._suit.unicode = test1[0]._suit.unicode;
+        // backCard.v = test1[0].v;
+        // backCard.p = test1[0].p;
+        // backCard.i = test1[0].i;
+        // if( test1[0].v == true){backCard.visible = true }
+        // div = document.getElementById(backCard.i); // Создаем div для каждой карты
+        // // div.style.backgroundColor = `red`;
+        // console.log(div);
       }
 
 
