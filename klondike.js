@@ -38,7 +38,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = window.Telegram.WebApp.platform;
+    document.getElementById('new-game-button').innerHTML = "Test 0";
     for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
@@ -221,6 +221,8 @@ class KlondikeCore extends CardGameCore {
 
   // Перемещает карты из стока в сброс или возвращает все карты из сброса в сток
   stockToDiscard() {
+    console.log('this._allCards in stockToDiscard1');
+    console.table(this._allCards);
     if (this.placeIdToCardArray.stock.length === 0) {
       for (const card of this.placeIdToCardArray.discard) {
         card.visible = false; // Закрываем все карты в сбросе
@@ -235,7 +237,8 @@ class KlondikeCore extends CardGameCore {
       for(let i=0;i<sourceArray.length;i++){
         sourceArray[i].visible=false;
       }
-
+      console.log('this._allCards in stockToDiscard2');
+      console.table(this._allCards);
       document.getElementById('back-button').innerHTML = `${sourceArray.length},${index}`;
       stockCurrent = 0;
       this.moveCards(this.placeIdToCardArray.discard, 'stock'); // Перемещаем карты обратно в сток

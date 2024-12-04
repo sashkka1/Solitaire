@@ -236,6 +236,8 @@ export class CardGameCore extends GameCore {
       // console.log("Save good");
       // console.table(b);
     }
+    console.log('this._allCards in movecards');
+    console.table(this._allCards);
   }
 
   
