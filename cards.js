@@ -248,7 +248,25 @@ export class CardGameCore extends GameCore {
     }
   }
 
-  
+  moveCardsForStock(cardArray, newPlaceId, setStatus = true) {
+    for(let i=0;i<cardArray.length;i++){// актуализвация положения карты
+      cardArray[i].p = newPlaceId;
+    }
+    
+    this.placeIdToCardArray[newPlaceId].push(...cardArray); // Перемещаем карты
+    const event = new Event('CardsMoved');
+    event.newPlaceId = newPlaceId;
+    event.cardArray = cardArray;
+    this.dispatchEvent(event); // Отправляем событие перемещения карт
+    if (setStatus && this.checkWin()) {
+      this.status = GameStatus.WIN; // Обновляем статус на "победа" при достижении условий
+    }
+
+    for(let i=0;i<52;i++){ // актуализация индекса карты
+      let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
+      this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
+    }
+  }
   
 
   // Находит текущее место, где находится карта
