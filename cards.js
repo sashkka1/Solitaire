@@ -453,7 +453,7 @@ export class CardGameUI extends GameUI {
       autocomplete.classList.remove('normal-auto');
       buttonPlace.classList.add('normal');
     }else{
-      if(gameIsStart ==0){ // изменений нет, просто начинаем новую
+      if(gameIsStart == 0 || gameIsStartCloud == 0){ // изменений нет, просто начинаем новую
         this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
         this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
         this.currentGame.deal(); // Начало игры (раздача карт)
@@ -482,15 +482,15 @@ export class CardGameUI extends GameUI {
       }
     }
     let block = document.getElementById('win-box');
-        block.addEventListener('click', () => {
-          this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
-          this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
-          this.currentGame.deal(); // Начало игры (раздача карт)
-          super.newGame(); // Вызов метода newGame() родительского класса
-          this.currentGame.stockCurrentDefolt();
-          block.classList.remove('normal-win');
-          buttonPlace.classList.add('normal');
-        });
+      block.addEventListener('click', () => {
+        this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
+        this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
+        this.currentGame.deal(); // Начало игры (раздача карт)
+        super.newGame(); // Вызов метода newGame() родительского класса
+        this.currentGame.stockCurrentDefolt();
+        block.classList.remove('normal-win');
+        buttonPlace.classList.add('normal');
+      });
     gameIsStart2 ++;
   }
 
