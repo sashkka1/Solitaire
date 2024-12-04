@@ -7,6 +7,9 @@ export const SUITS = [
   { name: 'club', color: 'black', unicode: '\u2663'},
   { name: 'diamond', color: 'red', unicode: '\u2666'},
 ];
+
+import {gameIsStartCloud} from './klondike.js';
+
 let i =0;
 // let testId =52, testCardPlace ='fondation0';
 let oldPlace, newPlace, backCard, whatChange, beforeVisible, oldId;
@@ -436,6 +439,7 @@ export class CardGameUI extends GameUI {
 
 
   newGame() {// проверяю на то была ли игра уже начата чтобы решить выставлять блок решением пользователя о продолжении или новой игре
+    console.log(gameIsStartCloud);
     let autocomplete = document.getElementById('check-autocomplete-button');
     let buttonPlace = document.getElementById('button-place');
     let buttonBack = document.getElementById('back-button');
