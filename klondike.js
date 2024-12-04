@@ -46,7 +46,7 @@ class KlondikeCore extends CardGameCore {
     if(checkFirstTry == 0){
       console.log('get start');
       window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
-        let storedValue = localStorage.getItem("saveCard");
+        // let storedValue = localStorage.getItem("saveCard");
         if (storedValue === null || storedValue === undefined || storedValue === "") {
           console.log('get empty');
           for (let i = 0; i < 7; i++) {
