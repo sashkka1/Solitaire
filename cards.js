@@ -219,14 +219,14 @@ export class CardGameCore extends GameCore {
           }
         }
       }
-      console.log('1');
-      console.table(this._allCards);
+      // console.log('1');
+      // console.table(this._allCards);
       let asdf = this.placeIdToCardArray['discard'];
       if((this.placeIdToCardArray['discard'].length-1) >=0){
         asdf[asdf.length-1].visible=true;
       }
-      console.log('2');
-      console.table(this._allCards);
+      // console.log('2');
+      // console.table(this._allCards);
 
       for(let i=0;i<this._allCards.length;i++){
         if( this._allCards[i].v == true){this._allCards[i].visible = true }
@@ -239,12 +239,12 @@ export class CardGameCore extends GameCore {
       // localStorage.setItem("saveCard", JSON.stringify(b));
       // console.log("Save good");
       // console.table(b);
-      asdf = this.placeIdToCardArray['discard'];
-      if((this.placeIdToCardArray['discard'].length-1) >=0){
-        asdf[asdf.length-1].visible=false;
-      }
-      console.log('3');
-      console.table(this._allCards);
+      // asdf = this.placeIdToCardArray['discard'];
+      // if((this.placeIdToCardArray['discard'].length-1) >=0){
+      //   asdf[asdf.length-1].visible=false;
+      // }
+      // console.log('3');
+      // console.table(this._allCards);
     }
   }
 
