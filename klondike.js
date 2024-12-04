@@ -2,11 +2,11 @@
 import { GameStatus } from './game.js?v=1.0.8';
 import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.0.8';
 
-export let gameIsStartCloud=0;
+export let gameIsStartCloud1 =gameIsStartCloud2;
 
 let i =0;
 
-// let gameIsStartCloud=0;
+let gameIsStartCloud2=0;
 
 let autoVisible = 1;
 let stockCurrent = 1;
@@ -59,7 +59,7 @@ class KlondikeCore extends CardGameCore {
           return; // Exit if there's an error
         }else{
           console.log('get good');
-          gameIsStartCloud++;
+          gameIsStartCloud2++;
           storedValue = JSON.parse(storedValue);
           // console.table(storedValue);
           for(let i=0;i<52;i++){ // упорядочивание элементов в массиве по убыванию для того чтобы корректно дальше выводил
