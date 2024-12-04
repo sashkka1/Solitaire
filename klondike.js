@@ -221,28 +221,21 @@ class KlondikeCore extends CardGameCore {
 
   // Перемещает карты из стока в сброс или возвращает все карты из сброса в сток
   stockToDiscard() {
-    console.log('this._allCards in stockToDiscard1');
-    console.table(this._allCards);
+    // console.log('this._allCards in stockToDiscard1');
+    // console.table(this._allCards);
     if (this.placeIdToCardArray.stock.length === 0) {
       for (const card of this.placeIdToCardArray.discard) {
         card.visible = false; // Закрываем все карты в сбросе
       }
-      let index=0;
-      let sourceArray = this.placeIdToCardArray['discard'];
-      for(let i=0;i<sourceArray.length;i++){
-        if(sourceArray[i].visible == true){
-          index++;
-        }
-      }
-      for(let i=0;i<sourceArray.length;i++){
-        sourceArray[i].visible=false;
-      }
-      console.log('this._allCards in stockToDiscard2');
-      console.table(this._allCards);
-      document.getElementById('back-button').innerHTML = `${sourceArray.length},${index}`;
       stockCurrent = 0;
       this.moveCards(this.placeIdToCardArray.discard, 'stock'); // Перемещаем карты обратно в сток
       this.placeIdToCardArray.discard.length = 0; // Очищаем сброс
+      // let sourceArray = this.placeIdToCardArray['stock'];
+      // for(let i=0;i<sourceArray.length;i++){
+      //   sourceArray[i].visible=true;
+      // }
+      // console.log('this._allCards in stockToDiscard2');
+      // console.table(this._allCards);
     } else {
       const cardArray = this.placeIdToCardArray.stock.splice(0, this._pickCount); // Берем указанное количество карт из стока
       this.moveCards(cardArray, 'discard'); // Перемещаем их в сброс
