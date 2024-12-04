@@ -236,11 +236,6 @@ export class CardGameCore extends GameCore {
       // console.log("Save good");
       // console.table(b);
     }
-    let inn=1;
-    console.log(inn);
-    if(inn>7){
-      gameIsStart++;
-    }
   }
 
   moveCardsForStock(cardArray, newPlaceId, setStatus = true) {
@@ -261,6 +256,19 @@ export class CardGameCore extends GameCore {
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
     }
+  }
+
+  rawMoveForStock(card, sourcePlaceId, destPlaceId,) {
+    let buttonBack = document.getElementById('back-button');
+    buttonBack.classList.remove('lock');
+
+    const sourceArray = this.placeIdToCardArray[sourcePlaceId];
+    const index = sourceArray.indexOf(card);
+    if (index === -1) {
+      throw new Error("card and sourcePlaceId don't match"); // Ошибка, если карта не найдена в указанном месте
+    }
+    const moving = sourceArray.splice(index); // Извлекаем карты для перемещения
+    this.moveCardsForStock(moving, destPlaceId); // Перемещаем карты
   }
   
 
@@ -559,13 +567,13 @@ export class CardGameUI extends GameUI {
             }
           }
         }
-        gameIsStart=0;
-        this.currentGame.rawMove(backCard, newPlace, oldPlace);
+        this.currentGame.rawMoveForStock(backCard, newPlace, oldPlace);
+        // this.currentGame.rawMove(backCard, newPlace, oldPlace);
         // this.moveCardsForStock(backCard, oldPlace);
-        let div = document.getElementById(backCard.i); // Создаем div для каждой карты
-        let url = './materials/Images/Front/';
-        // div.style.backgroundImage = `url(${url + backCard.i + '.png'})`;
-        console.log(div);
+        // let div = document.getElementById(backCard.i); // Создаем div для каждой карты
+        // let url = './materials/Images/Front/';
+        // // div.style.backgroundImage = `url(${url + backCard.i + '.png'})`;
+        // console.log(div);
 
 
         // let test1 =[
