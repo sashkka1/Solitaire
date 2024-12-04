@@ -63,6 +63,7 @@ export class GameUI {
       block.classList.add('normal-win');
       let buttonPlace = document.getElementById('button-place');
       buttonPlace.classList.remove('normal');
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       // this._statusMessagePara.classList.remove('hidden');    // Показываем сообщение
       // this._statusMessagePara.textContent = "You win :)";    // Сообщение о победе
     } else if (this.currentGame.status === GameStatus.PLAYING) {
