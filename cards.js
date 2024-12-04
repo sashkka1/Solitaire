@@ -236,7 +236,11 @@ export class CardGameCore extends GameCore {
       // console.log("Save good");
       // console.table(b);
     }
-    gameIsStart++;
+    let inn=1;
+    console.log(inn);
+    if(inn>7){
+      gameIsStart++;
+    }
   }
 
   moveCardsForStock(cardArray, newPlaceId, setStatus = true) {
