@@ -236,6 +236,7 @@ export class CardGameCore extends GameCore {
       // console.log("Save good");
       // console.table(b);
     }
+    gameIsStart++;
   }
 
   moveCardsForStock(cardArray, newPlaceId, setStatus = true) {
@@ -554,8 +555,9 @@ export class CardGameUI extends GameUI {
             }
           }
         }
-        // this.currentGame.rawMove(backCard, newPlace, oldPlace);
-        this.moveCardsForStock(backCard, oldPlace);
+        gameIsStart=0;
+        this.currentGame.rawMove(backCard, newPlace, oldPlace);
+        // this.moveCardsForStock(backCard, oldPlace);
         let div = document.getElementById(backCard.i); // Создаем div для каждой карты
         let url = './materials/Images/Front/';
         // div.style.backgroundImage = `url(${url + backCard.i + '.png'})`;
