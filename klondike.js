@@ -1,6 +1,6 @@
 // Импортируем необходимые классы и константы из других файлов
-import { GameStatus } from './game.js?v=1.0.8';
-import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.0.8';
+import { GameStatus } from './game.js?v=1.0.9';
+import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.0.9';
 
 let i =0;
 
@@ -38,7 +38,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    // document.getElementById('new-game-button').innerHTML = "Test 0";
+    document.getElementById('new-game-button').innerHTML = window.Telegram.WebApp.platform;
     for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
@@ -225,6 +225,18 @@ class KlondikeCore extends CardGameCore {
       for (const card of this.placeIdToCardArray.discard) {
         card.visible = false; // Закрываем все карты в сбросе
       }
+      let index=0;
+      let sourceArray = this.placeIdToCardArray['discard'];
+      for(let i=0;i<sourceArray.length;i++){
+        if(sourceArray[i].visible == true){
+          index++;
+        }
+      }
+      for(let i=0;i<sourceArray.length;i++){
+        sourceArray[i].visible=false;
+      }
+
+      document.getElementById('back-button').innerHTML = `${sourceArray.length},${index}`;
       stockCurrent = 0;
       this.moveCards(this.placeIdToCardArray.discard, 'stock'); // Перемещаем карты обратно в сток
       this.placeIdToCardArray.discard.length = 0; // Очищаем сброс
@@ -344,7 +356,7 @@ class KlondikeUI extends CardGameUI {
         this.currentGame.stockToDiscard(); // Перемещаем карты из стока в сброс
       }else{
         if(this.currentGame.placeIdToCardArray.discard.length === 0){
-          if(stockCurrent === 1){
+          if(stockCurrent == 1){
             this.currentGame.stockToDiscard();
           }
           stockCurrent = 1;
