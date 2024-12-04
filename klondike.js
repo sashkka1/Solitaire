@@ -2,11 +2,9 @@
 import { GameStatus } from './game.js?v=1.0.8';
 import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.0.8';
 
-export let gameIsStartCloud1 =gameIsStartCloud2;
-
 let i =0;
 
-let gameIsStartCloud2=0;
+
 
 let autoVisible = 1;
 let stockCurrent = 1;
@@ -40,7 +38,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    // document.getElementById('new-game-button').innerHTML = "Test 7";
+    // document.getElementById('new-game-button').innerHTML = "Test 0";
     for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
@@ -48,6 +46,7 @@ class KlondikeCore extends CardGameCore {
     if(checkFirstTry == 0){
       console.log('get start');
       window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
+        let storedValue = localStorage.getItem("saveCard");
         if (storedValue === null || storedValue === undefined || storedValue === "") {
           console.log('get empty');
           for (let i = 0; i < 7; i++) {
@@ -59,7 +58,6 @@ class KlondikeCore extends CardGameCore {
           return; // Exit if there's an error
         }else{
           console.log('get good');
-          gameIsStartCloud2++;
           storedValue = JSON.parse(storedValue);
           // console.table(storedValue);
           for(let i=0;i<52;i++){ // упорядочивание элементов в массиве по убыванию для того чтобы корректно дальше выводил
@@ -86,6 +84,7 @@ class KlondikeCore extends CardGameCore {
             }
           }
         }
+        this.indexStart();
       });
     } else{
       console.log('normal start');
@@ -381,10 +380,12 @@ class KlondikeUI extends CardGameUI {
 
 // Запуск кода после загрузки содержимого страницы
 document.addEventListener('DOMContentLoaded', () => {
-  const tg = window.Telegram.WebApp;
-  tg.expand();
-  tg.disableVerticalSwipes();
-  console.log(tg.isFullscreen); 
+
+  // const tg = window.Telegram.WebApp;
+  // tg.expand();
+  // tg.disableVerticalSwipes();
+  // console.log(tg.isFullscreen); 
+
     // tg.requestFullscreen();
     // console.log(tg.isFullscreen); 
   const gameDiv = document.getElementById('game'); // Находим элемент для игрового поля

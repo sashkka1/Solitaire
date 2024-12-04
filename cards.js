@@ -8,8 +8,6 @@ export const SUITS = [
   { name: 'diamond', color: 'red', unicode: '\u2666'},
 ];
 
-import {gameIsStartCloud} from './klondike.js';
-
 let i =0;
 // let testId =52, testCardPlace ='fondation0';
 let oldPlace, newPlace, backCard, whatChange, beforeVisible, oldId;
@@ -19,6 +17,7 @@ let block;
 // let b =0;
 let aa =0, aaa;
 
+let gameIsStartCloud=0;
 
 
 // кнопка отмены при проверке создания новой игры
@@ -276,6 +275,10 @@ export class CardGameCore extends GameCore {
     this.moveCards(moving, destPlaceId); // Перемещаем карты
   }
 
+  indexStart(){
+    gameIsStart++;
+  }
+  
   rawMoveForGet(card, last, neww) { // для реализации перемещения карт при возврате их из тг клаудстор
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.remove('lock');
@@ -439,7 +442,6 @@ export class CardGameUI extends GameUI {
 
 
   newGame() {// проверяю на то была ли игра уже начата чтобы решить выставлять блок решением пользователя о продолжении или новой игре
-    console.log(gameIsStartCloud);
     let autocomplete = document.getElementById('check-autocomplete-button');
     let buttonPlace = document.getElementById('button-place');
     let buttonBack = document.getElementById('back-button');
@@ -453,7 +455,7 @@ export class CardGameUI extends GameUI {
       autocomplete.classList.remove('normal-auto');
       buttonPlace.classList.add('normal');
     }else{
-      if(gameIsStart == 0 || gameIsStartCloud == 0){ // изменений нет, просто начинаем новую
+      if(gameIsStart == 0){ // изменений нет, просто начинаем новую
         this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
         this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
         this.currentGame.deal(); // Начало игры (раздача карт)
