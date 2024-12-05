@@ -85,6 +85,9 @@ class KlondikeCore extends CardGameCore {
           }
 
           // let a =0;
+          sourcePlaceId = 'tableau' + i;
+          let sourceArray = this.placeIdToCardArray[sourcePlaceId];
+          console.log('sourceArray.length',sourceArray.length);
           for(let i =0;i<7;i++){
             sourcePlaceId = 'tableau' + i;
             let sourceArray = this.placeIdToCardArray[sourcePlaceId];
