@@ -38,7 +38,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 0";
+    document.getElementById('new-game-button').innerHTML = "Test 1";
     for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
@@ -71,7 +71,6 @@ class KlondikeCore extends CardGameCore {
               }
             }
           }
-          console.log('sort good');
           for(let i=0;i<52;i++){ // непосредственно разложение карт после получения и изменения данных карт на новые
             let j=0;
             for(j;j<52;j++){
@@ -83,36 +82,52 @@ class KlondikeCore extends CardGameCore {
                 if( storedValue[i][0] == true){this._allCards[j].visible = true }
               }
             }
-            console.log('place ', i);
+            if(i==51){
+              for(let i =0;i<7;i++){
+                let sourceArray = this.placeIdToCardArray['tableau' + i];
+                console.log('sourceArray.length',sourceArray.length);
+                for(let i=0;i<sourceArray.length;i++){
+                  console.log('i',i);
+                  if(sourceArray[i].visible == false){
+                    autoVisible = 0;
+                  }
+                }
+              }
+              if(autoVisible == 0){
+                let block = document.getElementById('check-autocomplete-button');
+                block.classList.add('normal-auto');
+              }
+            }
           }
 
           // let a =0;
           sourcePlaceId = 'tableau' + i;
-          console.log('sourcePlaceId ', sourcePlaceId);
-          let sourceArray = this.placeIdToCardArray[sourcePlaceId];
-          console.log('sourceArray',sourceArray);
-          console.log('sourceArray.length',sourceArray.length);
-          for(let i =0;i<7;i++){
-            sourcePlaceId = 'tableau' + i;
-            let sourceArray = this.placeIdToCardArray[sourcePlaceId];
-            console.log('sourceArray.length',sourceArray.length);
-            for(let i=0;i<sourceArray.length;i++){
-              console.log('i',i);
-              if(sourceArray[i].visible == false){
-                autoVisible = 0;
-              }
-            }
-          }
+          // console.log('sourcePlaceId ', sourcePlaceId);
+          // let sourceArray = this.placeIdToCardArray[sourcePlaceId];
+          // console.log('sourceArray',sourceArray);
+          // console.log('sourceArray.length',sourceArray.length);
+          // for(let i =0;i<7;i++){
+          //   sourcePlaceId = 'tableau' + i;
+          //   let sourceArray = this.placeIdToCardArray[sourcePlaceId];
+          //   console.log('sourceArray.length',sourceArray.length);
+          //   for(let i=0;i<sourceArray.length;i++){
+          //     console.log('i',i);
+          //     if(sourceArray[i].visible == false){
+          //       autoVisible = 0;
+          //     }
+          //   }
+          // }
           // if(a == 0){
           //   autoVisible = 0;
           // }
           // a=0;
-          if(autoVisible == 0){
-            let block = document.getElementById('check-autocomplete-button');
-            block.classList.add('normal-auto');
-          }
+          // if(autoVisible == 0){
+          //   let block = document.getElementById('check-autocomplete-button');
+          //   block.classList.add('normal-auto');
+          // }
 
         }
+        console.log('getпрапр good');
         this.indexStart();
       });
     } else{
