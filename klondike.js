@@ -38,7 +38,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 3";
+    document.getElementById('new-game-button').innerHTML = "Test 4";
     for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
@@ -83,6 +83,21 @@ class KlondikeCore extends CardGameCore {
               }
             }
           }
+          for(let i =0;i<7;i++){
+            let sourceArray = this.placeIdToCardArray['tableau' + i];
+            if(sourceArray.length>0){
+              if(sourceArray[0].visible == false){
+                autoVisible = 0;
+              }
+            }
+          }
+          if(autoVisible == 1){
+            let block = document.getElementById('check-autocomplete-button');
+            console.log(block);
+            block.classList.add('normal-auto');
+            console.log(block);
+          }
+          autoVisible = 1;
         }
         this.indexStart();
       });
@@ -96,7 +111,6 @@ class KlondikeCore extends CardGameCore {
       }
     }
     checkFirstTry++;
-
       //  //  // делает видимыми карты
       // for (let i = 0; i < 7; i++) {
       //   const howManyCardsToMove = i + 1;
@@ -273,14 +287,14 @@ class KlondikeCore extends CardGameCore {
       card.visible = false; // Закрываем все карты в сбросе
     }
     stockCurrent = 0;
-    this.moveCardsForStock(this.placeIdToCardArray.discard, 'stock'); // Перемещаем карты обратно в сток
+    this.moveCards(this.placeIdToCardArray.discard, 'stock'); // Перемещаем карты обратно в сток
     this.placeIdToCardArray.discard.length = 0; // Очищаем сброс
   }
   
   stockToDiscardAuto() { // собирание карт в дискард для автозаполнения
     let a =1;
       const cardArray = this.placeIdToCardArray.stock.splice(0, a); // Берем указанное количество карт из стока
-      this.moveCardsForStock(cardArray, 'discard'); // Перемещаем их в сброс
+      this.moveCards(cardArray, 'discard'); // Перемещаем их в сброс
       for (const card of cardArray) {
         card.visible = true; // Открываем каждую карту
       }

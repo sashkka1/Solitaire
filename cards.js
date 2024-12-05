@@ -210,12 +210,14 @@ export class CardGameCore extends GameCore {
       let b=[];
       let f=0;
 
-      let sourceArray = this.placeIdToCardArray[oldPlace];
-      if(sourceArray.length !== 0){ // если последнее действие открывает карту
-        for(let i=0;i<52;i++){
-          if((sourceArray.length-1) == this._allCards[i].in && this._allCards[i].p == oldPlace){
-            this._allCards[i].v = true;
-            i = 52;
+      if(whatChange == "table"){
+        let sourceArray = this.placeIdToCardArray[oldPlace];
+        if(sourceArray.length !== 0){ // если последнее действие открывает карту
+          for(let i=0;i<52;i++){
+            if((sourceArray.length-1) == this._allCards[i].in && this._allCards[i].p == oldPlace){
+              this._allCards[i].v = true;
+              i = 52;
+            }
           }
         }
       }
@@ -226,11 +228,13 @@ export class CardGameCore extends GameCore {
         b[f] = a;
         f++;
       }
-      let asdf = this.placeIdToCardArray['discard'];
-      if((this.placeIdToCardArray['discard'].length-1) >=0){
-        for(let i=0;i<this._allCards.length;i++){
-          if(this._allCards[i] == asdf[asdf.length-1]){
-            b[i][0] = true;
+      if(whatChange == "stock"){
+        let asdf = this.placeIdToCardArray['discard'];
+        if((this.placeIdToCardArray['discard'].length-1) >=0){
+          for(let i=0;i<this._allCards.length;i++){
+            if(this._allCards[i] == asdf[asdf.length-1]){
+              b[i][0] = true;
+            }
           }
         }
       }
@@ -568,8 +572,8 @@ export class CardGameUI extends GameUI {
             }
           }
         }
-        this.currentGame.rawMoveForStock(backCard, newPlace, oldPlace);
-        // this.currentGame.rawMove(backCard, newPlace, oldPlace);
+        // this.currentGame.rawMoveForStock(backCard, newPlace, oldPlace);
+        this.currentGame.rawMove(backCard, newPlace, oldPlace);
 
       }
 
