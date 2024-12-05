@@ -38,7 +38,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 9";
+    document.getElementById('new-game-button').innerHTML = "Test 0";
     for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
@@ -128,6 +128,8 @@ class KlondikeCore extends CardGameCore {
     //   ccardsToMove[ccardsToMove.length - f].visible = true;
     //     f++;
     // }
+    let buttonBack = document.getElementById('back-button');
+    buttonBack.classList.add('lock');
   }
 
   // Проверяет, можно ли потенциально переместить карту из указанного места
@@ -234,8 +236,6 @@ class KlondikeCore extends CardGameCore {
 
   // Перемещает карты из стока в сброс или возвращает все карты из сброса в сток
   stockToDiscard() {
-    // console.log('this._allCards in stockToDiscard1');
-    // console.table(this._allCards);
     if (this.placeIdToCardArray.stock.length === 0) {
       for (const card of this.placeIdToCardArray.discard) {
         card.visible = false; // Закрываем все карты в сбросе
@@ -243,12 +243,6 @@ class KlondikeCore extends CardGameCore {
       stockCurrent = 0;
       this.moveCardsForStock(this.placeIdToCardArray.discard, 'stock'); // Перемещаем карты обратно в сток
       this.placeIdToCardArray.discard.length = 0; // Очищаем сброс
-      // let sourceArray = this.placeIdToCardArray['stock'];
-      // for(let i=0;i<sourceArray.length;i++){
-      //   sourceArray[i].visible=true;
-      // }
-      // console.log('this._allCards in stockToDiscard2');
-      // console.table(this._allCards);
     } else {
       const cardArray = this.placeIdToCardArray.stock.splice(0, this._pickCount); // Берем указанное количество карт из стока
       this.moveCardsForStock(cardArray, 'discard'); // Перемещаем их в сброс

@@ -219,16 +219,22 @@ export class CardGameCore extends GameCore {
           }
         }
       }
-      let asdf = this.placeIdToCardArray['discard'];
-      if((this.placeIdToCardArray['discard'].length-1) >=0){
-        asdf[asdf.length-1].visible=true;
-      }
 
       for(let i=0;i<this._allCards.length;i++){
         if( this._allCards[i].v == true){this._allCards[i].visible = true }
         let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
         b[f] = a;
         f++;
+      }
+      let asdf = this.placeIdToCardArray['discard'];
+      if((this.placeIdToCardArray['discard'].length-1) >=0){
+        for(let i=0;i<this._allCards.length;i++){
+          if(this._allCards[i] == asdf[asdf.length-1]){
+            console.log(b[i]);
+            b[i][0] = true;
+            console.log(b[i]);
+          }
+        }
       }
       // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
@@ -267,10 +273,8 @@ export class CardGameCore extends GameCore {
     if (index === -1) {
       throw new Error("card and sourcePlaceId don't match"); // Ошибка, если карта не найдена в указанном месте
     }
-    console.table(this._allCards);
     const moving = sourceArray.splice(index); // Извлекаем карты для перемещения
     this.moveCardsForStock(moving, destPlaceId); // Перемещаем карты
-    console.table(this._allCards);
   }
   
 
@@ -496,14 +500,14 @@ export class CardGameUI extends GameUI {
         this.currentGame.stockCurrentDefolt();
         autocomplete.classList.remove('normal-auto');
         buttonPlace.classList.add('normal');
-        window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+        // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       }else{
         let elements = document.getElementById("check-desire-box");
         elements.classList.add('normal');
         let block = document.getElementById('check-desire-button-ok');
         block.addEventListener('click', () => {
           gameIsStart=0;
-          window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+          // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
           let elements = document.getElementById("check-desire-box");
           elements.classList.remove('normal');
           this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
@@ -539,7 +543,6 @@ export class CardGameUI extends GameUI {
     if(backCard !="undefined"){
 
       if(whatChange == "stock"){
-
         let discard = this.currentGame.placeIdToCardArray.discard.length;
         let stock = this.currentGame.placeIdToCardArray.stock.length;
         let summ = discard + stock;
@@ -548,9 +551,7 @@ export class CardGameUI extends GameUI {
           summ--;
           this.currentGame.stockToDiscardAuto();
         }
-
         this.currentGame.discardToStockAuto();
-
         if(discard == 0){
           discard = stock+1;
         }
@@ -571,30 +572,8 @@ export class CardGameUI extends GameUI {
         }
         this.currentGame.rawMoveForStock(backCard, newPlace, oldPlace);
         // this.currentGame.rawMove(backCard, newPlace, oldPlace);
-        // this.moveCardsForStock(backCard, oldPlace);
-        // let div = document.getElementById(backCard.i); // Создаем div для каждой карты
-        // let url = './materials/Images/Front/';
-        // // div.style.backgroundImage = `url(${url + backCard.i + '.png'})`;
-        // console.log(div);
 
-
-        // let test1 =[
-        //   {"_number":9,"_suit":{"name":"club","color":"black","unicode":"♣"},"v":true,"p":"discard","i":35}];
-        // console.table(backCard);
-        // backCard._number = test1[0]._number;
-        // backCard._suit.name = test1[0]._suit.name;
-        // backCard._suit.color = test1[0]._suit.color;
-        // backCard._suit.unicode = test1[0]._suit.unicode;
-        // backCard.v = test1[0].v;
-        // backCard.p = test1[0].p;
-        // backCard.i = test1[0].i;
-        // if( test1[0].v == true){backCard.visible = true }
-        // div = document.getElementById(backCard.i); // Создаем div для каждой карты
-        // // div.style.backgroundColor = `red`;
-        // console.log(div);
       }
-
-
 
       backCard ="undefined";
     }
