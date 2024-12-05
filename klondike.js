@@ -82,43 +82,12 @@ class KlondikeCore extends CardGameCore {
                 if( storedValue[i][0] == true){this._allCards[j].visible = true }
               }
             }
-            // console.table(this._allCards);
-            // if(i==51){
-            //   for(let i=0;i<52;i++){ // актуализация индекса карты
-            //     let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
-            //     this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
-            //   }
-            //   for(let i =0;i<7;i++){
-            //     let sourceArray = this.placeIdToCardArray['tableau' + i];
-            //     if(sourceArray.length>0){
-            //       console.log('sourceArray.length',sourceArray[0]);
-            //       if(sourceArray[0].visible == false){
-            //         autoVisible = 0;
-            //         console.log('in',autoVisible);
-            //       }
-            //     }
-            //   }
-            //   console.log('on',autoVisible);
-            //   if(autoVisible == 1){
-            //     let block = document.getElementById('check-autocomplete-button');
-            //     block.classList.add('normal-auto');
-            //   }
-            //   autoVisible = 1;
-            // }
           }
-          console.table(this._allCards);
-          for(let i=0;i<52;i++){ // актуализация индекса карты
-            let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
-            this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
-          }
-          console.table(this._allCards);
           for(let i =0;i<7;i++){
             let sourceArray = this.placeIdToCardArray['tableau' + i];
             if(sourceArray.length>0){
-              console.log('sourceArray.length',sourceArray[0]);
               if(sourceArray[0].visible == false){
                 autoVisible = 0;
-                console.log('in',autoVisible);
               }
             }
           }
