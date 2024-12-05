@@ -38,7 +38,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 1";
+    document.getElementById('new-game-button').innerHTML = "Test 2";
     for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
@@ -83,19 +83,6 @@ class KlondikeCore extends CardGameCore {
               }
             }
           }
-          for(let i =0;i<7;i++){
-            let sourceArray = this.placeIdToCardArray['tableau' + i];
-            if(sourceArray.length>0){
-              if(sourceArray[0].visible == false){
-                autoVisible = 0;
-              }
-            }
-          }
-          if(autoVisible == 1){
-            let block = document.getElementById('check-autocomplete-button');
-            block.classList.add('normal-auto');
-          }
-          autoVisible = 1;
         }
         this.indexStart();
       });
