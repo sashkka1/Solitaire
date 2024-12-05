@@ -38,7 +38,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 5";
+    document.getElementById('new-game-button').innerHTML = "Test 6";
     for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
@@ -82,62 +82,52 @@ class KlondikeCore extends CardGameCore {
                 if( storedValue[i][0] == true){this._allCards[j].visible = true }
               }
             }
-            console.table(this._allCards);
-            if(i==51){
-              for(let i=0;i<52;i++){ // актуализация индекса карты
-                let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
-                this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
+            // console.table(this._allCards);
+            // if(i==51){
+            //   for(let i=0;i<52;i++){ // актуализация индекса карты
+            //     let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
+            //     this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
+            //   }
+            //   for(let i =0;i<7;i++){
+            //     let sourceArray = this.placeIdToCardArray['tableau' + i];
+            //     if(sourceArray.length>0){
+            //       console.log('sourceArray.length',sourceArray[0]);
+            //       if(sourceArray[0].visible == false){
+            //         autoVisible = 0;
+            //         console.log('in',autoVisible);
+            //       }
+            //     }
+            //   }
+            //   console.log('on',autoVisible);
+            //   if(autoVisible == 1){
+            //     let block = document.getElementById('check-autocomplete-button');
+            //     block.classList.add('normal-auto');
+            //   }
+            //   autoVisible = 1;
+            // }
+          }
+          console.table(this._allCards);
+          for(let i=0;i<52;i++){ // актуализация индекса карты
+            let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
+            this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
+          }
+          console.table(this._allCards);
+          for(let i =0;i<7;i++){
+            let sourceArray = this.placeIdToCardArray['tableau' + i];
+            if(sourceArray.length>0){
+              console.log('sourceArray.length',sourceArray[0]);
+              if(sourceArray[0].visible == false){
+                autoVisible = 0;
+                console.log('in',autoVisible);
               }
-              for(let i =0;i<7;i++){
-                let sourceArray = this.placeIdToCardArray['tableau' + i];
-                if(sourceArray.length>0){
-                  console.log('sourceArray.length',sourceArray[0]);
-                  if(sourceArray[0].visible == false){
-                    autoVisible = 0;
-                    console.log('in',autoVisible);
-                  }
-                }
-                // for(let i=0;i<sourceArray.length;i++){
-                //   if(sourceArray[i].visible == false){
-                //     autoVisible = 0;
-                //     console.log('in',autoVisible);
-                //   }
-                // }
-              }
-              console.log('on',autoVisible);
-              if(autoVisible == 1){
-                let block = document.getElementById('check-autocomplete-button');
-                block.classList.add('normal-auto');
-              }
-              autoVisible = 1;
             }
           }
-
-          // let a =0;
-          sourcePlaceId = 'tableau' + i;
-          // console.log('sourcePlaceId ', sourcePlaceId);
-          // let sourceArray = this.placeIdToCardArray[sourcePlaceId];
-          // console.log('sourceArray',sourceArray);
-          // console.log('sourceArray.length',sourceArray.length);
-          // for(let i =0;i<7;i++){
-          //   sourcePlaceId = 'tableau' + i;
-          //   let sourceArray = this.placeIdToCardArray[sourcePlaceId];
-          //   console.log('sourceArray.length',sourceArray.length);
-          //   for(let i=0;i<sourceArray.length;i++){
-          //     console.log('i',i);
-          //     if(sourceArray[i].visible == false){
-          //       autoVisible = 0;
-          //     }
-          //   }
-          // }
-          // if(a == 0){
-          //   autoVisible = 0;
-          // }
-          // a=0;
-          // if(autoVisible == 0){
-          //   let block = document.getElementById('check-autocomplete-button');
-          //   block.classList.add('normal-auto');
-          // }
+          console.log('on',autoVisible);
+          if(autoVisible == 1){
+            let block = document.getElementById('check-autocomplete-button');
+            block.classList.add('normal-auto');
+          }
+          autoVisible = 1;
 
         }
         console.log('getпрапр good');
