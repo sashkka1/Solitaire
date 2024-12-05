@@ -239,10 +239,12 @@ export class CardGameCore extends GameCore {
         }
       }
       // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      if(whatChange == "table"){
       window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
+      }
       // localStorage.setItem("saveCard", JSON.stringify(b));
       console.log("Save good");
-      console.table(b);
+      // console.table(b);
     }
   }
 
@@ -503,6 +505,7 @@ export class CardGameUI extends GameUI {
         autocomplete.classList.remove('normal-auto');
         buttonPlace.classList.add('normal');
         window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+        // localStorage.removeItem("saveCard");
       }else{
         let elements = document.getElementById("check-desire-box");
         elements.classList.add('normal');
@@ -510,6 +513,7 @@ export class CardGameUI extends GameUI {
         block.addEventListener('click', () => {
           gameIsStart=0;
           window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+          // localStorage.removeItem("saveCard");
           let elements = document.getElementById("check-desire-box");
           elements.classList.remove('normal');
           this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
