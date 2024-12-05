@@ -438,10 +438,10 @@ class KlondikeUI extends CardGameUI {
 // Запуск кода после загрузки содержимого страницы
 document.addEventListener('DOMContentLoaded', () => {
 
-  // const tg = window.Telegram.WebApp;
-  // tg.expand();
-  // tg.disableVerticalSwipes();
-  // console.log(tg.isFullscreen); 
+  const tg = window.Telegram.WebApp;
+  tg.expand();
+  tg.disableVerticalSwipes();
+  console.log(tg.isFullscreen); 
 
     // tg.requestFullscreen();
     // console.log(tg.isFullscreen); 
