@@ -38,7 +38,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 3";
+    document.getElementById('new-game-button').innerHTML = "Test 4";
     for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
@@ -84,17 +84,25 @@ class KlondikeCore extends CardGameCore {
             }
             console.table(this._allCards);
             if(i==51){
+              for(let i=0;i<52;i++){ // актуализация индекса карты
+                let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
+                this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
+              }
               for(let i =0;i<7;i++){
                 let sourceArray = this.placeIdToCardArray['tableau' + i];
-                console.table(sourceArray);
-                console.log('sourceArray.length',sourceArray[0]);
-                console.log('sourceArray.length',sourceArray[1]);
-                for(let i=0;i<sourceArray.length;i++){
-                  if(sourceArray[i].visible == false){
+                if(sourceArray.length>0){
+                  console.log('sourceArray.length',sourceArray[0]);
+                  if(sourceArray[0].visible == false){
                     autoVisible = 0;
                     console.log('in',autoVisible);
                   }
                 }
+                // for(let i=0;i<sourceArray.length;i++){
+                //   if(sourceArray[i].visible == false){
+                //     autoVisible = 0;
+                //     console.log('in',autoVisible);
+                //   }
+                // }
               }
               console.log('on',autoVisible);
               if(autoVisible == 0){
