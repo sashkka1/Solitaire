@@ -230,9 +230,7 @@ export class CardGameCore extends GameCore {
       if((this.placeIdToCardArray['discard'].length-1) >=0){
         for(let i=0;i<this._allCards.length;i++){
           if(this._allCards[i] == asdf[asdf.length-1]){
-            console.log(b[i]);
             b[i][0] = true;
-            console.log(b[i]);
           }
         }
       }
