@@ -38,7 +38,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 6";
+    document.getElementById('new-game-button').innerHTML = "Test 7";
     for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
@@ -122,15 +122,12 @@ class KlondikeCore extends CardGameCore {
               }
             }
           }
-          console.log('on',autoVisible);
           if(autoVisible == 1){
             let block = document.getElementById('check-autocomplete-button');
             block.classList.add('normal-auto');
           }
           autoVisible = 1;
-
         }
-        console.log('getпрапр good');
         this.indexStart();
       });
     } else{
@@ -334,22 +331,27 @@ class KlondikeCore extends CardGameCore {
   }
 
   forAuto(){ // реализация кнопки автозаполнения
+    console.log('auto');
     let cardsStock = this.placeIdToCardArray.stock.length;
     let cardsDiscard = this.placeIdToCardArray.discard.length;
     let card = cardsStock + cardsDiscard;
+    console.log('card',card);
     if(card == 0){
       while( this.moveAnyCardToAnyFoundationIfPossible() ){};
     }
     for(;card !=0;){
       this.discardToStockAuto();
       cardsStock = this.placeIdToCardArray.stock.length;
+      console.log('cardsStock',cardsStock);
       for(let i=0; i != cardsStock;i++){
+        console.log('auto2');
         this.stockToDiscardAuto();
         while( this.moveAnyCardToAnyFoundationIfPossible() ){};
       }
       cardsStock = this.placeIdToCardArray.stock.length;
       cardsDiscard = this.placeIdToCardArray.discard.length;
       card = cardsStock + cardsDiscard;
+      console.log('card',card);
     }
   }
 
