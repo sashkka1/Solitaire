@@ -500,14 +500,14 @@ export class CardGameUI extends GameUI {
         this.currentGame.stockCurrentDefolt();
         autocomplete.classList.remove('normal-auto');
         buttonPlace.classList.add('normal');
-        // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+        window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       }else{
         let elements = document.getElementById("check-desire-box");
         elements.classList.add('normal');
         let block = document.getElementById('check-desire-button-ok');
         block.addEventListener('click', () => {
           gameIsStart=0;
-          // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+          window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
           let elements = document.getElementById("check-desire-box");
           elements.classList.remove('normal');
           this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);

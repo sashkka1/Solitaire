@@ -38,7 +38,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 0";
+    document.getElementById('new-game-button').innerHTML = "Test 1";
     for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
@@ -111,15 +111,21 @@ class KlondikeCore extends CardGameCore {
     checkFirstTry++;
 
       //  //  // делает видимыми карты
-      // let sourcePlaceIdUltimate ='tableau';
-      // let f = 1;
-      // let sourcePlaceId = sourcePlaceIdUltimate + i;
-      // let sourceArray = this.placeIdToCardArray[sourcePlaceId];
-      // while (f <= sourceArray.length) {
-      //   cardsToMove[cardsToMove.length - f].visible = true;
-      //     f++;
+      // for (let i = 0; i < 7; i++) {
+      //   const howManyCardsToMove = i + 1;
+      //   const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+      //   this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+      //   cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+
+      //   let sourcePlaceIdUltimate ='tableau';
+      //   let f = 1;
+      //   let sourcePlaceId = sourcePlaceIdUltimate + i;
+      //   let sourceArray = this.placeIdToCardArray[sourcePlaceId];
+      //   while (f <= sourceArray.length) {
+      //     cardsToMove[cardsToMove.length - f].visible = true;
+      //       f++;
+      //   }
       // }
-    // }
 
     // делает видимыми колоду
     // let ccardsToMove = this.placeIdToCardArray.stock; // Извлекаем нужное количество карт из стока
@@ -280,41 +286,36 @@ class KlondikeCore extends CardGameCore {
       card.visible = false; // Закрываем все карты в сбросе
     }
     stockCurrent = 0;
-    this.moveCards(this.placeIdToCardArray.discard, 'stock'); // Перемещаем карты обратно в сток
+    this.moveCardsForStock(this.placeIdToCardArray.discard, 'stock'); // Перемещаем карты обратно в сток
     this.placeIdToCardArray.discard.length = 0; // Очищаем сброс
   }
   
   stockToDiscardAuto() { // собирание карт в дискард для автозаполнения
     let a =1;
       const cardArray = this.placeIdToCardArray.stock.splice(0, a); // Берем указанное количество карт из стока
-      this.moveCards(cardArray, 'discard'); // Перемещаем их в сброс
+      this.moveCardsForStock(cardArray, 'discard'); // Перемещаем их в сброс
       for (const card of cardArray) {
         card.visible = true; // Открываем каждую карту
       }
   }
 
   forAuto(){ // реализация кнопки автозаполнения
-    console.log('auto');
     let cardsStock = this.placeIdToCardArray.stock.length;
     let cardsDiscard = this.placeIdToCardArray.discard.length;
     let card = cardsStock + cardsDiscard;
-    console.log('card',card);
     if(card == 0){
       while( this.moveAnyCardToAnyFoundationIfPossible() ){};
     }
     for(;card !=0;){
       this.discardToStockAuto();
       cardsStock = this.placeIdToCardArray.stock.length;
-      console.log('cardsStock',cardsStock);
       for(let i=0; i != cardsStock;i++){
-        console.log('auto2');
         this.stockToDiscardAuto();
         while( this.moveAnyCardToAnyFoundationIfPossible() ){};
       }
       cardsStock = this.placeIdToCardArray.stock.length;
       cardsDiscard = this.placeIdToCardArray.discard.length;
       card = cardsStock + cardsDiscard;
-      console.log('card',card);
     }
   }
 
