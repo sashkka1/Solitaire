@@ -267,8 +267,10 @@ export class CardGameCore extends GameCore {
     if (index === -1) {
       throw new Error("card and sourcePlaceId don't match"); // Ошибка, если карта не найдена в указанном месте
     }
+    console.table(this._allCards);
     const moving = sourceArray.splice(index); // Извлекаем карты для перемещения
     this.moveCardsForStock(moving, destPlaceId); // Перемещаем карты
+    console.table(this._allCards);
   }
   
 
@@ -567,8 +569,8 @@ export class CardGameUI extends GameUI {
             }
           }
         }
-        // this.currentGame.rawMoveForStock(backCard, newPlace, oldPlace);
-        this.currentGame.rawMove(backCard, newPlace, oldPlace);
+        this.currentGame.rawMoveForStock(backCard, newPlace, oldPlace);
+        // this.currentGame.rawMove(backCard, newPlace, oldPlace);
         // this.moveCardsForStock(backCard, oldPlace);
         // let div = document.getElementById(backCard.i); // Создаем div для каждой карты
         // let url = './materials/Images/Front/';
