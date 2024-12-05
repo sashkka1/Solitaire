@@ -38,7 +38,7 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
   deal() {
     this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 4";
+    document.getElementById('new-game-button').innerHTML = "Test 5";
     for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
@@ -100,6 +100,7 @@ class KlondikeCore extends CardGameCore {
           autoVisible = 1;
         }
         this.indexStart();
+        console.table(this._allCards);
       });
     } else{
       console.log('normal start');
@@ -248,11 +249,11 @@ class KlondikeCore extends CardGameCore {
         card.visible = false; // Закрываем все карты в сбросе
       }
       stockCurrent = 0;
-      this.moveCardsForStock(this.placeIdToCardArray.discard, 'stock'); // Перемещаем карты обратно в сток
+      this.moveCards(this.placeIdToCardArray.discard, 'stock'); // Перемещаем карты обратно в сток
       this.placeIdToCardArray.discard.length = 0; // Очищаем сброс
     } else {
       const cardArray = this.placeIdToCardArray.stock.splice(0, this._pickCount); // Берем указанное количество карт из стока
-      this.moveCardsForStock(cardArray, 'discard'); // Перемещаем их в сброс
+      this.moveCards(cardArray, 'discard'); // Перемещаем их в сброс
       for (const card of cardArray) {
         card.visible = true; // Открываем каждую карту
       }

@@ -241,8 +241,8 @@ export class CardGameCore extends GameCore {
       // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
       // localStorage.setItem("saveCard", JSON.stringify(b));
-      // console.log("Save good");
-      // console.table(b);
+      console.log("Save good");
+      console.table(b);
     }
   }
 
