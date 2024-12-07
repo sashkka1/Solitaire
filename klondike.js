@@ -139,40 +139,41 @@ class KlondikeCore extends CardGameCore {
         break;
 
         default:
-          if(checkFirstTry == 0){
-          console.log('get start');
-          window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
-            // let storedValue = localStorage.getItem("saveCard");
-            let storedValue;
-            if (storedValue === null || storedValue === undefined || storedValue === "") {
-              console.log('get empty');
-              for (let i = 0; i < 7; i++) {
-                const howManyCardsToMove = i + 1;
-                const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-                this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-                cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-              }
-            }else{
-              console.log('get good');
-              storedValue = JSON.parse(storedValue);
-              // console.table(storedValue);
-              this.convertAndOutput(storedValue);
-            }
-            this.indexStart();
-            // console.table(this._allCards);
-          });
-    } else{
-      // console.log('normal start');
-      for (let i = 0; i < 7; i++) {
-        const howManyCardsToMove = i + 1;
-        const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-        this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-        cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+          localStorage.setItem("countTry",'0');
+          // if(checkFirstTry == 0){
+          // console.log('get start');
+          // window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
+          //   // let storedValue = localStorage.getItem("saveCard");
+          //   let storedValue;
+          //   if (storedValue === null || storedValue === undefined || storedValue === "") {
+          //     console.log('get empty');
+          //     for (let i = 0; i < 7; i++) {
+          //       const howManyCardsToMove = i + 1;
+          //       const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+          //       this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+          //       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+          //     }
+          //   }else{
+          //     console.log('get good');
+          //     storedValue = JSON.parse(storedValue);
+          //     // console.table(storedValue);
+          //     this.convertAndOutput(storedValue);
+          //   }
+          //   this.indexStart();
+          //   // console.table(this._allCards);
+          // });
+          // } else{
+          //   // console.log('normal start');
+          //   for (let i = 0; i < 7; i++) {
+          //     const howManyCardsToMove = i + 1;
+          //     const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+          //     this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+          //     cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+          //   }
+          // }
+          // checkFirstTry++;
+        break;
       }
-    }
-    checkFirstTry++;
-      }
-
     });
 
     // localStorage.setItem("countTry",'0');
