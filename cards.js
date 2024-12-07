@@ -240,7 +240,7 @@ export class CardGameCore extends GameCore {
       }
       // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       if(whatChange == "table"){
-      window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
+      // window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
       }
       // localStorage.setItem("saveCard", JSON.stringify(b));
       // console.log("Save good");

@@ -1,6 +1,6 @@
 // Импортируем необходимые классы и константы из других файлов
-import { GameStatus } from './game.js?v=1.10';
-import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.10';
+import { GameStatus } from './game.js?v=1.11';
+import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.11';
 
 let i =0;
 
@@ -9,6 +9,24 @@ let i =0;
 let autoVisible = 1;
 let stockCurrent = 1;
 let checkFirstTry =0;
+
+let simpleArray1= [
+  [false,"stock",24,0],[false,"stock",16,1],[false,"stock",23,2],[false,"stock",32,3],[false,"stock",13,4],[false,"stock",45,5],[false,"stock",25,6],[false,"stock",49,7],[false,"stock",11,8],[false,"stock",41,9],[false,"stock",12,10],[false,"stock",21,11],[false,"stock",43,12],[false,"stock",27,13],[false,"stock",44,14],[false,"stock",5,15],[false,"stock",6,16],[false,"stock",3,17],[false,"stock",42,18],[false,"stock",4,19],[false,"stock",51,20],[false,"stock",40,21],[false,"stock",17,22],[false,"stock",30,23],[false,"tableau6",31,0],[false,"tableau6",28,1],[false,"tableau6",14,2],[false,"tableau6",7,3],[false,"tableau6",47,4],[false,"tableau6",10,5],[true,"tableau6",18,6],[false,"tableau5",39,0],[false,"tableau5",2,1],[false,"tableau5",1,2],[false,"tableau5",20,3],[false,"tableau5",29,4],[true,"tableau5",48,5],[false,"tableau4",15,0],[false,"tableau4",33,1],[false,"tableau4",37,2],[false,"tableau4",34,3],[true,"tableau4",8,4],[false,"tableau3",50,0],[false,"tableau3",9,1],[false,"tableau3",35,2],[true,"tableau3",36,3],[false,"tableau2",22,0],[false,"tableau2",46,1],[true,"tableau2",52,2],[false,"tableau1",26,0],[true,"tableau1",19,1],[true,"tableau0",38,0]
+];
+let simpleArray2= [
+  [false,"stock",2,0],[false,"stock",5,1],[false,"stock",7,2],[false,"stock",13,3],[false,"stock",31,4],[false,"stock",34,5],[false,"stock",12,6],[false,"stock",19,7],[false,"stock",42,8],[false,"stock",43,9],[false,"stock",44,10],[false,"stock",33,11],[false,"stock",36,12],[false,"stock",50,13],[false,"stock",18,14],[false,"stock",9,15],[false,"stock",38,16],[false,"stock",21,17],[false,"stock",41,18],[false,"stock",28,19],[false,"stock",47,20],[false,"stock",11,21],[false,"stock",26,22],[false,"stock",51,23],[false,"tableau6",32,0],[false,"tableau6",8,1],[false,"tableau6",17,2],[false,"tableau6",15,3],[false,"tableau6",40,4],[false,"tableau6",16,5],[true,"tableau6",49,6],[false,"tableau5",22,0],[false,"tableau5",10,1],[false,"tableau5",35,2],[false,"tableau5",3,3],[false,"tableau5",4,4],[true,"tableau5",48,5],[false,"tableau4",1,0],[false,"tableau4",46,1],[false,"tableau4",52,2],[false,"tableau4",6,3],[true,"tableau4",20,4],[false,"tableau3",23,0],[false,"tableau3",37,1],[false,"tableau3",45,2],[true,"tableau3",30,3],[false,"tableau2",24,0],[false,"tableau2",29,1],[true,"tableau2",27,2],[false,"tableau1",39,0],[true,"tableau1",14,1],[true,"tableau0",25,0]
+];
+let simpleArray3= [
+  [false,"stock",40,0],[false,"stock",15,1],[false,"stock",35,2],[false,"stock",29,3],[false,"stock",47,4],[false,"stock",16,5],[false,"stock",30,6],[false,"stock",52,7],[false,"stock",37,8],[false,"stock",4,9],[false,"stock",21,10],[false,"stock",11,11],[false,"stock",50,12],[false,"stock",44,13],[false,"stock",41,14],[false,"stock",14,15],[false,"stock",17,16],[false,"stock",19,17],[false,"stock",7,18],[false,"stock",22,19],[false,"stock",28,20],[false,"stock",6,21],[false,"stock",26,22],[false,"stock",45,23],[false,"tableau6",31,0],[false,"tableau6",38,1],[false,"tableau6",2,2],[false,"tableau6",18,3],[false,"tableau6",39,4],[false,"tableau6",3,5],[true,"tableau6",1,6],[false,"tableau5",8,0],[false,"tableau5",24,1],[false,"tableau5",12,2],[false,"tableau5",46,3],[false,"tableau5",33,4],[true,"tableau5",13,5],[false,"tableau4",43,0],[false,"tableau4",27,1],[false,"tableau4",25,2],[false,"tableau4",34,3],[true,"tableau4",5,4],[false,"tableau3",23,0],[false,"tableau3",36,1],[false,"tableau3",32,2],[true,"tableau3",49,3],[false,"tableau2",20,0],[false,"tableau2",42,1],[true,"tableau2",10,2],[false,"tableau1",9,0],[true,"tableau1",51,1],[true,"tableau0",48,0]
+];
+let simpleArray4= [
+  [false,"stock",13,0],[false,"stock",49,1],[false,"stock",23,2],[false,"stock",11,3],[false,"stock",7,4],[false,"stock",37,5],[false,"stock",48,6],[false,"stock",6,7],[false,"stock",28,8],[false,"stock",46,9],[false,"stock",40,10],[false,"stock",3,11],[false,"stock",35,12],[false,"stock",51,13],[false,"stock",22,14],[false,"stock",34,15],[false,"stock",10,16],[false,"stock",19,17],[false,"stock",31,18],[false,"stock",45,19],[false,"stock",47,20],[false,"stock",27,21],[false,"stock",30,22],[false,"stock",4,23],[false,"tableau6",21,0],[false,"tableau6",1,1],[false,"tableau6",8,2],[false,"tableau6",36,3],[false,"tableau6",33,4],[false,"tableau6",16,5],[true,"tableau6",41,6],[false,"tableau5",15,0],[false,"tableau5",24,1],[false,"tableau5",42,2],[false,"tableau5",2,3],[false,"tableau5",18,4],[true,"tableau5",52,5],[false,"tableau4",26,0],[false,"tableau4",29,1],[false,"tableau4",17,2],[false,"tableau4",32,3],[true,"tableau4",50,4],[false,"tableau3",38,0],[false,"tableau3",25,1],[false,"tableau3",14,2],[true,"tableau3",20,3],[false,"tableau2",9,0],[false,"tableau2",5,1],[true,"tableau2",39,2],[false,"tableau1",12,0],[true,"tableau1",44,1],[true,"tableau0",43,0]
+];
+let simpleArray5= [
+  [false,"stock",9,0],[false,"stock",17,1],[false,"stock",14,2],[false,"stock",4,3],[false,"stock",10,4],[false,"stock",18,5],[false,"stock",51,6],[false,"stock",29,7],[false,"stock",22,8],[false,"stock",38,9],[false,"stock",7,10],[false,"stock",41,11],[false,"stock",8,12],[false,"stock",16,13],[false,"stock",47,14],[false,"stock",28,15],[false,"stock",42,16],[false,"stock",45,17],[false,"stock",49,18],[false,"stock",44,19],[false,"stock",31,20],[false,"stock",48,21],[false,"stock",24,22],[false,"stock",37,23],[false,"tableau6",12,0],[false,"tableau6",34,1],[false,"tableau6",36,2],[false,"tableau6",52,3],[false,"tableau6",1,4],[false,"tableau6",50,5],[true,"tableau6",6,6],[false,"tableau5",32,0],[false,"tableau5",2,1],[false,"tableau5",15,2],[false,"tableau5",5,3],[false,"tableau5",23,4],[true,"tableau5",27,5],[false,"tableau4",25,0],[false,"tableau4",26,1],[false,"tableau4",3,2],[false,"tableau4",20,3],[true,"tableau4",30,4],[false,"tableau3",21,0],[false,"tableau3",19,1],[false,"tableau3",35,2],[true,"tableau3",46,3],[false,"tableau2",39,0],[false,"tableau2",40,1],[true,"tableau2",11,2],[false,"tableau1",13,0],[true,"tableau1",43,1],[true,"tableau0",33,0]
+];
+
+
 
 
 // Создаем класс ядра игры для пасьянса Клондайк, наследуя CardGameCore
@@ -36,73 +54,115 @@ class KlondikeCore extends CardGameCore {
     return foundationArrays.every(cardArray => (cardArray.length === 13)); // Проверка, есть ли 13 карт в каждой стопке фундамента
   }
   // Метод распределения карт при начале игры
-  deal() {
-    this.moveCards(this._allCards, 'stock', false); // Перемещаем все карты в сток
-    document.getElementById('new-game-button').innerHTML = "Test 6";
+
+  convertAndOutput(storedValue){
+    this.moveCards(this._allCards, 'stock', false);
+    for(let i=0;i<52;i++){ // упорядочивание элементов в массиве по убыванию для того чтобы корректно дальше выводил
+      let j=i;
+      for(j;j<52;j++){
+        if(storedValue[i][1] == storedValue[j][1] && storedValue[i][3] > storedValue[j][3]){
+          let a = storedValue[j];
+          storedValue[j] = storedValue[i];
+          storedValue[i] = a;
+          j=i;
+        }
+      }
+    }
+    for(let i=0;i<52;i++){ // непосредственно разложение карт после получения и изменения данных карт на новые
+      let j=0;
+      for(j;j<52;j++){
+        let sourceArray = this.placeIdToCardArray['stock'];
+        this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
+        if(storedValue[i][2] == this._allCards[j].i){
+          this.rawMoveForGet(this._allCards[j], 'stock',storedValue[i][1]);
+          this._allCards[j].in = storedValue[i][3];
+          if( storedValue[i][0] == true){this._allCards[j].visible = true }
+        }
+      }
+    }
+    for(let i =0;i<7;i++){ // после разложения проверка на возможность автокомплита
+      let sourceArray = this.placeIdToCardArray['tableau' + i];
+      if(sourceArray.length>0){
+        if(sourceArray[0].visible == false){
+          autoVisible = 0;
+        }
+      }
+    }
+    if(autoVisible == 1){
+      let block = document.getElementById('check-autocomplete-button');
+      block.classList.add('normal-auto');
+    }
+    autoVisible = 1;
     for(let i=0;i<52;i++){ // актуализация индекса карты
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
     }
-    if(checkFirstTry == 0){
-      console.log('get start');
-      window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
-        // let storedValue = localStorage.getItem("saveCard");
-        if (storedValue === null || storedValue === undefined || storedValue === "") {
-          console.log('get empty');
-          for (let i = 0; i < 7; i++) {
-            const howManyCardsToMove = i + 1;
-            const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-            this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-            cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-          }
-          return; // Exit if there's an error
-        }else{
-          console.log('get good');
-          storedValue = JSON.parse(storedValue);
-          // console.table(storedValue);
-          for(let i=0;i<52;i++){ // упорядочивание элементов в массиве по убыванию для того чтобы корректно дальше выводил
-            let j=i;
-            for(j;j<52;j++){
-              if(storedValue[i][1] == storedValue[j][1] && storedValue[i][3] > storedValue[j][3]){
-                let a = storedValue[j];
-                storedValue[j] = storedValue[i];
-                storedValue[i] = a;
-                j=i;
-              }
-            }
-          }
-          for(let i=0;i<52;i++){ // непосредственно разложение карт после получения и изменения данных карт на новые
-            let j=0;
-            for(j;j<52;j++){
-              let sourceArray = this.placeIdToCardArray['stock'];
-              this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
-              if(storedValue[i][2] == this._allCards[j].i){
-                this.rawMoveForGet(this._allCards[j], 'stock',storedValue[i][1]);
-                this._allCards[j].in = storedValue[i][3];
-                if( storedValue[i][0] == true){this._allCards[j].visible = true }
-              }
-            }
-          }
+  }
 
-          for(let i =0;i<7;i++){ // после разложения проверка на возможность автокомплита
-            let sourceArray = this.placeIdToCardArray['tableau' + i];
-            if(sourceArray.length>0){
-              if(sourceArray[0].visible == false){
-                autoVisible = 0;
+  deal() {
+    document.getElementById('new-game-button').innerHTML = "Test 6";
+
+    window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
+      // let count = localStorage.getItem("countTry");
+      if (count === null || count === undefined || count === "") {
+        window.Telegram.WebApp.CloudStorage.setItem("countTry", 1);
+        // localStorage.setItem("countTry",'1');
+        console.log('count');
+      }else{
+        count++;
+        localStorage.setItem("countTry",count);
+      }
+      switch(count){
+        case 1: 
+          console.log('Try 1');
+          this.convertAndOutput(simpleArray1);
+        break;
+
+        case 2: 
+          console.log('Try 2');
+          this.convertAndOutput(simpleArray2);
+        break;
+
+        case 3: 
+          console.log('Try 3');
+          this.convertAndOutput(simpleArray3);
+        break;
+
+        case 4: 
+          console.log('Try 4');
+          this.convertAndOutput(simpleArray4);
+        break;
+        
+        case 5: 
+          console.log('Try 5');
+          this.convertAndOutput(simpleArray5);
+        break;
+
+        default:
+          if(checkFirstTry == 0){
+          console.log('get start');
+          window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
+            // let storedValue = localStorage.getItem("saveCard");
+            let storedValue;
+            if (storedValue === null || storedValue === undefined || storedValue === "") {
+              console.log('get empty');
+              for (let i = 0; i < 7; i++) {
+                const howManyCardsToMove = i + 1;
+                const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+                this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+                cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
               }
+            }else{
+              console.log('get good');
+              storedValue = JSON.parse(storedValue);
+              // console.table(storedValue);
+              this.convertAndOutput(storedValue);
             }
-          }
-          if(autoVisible == 1){
-            let block = document.getElementById('check-autocomplete-button');
-            block.classList.add('normal-auto');
-          }
-          autoVisible = 1;
-        }
-        this.indexStart();
-        // console.table(this._allCards);
-      });
+            this.indexStart();
+            // console.table(this._allCards);
+          });
     } else{
-      console.log('normal start');
+      // console.log('normal start');
       for (let i = 0; i < 7; i++) {
         const howManyCardsToMove = i + 1;
         const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
@@ -111,6 +171,98 @@ class KlondikeCore extends CardGameCore {
       }
     }
     checkFirstTry++;
+      }
+
+    });
+
+    // localStorage.setItem("countTry",'0');
+
+
+
+
+
+    
+    // if(checkFirstTry == 0){
+    //   console.log('get start');
+    //   // window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
+    //     // let storedValue = localStorage.getItem("saveCard");
+    //     let storedValue;
+    //     if (storedValue === null || storedValue === undefined || storedValue === "") {
+    //       console.log('get empty');
+    //       for (let i = 0; i < 7; i++) {
+    //         const howManyCardsToMove = i + 1;
+    //         const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+    //         this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+    //         cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+    //       }
+    //     }else{
+    //       console.log('get good');
+    //       storedValue = JSON.parse(storedValue);
+    //       // console.table(storedValue);
+    //       for(let i=0;i<52;i++){ // упорядочивание элементов в массиве по убыванию для того чтобы корректно дальше выводил
+    //         let j=i;
+    //         for(j;j<52;j++){
+    //           if(storedValue[i][1] == storedValue[j][1] && storedValue[i][3] > storedValue[j][3]){
+    //             let a = storedValue[j];
+    //             storedValue[j] = storedValue[i];
+    //             storedValue[i] = a;
+    //             j=i;
+    //           }
+    //         }
+    //       }
+    //       for(let i=0;i<52;i++){ // непосредственно разложение карт после получения и изменения данных карт на новые
+    //         let j=0;
+    //         for(j;j<52;j++){
+    //           let sourceArray = this.placeIdToCardArray['stock'];
+    //           this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
+    //           if(storedValue[i][2] == this._allCards[j].i){
+    //             this.rawMoveForGet(this._allCards[j], 'stock',storedValue[i][1]);
+    //             this._allCards[j].in = storedValue[i][3];
+    //             if( storedValue[i][0] == true){this._allCards[j].visible = true }
+    //           }
+    //         }
+    //       }
+
+    //       for(let i =0;i<7;i++){ // после разложения проверка на возможность автокомплита
+    //         let sourceArray = this.placeIdToCardArray['tableau' + i];
+    //         if(sourceArray.length>0){
+    //           if(sourceArray[0].visible == false){
+    //             autoVisible = 0;
+    //           }
+    //         }
+    //       }
+    //       if(autoVisible == 1){
+    //         let block = document.getElementById('check-autocomplete-button');
+    //         block.classList.add('normal-auto');
+    //       }
+    //       autoVisible = 1;
+    //     }
+    //     this.indexStart();
+    //     // console.table(this._allCards);
+    // //   });
+    // } else{
+    //   // console.log('normal start');
+    //   for (let i = 0; i < 7; i++) {
+    //     const howManyCardsToMove = i + 1;
+    //     const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+    //     this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+    //     cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+    //   }
+    // }
+    // checkFirstTry++;
+
+    // let b=[];
+    // let f=0;
+    // for(let i=0;i<this._allCards.length;i++){// преобразование в массив для сохранение в облако 
+    //   if( this._allCards[i].v == true){this._allCards[i].visible = true }
+    //   let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
+    //   b[f] = a;
+    //   f++;
+    // }
+    // console.table(JSON.stringify(b));
+
+    // console.table(JSON.stringify(simpleArray1));
+    // console.table(simpleArray1);
 
 
       //  //  // делает видимыми карты
@@ -408,7 +560,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const tg = window.Telegram.WebApp;
   tg.expand();
   tg.disableVerticalSwipes();
-  console.log(tg.isFullscreen); 
+  // console.log(tg.isFullscreen); 
 
     // tg.requestFullscreen();
     // console.log(tg.isFullscreen); 
