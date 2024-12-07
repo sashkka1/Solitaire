@@ -1,6 +1,6 @@
 // Импортируем необходимые классы и константы из других файлов
-import { GameStatus } from './game.js?v=1.0.9';
-import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.0.9';
+import { GameStatus } from './game.js?v=1.10';
+import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.10';
 
 let i =0;
 
@@ -83,7 +83,8 @@ class KlondikeCore extends CardGameCore {
               }
             }
           }
-          for(let i =0;i<7;i++){
+
+          for(let i =0;i<7;i++){ // после разложения проверка на возможность автокомплита
             let sourceArray = this.placeIdToCardArray['tableau' + i];
             if(sourceArray.length>0){
               if(sourceArray[0].visible == false){
@@ -110,6 +111,8 @@ class KlondikeCore extends CardGameCore {
       }
     }
     checkFirstTry++;
+
+
       //  //  // делает видимыми карты
       // for (let i = 0; i < 7; i++) {
       //   const howManyCardsToMove = i + 1;

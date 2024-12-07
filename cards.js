@@ -210,7 +210,7 @@ export class CardGameCore extends GameCore {
       let b=[];
       let f=0;
 
-      if(whatChange == "table"){
+      if(whatChange == "table"){ // только когда перемещение было с стола открываем придыдущую карту
         let sourceArray = this.placeIdToCardArray[oldPlace];
         if(sourceArray.length !== 0){ // если последнее действие открывает карту
           for(let i=0;i<52;i++){
@@ -222,13 +222,13 @@ export class CardGameCore extends GameCore {
         }
       }
 
-      for(let i=0;i<this._allCards.length;i++){
+      for(let i=0;i<this._allCards.length;i++){// преобразование в массив для сохранение в облако 
         if( this._allCards[i].v == true){this._allCards[i].visible = true }
         let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
         b[f] = a;
         f++;
       }
-      if(whatChange == "stock"){
+      if(whatChange == "stock"){ // только когда перемещение было с стока открываем последнюю карту дискрад
         let asdf = this.placeIdToCardArray['discard'];
         if((this.placeIdToCardArray['discard'].length-1) >=0){
           for(let i=0;i<this._allCards.length;i++){
@@ -243,12 +243,12 @@ export class CardGameCore extends GameCore {
       window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
       }
       // localStorage.setItem("saveCard", JSON.stringify(b));
-      console.log("Save good");
+      // console.log("Save good");
       // console.table(b);
     }
   }
 
-  moveCardsForStock(cardArray, newPlaceId, setStatus = true) {
+  moveCardsForStock(cardArray, newPlaceId, setStatus = true) { // перемещение карт без сохранения
     for(let i=0;i<cardArray.length;i++){// актуализвация положения карты
       cardArray[i].p = newPlaceId;
     }
@@ -268,7 +268,7 @@ export class CardGameCore extends GameCore {
     }
   }
 
-  rawMoveForStock(card, sourcePlaceId, destPlaceId,) {
+  rawMoveForStock(card, sourcePlaceId, destPlaceId,) { // перемещение карт без сохранения
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.remove('lock');
 
@@ -316,7 +316,7 @@ export class CardGameCore extends GameCore {
     this.moveCards(moving, destPlaceId); // Перемещаем карты
   }
 
-  indexStart(){
+  indexStart(){ // при выведении сохраненной игры чтобы понимал что игра началась
     gameIsStart++;
   }
   
@@ -342,8 +342,6 @@ export class CardGameCore extends GameCore {
     if (!this.canMove(card, sourcePlaceId, destPlaceId)) {
       throw new Error("invalid move"); // Ошибка, если перемещение недопустимо
     }
-
-
     this.rawMove(card, sourcePlaceId, destPlaceId); // Выполняем перемещение
   }
 
@@ -539,13 +537,13 @@ export class CardGameUI extends GameUI {
     gameIsStart2 ++;
   }
 
-  autoButton(){
+  autoButton(){ // реализация кнопки автозаполнения
     this.currentGame.forAuto();
     let block = document.getElementById('check-autocomplete-button');
     block.classList.remove('normal-auto');
   }
 
-  backButton(){
+  backButton(){ // реализация кнопки бэк
     if(backCard !="undefined"){
 
       if(whatChange == "stock"){
