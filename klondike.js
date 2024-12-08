@@ -107,10 +107,12 @@ class KlondikeCore extends CardGameCore {
       if (count === null || count === undefined || count === "") {
         window.Telegram.WebApp.CloudStorage.setItem("countTry", 1);
         // localStorage.setItem("countTry",'1');
-        console.log('count');
+        console.log('count empty ',count);
       }else{
         count++;
-        localStorage.setItem("countTry",count);
+        window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
+        // localStorage.setItem("countTry",count);
+        console.log('count ',count);
       }
       switch(count){
         case 1: 
@@ -139,7 +141,8 @@ class KlondikeCore extends CardGameCore {
         break;
 
         default:
-          localStorage.setItem("countTry",'0');
+          // localStorage.setItem("countTry",'0');
+          window.Telegram.WebApp.CloudStorage.setItem("countTry",'0');
           // if(checkFirstTry == 0){
           // console.log('get start');
           // window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
