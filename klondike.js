@@ -109,93 +109,91 @@ class KlondikeCore extends CardGameCore {
     }
   }
 
+  firstFiveStart(count){
+    // if (count === null || count === undefined || count === "") {
+    //   count=1;
+    //   window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
+    //   console.log('count empty ',count);
+    // }else{
+    //   count++;
+    //   window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
+    //   console.log('count ',count);
+    // }
+    // switch(count){
+    //   case 1: 
+    //     console.log('Try 1');
+    //     this.convertAndOutput(simpleArray1);
+    //   break;
+
+    //   case 2: 
+    //     console.log('Try 2');
+    //     this.convertAndOutput(simpleArray2);
+    //   break;
+
+    //   case 3: 
+    //     console.log('Try 3');
+    //     this.convertAndOutput(simpleArray3);
+    //   break;
+
+    //   case 4: 
+    //     console.log('Try 4');
+    //     this.convertAndOutput(simpleArray4);
+    //   break;
+      
+    //   case 5: 
+    //     console.log('Try 5');
+    //     this.convertAndOutput(simpleArray5);
+    //   break;
+
+    //   default:
+    //     console.log('Try 6+');
+    //     this.normalStart();
+    //   break;
+    // }
+
+    this.normalStart();
+  }
+
   deal() {
     document.getElementById('new-game-button').innerHTML = "Test 7";
 
     window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
       // let count = localStorage.getItem("countTry");
-      console.log('start ',count);
-      if (count === null || count === undefined || count === "") {
-        count=1;
-        window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
-        // localStorage.setItem("countTry",'1');
-        console.log('count empty ',count);
-      }else{
-        count++;
-        window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
-        // localStorage.setItem("countTry",count);
-        console.log('count ',count);
-      }
-      switch(count){
-        case 1: 
-          console.log('Try 1');
-          this.convertAndOutput(simpleArray1);
-        break;
 
-        case 2: 
-          console.log('Try 2');
-          this.convertAndOutput(simpleArray2);
-        break;
 
-        case 3: 
-          console.log('Try 3');
-          this.convertAndOutput(simpleArray3);
-        break;
-
-        case 4: 
-          console.log('Try 4');
-          this.convertAndOutput(simpleArray4);
-        break;
-        
-        case 5: 
-          console.log('Try 5');
-          this.convertAndOutput(simpleArray5);
-        break;
-
-        default:
-          console.log('Try 6+');
-          // localStorage.setItem("countTry",'0');
-          // window.Telegram.WebApp.CloudStorage.removeItem("countTry");
-          this.normalStart();
-          // if(checkFirstTry == 0){
-          // console.log('get start');
-          // window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
-          //   // let storedValue = localStorage.getItem("saveCard");
-          //   let storedValue;
-          //   if (storedValue === null || storedValue === undefined || storedValue === "") {
-          //     console.log('get empty');
-          //     for (let i = 0; i < 7; i++) {
-          //       const howManyCardsToMove = i + 1;
-          //       const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-          //       this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-          //       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-          //     }
-          //   }else{
-          //     console.log('get good');
-          //     storedValue = JSON.parse(storedValue);
-          //     // console.table(storedValue);
-          //     this.convertAndOutput(storedValue);
-          //   }
-          //   this.indexStart();
-          //   // console.table(this._allCards);
-          // });
-          // } else{
-          //   // console.log('normal start');
-          //   for (let i = 0; i < 7; i++) {
-          //     const howManyCardsToMove = i + 1;
-          //     const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-          //     this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-          //     cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-          //   }
-          // }
-          // checkFirstTry++;
-        break;
-      }
+      if(checkFirstTry == 0){
+        window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
+          // let storedValue = localStorage.getItem("saveCard");
+          let storedValue;
+          if (storedValue === null || storedValue === undefined || storedValue === "") {
+            console.log('get empty');
+            this.firstFiveStart(count);
+          }else{
+            console.log('get good');
+            storedValue = JSON.parse(storedValue);
+            this.convertAndOutput(storedValue);
+          }
+          this.indexStart();
+        });
+        } else{
+          this.firstFiveStart(count);
+        }
     });
+
+
+
+
+
+    checkFirstTry++;
+
+
+
+
+
 
     // localStorage.setItem("countTry",'0');
 
-    // window.Telegram.WebApp.CloudStorage.removeItem("countTry");
+    window.Telegram.WebApp.CloudStorage.removeItem("countTry");
 
 
 
