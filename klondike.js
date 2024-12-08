@@ -151,7 +151,7 @@ class KlondikeCore extends CardGameCore {
       break;
     }
 
-    this.normalStart();
+    // this.normalStart();
   }
 
   deal() {
