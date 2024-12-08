@@ -185,9 +185,8 @@ class KlondikeCore extends CardGameCore {
       if(count >9){
         window.Telegram.WebApp.CloudStorage.removeItem("countTry");
       }
+      checkFirstTry++;
     });
-    console.log('3',checkFirstTry);
-    checkFirstTry++;
 
 
 
