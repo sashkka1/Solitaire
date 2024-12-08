@@ -155,7 +155,7 @@ class KlondikeCore extends CardGameCore {
   }
 
   deal() {
-    document.getElementById('new-game-button').innerHTML = "Test 2";
+    document.getElementById('new-game-button').innerHTML = "Test 3";
 
     window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
       // let count = localStorage.getItem("countTry");
@@ -163,9 +163,10 @@ class KlondikeCore extends CardGameCore {
       // let count;
 
       if(checkFirstTry == 0){
+        console.log('1',checkFirstTry);
         window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
           // let storedValue = localStorage.getItem("saveCard");
-
+          console.log(storedValue);
           if (storedValue === null || storedValue === undefined || storedValue === "") {
             console.log('get empty');
             this.firstFiveStart(count);
@@ -176,139 +177,20 @@ class KlondikeCore extends CardGameCore {
           }
           this.indexStart();
         });
-        } else{
-          this.firstFiveStart(count);
-        }
+      } else{
+        console.log('2',checkFirstTry);
+        this.firstFiveStart(count);
+      }
 
-        if(count >9){
-          window.Telegram.WebApp.CloudStorage.removeItem("countTry");
-        }
+      if(count >9){
+        window.Telegram.WebApp.CloudStorage.removeItem("countTry");
+      }
     });
-
-
-
-
-
+    console.log('3',checkFirstTry);
     checkFirstTry++;
 
 
 
-
-
-
-    // localStorage.setItem("countTry",'0');
-
-
-
-
-    
-    // if(checkFirstTry == 0){
-    //   console.log('get start');
-    //   // window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
-    //     // let storedValue = localStorage.getItem("saveCard");
-    //     let storedValue;
-    //     if (storedValue === null || storedValue === undefined || storedValue === "") {
-    //       console.log('get empty');
-    //       for (let i = 0; i < 7; i++) {
-    //         const howManyCardsToMove = i + 1;
-    //         const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-    //         this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-    //         cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-    //       }
-    //     }else{
-    //       console.log('get good');
-    //       storedValue = JSON.parse(storedValue);
-    //       // console.table(storedValue);
-    //       for(let i=0;i<52;i++){ // упорядочивание элементов в массиве по убыванию для того чтобы корректно дальше выводил
-    //         let j=i;
-    //         for(j;j<52;j++){
-    //           if(storedValue[i][1] == storedValue[j][1] && storedValue[i][3] > storedValue[j][3]){
-    //             let a = storedValue[j];
-    //             storedValue[j] = storedValue[i];
-    //             storedValue[i] = a;
-    //             j=i;
-    //           }
-    //         }
-    //       }
-    //       for(let i=0;i<52;i++){ // непосредственно разложение карт после получения и изменения данных карт на новые
-    //         let j=0;
-    //         for(j;j<52;j++){
-    //           let sourceArray = this.placeIdToCardArray['stock'];
-    //           this._allCards[j].in = sourceArray.indexOf(this._allCards[j]);
-    //           if(storedValue[i][2] == this._allCards[j].i){
-    //             this.rawMoveForGet(this._allCards[j], 'stock',storedValue[i][1]);
-    //             this._allCards[j].in = storedValue[i][3];
-    //             if( storedValue[i][0] == true){this._allCards[j].visible = true }
-    //           }
-    //         }
-    //       }
-
-    //       for(let i =0;i<7;i++){ // после разложения проверка на возможность автокомплита
-    //         let sourceArray = this.placeIdToCardArray['tableau' + i];
-    //         if(sourceArray.length>0){
-    //           if(sourceArray[0].visible == false){
-    //             autoVisible = 0;
-    //           }
-    //         }
-    //       }
-    //       if(autoVisible == 1){
-    //         let block = document.getElementById('check-autocomplete-button');
-    //         block.classList.add('normal-auto');
-    //       }
-    //       autoVisible = 1;
-    //     }
-    //     this.indexStart();
-    //     // console.table(this._allCards);
-    // //   });
-    // } else{
-    //   // console.log('normal start');
-    //   for (let i = 0; i < 7; i++) {
-    //     const howManyCardsToMove = i + 1;
-    //     const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-    //     this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-    //     cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-    //   }
-    // }
-    // checkFirstTry++;
-
-    // let b=[];
-    // let f=0;
-    // for(let i=0;i<this._allCards.length;i++){// преобразование в массив для сохранение в облако 
-    //   if( this._allCards[i].v == true){this._allCards[i].visible = true }
-    //   let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
-    //   b[f] = a;
-    //   f++;
-    // }
-    // console.table(JSON.stringify(b));
-
-    // console.table(JSON.stringify(simpleArray1));
-    // console.table(simpleArray1);
-
-
-      //  //  // делает видимыми карты
-      // for (let i = 0; i < 7; i++) {
-      //   const howManyCardsToMove = i + 1;
-      //   const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
-      //   this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
-      //   cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
-
-      //   let sourcePlaceIdUltimate ='tableau';
-      //   let f = 1;
-      //   let sourcePlaceId = sourcePlaceIdUltimate + i;
-      //   let sourceArray = this.placeIdToCardArray[sourcePlaceId];
-      //   while (f <= sourceArray.length) {
-      //     cardsToMove[cardsToMove.length - f].visible = true;
-      //       f++;
-      //   }
-      // }
-
-    // делает видимыми колоду
-    // let ccardsToMove = this.placeIdToCardArray.stock; // Извлекаем нужное количество карт из стока
-    // let f=1;
-    // while (f <= ccardsToMove.length) {
-    //   ccardsToMove[ccardsToMove.length - f].visible = true;
-    //     f++;
-    // }
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.add('lock');
   }
