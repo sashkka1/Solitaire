@@ -110,18 +110,18 @@ class KlondikeCore extends CardGameCore {
   }
 
   deal() {
-    document.getElementById('new-game-button').innerHTML = "Test 0";
+    document.getElementById('new-game-button').innerHTML = "Test 1";
 
     window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
       // let count = localStorage.getItem("countTry");
       console.log('start ',count);
       if (count === null || count === undefined || count === "") {
-        // window.Telegram.WebApp.CloudStorage.setItem("countTry", 1);
+        window.Telegram.WebApp.CloudStorage.setItem("countTry", 1);
         // localStorage.setItem("countTry",'1');
         console.log('count empty ',count);
       }else{
         // count++;
-        // window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
+        window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
         // localStorage.setItem("countTry",count);
         console.log('count ',count);
       }
@@ -573,7 +573,7 @@ class KlondikeUI extends CardGameUI {
 
 // Запуск кода после загрузки содержимого страницы
 document.addEventListener('DOMContentLoaded', () => {
-  window.Telegram.WebApp.CloudStorage.removeItem("countTry");
+  // window.Telegram.WebApp.CloudStorage.removeItem("countTry");
   const tg = window.Telegram.WebApp;
   tg.expand();
   tg.disableVerticalSwipes();
