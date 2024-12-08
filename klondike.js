@@ -110,52 +110,52 @@ class KlondikeCore extends CardGameCore {
   }
 
   firstFiveStart(count){
-    // if (count === null || count === undefined || count === "") {
-    //   count=1;
-    //   window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
-    //   console.log('count empty ',count);
-    // }else{
-    //   count++;
-    //   window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
-    //   console.log('count ',count);
-    // }
-    // switch(count){
-    //   case 1: 
-    //     console.log('Try 1');
-    //     this.convertAndOutput(simpleArray1);
-    //   break;
+    if (count === null || count === undefined || count === "") {
+      count=1;
+      window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
+      console.log('count empty ',count);
+    }else{
+      count++;
+      window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
+      console.log('count ',count);
+    }
+    switch(count){
+      case 1: 
+        console.log('Try 1');
+        this.convertAndOutput(simpleArray1);
+      break;
 
-    //   case 2: 
-    //     console.log('Try 2');
-    //     this.convertAndOutput(simpleArray2);
-    //   break;
+      case 2: 
+        console.log('Try 2');
+        this.convertAndOutput(simpleArray2);
+      break;
 
-    //   case 3: 
-    //     console.log('Try 3');
-    //     this.convertAndOutput(simpleArray3);
-    //   break;
+      case 3: 
+        console.log('Try 3');
+        this.convertAndOutput(simpleArray3);
+      break;
 
-    //   case 4: 
-    //     console.log('Try 4');
-    //     this.convertAndOutput(simpleArray4);
-    //   break;
+      case 4: 
+        console.log('Try 4');
+        this.convertAndOutput(simpleArray4);
+      break;
       
-    //   case 5: 
-    //     console.log('Try 5');
-    //     this.convertAndOutput(simpleArray5);
-    //   break;
+      case 5: 
+        console.log('Try 5');
+        this.convertAndOutput(simpleArray5);
+      break;
 
-    //   default:
-    //     console.log('Try 6+');
-    //     this.normalStart();
-    //   break;
-    // }
+      default:
+        console.log('Try 6+');
+        this.normalStart();
+      break;
+    }
 
-    this.normalStart();
+    // this.normalStart();
   }
 
   deal() {
-    document.getElementById('new-game-button').innerHTML = "Test 8";
+    document.getElementById('new-game-button').innerHTML = "Test 9";
 
     window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
       // let count = localStorage.getItem("countTry");
@@ -193,7 +193,7 @@ class KlondikeCore extends CardGameCore {
 
     // localStorage.setItem("countTry",'0');
 
-    window.Telegram.WebApp.CloudStorage.removeItem("countTry");
+    // window.Telegram.WebApp.CloudStorage.removeItem("countTry");
 
 
 
