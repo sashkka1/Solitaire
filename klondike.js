@@ -575,7 +575,7 @@ class KlondikeUI extends CardGameUI {
 
 // Запуск кода после загрузки содержимого страницы
 document.addEventListener('DOMContentLoaded', () => {
-
+  window.Telegram.WebApp.CloudStorage.removeItem("countTry");
   const tg = window.Telegram.WebApp;
   tg.expand();
   tg.disableVerticalSwipes();
