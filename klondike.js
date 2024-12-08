@@ -157,9 +157,10 @@ class KlondikeCore extends CardGameCore {
   deal() {
     document.getElementById('new-game-button').innerHTML = "Test 0";
 
-    window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
+    // window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
       // let count = localStorage.getItem("countTry");
 
+      let count;
 
       if(checkFirstTry == 0){
         window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
@@ -178,7 +179,7 @@ class KlondikeCore extends CardGameCore {
         } else{
           this.firstFiveStart(count);
         }
-    });
+    // });
 
 
 
@@ -193,7 +194,7 @@ class KlondikeCore extends CardGameCore {
 
     // localStorage.setItem("countTry",'0');
 
-    window.Telegram.WebApp.CloudStorage.setItem("countTry",'0');
+    window.Telegram.WebApp.CloudStorage.removeItem("countTry");
 
 
 
