@@ -99,8 +99,18 @@ class KlondikeCore extends CardGameCore {
     }
   }
 
+  normaltart(){
+    this.moveCards(this._allCards, 'stock', false);
+    for (let i = 0; i < 7; i++) {
+      const howManyCardsToMove = i + 1;
+      const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+      this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+      cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+    }
+  }
+
   deal() {
-    document.getElementById('new-game-button').innerHTML = "Test 6";
+    document.getElementById('new-game-button').innerHTML = "Test 7";
 
     window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
       // let count = localStorage.getItem("countTry");
@@ -141,8 +151,10 @@ class KlondikeCore extends CardGameCore {
         break;
 
         default:
+          console.log('Try 6+');
           // localStorage.setItem("countTry",'0');
-          window.Telegram.WebApp.CloudStorage.setItem("countTry",'0');
+          window.Telegram.WebApp.CloudStorage.removeItem("countTry");
+          normaltart();
           // if(checkFirstTry == 0){
           // console.log('get start');
           // window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
