@@ -113,40 +113,32 @@ class KlondikeCore extends CardGameCore {
     if (count === null || count === undefined || count === "") {
       count=1;
       window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
-      console.log('count empty ',count);
     }else{
       count++;
       window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
-      console.log('count ',count);
     }
     switch(count){
       case 1: 
-        console.log('Try 1');
         this.convertAndOutput(simpleArray1);
       break;
 
       case 2: 
-        console.log('Try 2');
         this.convertAndOutput(simpleArray2);
       break;
 
       case 3: 
-        console.log('Try 3');
         this.convertAndOutput(simpleArray3);
       break;
 
       case 4: 
-        console.log('Try 4');
         this.convertAndOutput(simpleArray4);
       break;
       
       case 5: 
-        console.log('Try 5');
         this.convertAndOutput(simpleArray5);
       break;
 
       default:
-        console.log('Try 6+');
         this.normalStart();
       break;
     }
@@ -155,15 +147,12 @@ class KlondikeCore extends CardGameCore {
   }
 
   deal() {
-    document.getElementById('new-game-button').innerHTML = "Test 3";
+    document.getElementById('new-game-button').innerHTML = "Test 0";
 
     window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
       // let count = localStorage.getItem("countTry");
 
-      // let count;
-
       if(checkFirstTry == 0){
-        console.log('1',checkFirstTry);
         window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
           // let storedValue = localStorage.getItem("saveCard");
           console.log(storedValue);
@@ -178,13 +167,13 @@ class KlondikeCore extends CardGameCore {
           this.indexStart();
         });
       } else{
-        console.log('2',checkFirstTry);
         this.firstFiveStart(count);
       }
 
       if(count >9){
         window.Telegram.WebApp.CloudStorage.removeItem("countTry");
       }
+
       checkFirstTry++;
     });
 
