@@ -155,7 +155,7 @@ class KlondikeCore extends CardGameCore {
   }
 
   deal() {
-    document.getElementById('new-game-button').innerHTML = "Test 7";
+    document.getElementById('new-game-button').innerHTML = "Test 8";
 
     window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
       // let count = localStorage.getItem("countTry");
@@ -164,7 +164,7 @@ class KlondikeCore extends CardGameCore {
       if(checkFirstTry == 0){
         window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
           // let storedValue = localStorage.getItem("saveCard");
-          let storedValue;
+
           if (storedValue === null || storedValue === undefined || storedValue === "") {
             console.log('get empty');
             this.firstFiveStart(count);
