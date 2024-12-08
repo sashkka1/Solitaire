@@ -120,11 +120,12 @@ class KlondikeCore extends CardGameCore {
         // localStorage.setItem("countTry",'1');
         console.log('count empty ',count);
       }else{
-        // count++;
+        count++;
         window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
         // localStorage.setItem("countTry",count);
         console.log('count ',count);
       }
+      console.log(count);
       switch(count){
         case 1: 
           console.log('Try 1');
@@ -573,7 +574,6 @@ class KlondikeUI extends CardGameUI {
 
 // Запуск кода после загрузки содержимого страницы
 document.addEventListener('DOMContentLoaded', () => {
-  // window.Telegram.WebApp.CloudStorage.removeItem("countTry");
   const tg = window.Telegram.WebApp;
   tg.expand();
   tg.disableVerticalSwipes();
