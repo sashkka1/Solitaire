@@ -1,6 +1,6 @@
-// Импортируем необходимые классы и константы из других файлов
-import { GameStatus } from './game.js?v=1.11';
-import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.11';
+let game_version = '1.16';
+import { GameStatus } from './game.js?v=1.16';
+import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.16';
 
 let i =0;
 
@@ -152,7 +152,16 @@ class KlondikeCore extends CardGameCore {
     window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
       // let count = localStorage.getItem("countTry");
 
+
       if(checkFirstTry == 0){
+
+        let localDate = new Date();
+        gtag('event', 'ww_open', {
+          'occurrence_time': localDate,
+          'game_version': game_version,
+          'tg_username': window.Telegram.WebApp.initDataUnsafe.user.username
+        });
+
         window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
           // let storedValue = localStorage.getItem("saveCard");
           console.log(storedValue);
