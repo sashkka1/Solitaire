@@ -1,4 +1,5 @@
 let game_version = '1.20';
+this.gameVersion(game_version);
 import { GameStatus } from './game.js?v=1.20';
 import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.20';
 
@@ -171,7 +172,7 @@ class KlondikeCore extends CardGameCore {
       if(checkFirstTry == 0){
         window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
           // let storedValue = localStorage.getItem("saveCard");
-          console.log(storedValue);
+          // console.log(storedValue);
           if (storedValue === null || storedValue === undefined || storedValue === "") {
             console.log('get empty');
             this.firstFiveStart(count);
@@ -481,7 +482,7 @@ document.addEventListener('DOMContentLoaded', () => {
   autoButton.addEventListener('click', () => ui.autoButton());
 
 
-  window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
+  window.Telegram.WebApp.CloudStorage.getItem("countTryGoogle", (err, count) => {
     if (count === null || count === undefined || count === "") {
       let occurrence_time_local = new Date(); // Первое открытие веб вью (новый пользователь)
       let occurrence_time_utc0 = new Date().toISOString();

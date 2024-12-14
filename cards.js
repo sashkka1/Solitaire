@@ -14,6 +14,7 @@ let gameIsStart = 0;
 let gameIsStart2 = 0;
 let block;
 let checkcontinue = 0;
+let game_version;
 
 
 
@@ -318,8 +319,8 @@ export class CardGameCore extends GameCore {
     checkcontinue++;
   }
 
-  indexStart(){ // при выведении сохраненной игры чтобы понимал что игра началась
-    gameIsStart++;
+  gameVersion(version){ // при выведении сохраненной игры чтобы понимал что игра началась
+    game_version = version;
   }
   
   rawMoveForGet(card, last, neww) { // для реализации перемещения карт при возврате их из тг клаудстор
@@ -814,7 +815,7 @@ _endDrag(touchElement) {
     gameIsStart++;
     this.currentGame.move(this._draggingState.cardInfos[0].card, this._draggingState.oldCardPlaceId, this._draggingState.dropPlaceId);
     // _onCardsMoved() обрабатывает дальнейшие действия
-
+    console.log('checkcontinue',checkcontinue);
     if(checkcontinue > 0){ 
       let occurrence_time_local = new Date(); //Продолжение игры rогда пользователь сделал один ход в игре, в которую он уже играл и которая была загружена
       let occurrence_time_utc0 = new Date().toISOString();
