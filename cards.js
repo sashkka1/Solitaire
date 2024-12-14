@@ -1,3 +1,5 @@
+let game_version = '1.20';
+
 // Импортируем модули GameCore, GameStatus и GameUI из файла game.js
 import { GameCore, GameStatus, GameUI} from './game.js';
 // Определяем масти карт с их свойствами (имя, цвет и unicode-символ)
@@ -15,8 +17,6 @@ let gameIsStart2 = 0;
 let block;
 let checkcontinue = 0;
 
-
-let game_version = '1.20';
 
 
 
@@ -483,18 +483,6 @@ export class CardGameUI extends GameUI {
 
 
   newGame() {// проверяю на то была ли игра уже начата чтобы решить выставлять блок решением пользователя о продолжении или новой игре
-    
-    if(checkcontinue > 0){ 
-      let occurrence_time_local = new Date(); //Старт новой игры, если прошлая игра находилась в прогрессеПо сути дубликат level_start (отправится два ивента), но будет указание на то, что пользователь решил пропустить текущую игру
-      let occurrence_time_utc0 = new Date().toISOString();
-      gtag('event', 'level_reset_and_start', {
-        'occurrence_time_local': occurrence_time_local,
-        'occurrence_time_utc0': occurrence_time_utc0,
-        'game_version': game_version,
-      });
-      console.log('google level_reset_and_start');
-    }
-
     let autocomplete = document.getElementById('check-autocomplete-button');
     let buttonPlace = document.getElementById('button-place');
     let buttonBack = document.getElementById('back-button');
@@ -535,6 +523,19 @@ export class CardGameUI extends GameUI {
           this.currentGame.stockCurrentDefolt();
           autocomplete.classList.remove('normal-auto');
           buttonPlace.classList.add('normal');
+
+          if(checkcontinue > 0){ 
+            let occurrence_time_local = new Date(); //Старт новой игры, если прошлая игра находилась в прогрессеПо сути дубликат level_start (отправится два ивента), но будет указание на то, что пользователь решил пропустить текущую игру
+            let occurrence_time_utc0 = new Date().toISOString();
+            gtag('event', 'level_reset_and_start', {
+              'occurrence_time_local': occurrence_time_local,
+              'occurrence_time_utc0': occurrence_time_utc0,
+              'game_version': game_version,
+            });
+            console.log('google level_reset_and_start');
+          }
+
+
         });
       }
     }
@@ -823,7 +824,6 @@ _endDrag(touchElement) {
         'occurrence_time_utc0': occurrence_time_utc0,
         'game_version': game_version,
       });
-      console.log('google level_continue');
       checkcontinue++;
     }
 

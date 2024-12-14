@@ -1,3 +1,5 @@
+let game_version = '1.20';
+
 // Определяем константы статуса игры
 export const GameStatus = Object.freeze({
   PLAYING: 1,    // Игра идет
@@ -68,27 +70,22 @@ export class GameUI {
       // this._statusMessagePara.textContent = "You win :)";    // Сообщение о победе
 
       window.Telegram.WebApp.CloudStorage.getItem("countWin", (err, count) => {
-        console.log('count1',count);
         if (count === null || count === undefined || count === "") {
           count=1;
           window.Telegram.WebApp.CloudStorage.setItem("countWin", count);
-          console.log('count2',count);
         }else{
           // count++;
         }
         count=1;
         switch(count){ // отправление ивентов о завершении уровня
           case 1: 
-            console.log('count3',count);
             let occurrence_time_local = new Date(); // Завершение 1ого уровня
             let occurrence_time_utc0 = new Date().toISOString();
-            console.log('count4',count);
             gtag('event', 'level_1_end', {
               'occurrence_time_local': occurrence_time_local,
               'occurrence_time_utc0': occurrence_time_utc0,
               'game_version': game_version,
             });
-            console.log('count5',count);
             console.log('google level_1_end');
           break;
           case 2: 
