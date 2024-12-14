@@ -499,7 +499,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'occurrence_time_utc0': occurrence_time_utc0,
         'game_version': game_version,
       });
-      console.log('google ww_open');
+      console.log('google ww_open',count);
       count++;
     }
     window.Telegram.WebApp.CloudStorage.setItem("countTryGoogle", count);

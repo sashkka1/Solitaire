@@ -206,6 +206,7 @@ export class CardGameCore extends GameCore {
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
     }
+    console.log(gameIsStart,'gameIsStart');
     if(gameIsStart > 0){ // сохранение в тг клаудстор
       let b=[];
       let f=0;
@@ -243,7 +244,7 @@ export class CardGameCore extends GameCore {
       window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
       }
       // localStorage.setItem("saveCard", JSON.stringify(b));
-      console.log("Save good");
+      // console.log("Save good");
       // console.table(b);
     }
   }
@@ -824,6 +825,7 @@ _endDrag(touchElement) {
         'game_version': game_version,
       });
       console.log('google level_continue');
+      checkcontinue++;
     }
 
   }

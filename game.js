@@ -73,6 +73,8 @@ export class GameUI {
           count=1;
           window.Telegram.WebApp.CloudStorage.setItem("countWin", count);
           console.log('count2',count);
+        }else{
+          count++;
         }
 
         switch(count){ // отправление ивентов о завершении уровня
