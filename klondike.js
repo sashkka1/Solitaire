@@ -1,5 +1,4 @@
 let game_version = '1.20';
-this.gameVersion(game_version);
 import { GameStatus } from './game.js?v=1.20';
 import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.20';
 

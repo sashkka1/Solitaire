@@ -14,7 +14,9 @@ let gameIsStart = 0;
 let gameIsStart2 = 0;
 let block;
 let checkcontinue = 0;
-let game_version;
+
+
+let game_version = '1.20';
 
 
 
@@ -317,10 +319,6 @@ export class CardGameCore extends GameCore {
   indexStart(){ // при выведении сохраненной игры чтобы понимал что игра началась
     gameIsStart++;
     checkcontinue++;
-  }
-
-  gameVersion(version){ // при выведении сохраненной игры чтобы понимал что игра началась
-    game_version = version;
   }
   
   rawMoveForGet(card, last, neww) { // для реализации перемещения карт при возврате их из тг клаудстор
