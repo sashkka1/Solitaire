@@ -9,15 +9,12 @@ export const SUITS = [
 ];
 
 let i =0;
-// let testId =52, testCardPlace ='fondation0';
 let oldPlace, newPlace, backCard, whatChange, beforeVisible, oldId;
 let gameIsStart = 0;
 let gameIsStart2 = 0;
 let block;
-// let b =0;
-let aa =0, aaa;
+let checkcontinue = 0;
 
-let gameIsStartCloud=0;
 
 
 // кнопка отмены при проверке создания новой игры
@@ -318,6 +315,11 @@ export class CardGameCore extends GameCore {
 
   indexStart(){ // при выведении сохраненной игры чтобы понимал что игра началась
     gameIsStart++;
+    checkcontinue++;
+  }
+
+  indexStart(){ // при выведении сохраненной игры чтобы понимал что игра началась
+    gameIsStart++;
   }
   
   rawMoveForGet(card, last, neww) { // для реализации перемещения карт при возврате их из тг клаудстор
@@ -481,6 +483,18 @@ export class CardGameUI extends GameUI {
 
 
   newGame() {// проверяю на то была ли игра уже начата чтобы решить выставлять блок решением пользователя о продолжении или новой игре
+    
+    if(checkcontinue > 0){ 
+      let occurrence_time_local = new Date(); //Старт новой игры, если прошлая игра находилась в прогрессеПо сути дубликат level_start (отправится два ивента), но будет указание на то, что пользователь решил пропустить текущую игру
+      let occurrence_time_utc0 = new Date().toISOString();
+      gtag('event', 'level_reset_and_start', {
+        'occurrence_time_local': occurrence_time_local,
+        'occurrence_time_utc0': occurrence_time_utc0,
+        'game_version': game_version,
+      });
+      console.log('google level_reset_and_start');
+    }
+
     let autocomplete = document.getElementById('check-autocomplete-button');
     let buttonPlace = document.getElementById('button-place');
     let buttonBack = document.getElementById('back-button');
@@ -538,12 +552,32 @@ export class CardGameUI extends GameUI {
   }
 
   autoButton(){ // реализация кнопки автозаполнения
+
+    let occurrence_time_local = new Date(); // Нажатие на кнопку автокомплита уровня
+    let occurrence_time_utc0 = new Date().toISOString();
+    gtag('event', 'initiate_autocomplete', {
+      'occurrence_time_local': occurrence_time_local,
+      'occurrence_time_utc0': occurrence_time_utc0,
+      'game_version': game_version,
+    });
+    console.log('google initiate_autocomplete');
+
     this.currentGame.forAuto();
     let block = document.getElementById('check-autocomplete-button');
     block.classList.remove('normal-auto');
   }
 
   backButton(){ // реализация кнопки бэк
+
+    let occurrence_time_local = new Date(); // Нажатие на кнопку отмены действия
+    let occurrence_time_utc0 = new Date().toISOString();
+    gtag('event', 'cancel_move', {
+      'occurrence_time_local': occurrence_time_local,
+      'occurrence_time_utc0': occurrence_time_utc0,
+      'game_version': game_version,
+    });
+    console.log('google cancel_move');
+
     if(backCard !="undefined"){
 
       if(whatChange == "stock"){
@@ -780,6 +814,18 @@ _endDrag(touchElement) {
     gameIsStart++;
     this.currentGame.move(this._draggingState.cardInfos[0].card, this._draggingState.oldCardPlaceId, this._draggingState.dropPlaceId);
     // _onCardsMoved() обрабатывает дальнейшие действия
+
+    if(checkcontinue > 0){ 
+      let occurrence_time_local = new Date(); //Продолжение игры rогда пользователь сделал один ход в игре, в которую он уже играл и которая была загружена
+      let occurrence_time_utc0 = new Date().toISOString();
+      gtag('event', 'level_continue', {
+        'occurrence_time_local': occurrence_time_local,
+        'occurrence_time_utc0': occurrence_time_utc0,
+        'game_version': game_version,
+      });
+      console.log('google level_continue');
+    }
+
   }
 
   // Убираем классы, связанные с перетаскиванием

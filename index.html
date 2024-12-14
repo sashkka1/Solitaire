@@ -2,22 +2,37 @@
 <html>
 
 <head>
+    <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-KC2GLWV7');</script>
+    <!-- End Google Tag Manager -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <title>Solitaire</title>
-    <link rel="stylesheet" href="./common.css?v=1.16"></link>
+    <link rel="stylesheet" href="./common.css?v=1.17"></link>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-</head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QDK63CYHML"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    
+    <!-- Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-QDK63CYHML"></script>// goog analytics
+        <script> 
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-    gtag('config', 'G-QDK63CYHML');// Для теста 
-    // gtag('config', 'G-QQJSKLVYGJ');// Для сайта 
-</script>
+            // gtag('config', 'G-QDK63CYHML');// Для теста 
+            gtag('config', 'G-QQJSKLVYGJ');// Для сайта 
+        </script>
+    <!-- Google Analytics -->
+</head>
 <body>
+    <!-- Google Tag Manager -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KC2GLWV7"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager -->
 
     <main>
         <div id="game" class="game-area"></div>
@@ -50,7 +65,7 @@
         </div>
     </div>
 
-    <script type="module" src="./klondike.js?v=1.16"></script>
+    <script type="module" src="./klondike.js?v=1.20"></script>
     <script src="https://telegram.org/js/telegram-web-app.js?v=1.0.1"></script>
 </body>
 

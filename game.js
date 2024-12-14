@@ -66,6 +66,112 @@ export class GameUI {
       window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       // this._statusMessagePara.classList.remove('hidden');    // Показываем сообщение
       // this._statusMessagePara.textContent = "You win :)";    // Сообщение о победе
+
+      window.Telegram.WebApp.CloudStorage.getItem("countWin", (err, count) => {
+        
+        if (count === null || count === undefined || count === "") {
+          count=1;
+          window.Telegram.WebApp.CloudStorage.setItem("countWin", count);
+        }
+
+        switch(count){ // отправление ивентов о завершении уровня
+          case 1: 
+            let occurrence_time_local = new Date(); // Завершение 1ого уровня
+            let occurrence_time_utc0 = new Date().toISOString();
+            gtag('event', 'level_1_end', {
+              'occurrence_time_local': occurrence_time_local,
+              'occurrence_time_utc0': occurrence_time_utc0,
+              'game_version': game_version,
+            });
+            console.log('google level_1_end');
+          break;
+          case 2: 
+            occurrence_time_local = new Date(); // Завершение 2ого уровня
+            occurrence_time_utc0 = new Date().toISOString();
+            gtag('event', 'level_2_end', {
+              'occurrence_time_local': occurrence_time_local,
+              'occurrence_time_utc0': occurrence_time_utc0,
+              'game_version': game_version,
+            });
+            console.log('google level_2_end');
+          break;
+          case 5: 
+            occurrence_time_local = new Date(); // Завершение 5ого уровня
+            occurrence_time_utc0 = new Date().toISOString();
+            gtag('event', 'level_5_end', {
+              'occurrence_time_local': occurrence_time_local,
+              'occurrence_time_utc0': occurrence_time_utc0,
+              'game_version': game_version,
+            });
+            console.log('google level_5_end');
+          break;
+          case 10: 
+            occurrence_time_local = new Date(); // Завершение 10ого уровня
+            occurrence_time_utc0 = new Date().toISOString();
+            gtag('event', 'level_10_end', {
+              'occurrence_time_local': occurrence_time_local,
+              'occurrence_time_utc0': occurrence_time_utc0,
+              'game_version': game_version,
+            });
+            console.log('google level_10_end');
+          break;
+          case 15: 
+           occurrence_time_local = new Date(); // Завершение 15ого уровня
+            occurrence_time_utc0 = new Date().toISOString();
+            gtag('event', 'level_15_end', {
+              'occurrence_time_local': occurrence_time_local,
+              'occurrence_time_utc0': occurrence_time_utc0,
+              'game_version': game_version,
+            });
+            console.log('google level_15_end');
+          break;
+          case 20: 
+           occurrence_time_local = new Date(); // Завершение 20ого уровня
+            occurrence_time_utc0 = new Date().toISOString();
+            gtag('event', 'level_20_end', {
+              'occurrence_time_local': occurrence_time_local,
+              'occurrence_time_utc0': occurrence_time_utc0,
+              'game_version': game_version,
+            });
+            console.log('google level_20_end');
+          break;
+          case 30: 
+            occurrence_time_local = new Date(); // Завершение 30ого уровня
+            occurrence_time_utc0 = new Date().toISOString();
+            gtag('event', 'level_30_end', {
+              'occurrence_time_local': occurrence_time_local,
+              'occurrence_time_utc0': occurrence_time_utc0,
+              'game_version': game_version,
+            });
+            console.log('google level_30_end');
+          break;
+          case 40: 
+            occurrence_time_local = new Date(); // Завершение 40ого уровня
+            occurrence_time_utc0 = new Date().toISOString();
+            gtag('event', 'level_40_end', {
+              'occurrence_time_local': occurrence_time_local,
+              'occurrence_time_utc0': occurrence_time_utc0,
+              'game_version': game_version,
+            });
+            console.log('google level_40_end');
+          break;
+          case 50: 
+            occurrence_time_local = new Date(); // Завершение 50ого уровня
+            occurrence_time_utc0 = new Date().toISOString();
+            gtag('event', 'level_50_end', {
+              'occurrence_time_local': occurrence_time_local,
+              'occurrence_time_utc0': occurrence_time_utc0,
+              'game_version': game_version,
+            });
+            console.log('google level_50_end');
+          break;
+          default:
+          break;
+        }
+
+      });
+
+
     } else if (this.currentGame.status === GameStatus.PLAYING) {
       this._statusMessagePara.classList.add('hidden');       // Скрываем сообщение
       this._statusMessagePara.textContent = "";              // Сбрасываем текст
