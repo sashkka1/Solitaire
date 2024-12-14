@@ -125,11 +125,10 @@ class KlondikeCore extends CardGameCore {
   firstFiveStart(count){
     if (count === null || count === undefined || count === "") {
       count=1;
-      window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
     }else{
       count++;
-      window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
     }
+    window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
     switch(count){
       case 1: 
         this.convertAndOutput(simpleArray1);
@@ -164,7 +163,6 @@ class KlondikeCore extends CardGameCore {
       'occurrence_time_utc0': occurrence_time_utc0,
       'game_version': game_version,
     });
-    console.log('google level_start');
 
     window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
       // let count = localStorage.getItem("countTry");
@@ -181,6 +179,7 @@ class KlondikeCore extends CardGameCore {
             this.convertAndOutput(storedValue);
           }
           this.indexStart();
+
         });
       } else{
         this.firstFiveStart(count);
@@ -491,6 +490,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'game_version': game_version,
       });
       console.log('google first_vw_open');
+      count=1;
     }else{
       let occurrence_time_local = new Date(); // Очередное открытие веб вью (старый пользователь)
       let occurrence_time_utc0 = new Date().toISOString();
@@ -500,7 +500,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'game_version': game_version,
       });
       console.log('google ww_open');
+      count++;
     }
+    window.Telegram.WebApp.CloudStorage.setItem("countTryGoogle", count);
   });
 
 

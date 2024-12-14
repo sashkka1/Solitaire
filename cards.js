@@ -552,6 +552,8 @@ export class CardGameUI extends GameUI {
 
   autoButton(){ // реализация кнопки автозаполнения
 
+    gameIsStart =0; // для того чтобы не сохраняла при выполнении автокомплита
+
     let occurrence_time_local = new Date(); // Нажатие на кнопку автокомплита уровня
     let occurrence_time_utc0 = new Date().toISOString();
     gtag('event', 'initiate_autocomplete', {
@@ -813,8 +815,7 @@ _endDrag(touchElement) {
     gameIsStart++;
     this.currentGame.move(this._draggingState.cardInfos[0].card, this._draggingState.oldCardPlaceId, this._draggingState.dropPlaceId);
     // _onCardsMoved() обрабатывает дальнейшие действия
-    console.log('checkcontinue',checkcontinue);
-    if(checkcontinue > 0){ 
+    if(checkcontinue == 1){ 
       let occurrence_time_local = new Date(); //Продолжение игры rогда пользователь сделал один ход в игре, в которую он уже играл и которая была загружена
       let occurrence_time_utc0 = new Date().toISOString();
       gtag('event', 'level_continue', {

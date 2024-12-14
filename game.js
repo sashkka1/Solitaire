@@ -68,10 +68,11 @@ export class GameUI {
       // this._statusMessagePara.textContent = "You win :)";    // Сообщение о победе
 
       window.Telegram.WebApp.CloudStorage.getItem("countWin", (err, count) => {
-        
+        console.log('count1',count);
         if (count === null || count === undefined || count === "") {
           count=1;
           window.Telegram.WebApp.CloudStorage.setItem("countWin", count);
+          console.log('count2',count);
         }
 
         switch(count){ // отправление ивентов о завершении уровня
@@ -86,6 +87,7 @@ export class GameUI {
             console.log('google level_1_end');
           break;
           case 2: 
+            console.log('count3',count);
             occurrence_time_local = new Date(); // Завершение 2ого уровня
             occurrence_time_utc0 = new Date().toISOString();
             gtag('event', 'level_2_end', {
