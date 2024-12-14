@@ -510,5 +510,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+window.addEventListener('beforeunload', function() {  // Закрытие веб вью
+  let occurrence_time_local = new Date(); 
+  let occurrence_time_utc0 = new Date().toISOString();
+  gtag('event', 'ww_close', {
+    'occurrence_time_local': occurrence_time_local,
+    'occurrence_time_utc0': occurrence_time_utc0,
+    'game_version': game_version,
+  });
+});
+
 
 
