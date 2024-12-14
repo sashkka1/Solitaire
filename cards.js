@@ -206,7 +206,7 @@ export class CardGameCore extends GameCore {
       let sourceArray = this.placeIdToCardArray[this._allCards[i].p];
       this._allCards[i].in = sourceArray.indexOf(this._allCards[i]);
     }
-    console.log(gameIsStart,'gameIsStart');
+
     if(gameIsStart > 0){ // сохранение в тг клаудстор
       let b=[];
       let f=0;
@@ -562,7 +562,6 @@ export class CardGameUI extends GameUI {
       'occurrence_time_utc0': occurrence_time_utc0,
       'game_version': game_version,
     });
-    console.log('google initiate_autocomplete');
 
     this.currentGame.forAuto();
     let block = document.getElementById('check-autocomplete-button');

@@ -74,11 +74,12 @@ export class GameUI {
           window.Telegram.WebApp.CloudStorage.setItem("countWin", count);
           console.log('count2',count);
         }else{
-          count++;
+          // count++;
         }
-
+        count=1;
         switch(count){ // отправление ивентов о завершении уровня
           case 1: 
+            console.log('count3',count);
             let occurrence_time_local = new Date(); // Завершение 1ого уровня
             let occurrence_time_utc0 = new Date().toISOString();
             gtag('event', 'level_1_end', {
@@ -86,10 +87,10 @@ export class GameUI {
               'occurrence_time_utc0': occurrence_time_utc0,
               'game_version': game_version,
             });
+            console.log('count3',count);
             console.log('google level_1_end');
           break;
           case 2: 
-            console.log('count3',count);
             occurrence_time_local = new Date(); // Завершение 2ого уровня
             occurrence_time_utc0 = new Date().toISOString();
             gtag('event', 'level_2_end', {

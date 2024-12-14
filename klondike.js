@@ -154,7 +154,7 @@ class KlondikeCore extends CardGameCore {
   }
 
   deal() {
-    document.getElementById('new-game-button').innerHTML = "Test 0";
+    document.getElementById('new-game-button').innerHTML = "Test 1";
 
     let occurrence_time_local = new Date(); // Старт новой игры Отправлять всегда при старте новой игры
     let occurrence_time_utc0 = new Date().toISOString();
@@ -177,8 +177,8 @@ class KlondikeCore extends CardGameCore {
             console.log('get good');
             storedValue = JSON.parse(storedValue);
             this.convertAndOutput(storedValue);
+            this.indexStart();
           }
-          this.indexStart();
 
         });
       } else{
@@ -489,7 +489,6 @@ document.addEventListener('DOMContentLoaded', () => {
         'occurrence_time_utc0': occurrence_time_utc0,
         'game_version': game_version,
       });
-      console.log('google first_vw_open');
       count=1;
     }else{
       let occurrence_time_local = new Date(); // Очередное открытие веб вью (старый пользователь)
@@ -499,14 +498,10 @@ document.addEventListener('DOMContentLoaded', () => {
         'occurrence_time_utc0': occurrence_time_utc0,
         'game_version': game_version,
       });
-      console.log('google ww_open',count);
       count++;
     }
     window.Telegram.WebApp.CloudStorage.setItem("countTryGoogle", count);
   });
-
-
-
 
 });
 
