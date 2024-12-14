@@ -533,6 +533,7 @@ export class CardGameUI extends GameUI {
               'game_version': game_version,
             });
             console.log('google level_reset_and_start');
+            checkcontinue=0;
           }
 
 

@@ -74,9 +74,8 @@ export class GameUI {
           count=1;
           window.Telegram.WebApp.CloudStorage.setItem("countWin", count);
         }else{
-          // count++;
+          count++;
         }
-        count=1;
         switch(count){ // отправление ивентов о завершении уровня
           case 1: 
             let occurrence_time_local = new Date(); // Завершение 1ого уровня
@@ -86,7 +85,6 @@ export class GameUI {
               'occurrence_time_utc0': occurrence_time_utc0,
               'game_version': game_version,
             });
-            console.log('google level_1_end');
           break;
           case 2: 
             occurrence_time_local = new Date(); // Завершение 2ого уровня
@@ -96,7 +94,6 @@ export class GameUI {
               'occurrence_time_utc0': occurrence_time_utc0,
               'game_version': game_version,
             });
-            console.log('google level_2_end');
           break;
           case 5: 
             occurrence_time_local = new Date(); // Завершение 5ого уровня
@@ -106,7 +103,6 @@ export class GameUI {
               'occurrence_time_utc0': occurrence_time_utc0,
               'game_version': game_version,
             });
-            console.log('google level_5_end');
           break;
           case 10: 
             occurrence_time_local = new Date(); // Завершение 10ого уровня
@@ -116,7 +112,6 @@ export class GameUI {
               'occurrence_time_utc0': occurrence_time_utc0,
               'game_version': game_version,
             });
-            console.log('google level_10_end');
           break;
           case 15: 
            occurrence_time_local = new Date(); // Завершение 15ого уровня
@@ -126,7 +121,6 @@ export class GameUI {
               'occurrence_time_utc0': occurrence_time_utc0,
               'game_version': game_version,
             });
-            console.log('google level_15_end');
           break;
           case 20: 
            occurrence_time_local = new Date(); // Завершение 20ого уровня
@@ -136,7 +130,6 @@ export class GameUI {
               'occurrence_time_utc0': occurrence_time_utc0,
               'game_version': game_version,
             });
-            console.log('google level_20_end');
           break;
           case 30: 
             occurrence_time_local = new Date(); // Завершение 30ого уровня
@@ -146,7 +139,6 @@ export class GameUI {
               'occurrence_time_utc0': occurrence_time_utc0,
               'game_version': game_version,
             });
-            console.log('google level_30_end');
           break;
           case 40: 
             occurrence_time_local = new Date(); // Завершение 40ого уровня
@@ -156,7 +148,6 @@ export class GameUI {
               'occurrence_time_utc0': occurrence_time_utc0,
               'game_version': game_version,
             });
-            console.log('google level_40_end');
           break;
           case 50: 
             occurrence_time_local = new Date(); // Завершение 50ого уровня
@@ -166,7 +157,6 @@ export class GameUI {
               'occurrence_time_utc0': occurrence_time_utc0,
               'game_version': game_version,
             });
-            console.log('google level_50_end');
           break;
           default:
           break;
