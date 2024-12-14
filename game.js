@@ -82,12 +82,13 @@ export class GameUI {
             console.log('count3',count);
             let occurrence_time_local = new Date(); // Завершение 1ого уровня
             let occurrence_time_utc0 = new Date().toISOString();
+            console.log('count4',count);
             gtag('event', 'level_1_end', {
               'occurrence_time_local': occurrence_time_local,
               'occurrence_time_utc0': occurrence_time_utc0,
               'game_version': game_version,
             });
-            console.log('count3',count);
+            console.log('count5',count);
             console.log('google level_1_end');
           break;
           case 2: 
