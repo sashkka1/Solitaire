@@ -111,7 +111,8 @@ class KlondikeCore extends CardGameCore {
   }
 
   normalStart(){
-
+    let b=[];
+    let f=0;
     for(let i=0;i<this._allCards.length;i++){// преобразование в массив для сохранение в облако 
       if( this._allCards[i].v == true){this._allCards[i].visible = true }
       let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
@@ -120,6 +121,7 @@ class KlondikeCore extends CardGameCore {
     }
 
     console.table(b);
+
     this.moveCards(this._allCards, 'stock', false);
     for (let i = 0; i < 7; i++) {
       const howManyCardsToMove = i + 1;
@@ -127,7 +129,8 @@ class KlondikeCore extends CardGameCore {
       this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
     }
-    
+
+    f=0;
     for(let i=0;i<this._allCards.length;i++){// преобразование в массив для сохранение в облако 
       if( this._allCards[i].v == true){this._allCards[i].visible = true }
       let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
@@ -171,7 +174,7 @@ class KlondikeCore extends CardGameCore {
   }
 
   deal() {
-    document.getElementById('new-game-button').innerHTML = "Test 4";
+    document.getElementById('new-game-button').innerHTML = "Test 5";
 
     let occurrence_time_local = new Date(); // Старт новой игры Отправлять всегда при старте новой игры
     let occurrence_time_utc0 = new Date().toISOString();
