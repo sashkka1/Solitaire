@@ -7,7 +7,6 @@ let i =0;
 
 // переменные для user properties
 let ux_language = window.Telegram.WebApp.initDataUnsafe.user.language_code; // Язык интерфейса
-// let ux_color = window.Telegram.WebApp.themeParams.bg_color; // Цветовая схема
 let ux_color = window.Telegram.WebApp.colorScheme; // Цветовая схема
 let tg_id = window.Telegram.WebApp.initDataUnsafe.user.id; // Айди
 let tg_username = window.Telegram.WebApp.initDataUnsafe.user.username; // Юзернейм
@@ -20,7 +19,6 @@ let uis_attached = window.Telegram.WebApp.added_to_attachment_menu; // Доба�
 let autoVisible = 1; // использую для проверки на автоматическое заполнение
 let stockCurrent = 1;
 let checkFirstTry =0; // Для понимания первый ли расклад карт, для проверки на возврат из тг клауд
-let checkcontinue = 0;
 
 
 let simpleArray1= [
@@ -169,7 +167,7 @@ class KlondikeCore extends CardGameCore {
       if(checkFirstTry == 0){
         window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
           // let storedValue = localStorage.getItem("saveCard");
-          // console.log(storedValue);
+          console.table(storedValue);
           if (storedValue === null || storedValue === undefined || storedValue === "") {
             console.log('get empty');
             this.firstFiveStart(count);
@@ -177,8 +175,9 @@ class KlondikeCore extends CardGameCore {
             console.log('get good');
             storedValue = JSON.parse(storedValue);
             this.convertAndOutput(storedValue);
-            this.indexStart();
+            // this.indexStart();
           }
+          this.indexStart(); // после теста не забыть удалить и то что светху вернуть
         });
       } else{
         this.firstFiveStart(count);

@@ -411,7 +411,7 @@ export class CardGameUI extends GameUI {
 
 
     i =0;
-    let url = './materials/Images/Front/';
+    let url = '../materials/Images/Front/';
     for (const card of cardArray) {
     i++;
 
@@ -532,7 +532,6 @@ export class CardGameUI extends GameUI {
               'occurrence_time_utc0': occurrence_time_utc0,
               'game_version': game_version,
             });
-            console.log('google level_reset_and_start');
             checkcontinue=0;
           }
 
