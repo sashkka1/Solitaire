@@ -171,6 +171,7 @@ class KlondikeCore extends CardGameCore {
           if (storedValue === null || storedValue === undefined || storedValue === "") {
             console.log('get empty');
             this.firstFiveStart(count);
+            console.table(this._allCards);
           }else{
             console.log('get good');
             storedValue = JSON.parse(storedValue);
