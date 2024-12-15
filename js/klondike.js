@@ -171,6 +171,7 @@ class KlondikeCore extends CardGameCore {
     }else{
       count++;
     }
+    console.log('count firstFiveStart',count);
     window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
     // localStorage.setItem("countTry", count);
     switch(count){
@@ -211,6 +212,7 @@ class KlondikeCore extends CardGameCore {
     window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
       // let count =6;
       // let count = localStorage.getItem("countTry");
+      console.log('count после получения',count);
       if(checkFirstTry == 0){
         window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
           // let storedValue = localStorage.getItem("saveCard");
