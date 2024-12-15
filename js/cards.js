@@ -547,7 +547,7 @@ export class CardGameUI extends GameUI {
       // });
     }
 
-    block = document.getElementById('check-desire-button-ok');
+    let block = document.getElementById('check-desire-button-ok');
     block.addEventListener('click', () => {
       if(index == 0){
         index ++;
@@ -578,7 +578,7 @@ export class CardGameUI extends GameUI {
       }
     });
     
-    let block = document.getElementById('win-box');
+    block = document.getElementById('win-box');
     block.addEventListener('click', () => {
       console.log('6');
       this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
