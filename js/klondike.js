@@ -202,7 +202,7 @@ class KlondikeCore extends CardGameCore {
 
   deal() {
     console.log('deal() {');
-    document.getElementById('new-game-button').innerHTML = "Test 8";
+    document.getElementById('new-game-button').innerHTML = "Test 9";
 
     let occurrence_time_local = new Date(); // Старт новой игры Отправлять всегда при старте новой игры
     let occurrence_time_utc0 = new Date().toISOString();
