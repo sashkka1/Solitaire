@@ -152,7 +152,7 @@ class KlondikeCore extends CardGameCore {
   }
 
   deal() {
-    document.getElementById('new-game-button').innerHTML = "Test 2";
+    document.getElementById('new-game-button').innerHTML = "Test 3";
 
     let occurrence_time_local = new Date(); // Старт новой игры Отправлять всегда при старте новой игры
     let occurrence_time_utc0 = new Date().toISOString();
@@ -167,13 +167,14 @@ class KlondikeCore extends CardGameCore {
       if(checkFirstTry == 0){
         window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
           // let storedValue = localStorage.getItem("saveCard");
-          console.table(storedValue);
+          // console.table(storedValue);
           if (storedValue === null || storedValue === undefined || storedValue === "") {
             console.log('get empty');
             this.firstFiveStart(count);
           }else{
             console.log('get good');
             storedValue = JSON.parse(storedValue);
+            console.table(storedValue);
             this.convertAndOutput(storedValue);
             this.indexStart();
             let buttonBack = document.getElementById('back-button');

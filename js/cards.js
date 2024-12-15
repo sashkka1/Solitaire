@@ -242,6 +242,8 @@ export class CardGameCore extends GameCore {
       // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       if(whatChange == "table"){
       window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
+      console.log("Save good");
+      console.table(b);
       }
       // localStorage.setItem("saveCard", JSON.stringify(b));
       // console.log("Save good");
@@ -411,7 +413,6 @@ export class CardGameUI extends GameUI {
 
 
     i =0;
-    let url = './materials/Images/Front/';
     for (const card of cardArray) {
     i++;
 
@@ -426,7 +427,6 @@ export class CardGameUI extends GameUI {
       // card.suit.id = i;
       card.i = i;
       div.style.backgroundImage = `url(./materials/Images/Front/${i + '.png'})`;
-      console.log('div.style.backgroundImage',div.style.backgroundImage);
 
 
       // Создаем два угловых элемента для отображения номера и масти карты
