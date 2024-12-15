@@ -515,37 +515,68 @@ export class CardGameUI extends GameUI {
       console.log('4');
       let elements = document.getElementById("check-desire-box");
       elements.classList.add('normal');
-      let block = document.getElementById('check-desire-button-ok');
-      block.addEventListener('click', () => {
-        if(index == 0){
-          index ++;
-          console.log('5');
-          gameIsStart=0;
-          window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-          // localStorage.removeItem("saveCard");
-          let elements = document.getElementById("check-desire-box");
-          elements.classList.remove('normal');
-          this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
-          this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
-          this.currentGame.deal(); // Начало игры (раздача карт)
-          super.newGame(); // Вызов метода newGame() родительского класса
-          this.currentGame.stockCurrentDefolt();
-          autocomplete.classList.remove('normal-auto');
-          buttonPlace.classList.add('normal');
+      // let block = document.getElementById('check-desire-button-ok');
+      // block.addEventListener('click', () => {
+      //   if(index == 0){
+      //     index ++;
+      //     console.log('5');
+      //     gameIsStart=0;
+      //     window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      //     // localStorage.removeItem("saveCard");
+      //     let elements = document.getElementById("check-desire-box");
+      //     elements.classList.remove('normal');
+      //     this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
+      //     this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
+      //     this.currentGame.deal(); // Начало игры (раздача карт)
+      //     super.newGame(); // Вызов метода newGame() родительского класса
+      //     this.currentGame.stockCurrentDefolt();
+      //     autocomplete.classList.remove('normal-auto');
+      //     buttonPlace.classList.add('normal');
 
-          if(checkcontinue > 0){ 
-            let occurrence_time_local = new Date(); //Старт новой игры, если прошлая игра находилась в прогрессеПо сути дубликат level_start (отправится два ивента), но будет указание на то, что пользователь решил пропустить текущую игру
-            let occurrence_time_utc0 = new Date().toISOString();
-            gtag('event', 'level_reset_and_start', {
-              'occurrence_time_local': occurrence_time_local,
-              'occurrence_time_utc0': occurrence_time_utc0,
-              'game_version': game_version,
-            });
-            checkcontinue=0;
-          }
-        }
-      });
+      //     if(checkcontinue > 0){ 
+      //       let occurrence_time_local = new Date(); //Старт новой игры, если прошлая игра находилась в прогрессеПо сути дубликат level_start (отправится два ивента), но будет указание на то, что пользователь решил пропустить текущую игру
+      //       let occurrence_time_utc0 = new Date().toISOString();
+      //       gtag('event', 'level_reset_and_start', {
+      //         'occurrence_time_local': occurrence_time_local,
+      //         'occurrence_time_utc0': occurrence_time_utc0,
+      //         'game_version': game_version,
+      //       });
+      //       checkcontinue=0;
+      //     }
+      //   }
+      // });
     }
+
+    block = document.getElementById('check-desire-button-ok');
+    block.addEventListener('click', () => {
+      if(index == 0){
+        index ++;
+        console.log('5');
+        gameIsStart=0;
+        window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+        // localStorage.removeItem("saveCard");
+        let elements = document.getElementById("check-desire-box");
+        elements.classList.remove('normal');
+        this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
+        this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
+        this.currentGame.deal(); // Начало игры (раздача карт)
+        super.newGame(); // Вызов метода newGame() родительского класса
+        this.currentGame.stockCurrentDefolt();
+        autocomplete.classList.remove('normal-auto');
+        buttonPlace.classList.add('normal');
+
+        if(checkcontinue > 0){ 
+          let occurrence_time_local = new Date(); //Старт новой игры, если прошлая игра находилась в прогрессеПо сути дубликат level_start (отправится два ивента), но будет указание на то, что пользователь решил пропустить текущую игру
+          let occurrence_time_utc0 = new Date().toISOString();
+          gtag('event', 'level_reset_and_start', {
+            'occurrence_time_local': occurrence_time_local,
+            'occurrence_time_utc0': occurrence_time_utc0,
+            'game_version': game_version,
+          });
+          checkcontinue=0;
+        }
+      }
+    });
     
     let block = document.getElementById('win-box');
     block.addEventListener('click', () => {
