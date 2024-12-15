@@ -111,6 +111,15 @@ class KlondikeCore extends CardGameCore {
   }
 
   normalStart(){
+
+    for(let i=0;i<this._allCards.length;i++){// преобразование в массив для сохранение в облако 
+      if( this._allCards[i].v == true){this._allCards[i].visible = true }
+      let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
+      b[f] = a;
+      f++;
+    }
+
+    console.table(b);
     this.moveCards(this._allCards, 'stock', false);
     for (let i = 0; i < 7; i++) {
       const howManyCardsToMove = i + 1;
@@ -118,6 +127,16 @@ class KlondikeCore extends CardGameCore {
       this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
     }
+    
+    for(let i=0;i<this._allCards.length;i++){// преобразование в массив для сохранение в облако 
+      if( this._allCards[i].v == true){this._allCards[i].visible = true }
+      let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
+      b[f] = a;
+      f++;
+    }
+
+    console.table(b);
+
   }
 
   firstFiveStart(count){
@@ -171,7 +190,6 @@ class KlondikeCore extends CardGameCore {
           if (storedValue === null || storedValue === undefined || storedValue === "") {
             console.log('get empty');
             this.firstFiveStart(count);
-            console.table(this._allCards);
           }else{
             console.log('get good');
             storedValue = JSON.parse(storedValue);
@@ -192,8 +210,6 @@ class KlondikeCore extends CardGameCore {
 
       checkFirstTry++;
     });
-
-
 
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.add('lock');
