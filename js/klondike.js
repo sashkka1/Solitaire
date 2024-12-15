@@ -6,14 +6,14 @@ let i =0;
 
 
 // переменные для user properties
-// let ux_language = window.Telegram.WebApp.initDataUnsafe.user.language_code; // Язык интерфейса
-// let ux_color = window.Telegram.WebApp.colorScheme; // Цветовая схема
-// let tg_id = window.Telegram.WebApp.initDataUnsafe.user.id; // Айди
-// let tg_username = window.Telegram.WebApp.initDataUnsafe.user.username; // Юзернейм
-// let tg_platform = window.Telegram.WebApp.platform; // Платформа
-// let is_premium_user = window.Telegram.WebApp.initDataUnsafe.user.is_premium; // Премиум или бесплатный (true/false)
-// let is_real_user = window.Telegram.WebApp.initDataUnsafe.user.is_bot; // Бот или реальный пользователь (true/false)
-// let uis_attached = window.Telegram.WebApp.added_to_attachment_menu; // Добавил пользователь бота в прикрепленное меню или нет (true/false)
+let ux_language = window.Telegram.WebApp.initDataUnsafe.user.language_code; // Язык интерфейса
+let ux_color = window.Telegram.WebApp.colorScheme; // Цветовая схема
+let tg_id = window.Telegram.WebApp.initDataUnsafe.user.id; // Айди
+let tg_username = window.Telegram.WebApp.initDataUnsafe.user.username; // Юзернейм
+let tg_platform = window.Telegram.WebApp.platform; // Платформа
+let is_premium_user = window.Telegram.WebApp.initDataUnsafe.user.is_premium; // Премиум или бесплатный (true/false)
+let is_real_user = window.Telegram.WebApp.initDataUnsafe.user.is_bot; // Бот или реальный пользователь (true/false)
+let uis_attached = window.Telegram.WebApp.added_to_attachment_menu; // Добавил пользователь бота в прикрепленное меню или нет (true/false)
 
 
 let autoVisible = 1; // использую для проверки на автоматическое заполнение
@@ -152,7 +152,7 @@ class KlondikeCore extends CardGameCore {
   }
 
   deal() {
-    document.getElementById('new-game-button').innerHTML = "Test 0";
+    document.getElementById('new-game-button').innerHTML = "Test 1";
 
     let occurrence_time_local = new Date(); // Старт новой игры Отправлять всегда при старте новой игры
     let occurrence_time_utc0 = new Date().toISOString();

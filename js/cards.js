@@ -425,7 +425,8 @@ export class CardGameUI extends GameUI {
       div.setAttribute('id', i); // Присваиваем id
       // card.suit.id = i;
       card.i = i;
-      div.style.backgroundImage = `url(${url + i + '.png'})`;
+      div.style.backgroundImage = `url(../materials/Images/Front/${i + '.png'})`;
+      console.log('div.style.backgroundImage',div.style.backgroundImage);
 
 
       // Создаем два угловых элемента для отображения номера и масти карты
