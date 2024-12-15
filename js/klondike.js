@@ -69,6 +69,7 @@ class KlondikeCore extends CardGameCore {
   convertAndOutput(storedValue){
 
 
+    console.log('convertAndOutput(storedValue){');
     // console.log('То что получили');
     // console.table(storedValue);
     // debugger;
@@ -135,6 +136,7 @@ class KlondikeCore extends CardGameCore {
   }
 
   normalStart(){
+    console.log(' normalStart(){');
     let b=[];
     let f=0;
     for(let i=0;i<this._allCards.length;i++){// преобразование в массив для сохранение в облако 
@@ -166,6 +168,7 @@ class KlondikeCore extends CardGameCore {
   }
 
   firstFiveStart(count){
+    console.log('firstFiveStart(count){');
     if (count === null || count === undefined || count === "") {
       count=1;
     }else{
@@ -226,6 +229,7 @@ class KlondikeCore extends CardGameCore {
   }
 
   deal() {
+    console.log('deal() {');
     document.getElementById('new-game-button').innerHTML = "Test 7";
 
     let occurrence_time_local = new Date(); // Старт новой игры Отправлять всегда при старте новой игры
