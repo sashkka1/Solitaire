@@ -152,7 +152,7 @@ class KlondikeCore extends CardGameCore {
   }
 
   deal() {
-    // document.getElementById('new-game-button').innerHTML = "Test 0";
+    document.getElementById('new-game-button').innerHTML = "Test 0";
 
     let occurrence_time_local = new Date(); // Старт новой игры Отправлять всегда при старте новой игры
     let occurrence_time_utc0 = new Date().toISOString();
@@ -175,9 +175,8 @@ class KlondikeCore extends CardGameCore {
             console.log('get good');
             storedValue = JSON.parse(storedValue);
             this.convertAndOutput(storedValue);
-            // this.indexStart();
+            this.indexStart();
           }
-          this.indexStart(); // после теста не забыть удалить и то что светху вернуть
         });
       } else{
         this.firstFiveStart(count);
