@@ -67,6 +67,12 @@ class KlondikeCore extends CardGameCore {
   // Метод распределения карт при начале игры
 
   convertAndOutput(storedValue){
+
+
+    // console.log('То что получили');
+    // console.table(storedValue);
+    // debugger;
+
     this.moveCards(this._allCards, 'stock', false);
     for(let i=0;i<52;i++){ // упорядочивание элементов в массиве по убыванию для того чтобы корректно дальше выводил
       let j=i;
@@ -79,6 +85,11 @@ class KlondikeCore extends CardGameCore {
         }
       }
     }
+
+    // console.log('отсортированный');
+    // console.table(storedValue);
+    // debugger;
+
     for(let i=0;i<52;i++){ // непосредственно разложение карт после получения и изменения данных карт на новые
       let j=0;
       for(j;j<52;j++){
@@ -91,6 +102,19 @@ class KlondikeCore extends CardGameCore {
         }
       }
     }
+
+    // let b=[];
+    // let f=0;
+    // for(let i=0;i<this._allCards.length;i++){// преобразование в массив для сохранение в облако 
+    //   if( this._allCards[i].v == true){this._allCards[i].visible = true }
+    //   let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
+    //   b[f] = a;
+    //   f++;
+    // }
+    // console.log('то что получили на выходе');
+    // console.table(this._allCards);
+    // debugger;
+
     for(let i =0;i<7;i++){ // после разложения проверка на возможность автокомплита
       let sourceArray = this.placeIdToCardArray['tableau' + i];
       if(sourceArray.length>0){
@@ -111,17 +135,6 @@ class KlondikeCore extends CardGameCore {
   }
 
   normalStart(){
-    let b=[];
-    let f=0;
-    for(let i=0;i<this._allCards.length;i++){// преобразование в массив для сохранение в облако 
-      if( this._allCards[i].v == true){this._allCards[i].visible = true }
-      let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
-      b[f] = a;
-      f++;
-    }
-
-    console.table(b);
-    debugger;
     this.moveCards(this._allCards, 'stock', false);
     for (let i = 0; i < 7; i++) {
       const howManyCardsToMove = i + 1;
@@ -129,17 +142,6 @@ class KlondikeCore extends CardGameCore {
       this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
       cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
     }
-    debugger;
-    f=0;
-    for(let i=0;i<this._allCards.length;i++){// преобразование в массив для сохранение в облако 
-      if( this._allCards[i].v == true){this._allCards[i].visible = true }
-      let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
-      b[f] = a;
-      f++;
-    }
-
-    console.table(b);
-
   }
 
   firstFiveStart(count){
@@ -149,6 +151,7 @@ class KlondikeCore extends CardGameCore {
       count++;
     }
     window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
+    // localStorage.setItem("countTry", count);
     switch(count){
       case 1: 
         this.convertAndOutput(simpleArray1);
@@ -185,6 +188,7 @@ class KlondikeCore extends CardGameCore {
     });
 
     window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
+      // let count =6;
       // let count = localStorage.getItem("countTry");
       if(checkFirstTry == 0){
         window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
@@ -196,7 +200,8 @@ class KlondikeCore extends CardGameCore {
           }else{
             console.log('get good');
             storedValue = JSON.parse(storedValue);
-            console.table(storedValue);
+            // console.log('То что получили');
+            // console.table(storedValue);
             this.convertAndOutput(storedValue);
             this.indexStart();
             let buttonBack = document.getElementById('back-button');
@@ -207,6 +212,8 @@ class KlondikeCore extends CardGameCore {
         this.firstFiveStart(count);
       }
 
+      // console.log('То что в итоге вывели');
+      // console.table(this._allCards);
       if(count >9){
         window.Telegram.WebApp.CloudStorage.removeItem("countTry");
       }

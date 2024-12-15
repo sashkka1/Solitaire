@@ -239,9 +239,21 @@ export class CardGameCore extends GameCore {
           }
         }
       }
-      // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      for(let i=0;i<52;i++){ // упорядочивание элементов в массиве по убыванию для того чтобы корректно дальше выводил
+        let j=i;
+        for(j;j<52;j++){
+          if(b[i][1] == b[j][1] && b[i][3] > b[j][3]){
+            let a = b[j];
+            b[j] = b[i];
+            b[i] = a;
+            j=i;
+          }
+        }
+      }
+
       if(whatChange == "table"){
       window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
+      // localStorage.setItem("saveCard", JSON.stringify(b));
       console.log("Save good");
       console.table(b);
       }
