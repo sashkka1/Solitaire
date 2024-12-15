@@ -69,8 +69,8 @@ class KlondikeCore extends CardGameCore {
   convertAndOutput(storedValue){
 
 
-    console.log('То что получили');
-    console.table(storedValue);
+    // console.log('То что получили');
+    // console.table(storedValue);
     // debugger;
 
     this.moveCards(this._allCards, 'stock', false);
@@ -86,8 +86,8 @@ class KlondikeCore extends CardGameCore {
       }
     }
 
-    console.log('отсортированный');
-    console.table(storedValue);
+    // console.log('отсортированный');
+    // console.table(storedValue);
     // debugger;
 
     for(let i=0;i<52;i++){ // непосредственно разложение карт после получения и изменения данных карт на новые
@@ -111,8 +111,8 @@ class KlondikeCore extends CardGameCore {
       b[f] = a;
       f++;
     }
-    console.log('то что получили на выходе');
-    console.table(b);
+    // console.log('то что получили на выходе');
+    // console.table(b);
     // debugger;
 
     for(let i =0;i<7;i++){ // после разложения проверка на возможность автокомплита
@@ -171,7 +171,6 @@ class KlondikeCore extends CardGameCore {
     }else{
       count++;
     }
-    console.log('count firstFiveStart',count);
     window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
     // localStorage.setItem("countTry", count);
     switch(count){
@@ -191,7 +190,35 @@ class KlondikeCore extends CardGameCore {
         this.convertAndOutput(simpleArray5);
       break;
       default:
-        this.normalStart();
+        // this.normalStart();
+        let b=[];
+        let f=0;
+        for(let i=0;i<this._allCards.length;i++){// преобразование в массив для сохранение в облако 
+          if( this._allCards[i].v == true){this._allCards[i].visible = true }
+          let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
+          b[f] = a;
+          f++;
+        }
+        console.log('перед выводом');
+        console.table(b);
+        debugger;
+        this.moveCards(this._allCards, 'stock', false);
+        for (let i = 0; i < 7; i++) {
+          const howManyCardsToMove = i + 1;
+          const cardsToMove = this.placeIdToCardArray.stock.splice(-howManyCardsToMove); // Извлекаем нужное количество карт из стока
+          this.moveCards(cardsToMove, 'tableau' + i); // Перемещаем их на соответствующее место стола
+          cardsToMove[cardsToMove.length - 1].visible = true; // Открываем последнюю карту в каждом столбц
+        }
+        f=0;
+        for(let i=0;i<this._allCards.length;i++){// преобразование в массив для сохранение в облако 
+          if( this._allCards[i].v == true){this._allCards[i].visible = true }
+          let a = [this._allCards[i].v, this._allCards[i].p, this._allCards[i].i, this._allCards[i].in];
+          b[f] = a;
+          f++;
+        }
+        console.log('после вывода');
+        console.table(b);
+        debugger;
       break;
     }
 
@@ -199,7 +226,7 @@ class KlondikeCore extends CardGameCore {
   }
 
   deal() {
-    document.getElementById('new-game-button').innerHTML = "Test 6";
+    document.getElementById('new-game-button').innerHTML = "Test 7";
 
     let occurrence_time_local = new Date(); // Старт новой игры Отправлять всегда при старте новой игры
     let occurrence_time_utc0 = new Date().toISOString();
@@ -212,7 +239,6 @@ class KlondikeCore extends CardGameCore {
     window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
       // let count =6;
       // let count = localStorage.getItem("countTry");
-      console.log('count после получения',count);
       if(checkFirstTry == 0){
         window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
           // let storedValue = localStorage.getItem("saveCard");
