@@ -483,7 +483,7 @@ export class CardGameUI extends GameUI {
 
 
   newGame() {// проверяю на то была ли игра уже начата чтобы решить выставлять блок решением пользователя о продолжении или новой игре
-    
+    let block = document.getElementById('check-desire-button-ok');
     block.addEventListener('click', () => {
       console('клик на ok в панели выбора');
       gameIsStart=0;
@@ -540,7 +540,7 @@ export class CardGameUI extends GameUI {
         console('изменений есть выводим панель');
         let elements = document.getElementById("check-desire-box");
         elements.classList.add('normal');
-        let block = document.getElementById('check-desire-button-ok');
+        // let block = document.getElementById('check-desire-button-ok');
         // block.addEventListener('click', () => {
         //   gameIsStart=0;
         //   window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
@@ -569,7 +569,7 @@ export class CardGameUI extends GameUI {
         // });
       }
     }
-    let block = document.getElementById('win-box');
+    block = document.getElementById('win-box');
       block.addEventListener('click', () => {
         this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
         this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
