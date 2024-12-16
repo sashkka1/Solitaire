@@ -1,6 +1,6 @@
-let game_version = '1.20';
-import { GameStatus } from './game.js?v=1.20';
-import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.20';
+let game_version = '1.28';
+import { GameStatus } from './game.js?v=1.28';
+import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.28';
 
 let i =0;
 
@@ -14,6 +14,37 @@ let tg_platform = window.Telegram.WebApp.platform; // Платформа
 let is_premium_user = window.Telegram.WebApp.initDataUnsafe.user.is_premium; // Премиум или бесплатный (true/false)
 let is_real_user = window.Telegram.WebApp.initDataUnsafe.user.is_bot; // Бот или реальный пользователь (true/false)
 let uis_attached = window.Telegram.WebApp.added_to_attachment_menu; // Добавил пользователь бота в прикрепленное меню или нет (true/false)
+let a=0, bb = 1, c=2, d=4, b=3;
+// window.dataLayer = window.dataLayer || [];
+// dataLayer.push({
+//   'event': 'user_properties',
+//   'ux_language': 'ux_language',
+//   'ux_color': 'ux_color',
+//   'tg_id': 'tg_id',
+//   'tg_username': 'tg_username',
+//   'tg_platform': 'tg_platform',
+//   'is_premium_user': 'is_premium_user',
+//   'is_real_user': 'is_real_user',
+//   'uis_attached': 'uis_attached',
+// });
+// gtag('event', 'user_properties', {
+//     'ux_language': a,
+//     'ux_color': b,
+//     'tg_id': c,
+//     'tg_username': d,
+//     'tg_platform': bb,
+//     'is_premium_user': a,
+//     'is_real_user': c,
+//     'uis_attached': d,
+//   });
+// let ux_language = 'ux_language';
+// let ux_color = 'ux_color';
+// let tg_id = 'tg_id';
+// let tg_username = 'tg_username';
+// let tg_platform = 'tg_platform';
+// let is_premium_user = 'is_premium_user';
+// let is_real_user = 'is_real_user';
+// let uis_attached = 'uis_attached';
 
 
 let autoVisible = 1; // использую для проверки на автоматическое заполнение
@@ -514,13 +545,11 @@ class KlondikeUI extends CardGameUI {
 
 // Запуск кода после загрузки содержимого страницы
 document.addEventListener('DOMContentLoaded', () => {
+
   const tg = window.Telegram.WebApp;
   tg.expand();
   tg.disableVerticalSwipes();
-  // console.log(tg.isFullscreen); 
 
-    // tg.requestFullscreen();
-    // console.log(tg.isFullscreen); 
   const gameDiv = document.getElementById('game'); // Находим элемент для игрового поля
   const newGameButton = document.getElementById('new-game-button'); // Находим кнопку для новой игры
   const backButton = document.getElementById('back-button'); // шаг назад

@@ -1,4 +1,4 @@
-let game_version = '1.20';
+let game_version = '1.28';
 
 // Импортируем модули GameCore, GameStatus и GameUI из файла game.js
 import { GameCore, GameStatus, GameUI} from './game.js';

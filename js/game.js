@@ -1,4 +1,4 @@
-let game_version = '1.20';
+let game_version = '1.28';
 
 // Определяем константы статуса игры
 export const GameStatus = Object.freeze({
@@ -70,6 +70,8 @@ export class GameUI {
       // this._statusMessagePara.textContent = "You win :)";    // Сообщение о победе
 
       window.Telegram.WebApp.CloudStorage.getItem("countWin", (err, count) => {
+        // let count =0;
+        
         if (count === null || count === undefined || count === "") {
           count=1;
           window.Telegram.WebApp.CloudStorage.setItem("countWin", count);
