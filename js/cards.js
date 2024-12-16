@@ -485,7 +485,7 @@ export class CardGameUI extends GameUI {
   newGame() {// проверяю на то была ли игра уже начата чтобы решить выставлять блок решением пользователя о продолжении или новой игре
     let block = document.getElementById('check-desire-button-ok');
     block.addEventListener('click', () => {
-      console('клик на ok в панели выбора');
+      console.log('клик на ok в панели выбора');
       gameIsStart=0;
       window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       // localStorage.removeItem("saveCard");
@@ -526,7 +526,7 @@ export class CardGameUI extends GameUI {
       buttonPlace.classList.add('normal');
     }else{
       if(gameIsStart == 0){ // изменений нет, просто начинаем новую
-        console('изменений нет, просто начинаем новую');
+        console.log('изменений нет, просто начинаем новую');
         this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
         this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
         this.currentGame.deal(); // Начало игры (раздача карт)
@@ -537,7 +537,7 @@ export class CardGameUI extends GameUI {
         window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
         // localStorage.removeItem("saveCard");
       }else{
-        console('изменений есть выводим панель');
+        console.log('изменений есть выводим панель');
         let elements = document.getElementById("check-desire-box");
         elements.classList.add('normal');
         // let block = document.getElementById('check-desire-button-ok');
