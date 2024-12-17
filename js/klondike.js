@@ -2,24 +2,35 @@
 // import { GameStatus } from `./game.js${game_version}`;
 // import { GameStatus } from './game.js?v=1.30.6';
 
-let game_version = document.getElementById('game-version').textContent;
-let modulePath1 = `./game.js${game_version}`,modulePath2 = `./cards.js${game_version}`;
-let GameStatus,CardGameCore,CardGameUI,SPACING_SMALL,SPACING_MEDIUM,SPACING_BIG;
-import(modulePath1)
-.then(module => {
-    GameStatus = module.GameStatus;
-});
-import(modulePath1)
-.then(module => {
-  CardGameCore = module.CardGameCore;
-  CardGameUI = module.CardGameUI;
-  SPACING_SMALL = module.SPACING_SMALL;
-  SPACING_MEDIUM = module.SPACING_MEDIUM;
-  SPACING_BIG = module.SPACING_BIG;
-});
+
+const modulePath = './game.js?v=1.30.6';
+
+let GameStatus;
+
+(async () => {
+  const module = await import(modulePath);
+  GameStatus = module.GameStatus;
+  // Теперь GameStatus доступен глобально
+})();
+// let game_version = document.getElementById('game-version').textContent;
+// let modulePath1 = `./game.js${game_version}`,modulePath2 = `./cards.js${game_version}`;
+// let GameStatus,CardGameCore,CardGameUI,SPACING_SMALL,SPACING_MEDIUM,SPACING_BIG;
+// import(modulePath1)
+// .then(module => {
+//     GameStatus = module.GameStatus;
+// });
+// import(modulePath1)
+// .then(module => {
+//   CardGameCore = module.CardGameCore;
+//   CardGameUI = module.CardGameUI;
+//   SPACING_SMALL = module.SPACING_SMALL;
+//   SPACING_MEDIUM = module.SPACING_MEDIUM;
+//   SPACING_BIG = module.SPACING_BIG;
+// });
+
 
 // import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from `./cards.js${game_version}`;
-// import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.30.6';
+import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.30.6';
 
 let i =0;
 
@@ -223,7 +234,7 @@ class KlondikeCore extends CardGameCore {
 
   deal() {
     // console.log('deal() {');
-    document.getElementById('new-game-button').innerHTML = "Test 5";
+    document.getElementById('new-game-button').innerHTML = "Test 6";
 
     let occurrence_time_local = new Date(); // Старт новой игры Отправлять всегда при старте новой игры
     let occurrence_time_utc0 = new Date().toISOString();
