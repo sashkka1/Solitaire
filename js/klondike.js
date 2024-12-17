@@ -51,7 +51,6 @@ let autoVisible = 1; // использую для проверки на авто
 let stockCurrent = 1;
 let checkFirstTry =0; // Для понимания первый ли расклад карт, для проверки на возврат из тг клауд
 let gameIsStart = 0; // Для трекинга изменений
-let gameIsStart2 = 0; // Для первого заода в игру
 
 
 let simpleArray1= [
@@ -217,7 +216,7 @@ class KlondikeCore extends CardGameCore {
 
   deal() {
     // console.log('deal() {');
-    document.getElementById('new-game-button').innerHTML = "Test 0";
+    document.getElementById('new-game-button').innerHTML = "Test 1";
 
     let occurrence_time_local = new Date(); // Старт новой игры Отправлять всегда при старте новой игры
     let occurrence_time_utc0 = new Date().toISOString();
@@ -542,6 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ui.newGame(+PickInput); // Запускаем новую игру с количеством карт из pickInput
 
   newGameButton.addEventListener('click', () =>{// Обрабатываем клик по кнопке для новой игры
+    console.log('gameIsStart',gameIsStart);
     if(gameIsStart == 0) {
       ui.newGame(+PickInput)
     }else{
