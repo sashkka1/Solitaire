@@ -1,4 +1,4 @@
-let game_version = '1.28';
+let game_version = '1.30.5';
 
 // Определяем константы статуса игры
 export const GameStatus = Object.freeze({

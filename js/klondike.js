@@ -1,6 +1,6 @@
-let game_version = '1.30.1';
-import { GameStatus } from './game.js?v=1.30.1';
-import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.30.1';
+let game_version = '1.30.5';
+import { GameStatus } from './game.js?v=1.30.5';
+import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.30.5';
 
 let i =0;
 
@@ -50,6 +50,8 @@ let a=0, bb = 1, c=2, d=4, b=3;
 let autoVisible = 1; // использую для проверки на автоматическое заполнение
 let stockCurrent = 1;
 let checkFirstTry =0; // Для понимания первый ли расклад карт, для проверки на возврат из тг клауд
+let gameIsStart = 0; // Для трекинга изменений
+let gameIsStart2 = 0; // Для первого заода в игру
 
 
 let simpleArray1= [
@@ -183,7 +185,6 @@ class KlondikeCore extends CardGameCore {
     }else{
       count++;
     }
-    console.log('Actual count - ', count);
     window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
     // localStorage.setItem("countTry", count);
     switch(count){
@@ -210,9 +211,13 @@ class KlondikeCore extends CardGameCore {
     // this.normalStart();
   }
 
+  actualGameStart(one){ // для понимания были ли изменения
+    gameIsStart = one;
+  }
+
   deal() {
     // console.log('deal() {');
-    document.getElementById('new-game-button').innerHTML = "Test 3";
+    document.getElementById('new-game-button').innerHTML = "Test 0";
 
     let occurrence_time_local = new Date(); // Старт новой игры Отправлять всегда при старте новой игры
     let occurrence_time_utc0 = new Date().toISOString();
@@ -535,7 +540,19 @@ document.addEventListener('DOMContentLoaded', () => {
   let PickInput = 1;
   const ui = new KlondikeUI(gameDiv); // Создаем новый экземпляр UI игры
   ui.newGame(+PickInput); // Запускаем новую игру с количеством карт из pickInput
-  newGameButton.addEventListener('click', () => ui.newGame(+PickInput)); // Обрабатываем клик по кнопке для новой игры
+
+  newGameButton.addEventListener('click', () =>{// Обрабатываем клик по кнопке для новой игры
+    if(gameIsStart == 0) {
+      ui.newGame(+PickInput)
+    }else{
+      let elements = document.getElementById("check-desire-box");
+      elements.classList.add('normal');
+    }
+  }); 
+  const newGameButtonOk = document.getElementById('check-desire-button-ok'); // Находим кнопку для новой игры
+  newGameButtonOk.addEventListener('click', () =>{// Обрабатываем клик по кнопке для новой игры
+    ui.newGame(+PickInput)
+  }); 
   backButton.addEventListener('click', () => ui.backButton()); // Обрабатываем клик по кнопке для возврата назад
   autoButton.addEventListener('click', () => ui.autoButton());
 

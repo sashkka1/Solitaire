@@ -1,7 +1,7 @@
-let game_version = '1.20';
+let game_version = '1.30.5';
 
 // Импортируем модули GameCore, GameStatus и GameUI из файла game.js
-import { GameCore, GameStatus, GameUI} from './game.js';
+import { GameCore, GameStatus, GameUI} from './game.js?v=1.30.5';
 // Определяем масти карт с их свойствами (имя, цвет и unicode-символ)
 export const SUITS = [
   { name: 'spade', color: 'black', unicode: '\u2660'},
@@ -26,14 +26,15 @@ let checkcontinue = 0;
 block = document.getElementById('check-desire-button-cancel');
 block.addEventListener('click', () => {
   let elements = document.getElementById("check-desire-box");
-        elements.classList.remove('normal');
+  elements.classList.remove('normal');
 });
 // Фон за блоком при проверке создания новой игры
 block = document.getElementById('backk');
 block.addEventListener('click', () => {
   let elements = document.getElementById("check-desire-box");
-        elements.classList.remove('normal');
+  elements.classList.remove('normal');
 });
+
 
 
 
@@ -241,11 +242,10 @@ export class CardGameCore extends GameCore {
           }
         }
       }
-      // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       if(whatChange == "table"){
       window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
-      }
       // localStorage.setItem("saveCard", JSON.stringify(b));
+      }
       // console.log("Save good");
       // console.table(b);
     }
@@ -413,7 +413,6 @@ export class CardGameUI extends GameUI {
 
 
     i =0;
-    let url = './materials/Images/Front/';
     for (const card of cardArray) {
     i++;
 
@@ -482,8 +481,7 @@ export class CardGameUI extends GameUI {
   }
 
 
-  newGame() {// проверяю на то была ли игра уже начата чтобы решить выставлять блок решением пользователя о продолжении или новой игре
-    
+  newGame() {// проверяю на то была ли игра уже начата чтобы решить выставлять блок решением пользователя о продолжении или новой игре  
     let autocomplete = document.getElementById('check-autocomplete-button');
     let buttonPlace = document.getElementById('button-place');
     let buttonBack = document.getElementById('back-button');
@@ -496,61 +494,53 @@ export class CardGameUI extends GameUI {
       this.currentGame.stockCurrentDefolt();
       autocomplete.classList.remove('normal-auto');
       buttonPlace.classList.add('normal');
+    }else if(gameIsStart == 0){ // изменений нет, просто начинаем новую
+      this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
+      this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
+      this.currentGame.deal(); // Начало игры (раздача карт)
+      super.newGame(); // Вызов метода newGame() родительского класса
+      this.currentGame.stockCurrentDefolt();
+      autocomplete.classList.remove('normal-auto');
+      buttonPlace.classList.add('normal');
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      // localStorage.removeItem("saveCard");
     }else{
-      if(gameIsStart == 0){ // изменений нет, просто начинаем новую
-        console.log('изменений нет, просто начинаем новую');
-        this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
-        this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
-        this.currentGame.deal(); // Начало игры (раздача карт)
-        super.newGame(); // Вызов метода newGame() родительского класса
-        this.currentGame.stockCurrentDefolt();
-        autocomplete.classList.remove('normal-auto');
-        buttonPlace.classList.add('normal');
-        window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-        // localStorage.removeItem("saveCard");
-      }else{
-        console.log('изменений есть выводим панель');
-        let elements = document.getElementById("check-desire-box");
-        elements.classList.add('normal');
-        let block = document.getElementById('check-desire-button-ok');
-        block.addEventListener('click', () => {
-          gameIsStart=0;
-          window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-          // localStorage.removeItem("saveCard");
-          let elements = document.getElementById("check-desire-box");
-          elements.classList.remove('normal');
-          this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
-          this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
-          this.currentGame.deal(); // Начало игры (раздача карт)
-          super.newGame(); // Вызов метода newGame() родительского класса
-          this.currentGame.stockCurrentDefolt();
-          autocomplete.classList.remove('normal-auto');
-          buttonPlace.classList.add('normal');
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      // localStorage.removeItem("saveCard");
+      let elements = document.getElementById("check-desire-box");
+      elements.classList.remove('normal');
+      this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
+      this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
+      this.currentGame.deal(); // Начало игры (раздача карт)
+      super.newGame(); // Вызов метода newGame() родительского класса
+      this.currentGame.stockCurrentDefolt();
+      autocomplete.classList.remove('normal-auto');
+      buttonPlace.classList.add('normal');
 
-          if(checkcontinue > 0){ 
-            let occurrence_time_local = new Date(); //Старт новой игры, если прошлая игра находилась в прогрессеПо сути дубликат level_start (отправится два ивента), но будет указание на то, что пользователь решил пропустить текущую игру
-            let occurrence_time_utc0 = new Date().toISOString();
-            gtag('event', 'level_reset_and_start', {
-              'occurrence_time_local': occurrence_time_local,
-              'occurrence_time_utc0': occurrence_time_utc0,
-              'game_version': game_version,
-            });
-            checkcontinue=0;
-          }
+      if(checkcontinue > 0){ 
+        let occurrence_time_local = new Date(); //Старт новой игры, если прошлая игра находилась в прогрессеПо сути дубликат level_start (отправится два ивента), но будет указание на то, что пользователь решил пропустить текущую игру
+        let occurrence_time_utc0 = new Date().toISOString();
+        gtag('event', 'level_reset_and_start', {
+          'occurrence_time_local': occurrence_time_local,
+          'occurrence_time_utc0': occurrence_time_utc0,
+          'game_version': game_version,
         });
+        checkcontinue=0;
       }
     }
     block = document.getElementById('win-box');
-      block.addEventListener('click', () => {
-        this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
-        this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
-        this.currentGame.deal(); // Начало игры (раздача карт)
-        super.newGame(); // Вызов метода newGame() родительского класса
-        this.currentGame.stockCurrentDefolt();
-        block.classList.remove('normal-win');
-        buttonPlace.classList.add('normal');
-      });
+    block.addEventListener('click', () => {
+      this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
+      this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
+      this.currentGame.deal(); // Начало игры (раздача карт)
+      super.newGame(); // Вызов метода newGame() родительского класса
+      this.currentGame.stockCurrentDefolt();
+      block.classList.remove('normal-win');
+      buttonPlace.classList.add('normal');
+    });
+    gameIsStart=0;
     gameIsStart2 ++;
+    this.currentGame.actualGameStart(gameIsStart);
   }
 
   autoButton(){ // реализация кнопки автозаполнения
@@ -579,7 +569,6 @@ export class CardGameUI extends GameUI {
       'occurrence_time_utc0': occurrence_time_utc0,
       'game_version': game_version,
     });
-    console.log('google cancel_move');
 
     if(backCard !="undefined"){
 
@@ -815,6 +804,7 @@ _endDrag(touchElement) {
     }
   } else {
     gameIsStart++;
+    this.currentGame.actualGameStart(gameIsStart);
     this.currentGame.move(this._draggingState.cardInfos[0].card, this._draggingState.oldCardPlaceId, this._draggingState.dropPlaceId);
     // _onCardsMoved() обрабатывает дальнейшие действия
     if(checkcontinue == 1){ 
