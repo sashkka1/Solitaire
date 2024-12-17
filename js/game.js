@@ -61,6 +61,7 @@ export class GameUI {
       this._statusMessagePara.classList.remove('hidden');    // Показываем сообщение
       this._statusMessagePara.textContent = "Game Over :(";  // Сообщение о проигрыше
     } else if (this.currentGame.status === GameStatus.WIN) {
+      console.log('новый статус победы');
       let block = document.getElementById('win-box');
       block.classList.add('normal-win');
       let buttonPlace = document.getElementById('button-place');

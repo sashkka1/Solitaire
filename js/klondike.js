@@ -213,11 +213,12 @@ class KlondikeCore extends CardGameCore {
 
   actualGameStart(one){ // для понимания были ли изменения
     gameIsStart = one;
+    console.log('обновление в клондайке',gameIsStart);
   }
 
   deal() {
     // console.log('deal() {');
-    document.getElementById('new-game-button').innerHTML = "Test 2";
+    document.getElementById('new-game-button').innerHTML = "Test 3";
 
     let occurrence_time_local = new Date(); // Старт новой игры Отправлять всегда при старте новой игры
     let occurrence_time_utc0 = new Date().toISOString();
@@ -542,6 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ui.newGame(+PickInput); // Запускаем новую игру с количеством карт из pickInput
 
   newGameButton.addEventListener('click', () =>{// Обрабатываем клик по кнопке для новой игры
+    console.log('при вызове кнопки новой игры',gameIsStart);
     if(gameIsStart == 0) {
       ui.newGame(+PickInput)
     }else{
