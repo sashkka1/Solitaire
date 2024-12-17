@@ -1,4 +1,4 @@
-let game_version = '1.30.5';
+let game_version = document.getElementById('game-version').textContent;
 
 // Определяем константы статуса игры
 export const GameStatus = Object.freeze({

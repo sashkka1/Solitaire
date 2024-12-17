@@ -1,7 +1,7 @@
-let game_version = '1.30.5';
+let game_version = document.getElementById('game-version').textContent;
 
 // Импортируем модули GameCore, GameStatus и GameUI из файла game.js
-import { GameCore, GameStatus, GameUI} from './game.js?v=1.30.5';
+import { GameCore, GameStatus, GameUI} from `./game.js${game_version}`;
 // Определяем масти карт с их свойствами (имя, цвет и unicode-символ)
 export const SUITS = [
   { name: 'spade', color: 'black', unicode: '\u2660'},

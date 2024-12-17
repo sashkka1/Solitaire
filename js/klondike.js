@@ -1,6 +1,7 @@
-let game_version = '1.30.5';
-import { GameStatus } from './game.js?v=1.30.5';
-import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.30.5';
+let game_version = document.getElementById('game-version').textContent;
+`./game.js${game_version}`
+import { GameStatus } from `./game.js${game_version}`;
+import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from `./cards.js${game_version}`;
 
 let i =0;
 
