@@ -1,5 +1,5 @@
 let game_version = document.getElementById('game-version').textContent;
-`./game.js${game_version}`
+game_version = '?v=1.30.6';
 import { GameStatus } from `./game.js${game_version}`;
 import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from `./cards.js${game_version}`;
 
@@ -218,7 +218,7 @@ class KlondikeCore extends CardGameCore {
 
   deal() {
     // console.log('deal() {');
-    document.getElementById('new-game-button').innerHTML = "Test 3";
+    document.getElementById('new-game-button').innerHTML = "Test 4";
 
     let occurrence_time_local = new Date(); // Старт новой игры Отправлять всегда при старте новой игры
     let occurrence_time_utc0 = new Date().toISOString();
