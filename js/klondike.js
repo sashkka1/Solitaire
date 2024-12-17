@@ -200,7 +200,6 @@ class KlondikeCore extends CardGameCore {
 
   actualGameStart(one){ // для понимания были ли изменения
     gameIsStart = one;
-    console.log('обновление в клондайке',gameIsStart);
   }
 
   deal() {

@@ -66,7 +66,7 @@ export class GameUI {
       buttonPlace.classList.remove('normal');
       window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       this._statusMessagePara.classList.remove('hidden');    // Показываем сообщение
-      this._statusMessagePara.textContent = "You win :)";    // Сообщение о победе
+      // this._statusMessagePara.textContent = "You win :)";    // Сообщение о победе
 
       window.Telegram.WebApp.CloudStorage.getItem("countWin", (err, count) => {
         
