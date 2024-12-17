@@ -537,10 +537,15 @@ export class CardGameUI extends GameUI {
       this.currentGame.stockCurrentDefolt();
       block.classList.remove('normal-win');
       buttonPlace.classList.add('normal');
+      console.log('win-box',gameIsStart);
+      // gameIsStart=0;
+      // gameIsStart2 ++;
+      // this.currentGame.actualGameStart(gameIsStart);
     });
     gameIsStart=0;
     gameIsStart2 ++;
     this.currentGame.actualGameStart(gameIsStart);
+    console.log('new game',gameIsStart);
   }
 
   autoButton(){ // реализация кнопки автозаполнения
