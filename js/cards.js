@@ -1,9 +1,7 @@
-let game_version = document.getElementById('game-version').textContent;
+let game_version = '1.30.9';
 
-// Импортируем модули GameCore, GameStatus и GameUI из файла game.js
-// import { GameCore, GameStatus, GameUI} from `./game.js${game_version}`;
-import { GameCore, GameStatus, GameUI} from './game.js?v=1.30.6';
-// Определяем масти карт с их свойствами (имя, цвет и unicode-символ)
+import { GameCore, GameStatus, GameUI} from './game.js?v=1.30.9';
+
 export const SUITS = [
   { name: 'spade', color: 'black', unicode: '\u2660'},
   { name: 'heart', color: 'red', unicode: '\u2665'},
@@ -481,7 +479,6 @@ export class CardGameUI extends GameUI {
     this._draggingState = null; // Состояние для отслеживания процесса перетаскивания
   }
 
-
   newGame() {// проверяю на то была ли игра уже начата чтобы решить выставлять блок решением пользователя о продолжении или новой игре  
     let autocomplete = document.getElementById('check-autocomplete-button');
     let buttonPlace = document.getElementById('button-place');
@@ -515,9 +512,9 @@ export class CardGameUI extends GameUI {
       this.currentGame.deal(); // Начало игры (раздача карт)
       super.newGame(); // Вызов метода newGame() родительского класса
       this.currentGame.stockCurrentDefolt();
+      
       autocomplete.classList.remove('normal-auto');
       buttonPlace.classList.add('normal');
-
       if(checkcontinue > 0){ 
         let occurrence_time_local = new Date(); //Старт новой игры, если прошлая игра находилась в прогрессеПо сути дубликат level_start (отправится два ивента), но будет указание на то, что пользователь решил пропустить текущую игру
         let occurrence_time_utc0 = new Date().toISOString();
@@ -528,18 +525,8 @@ export class CardGameUI extends GameUI {
         });
         checkcontinue=0;
       }
+      
     }
-    block = document.getElementById('win-box');
-    block.addEventListener('click', () => {
-      this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
-      this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
-      this.currentGame.deal(); // Начало игры (раздача карт)
-      super.newGame(); // Вызов метода newGame() родительского класса
-      this.currentGame.stockCurrentDefolt();
-      block.classList.remove('normal-win');
-      buttonPlace.classList.add('normal');
-      console.log('win-box',gameIsStart);
-    });
     gameIsStart=0;
     gameIsStart2 ++;
     this.currentGame.actualGameStart(gameIsStart);

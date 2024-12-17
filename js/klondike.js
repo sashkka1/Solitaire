@@ -1,36 +1,7 @@
-// let game_version = document.getElementById('game-version').textContent;
-// import { GameStatus } from `./game.js${game_version}`;
-// import { GameStatus } from './game.js?v=1.30.6';
+let game_version = '1.30.9';
 
-
-const modulePath = './game.js?v=1.30.6';
-
-let GameStatus;
-
-(async () => {
-  const module = await import(modulePath);
-  GameStatus = module.GameStatus;
-  // Теперь GameStatus доступен глобально
-})();
-// let game_version = document.getElementById('game-version').textContent;
-// let modulePath1 = `./game.js${game_version}`,modulePath2 = `./cards.js${game_version}`;
-// let GameStatus,CardGameCore,CardGameUI,SPACING_SMALL,SPACING_MEDIUM,SPACING_BIG;
-// import(modulePath1)
-// .then(module => {
-//     GameStatus = module.GameStatus;
-// });
-// import(modulePath1)
-// .then(module => {
-//   CardGameCore = module.CardGameCore;
-//   CardGameUI = module.CardGameUI;
-//   SPACING_SMALL = module.SPACING_SMALL;
-//   SPACING_MEDIUM = module.SPACING_MEDIUM;
-//   SPACING_BIG = module.SPACING_BIG;
-// });
-
-
-// import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from `./cards.js${game_version}`;
-import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.30.6';
+import { GameStatus } from './game.js?v=1.30.9';
+import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.30.9';
 
 let i =0;
 
@@ -245,7 +216,6 @@ class KlondikeCore extends CardGameCore {
     });
 
     window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
-      // let count =6;
       // let count = localStorage.getItem("countTry");
       if(checkFirstTry == 0){
         window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
@@ -273,6 +243,7 @@ class KlondikeCore extends CardGameCore {
       // console.table(this._allCards);
       if(count >9){
         window.Telegram.WebApp.CloudStorage.removeItem("countTry");
+        // localStorage.removeItem("countTry");
       }
 
       checkFirstTry++;
@@ -551,28 +522,39 @@ document.addEventListener('DOMContentLoaded', () => {
   tg.disableVerticalSwipes();
 
   const gameDiv = document.getElementById('game'); // Находим элемент для игрового поля
-  const newGameButton = document.getElementById('new-game-button'); // Находим кнопку для новой игры
-  const backButton = document.getElementById('back-button'); // шаг назад
-  const autoButton = document.getElementById('check-autocomplete-button'); // шаг назад
   let PickInput = 1;
   const ui = new KlondikeUI(gameDiv); // Создаем новый экземпляр UI игры
   ui.newGame(+PickInput); // Запускаем новую игру с количеством карт из pickInput
 
+  let backButton = document.getElementById('back-button'); // шаг назад
+  backButton.addEventListener('click', () => ui.backButton()); // Обрабатываем клик по кнопке для возврата назад
+  
+  let autoButton = document.getElementById('check-autocomplete-button'); // шаг назад
+  autoButton.addEventListener('click', () => ui.autoButton());
+
+  let newGameButton = document.getElementById('new-game-button'); // Находим кнопку для новой игры
   newGameButton.addEventListener('click', () =>{// Обрабатываем клик по кнопке для новой игры
-    console.log('при вызове кнопки новой игры',gameIsStart);
     if(gameIsStart == 0) {
       ui.newGame(+PickInput)
+      gameIsStart=0;
     }else{
       let elements = document.getElementById("check-desire-box");
       elements.classList.add('normal');
     }
   }); 
-  const newGameButtonOk = document.getElementById('check-desire-button-ok'); // Находим кнопку для новой игры
+
+  let newGameButtonOk = document.getElementById('check-desire-button-ok'); // Находим кнопку для новой игры
   newGameButtonOk.addEventListener('click', () =>{// Обрабатываем клик по кнопке для новой игры
+    let elements = document.getElementById("check-desire-box");
+    elements.classList.remove('normal');
     ui.newGame(+PickInput)
   }); 
-  backButton.addEventListener('click', () => ui.backButton()); // Обрабатываем клик по кнопке для возврата назад
-  autoButton.addEventListener('click', () => ui.autoButton());
+
+  let newGameButtonWin = document.getElementById('win-box'); // Находим кнопку для вин скрина
+  newGameButtonWin.addEventListener('click', () =>{// Обрабатываем клик по кнопке для новой игры
+    ui.newGame(+PickInput)
+    newGameButtonWin.classList.remove('normal-win');
+  }); 
 
 
   window.Telegram.WebApp.CloudStorage.getItem("countTryGoogle", (err, count) => {

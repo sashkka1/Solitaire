@@ -1,5 +1,4 @@
-let game_version = document.getElementById('game-version').textContent;
-
+let game_version = '1.30.9';
 // Определяем константы статуса игры
 export const GameStatus = Object.freeze({
   PLAYING: 1,    // Игра идет
@@ -61,17 +60,16 @@ export class GameUI {
       this._statusMessagePara.classList.remove('hidden');    // Показываем сообщение
       this._statusMessagePara.textContent = "Game Over :(";  // Сообщение о проигрыше
     } else if (this.currentGame.status === GameStatus.WIN) {
-      console.log('новый статус победы');
       let block = document.getElementById('win-box');
       block.classList.add('normal-win');
       let buttonPlace = document.getElementById('button-place');
       buttonPlace.classList.remove('normal');
       window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-      // this._statusMessagePara.classList.remove('hidden');    // Показываем сообщение
-      // this._statusMessagePara.textContent = "You win :)";    // Сообщение о победе
+      this._statusMessagePara.classList.remove('hidden');    // Показываем сообщение
+      this._statusMessagePara.textContent = "You win :)";    // Сообщение о победе
 
       window.Telegram.WebApp.CloudStorage.getItem("countWin", (err, count) => {
-        // let count =0;
+        let count =0;
         
         if (count === null || count === undefined || count === "") {
           count=1;
@@ -164,7 +162,6 @@ export class GameUI {
           default:
           break;
         }
-
       });
 
 
