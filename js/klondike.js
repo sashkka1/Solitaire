@@ -51,6 +51,11 @@ let uis_attached = 'attached';
 function getux_language(){
   return ux_language;
 }
+dataLayer.push({
+  'event': 'level_start',
+  'tg_username': 'username',
+  'is_premium_user': 'premium_user'
+});
 
 let autoVisible = 1; // использую для проверки на автоматическое заполнение
 let stockCurrent = 1;
