@@ -48,6 +48,9 @@ let is_premium_user = 'is_premium_user';
 let is_real_user = 'is_real_user';
 let uis_attached = 'uis_attached';
 
+function getux_language(){
+  return ux_language;
+}
 
 let autoVisible = 1; // использую для проверки на автоматическое заполнение
 let stockCurrent = 1;
