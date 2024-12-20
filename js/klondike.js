@@ -223,6 +223,12 @@ class KlondikeCore extends CardGameCore {
       'game_version': game_version,
     });
 
+    logEvent(analytics, "level_start", {
+      occurrence_time_local: occurrence_time_local,
+      occurrence_time_utc0: occurrence_time_utc0,
+      game_version: game_version
+    });
+
     // window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
       let count = localStorage.getItem("countTry");
       if(checkFirstTry == 0){
