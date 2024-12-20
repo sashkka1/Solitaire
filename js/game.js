@@ -82,7 +82,7 @@ export class GameUI {
           case 1: 
             let occurrence_time_local = new Date(); // Завершение 1ого уровня
             let occurrence_time_utc0 = new Date().toISOString();
-            gtag('event', 'level_1_end', {
+            gtag('event', ' ', {
               'occurrence_time_local': occurrence_time_local,
               'occurrence_time_utc0': occurrence_time_utc0,
               'game_version': game_version,

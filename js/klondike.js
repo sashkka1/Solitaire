@@ -39,14 +39,14 @@ let a=0, bb = 1, c=2, d=4, b=3;
 //     'is_real_user': c,
 //     'uis_attached': d,
 //   });
-let ux_language = 'ux_language';
-let ux_color = 'ux_color';
-let tg_id = 'tg_id';
-let tg_username = 'tg_username';
-let tg_platform = 'tg_platform';
-let is_premium_user = 'is_premium_user';
-let is_real_user = 'is_real_user';
-let uis_attached = 'uis_attached';
+let ux_language = 'language';
+let ux_color = 'color';
+let tg_id = 123512323;
+let tg_username = 'username';
+let tg_platform = 'platform';
+let is_premium_user = 'premium_user';
+let is_real_user = 'real_user';
+let uis_attached = 'attached';
 
 function getux_language(){
   return ux_language;
