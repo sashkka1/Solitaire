@@ -64,15 +64,17 @@ export class GameUI {
       block.classList.add('normal-win');
       let buttonPlace = document.getElementById('button-place');
       buttonPlace.classList.remove('normal');
-      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      localStorage.removeItem("saveCard");
       this._statusMessagePara.classList.remove('hidden');    // Показываем сообщение
       // this._statusMessagePara.textContent = "You win :)";    // Сообщение о победе
 
-      window.Telegram.WebApp.CloudStorage.getItem("countWin", (err, count) => {
-        
+      // window.Telegram.WebApp.CloudStorage.getItem("countWin", (err, count) => {
+        let count = localStorage.getItem("countWin", count);
         if (count === null || count === undefined || count === "") {
           count=1;
-          window.Telegram.WebApp.CloudStorage.setItem("countWin", count);
+          // window.Telegram.WebApp.CloudStorage.setItem("countWin", count);
+          localStorage.setItem("countWin", count);
         }else{
           count++;
         }
@@ -161,7 +163,7 @@ export class GameUI {
           default:
           break;
         }
-      });
+      // });
 
 
     } else if (this.currentGame.status === GameStatus.PLAYING) {

@@ -7,14 +7,15 @@ let i =0;
 
 
 // переменные для user properties
-let ux_language = window.Telegram.WebApp.initDataUnsafe.user.language_code; // Язык интерфейса
-let ux_color = window.Telegram.WebApp.colorScheme; // Цветовая схема
-let tg_id = window.Telegram.WebApp.initDataUnsafe.user.id; // Айди
-let tg_username = window.Telegram.WebApp.initDataUnsafe.user.username; // Юзернейм
-let tg_platform = window.Telegram.WebApp.platform; // Платформа
-let is_premium_user = window.Telegram.WebApp.initDataUnsafe.user.is_premium; // Премиум или бесплатный (true/false)
-let is_real_user = window.Telegram.WebApp.initDataUnsafe.user.is_bot; // Бот или реальный пользователь (true/false)
-let uis_attached = window.Telegram.WebApp.added_to_attachment_menu; // Добавил пользователь бота в прикрепленное меню или нет (true/false)
+// let ux_language = window.Telegram.WebApp.initDataUnsafe.user.language_code; // Язык интерфейса
+// let ux_color = window.Telegram.WebApp.colorScheme; // Цветовая схема
+// let tg_id = window.Telegram.WebApp.initDataUnsafe.user.id; // Айди
+// let tg_username = window.Telegram.WebApp.initDataUnsafe.user.username; // Юзернейм
+// let tg_platform = window.Telegram.WebApp.platform; // Платформа
+// let is_premium_user = window.Telegram.WebApp.initDataUnsafe.user.is_premium; // Премиум или бесплатный (true/false)
+// let is_real_user = window.Telegram.WebApp.initDataUnsafe.user.is_bot; // Бот или реальный пользователь (true/false)
+// let uis_attached = window.Telegram.WebApp.added_to_attachment_menu; // Добавил пользователь бота в прикрепленное меню или нет (true/false)
+
 let a=0, bb = 1, c=2, d=4, b=3;
 // window.dataLayer = window.dataLayer || [];
 // dataLayer.push({
@@ -38,14 +39,14 @@ let a=0, bb = 1, c=2, d=4, b=3;
 //     'is_real_user': c,
 //     'uis_attached': d,
 //   });
-// let ux_language = 'ux_language';
-// let ux_color = 'ux_color';
-// let tg_id = 'tg_id';
-// let tg_username = 'tg_username';
-// let tg_platform = 'tg_platform';
-// let is_premium_user = 'is_premium_user';
-// let is_real_user = 'is_real_user';
-// let uis_attached = 'uis_attached';
+let ux_language = 'ux_language';
+let ux_color = 'ux_color';
+let tg_id = 'tg_id';
+let tg_username = 'tg_username';
+let tg_platform = 'tg_platform';
+let is_premium_user = 'is_premium_user';
+let is_real_user = 'is_real_user';
+let uis_attached = 'uis_attached';
 
 
 let autoVisible = 1; // использую для проверки на автоматическое заполнение
@@ -172,8 +173,8 @@ class KlondikeCore extends CardGameCore {
     }else{
       count++;
     }
-    window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
-    // localStorage.setItem("countTry", count);
+    // window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
+    localStorage.setItem("countTry", count);
     switch(count){
       case 1: 
         this.convertAndOutput(simpleArray1);
@@ -214,11 +215,11 @@ class KlondikeCore extends CardGameCore {
       'game_version': game_version,
     });
 
-    window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
-      // let count = localStorage.getItem("countTry");
+    // window.Telegram.WebApp.CloudStorage.getItem("countTry", (err, count) => {
+      let count = localStorage.getItem("countTry");
       if(checkFirstTry == 0){
-        window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
-          // let storedValue = localStorage.getItem("saveCard");
+        // window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
+          let storedValue = localStorage.getItem("saveCard");
           // console.table(storedValue);
           if (storedValue === null || storedValue === undefined || storedValue === "") {
             console.log('get empty');
@@ -233,7 +234,7 @@ class KlondikeCore extends CardGameCore {
             let buttonBack = document.getElementById('back-button');
             buttonBack.classList.add('lock');
           }
-        });
+        // });
       } else{
         this.firstFiveStart(count);
       }
@@ -241,12 +242,12 @@ class KlondikeCore extends CardGameCore {
       // console.log('То что в итоге вывели');
       // console.table(this._allCards);
       if(count >9){
-        window.Telegram.WebApp.CloudStorage.removeItem("countTry");
-        // localStorage.removeItem("countTry");
+        // window.Telegram.WebApp.CloudStorage.removeItem("countTry");
+        localStorage.removeItem("countTry");
       }
 
       checkFirstTry++;
-    });
+    // });
 
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.add('lock');
@@ -474,7 +475,7 @@ class KlondikeUI extends CardGameUI {
     }
     if (card === null || this.currentGame.placeIdToCardArray.stock.includes(card)) {
       let testcheck = "";
-      testcheck = window.Telegram.WebApp.platform;
+      // testcheck = window.Telegram.WebApp.platform;
       if(testcheck == "tdesktop"){
         this.currentGame.stockToDiscard(); // Перемещаем карты из стока в сброс
       }else{
@@ -556,7 +557,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }); 
 
 
-  window.Telegram.WebApp.CloudStorage.getItem("countTryGoogle", (err, count) => {
+  // window.Telegram.WebApp.CloudStorage.getItem("countTryGoogle", (err, count) => {
+    let count = localStorage.getItem("countTryGoogle");
     if (count === null || count === undefined || count === "") {
       let occurrence_time_local = new Date(); // Первое открытие веб вью (новый пользователь)
       let occurrence_time_utc0 = new Date().toISOString();
@@ -576,8 +578,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       count++;
     }
-    window.Telegram.WebApp.CloudStorage.setItem("countTryGoogle", count);
-  });
+    // window.Telegram.WebApp.CloudStorage.setItem("countTryGoogle", count);
+    localStorage.setItem("countTryGoogle", count);
+  // });
 
 });
 
