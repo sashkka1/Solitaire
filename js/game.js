@@ -1,3 +1,26 @@
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+      apiKey: "AIzaSyAFtSuJL2CvnSkg7Le7ipm3AJjVJTafO7s",
+      authDomain: "tmaa-19810.firebaseapp.com",
+      projectId: "tmaa-19810",
+      storageBucket: "tmaa-19810.firebasestorage.app",
+      messagingSenderId: "773338719757",
+      appId: "1:773338719757:web:5e03de8e631bd2f4089744",
+      measurementId: "G-862YLNQHSY"
+  };
+  
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+
+
 let game_version = '1.30.9';
 // Определяем константы статуса игры
 export const GameStatus = Object.freeze({
