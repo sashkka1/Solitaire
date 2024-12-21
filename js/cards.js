@@ -1,30 +1,29 @@
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+let game_version = '1.31.34';
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-      apiKey: "AIzaSyAFtSuJL2CvnSkg7Le7ipm3AJjVJTafO7s",
-      authDomain: "tmaa-19810.firebaseapp.com",
-      projectId: "tmaa-19810",
-      storageBucket: "tmaa-19810.firebasestorage.app",
-      messagingSenderId: "773338719757",
-      appId: "1:773338719757:web:5e03de8e631bd2f4089744",
-      measurementId: "G-862YLNQHSY"
-  };
-  
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+import { GameCore, GameStatus, GameUI} from './game.js?v=1.31.34';
 
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-let game_version = '1.30.9';
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDRdEEY-De_dezz2ycoOJYR-H9CH6wRp5E",
+  authDomain: "telegramminiapp-dc0b0.firebaseapp.com",
+  projectId: "telegramminiapp-dc0b0",
+  storageBucket: "telegramminiapp-dc0b0.firebasestorage.app",
+  messagingSenderId: "266044158892",
+  appId: "1:266044158892:web:6abbe852cb7735b4488009",
+  measurementId: "G-PXL5QGF8DJ"
+};
 
-import { GameCore, GameStatus, GameUI} from './game.js?v=1.30.9';
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 export const SUITS = [
   { name: 'spade', color: 'black', unicode: '\u2660'},
@@ -69,9 +68,9 @@ export class Card extends EventTarget {
     this._number = number; // Устанавливаем номер карты (от 1 до 13)
     this._suit = suit; // Устанавливаем масть карты
     this.v = false; // Изначально карта невидима
-    this.p = "";
-    this.i = "0";
-    this.in = "-1";
+    this.p = ""; // позиция на столе
+    this.i = "0"; // индекс от 1 до 52
+    this.in = "-1"; // индэкс позиции в колоде
   }
 
   // Возвращает строковое представление номера карты (A, J, Q, K или число)
@@ -266,8 +265,8 @@ export class CardGameCore extends GameCore {
         }
       }
       if(whatChange == "table"){
-      // window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
-      localStorage.setItem("saveCard", JSON.stringify(b));
+      window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
+      // localStorage.setItem("saveCard", JSON.stringify(b));
       }
       // console.log("Save good");
       // console.table(b);
@@ -344,6 +343,7 @@ export class CardGameCore extends GameCore {
 
   indexStart(){ // при выведении сохраненной игры чтобы понимал что игра началась
     gameIsStart++;
+    gameIsStart2++;
     checkcontinue++;
   }
   
@@ -539,7 +539,7 @@ export class CardGameUI extends GameUI {
       
       autocomplete.classList.remove('normal-auto');
       buttonPlace.classList.add('normal');
-      if(checkcontinue > 0){ 
+      if(checkcontinue == 1 ){ 
         let occurrence_time_local = new Date(); //Старт новой игры, если прошлая игра находилась в прогрессеПо сути дубликат level_start (отправится два ивента), но будет указание на то, что пользователь решил пропустить текущую игру
         let occurrence_time_utc0 = new Date().toISOString();
         gtag('event', 'level_reset_and_start', {
@@ -547,9 +547,8 @@ export class CardGameUI extends GameUI {
           'occurrence_time_utc0': occurrence_time_utc0,
           'game_version': game_version,
         });
-        checkcontinue=0;
+        checkcontinue++;
       }
-      
     }
     gameIsStart=0;
     gameIsStart2 ++;

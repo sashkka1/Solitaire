@@ -1,27 +1,30 @@
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-      apiKey: "AIzaSyAFtSuJL2CvnSkg7Le7ipm3AJjVJTafO7s",
-      authDomain: "tmaa-19810.firebaseapp.com",
-      projectId: "tmaa-19810",
-      storageBucket: "tmaa-19810.firebasestorage.app",
-      messagingSenderId: "773338719757",
-      appId: "1:773338719757:web:5e03de8e631bd2f4089744",
-      measurementId: "G-862YLNQHSY"
-  };
-  
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+let game_version = '1.31.34';
 
 
-let game_version = '1.30.9';
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDRdEEY-De_dezz2ycoOJYR-H9CH6wRp5E",
+  authDomain: "telegramminiapp-dc0b0.firebaseapp.com",
+  projectId: "telegramminiapp-dc0b0",
+  storageBucket: "telegramminiapp-dc0b0.firebasestorage.app",
+  messagingSenderId: "266044158892",
+  appId: "1:266044158892:web:6abbe852cb7735b4488009",
+  measurementId: "G-PXL5QGF8DJ"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+
+
 // Определяем константы статуса игры
 export const GameStatus = Object.freeze({
   PLAYING: 1,    // Игра идет
@@ -83,29 +86,24 @@ export class GameUI {
       this._statusMessagePara.classList.remove('hidden');    // Показываем сообщение
       this._statusMessagePara.textContent = "Game Over :(";  // Сообщение о проигрыше
     } else if (this.currentGame.status === GameStatus.WIN) {
-      let block = document.getElementById('win-box');
-      block.classList.add('normal-win');
-      let buttonPlace = document.getElementById('button-place');
-      buttonPlace.classList.remove('normal');
-      // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-      localStorage.removeItem("saveCard");
-      this._statusMessagePara.classList.remove('hidden');    // Показываем сообщение
-      // this._statusMessagePara.textContent = "You win :)";    // Сообщение о победе
+      window.Telegram.WebApp.CloudStorage.getItem("countWin", (err, count) => {
+        // let count = localStorage.getItem("countWin");
+        // count =0;
 
-      // window.Telegram.WebApp.CloudStorage.getItem("countWin", (err, count) => {
-        let count = localStorage.getItem("countWin", count);
         if (count === null || count === undefined || count === "") {
           count=1;
-          // window.Telegram.WebApp.CloudStorage.setItem("countWin", count);
-          localStorage.setItem("countWin", count);
         }else{
           count++;
         }
+
+        let occurrence_time_local;
+        let occurrence_time_utc0;
+
         switch(count){ // отправление ивентов о завершении уровня
           case 1: 
-            let occurrence_time_local = new Date(); // Завершение 1ого уровня
-            let occurrence_time_utc0 = new Date().toISOString();
-            gtag('event', ' ', {
+            occurrence_time_local = new Date(); // Завершение 1ого уровня
+            occurrence_time_utc0 = new Date().toISOString();
+            gtag('event', 'level_1_end', {
               'occurrence_time_local': occurrence_time_local,
               'occurrence_time_utc0': occurrence_time_utc0,
               'game_version': game_version,
@@ -139,7 +137,7 @@ export class GameUI {
             });
           break;
           case 15: 
-           occurrence_time_local = new Date(); // Завершение 15ого уровня
+            occurrence_time_local = new Date(); // Завершение 15ого уровня
             occurrence_time_utc0 = new Date().toISOString();
             gtag('event', 'level_15_end', {
               'occurrence_time_local': occurrence_time_local,
@@ -148,7 +146,7 @@ export class GameUI {
             });
           break;
           case 20: 
-           occurrence_time_local = new Date(); // Завершение 20ого уровня
+            occurrence_time_local = new Date(); // Завершение 20ого уровня
             occurrence_time_utc0 = new Date().toISOString();
             gtag('event', 'level_20_end', {
               'occurrence_time_local': occurrence_time_local,
@@ -184,11 +182,18 @@ export class GameUI {
             });
           break;
           default:
-          break;
         }
-      // });
-
-
+        window.Telegram.WebApp.CloudStorage.setItem("countWin", count);
+        // localStorage.setItem("countWin", count);
+      });
+      let block = document.getElementById('win-box');
+      block.classList.add('normal-win');
+      let buttonPlace = document.getElementById('button-place');
+      buttonPlace.classList.remove('normal');
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      // localStorage.removeItem("saveCard");
+      this._statusMessagePara.classList.remove('hidden');    // Показываем сообщение
+      // this._statusMessagePara.textContent = "You win :)";    // Сообщение о победе
     } else if (this.currentGame.status === GameStatus.PLAYING) {
       this._statusMessagePara.classList.add('hidden');       // Скрываем сообщение
       this._statusMessagePara.textContent = "";              // Сбрасываем текст
