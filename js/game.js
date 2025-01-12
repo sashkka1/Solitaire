@@ -103,8 +103,8 @@ export class GameUI {
       this._statusMessagePara.classList.remove('hidden');    // Показываем сообщение
       this._statusMessagePara.textContent = "Game Over :(";  // Сообщение о проигрыше
     } else if (this.currentGame.status === GameStatus.WIN) {
-      // window.Telegram.WebApp.CloudStorage.getItem("countWin", (err, count) => {
-        let count = localStorage.getItem("countWin");
+      window.Telegram.WebApp.CloudStorage.getItem("countWin", (err, count) => {
+        // let count = localStorage.getItem("countWin");
         // count =0;
 
         if (count === null || count === undefined || count === "") {
@@ -224,14 +224,14 @@ export class GameUI {
           break;
           default:
         }
-        // window.Telegram.WebApp.CloudStorage.setItem("countWin", count);
-        localStorage.setItem("countWin", count);
-      // });
+        window.Telegram.WebApp.CloudStorage.setItem("countWin", count);
+        // localStorage.setItem("countWin", count);
+      });
       let block = document.getElementById('win-box');
       block.classList.add('normal-win');
       let buttonPlace = document.getElementById('button-place');
       buttonPlace.classList.remove('normal');
-      // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       // localStorage.removeItem("saveCard");
       this._statusMessagePara.classList.remove('hidden');    // Показываем сообщение
       // this._statusMessagePara.textContent = "You win :)";    // Сообщение о победе

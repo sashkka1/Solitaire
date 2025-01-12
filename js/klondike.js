@@ -59,14 +59,14 @@ function formatISODate(isoString) { //new Date().toISOString() в формат y
 
 
 // переменные для user properties
-// let ux_language = window.Telegram.WebApp.initDataUnsafe.user.language_code; // Язык интерфейса
-// let ux_color = window.Telegram.WebApp.colorScheme; // Цветовая схема
-// let tg_id = window.Telegram.WebApp.initDataUnsafe.user.id; // Айди
-// let tg_username = window.Telegram.WebApp.initDataUnsafe.user.username; // Юзернейм
-// let tg_platform = window.Telegram.WebApp.platform; // Платформа
-// let is_premium_user = window.Telegram.WebApp.initDataUnsafe.user.is_premium; // Премиум или бесплатный (true/false)
-// let is_real_user = window.Telegram.WebApp.initDataUnsafe.user.is_bot; // Бот или реальный пользователь (true/false)
-// let uis_attached = window.Telegram.WebApp.added_to_attachment_menu; // Добавил пользователь бота в прикрепленное меню или нет (true/false)
+let ux_language = window.Telegram.WebApp.initDataUnsafe.user.language_code; // Язык интерфейса
+let ux_color = window.Telegram.WebApp.colorScheme; // Цветовая схема
+let tg_id = window.Telegram.WebApp.initDataUnsafe.user.id; // Айди
+let tg_username = window.Telegram.WebApp.initDataUnsafe.user.username; // Юзернейм
+let tg_platform = window.Telegram.WebApp.platform; // Платформа
+let is_premium_user = window.Telegram.WebApp.initDataUnsafe.user.is_premium; // Премиум или бесплатный (true/false)
+let is_real_user = window.Telegram.WebApp.initDataUnsafe.user.is_bot; // Бот или реальный пользователь (true/false)
+let uis_attached = window.Telegram.WebApp.added_to_attachment_menu; // Добавил пользователь бота в прикрепленное меню или нет (true/false)
 
 
 let autoVisible = 1; // использую для проверки на автоматическое заполнение
@@ -206,8 +206,8 @@ class KlondikeCore extends CardGameCore {
     }else{
       count++;
     }
-    // window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
-    localStorage.setItem("countTry", count);
+    window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
+    // localStorage.setItem("countTry", count);
     switch(count){
       case 1: 
         this.convertAndOutput(simpleArray1);
@@ -249,11 +249,11 @@ class KlondikeCore extends CardGameCore {
     //   game_version: game_version
     // });
 
-    // window.Telegram.WebApp.CloudStorage.getItem("countTry", (err,count) => {
-      let count = localStorage.getItem("countTry");
+    window.Telegram.WebApp.CloudStorage.getItem("countTry", (err,count) => {
+      // let count = localStorage.getItem("countTry");
       if(checkFirstTry == 0){
-        // window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
-          let storedValue = localStorage.getItem("saveCard");
+        window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
+          // let storedValue = localStorage.getItem("saveCard");
           // console.table(storedValue);
           if (storedValue === null || storedValue === undefined || storedValue === "") {
             console.log('get empty');
@@ -268,18 +268,18 @@ class KlondikeCore extends CardGameCore {
             // let buttonBack = document.getElementById('back-button');
             // buttonBack.classList.add('lock');
           }
-        // });
+        });
       } else{
         this.firstFiveStart(count);
       }
 
       if(count >9){
-        // window.Telegram.WebApp.CloudStorage.removeItem("countTry");
-        localStorage.removeItem("countTry");
+        window.Telegram.WebApp.CloudStorage.removeItem("countTry");
+        // localStorage.removeItem("countTry");
       }
 
       checkFirstTry++;
-    // });
+    });
 
     let index =0;
     for(let i=0;i<52;i++){ // считаю сколько каард в дискард для понимания открывать ли back
@@ -516,7 +516,7 @@ class KlondikeUI extends CardGameUI {
     }
     if (card === null || this.currentGame.placeIdToCardArray.stock.includes(card)) {
       let testcheck = "";
-      // testcheck = window.Telegram.WebApp.platform;
+      testcheck = window.Telegram.WebApp.platform;
       if(testcheck == "tdesktop"){
         this.currentGame.stockToDiscard(); // Перемещаем карты из стока в сброс
       }else{
@@ -605,8 +605,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-  // window.Telegram.WebApp.CloudStorage.getItem("countTryGoogle", (err, count) => {
-    let count = localStorage.getItem("countTryGoogle");
+  window.Telegram.WebApp.CloudStorage.getItem("countTryGoogle", (err, count) => {
+    // let count = localStorage.getItem("countTryGoogle");
     if (count === null || count === undefined || count === "") {
       gtag('event', 'first_vw_open', {
         'occurrence_time_local': formatDate(new Date()),
@@ -632,9 +632,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // });
       count++;
     }
-    // window.Telegram.WebApp.CloudStorage.setItem("countTryGoogle", count);
-    localStorage.setItem("countTryGoogle", count);
-  // });
+    window.Telegram.WebApp.CloudStorage.setItem("countTryGoogle", count);
+    // localStorage.setItem("countTryGoogle", count);
+  });
 
 });
 
