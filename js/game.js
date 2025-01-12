@@ -1,9 +1,9 @@
-let game_version = '1.31.34';
+let game_version = '1.31.43';
 
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -16,13 +16,30 @@ const firebaseConfig = {
   storageBucket: "telegramminiapp-dc0b0.firebasestorage.app",
   messagingSenderId: "266044158892",
   appId: "1:266044158892:web:6abbe852cb7735b4488009",
-  measurementId: "G-PXL5QGF8DJ"
+  measurementId: "G-HN6JHLR3MX"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
+
+function formatDate(date) { //new Date() в формат yyyy-mm-dd hh:mm:ss.ms
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0
+  const dd = String(date.getDate()).padStart(2, '0');
+  const hh = String(date.getHours()).padStart(2, '0');
+  const min = String(date.getMinutes()).padStart(2, '0');
+  const ss = String(date.getSeconds()).padStart(2, '0');
+  const ms = String(date.getMilliseconds()).padStart(3, '0');
+
+  return `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}.${ms}`;
+}
+
+function formatISODate(isoString) { //new Date().toISOString() в формат yyyy-mm-dd hh:mm:ss.ms
+  const dateTime = isoString.replace('T', ' ').replace('Z', '');
+  return dateTime.substring(0, 23);
+}
 
 
 // Определяем константы статуса игры
@@ -86,8 +103,8 @@ export class GameUI {
       this._statusMessagePara.classList.remove('hidden');    // Показываем сообщение
       this._statusMessagePara.textContent = "Game Over :(";  // Сообщение о проигрыше
     } else if (this.currentGame.status === GameStatus.WIN) {
-      window.Telegram.WebApp.CloudStorage.getItem("countWin", (err, count) => {
-        // let count = localStorage.getItem("countWin");
+      // window.Telegram.WebApp.CloudStorage.getItem("countWin", (err, count) => {
+        let count = localStorage.getItem("countWin");
         // count =0;
 
         if (count === null || count === undefined || count === "") {
@@ -96,101 +113,125 @@ export class GameUI {
           count++;
         }
 
-        let occurrence_time_local;
-        let occurrence_time_utc0;
-
         switch(count){ // отправление ивентов о завершении уровня
           case 1: 
-            occurrence_time_local = new Date(); // Завершение 1ого уровня
-            occurrence_time_utc0 = new Date().toISOString();
             gtag('event', 'level_1_end', {
-              'occurrence_time_local': occurrence_time_local,
-              'occurrence_time_utc0': occurrence_time_utc0,
+              'occurrence_time_local': formatDate(new Date()),
+              'occurrence_time_utc0': formatISODate(new Date().toISOString()),
               'game_version': game_version,
             });
+            // logEvent(analytics, 'level_1_end', {// Завершение 1ого уровня
+            //   occurrence_time_local: new Date(),
+            //   occurrence_time_utc0: new Date().toISOString(),
+            //   game_version: game_version
+            // });
           break;
           case 2: 
-            occurrence_time_local = new Date(); // Завершение 2ого уровня
-            occurrence_time_utc0 = new Date().toISOString();
             gtag('event', 'level_2_end', {
-              'occurrence_time_local': occurrence_time_local,
-              'occurrence_time_utc0': occurrence_time_utc0,
+              'occurrence_time_local': formatDate(new Date()),
+              'occurrence_time_utc0': formatISODate(new Date().toISOString()),
               'game_version': game_version,
             });
+            // logEvent(analytics, 'level_2_end', {// Завершение 2ого уровня
+            //   occurrence_time_local: new Date(),
+            //   occurrence_time_utc0: new Date().toISOString(),
+            //   game_version: game_version
+            // });
           break;
           case 5: 
-            occurrence_time_local = new Date(); // Завершение 5ого уровня
-            occurrence_time_utc0 = new Date().toISOString();
             gtag('event', 'level_5_end', {
-              'occurrence_time_local': occurrence_time_local,
-              'occurrence_time_utc0': occurrence_time_utc0,
+              'occurrence_time_local': formatDate(new Date()),
+              'occurrence_time_utc0': formatISODate(new Date().toISOString()),
               'game_version': game_version,
             });
+            // logEvent(analytics, 'level_5_end', {// Завершение 5ого уровня
+            //   occurrence_time_local: new Date(),
+            //   occurrence_time_utc0: new Date().toISOString(),
+            //   game_version: game_version
+            // });
           break;
           case 10: 
-            occurrence_time_local = new Date(); // Завершение 10ого уровня
-            occurrence_time_utc0 = new Date().toISOString();
             gtag('event', 'level_10_end', {
-              'occurrence_time_local': occurrence_time_local,
-              'occurrence_time_utc0': occurrence_time_utc0,
+              'occurrence_time_local': formatDate(new Date()),
+              'occurrence_time_utc0': formatISODate(new Date().toISOString()),
               'game_version': game_version,
             });
+            // logEvent(analytics, 'level_10_end', {// Завершение 10ого уровня
+            //   occurrence_time_local: new Date(),
+            //   occurrence_time_utc0: new Date().toISOString(),
+            //   game_version: game_version
+            // });
           break;
           case 15: 
-            occurrence_time_local = new Date(); // Завершение 15ого уровня
-            occurrence_time_utc0 = new Date().toISOString();
             gtag('event', 'level_15_end', {
-              'occurrence_time_local': occurrence_time_local,
-              'occurrence_time_utc0': occurrence_time_utc0,
+              'occurrence_time_local': formatDate(new Date()),
+              'occurrence_time_utc0': formatISODate(new Date().toISOString()),
               'game_version': game_version,
             });
+            // logEvent(analytics, 'level_15_end', {// Завершение 15ого уровня
+            //   occurrence_time_local: new Date(),
+            //   occurrence_time_utc0: new Date().toISOString(),
+            //   game_version: game_version
+            // });
           break;
           case 20: 
-            occurrence_time_local = new Date(); // Завершение 20ого уровня
-            occurrence_time_utc0 = new Date().toISOString();
             gtag('event', 'level_20_end', {
-              'occurrence_time_local': occurrence_time_local,
-              'occurrence_time_utc0': occurrence_time_utc0,
+              'occurrence_time_local': formatDate(new Date()),
+              'occurrence_time_utc0': formatISODate(new Date().toISOString()),
               'game_version': game_version,
             });
+            // logEvent(analytics, 'level_20_end', {// Завершение 20ого уровня
+            //   occurrence_time_local: new Date(),
+            //   occurrence_time_utc0: new Date().toISOString(),
+            //   game_version: game_version
+            // });
           break;
           case 30: 
-            occurrence_time_local = new Date(); // Завершение 30ого уровня
-            occurrence_time_utc0 = new Date().toISOString();
             gtag('event', 'level_30_end', {
-              'occurrence_time_local': occurrence_time_local,
-              'occurrence_time_utc0': occurrence_time_utc0,
+              'occurrence_time_local': formatDate(new Date()),
+              'occurrence_time_utc0': formatISODate(new Date().toISOString()),
               'game_version': game_version,
             });
+            // logEvent(analytics, 'level_30_end', {// Завершение 30ого уровня
+            //   occurrence_time_local: new Date(),
+            //   occurrence_time_utc0: new Date().toISOString(),
+            //   game_version: game_version
+            // });
           break;
           case 40: 
-            occurrence_time_local = new Date(); // Завершение 40ого уровня
-            occurrence_time_utc0 = new Date().toISOString();
             gtag('event', 'level_40_end', {
-              'occurrence_time_local': occurrence_time_local,
-              'occurrence_time_utc0': occurrence_time_utc0,
+              'occurrence_time_local': formatDate(new Date()),
+              'occurrence_time_utc0': formatISODate(new Date().toISOString()),
               'game_version': game_version,
             });
+            // logEvent(analytics, 'level_40_end', {//  Завершение 40ого уровня
+            //   occurrence_time_local: new Date(),
+            //   occurrence_time_utc0: new Date().toISOString(),
+            //   game_version: game_version
+            // });
           break;
           case 50: 
-            occurrence_time_local = new Date(); // Завершение 50ого уровня
-            occurrence_time_utc0 = new Date().toISOString();
             gtag('event', 'level_50_end', {
-              'occurrence_time_local': occurrence_time_local,
-              'occurrence_time_utc0': occurrence_time_utc0,
+              'occurrence_time_local': formatDate(new Date()),
+              'occurrence_time_utc0': formatISODate(new Date().toISOString()),
               'game_version': game_version,
             });
+            // logEvent(analytics, 'level_50_end', {// Завершение 50ого уровня
+            //   occurrence_time_local: new Date(),
+            //   occurrence_time_utc0: new Date().toISOString(),
+            //   game_version: game_version
+            // });
           break;
           default:
         }
-        window.Telegram.WebApp.CloudStorage.setItem("countWin", count);
-        // localStorage.setItem("countWin", count);
-      });
+        // window.Telegram.WebApp.CloudStorage.setItem("countWin", count);
+        localStorage.setItem("countWin", count);
+      // });
       let block = document.getElementById('win-box');
       block.classList.add('normal-win');
       let buttonPlace = document.getElementById('button-place');
       buttonPlace.classList.remove('normal');
-      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
       // localStorage.removeItem("saveCard");
       this._statusMessagePara.classList.remove('hidden');    // Показываем сообщение
       // this._statusMessagePara.textContent = "You win :)";    // Сообщение о победе

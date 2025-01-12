@@ -20,6 +20,7 @@ main{
     /* background-color: #0a0; */
     /* background-color: rgba(0, 128, 0) ; */
     background: radial-gradient(circle at center, rgb(48, 189, 48), rgb(0, 110, 0)); 
+    /* background: radial-gradient(circle at center, rgb(20, 168, 20), rgb(9, 69, 9)); */
     display: flex;
     height: 100vh;
     width: 100vw;
@@ -59,7 +60,8 @@ body {
     z-index: 100000;
 }
 .lock{
-    background-color: grey;
+    /* background-color: grey; */
+    background-color: #0F300F;
     pointer-events: none;
 }
 
@@ -76,51 +78,56 @@ body {
     flex-direction: column;
     font-size: larger;
 }
-.check-desire-box .backk{
+.backk{
     width: 100%;
     height: 100%;
     position: absolute;
     background-color: rgba(0, 0, 0, 0.7); /* Цвет затемнения с прозрачностью */
 }
 .check-desire{
-    padding-top: 10%;
-    padding-bottom: 10%;
-    background-color: rgb(255, 255, 255); 
+    padding-top: 5%;
+    padding-bottom: 5%;
+    /* background-color: rgb(255, 255, 255);  */
+    background-color: #D6D9EA;
     opacity: 1;
     width: 80%;
-    height: 20%;
+    height: 15vh;
     z-index: 0;
     display: flex;
     text-align: center;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: column;
     border-radius: 16px;
+    color: black;
+    font-size: 35px;
 }
 .check-desire-text{
+    margin: 0 5% 5% 5%;
     /* width: 50%; */
     /* opacity: 0.7; */
 }
 .check-desire-button-place{
     display: flex;
-    justify-content: space-around;
-    height: 30%;
+    justify-content: center;
+    height: 7vh;
     width: 100%;
-    margin: 2vw;
+    /* margin: 0 4vw 0 4vw; */
 }
 .check-desire-button{
-    box-shadow: 4px 4px 2px 2px rgba(0, 0, 0, 0.2);
-    border: 1px solid black;
-    border-radius: 8px;
+    margin: 0 2vw 0 2vw;
+    background-color: #0F580F;
+    border-radius: 10px;
     height: 100%;
-    width: 20%;
+    width: 35%;
     align-self: center;
     transition-duration: 0.4s;
+    color: white;
+    font-size: 35px;
 }
 .check-desire-button:active {
     transition-duration: 0.4s;
-    box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
-    transform: translate(4px, 4px);
+    background-color: #0F300F;
 }
 
 /* Для кнопки автокомплита  */
@@ -129,24 +136,25 @@ body {
     width: 40vw;
     height: 7vh;
     left: 30vw;
-    bottom: 15vh;
+    bottom: 20vh;
     /* z-index: 3; */
     display: flex;
     text-align: center;
     align-items: center;
     justify-content: center;
     /* flex-direction: column; */
-    background-color: rgb(255, 255, 255);
-    box-shadow: 4px 4px 2px 2px rgba(0, 0, 0, 0.2);
-    border: 1px solid black;
-    border-radius: 8px;
+    background-color: #0F580F;
+    border-radius: 10px;
     align-self: center;
     transition-duration: 0.4s;
+    color: white;
+    font-size: 35px;
 }
 .check-autocomplete-button:active {
     transition-duration: 0.4s;
-    box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
-    transform: translate(4px, 4px);
+    /* box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2); */
+    /* transform: translate(4px, 4px); */
+    background-color: #0F300F;
 }
 
 /* .opacity{
@@ -166,9 +174,12 @@ body {
     color: black;
 }
 .new-game-button {
-    box-shadow: 4px 4px 2px 2px rgba(0, 0, 0, 0.2);
-    border: 1px solid black;
-    border-radius: 8px;
+    /* box-shadow: 4px 4px 2px 2px rgba(0, 0, 0, 0.2);
+    border: 1px solid black; */
+    background-color: #0F580F;
+    border-radius: 10px;
+    color: white;
+    font-size: 35px;
     height: 100%;
     width: 60%;
     align-self: center;
@@ -176,21 +187,28 @@ body {
 }
 .new-game-button:active {
     transition-duration: 0.4s;
-    box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
-    transform: translate(4px, 4px);
+    /* box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2); */
+    /* transform: translate(4px, 4px); */
+    background-color: #0F300F;
+}
+.colorr{
+    background-color: #0F580F;
 }
 .back-button{
+    padding-top: 0.5vh;
     height: 7vh;
     width: 24%;
-    box-shadow: 4px 4px 2px 2px rgba(0, 0, 0, 0.2);
-    border: 1px solid black;
-    border-radius: 8px;
+    border-radius: 10px;
+    color: white;
+    font-size: 35px;
     transition-duration: 0.4s;
+}
+.back-button svg{
+    height: 70%;
 }
 .back-button:active {
     transition-duration: 0.4s;
-    box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
-    transform: translate(4px, 4px);
+    /* background-color: #0F300F; */
 }
 
 
@@ -230,11 +248,15 @@ body {
     font-size: larger;
 }
 .win{
-    padding-top: 5%;
-    padding-bottom: 5%;
-    background-color: rgb(255, 255, 255); 
-    width: 50%;
-    height: 10%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    /* padding-bottom: 5%;
     z-index: 0;
     display: flex;
     text-align: center;
@@ -242,22 +264,36 @@ body {
     justify-content: space-between;
     flex-direction: column;
     border-radius: 16px;
-    box-shadow: 4px 4px 2px 2px rgba(0, 0, 0, 0.2);
-}
-.win-button{
-    box-shadow: 4px 4px 2px 2px rgba(0, 0, 0, 0.2);
-    border: 1px solid black;
-    border-radius: 8px;
-    height: 50%;
+    background-color: #D6D9EA;
+    opacity: 1;
     width: 60%;
+    height: 15vh; */
+    /* clip-path: path('M0,50 C50,0 150,100 200,50 L200,100 L0,100 Z'); */
+}
+.win > svg{
+    width: 600px;
+    /* height: 100px; */
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+}
+
+/* .win-button{
+    background-color: #0F580F;
+    border-radius: 10px;
+    color: white;
+    font-size: 35px;
+    height: 50%;
+    width: 70%;
     align-self: center;
     transition-duration: 0.4s;
 }
 .win-button:active{
     transition-duration: 0.4s;
-    box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
-    transform: translate(4px, 4px);
-}
+    background-color: #0F300F;
+} */
 
 
 
@@ -340,4 +376,31 @@ hides everything unless .visible rules override
 .card.red.visible > div { color: red; } */
 
 
-
+@media (max-width: 767px) {
+    .check-autocomplete-button, .new-game-button, .back-button, .check-desire-button, .check-desire, .win-button{
+        border-radius: 15px;
+        font-size: 25px;
+    }
+    .win > svg{
+        width: 80vw;
+    }
+    .check-autocomplete-button{
+        width: 50vw;
+        height: 7vh;
+        left: 25vw;
+    }
+}
+@media (max-width: 540px) {
+    .check-autocomplete-button, .new-game-button, .back-button, .check-desire-button, .check-desire, .win-button{
+        border-radius: 12px;
+        font-size: 18px;
+    }
+    .win > svg{
+        width: 90vw;
+    }
+    .check-autocomplete-button{
+        width: 60vw;
+        height: 7vh;
+        left: 20vw;
+    }
+}

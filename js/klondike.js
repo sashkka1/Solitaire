@@ -1,12 +1,12 @@
-let game_version = '1.31.34';
+let game_version = '1.31.43';
 
 
-import { GameStatus } from './game.js?v=1.31.34';
-import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.31.34';
+import { GameStatus } from './game.js?v=1.31.43';
+import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.31.43';
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,7 +19,7 @@ const firebaseConfig = {
   storageBucket: "telegramminiapp-dc0b0.firebasestorage.app",
   messagingSenderId: "266044158892",
   appId: "1:266044158892:web:6abbe852cb7735b4488009",
-  measurementId: "G-PXL5QGF8DJ"
+  measurementId: "G-HN6JHLR3MX"
 };
 
 // Initialize Firebase
@@ -28,35 +28,65 @@ const analytics = getAnalytics(app);
 
 let i =0;
 
+function formatDate(date) { //new Date() в формат yyyy-mm-dd hh:mm:ss.ms
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0
+  const dd = String(date.getDate()).padStart(2, '0');
+  const hh = String(date.getHours()).padStart(2, '0');
+  const min = String(date.getMinutes()).padStart(2, '0');
+  const ss = String(date.getSeconds()).padStart(2, '0');
+  const ms = String(date.getMilliseconds()).padStart(3, '0');
+
+  return `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}.${ms}`;
+}
+
+function formatISODate(isoString) { //new Date().toISOString() в формат yyyy-mm-dd hh:mm:ss.ms
+  const dateTime = isoString.replace('T', ' ').replace('Z', '');
+  return dateTime.substring(0, 23);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // переменные для user properties
-let ux_language = window.Telegram.WebApp.initDataUnsafe.user.language_code; // Язык интерфейса
-let ux_color = window.Telegram.WebApp.colorScheme; // Цветовая схема
-let tg_id = window.Telegram.WebApp.initDataUnsafe.user.id; // Айди
-let tg_username = window.Telegram.WebApp.initDataUnsafe.user.username; // Юзернейм
-let tg_platform = window.Telegram.WebApp.platform; // Платформа
-let is_premium_user = window.Telegram.WebApp.initDataUnsafe.user.is_premium; // Премиум или бесплатный (true/false)
-let is_real_user = window.Telegram.WebApp.initDataUnsafe.user.is_bot; // Бот или реальный пользователь (true/false)
-let uis_attached = window.Telegram.WebApp.added_to_attachment_menu; // Добавил пользователь бота в прикрепленное меню или нет (true/false)
+// let ux_language = window.Telegram.WebApp.initDataUnsafe.user.language_code; // Язык интерфейса
+// let ux_color = window.Telegram.WebApp.colorScheme; // Цветовая схема
+// let tg_id = window.Telegram.WebApp.initDataUnsafe.user.id; // Айди
+// let tg_username = window.Telegram.WebApp.initDataUnsafe.user.username; // Юзернейм
+// let tg_platform = window.Telegram.WebApp.platform; // Платформа
+// let is_premium_user = window.Telegram.WebApp.initDataUnsafe.user.is_premium; // Премиум или бесплатный (true/false)
+// let is_real_user = window.Telegram.WebApp.initDataUnsafe.user.is_bot; // Бот или реальный пользователь (true/false)
+// let uis_attached = window.Telegram.WebApp.added_to_attachment_menu; // Добавил пользователь бота в прикрепленное меню или нет (true/false)
 
-// let count =0;
-// window.Telegram.WebApp.CloudStorage.setItem("countWin", count);
-// window.Telegram.WebApp.CloudStorage.removeItem("countTryGoogle");
-
-// let ux_language = 'language';
-// let ux_color = 'color';
-// let tg_id = 123512323;
-// let tg_username = 'username';
-// let tg_platform = 'platform';
-// let is_premium_user = 'premium_user';
-// let is_real_user = 'real_user';
-// let uis_attached = 'attached';
 
 let autoVisible = 1; // использую для проверки на автоматическое заполнение
 let stockCurrent = 1;
 let checkFirstTry =0; // Для понимания первый ли расклад карт, для проверки на возврат из тг клауд
 let gameIsStart = 0; // Для трекинга изменений
 let stockCountForBack = 0; // трекаю изменилось ли количество карт в колоде после надатия на её если не изменилось то не открываю back
+
+window.addEventListener('beforeunload', function() {  // Закрытие веб вью
+  gtag('event', 'ww_close', {
+    'occurrence_time_local': formatDate(new Date()),
+    'occurrence_time_utc0': formatISODate(new Date().toISOString()),
+    'game_version': game_version,
+  });
+  // logEvent(analytics, 'ww_close', {// Закрытие веб вью
+  //   occurrence_time_local: new Date(),
+  //   occurrence_time_utc0: new Date().toISOString(),
+  //   game_version: game_version
+  // });
+});
 
 
 let simpleArray1= [
@@ -176,8 +206,8 @@ class KlondikeCore extends CardGameCore {
     }else{
       count++;
     }
-    window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
-    // localStorage.setItem("countTry", count);
+    // window.Telegram.WebApp.CloudStorage.setItem("countTry", count);
+    localStorage.setItem("countTry", count);
     switch(count){
       case 1: 
         this.convertAndOutput(simpleArray1);
@@ -208,18 +238,22 @@ class KlondikeCore extends CardGameCore {
     // console.log('deal() {');
     // document.getElementById('new-game-button').innerHTML = "Test 6";
 
-    let occurrence_time_local = new Date(); // Старт новой игры Отправлять всегда при старте новой игры
-    let occurrence_time_utc0 = new Date().toISOString();
-    gtag('event', 'level_start', {
-      'occurrence_time_local': occurrence_time_local,
-      'occurrence_time_utc0': occurrence_time_utc0,
+    gtag('event', 'level_start', {// Старт новой игры Отправлять всегда при старте новой игры
+      'occurrence_time_local': formatDate(new Date()),
+      'occurrence_time_utc0': formatISODate(new Date().toISOString()),
       'game_version': game_version,
     });
-    window.Telegram.WebApp.CloudStorage.getItem("countTry", (err,count) => {
-      // let count = localStorage.getItem("countTry");
+    // logEvent(analytics, 'level_start', {// Старт новой игры Отправлять всегда при старте новой игры
+    //   occurrence_time_local: new Date(),
+    //   occurrence_time_utc0: new Date().toISOString(),
+    //   game_version: game_version
+    // });
+
+    // window.Telegram.WebApp.CloudStorage.getItem("countTry", (err,count) => {
+      let count = localStorage.getItem("countTry");
       if(checkFirstTry == 0){
-        window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
-          // let storedValue = localStorage.getItem("saveCard");
+        // window.Telegram.WebApp.CloudStorage.getItem("saveCard", (err, storedValue) => {
+          let storedValue = localStorage.getItem("saveCard");
           // console.table(storedValue);
           if (storedValue === null || storedValue === undefined || storedValue === "") {
             console.log('get empty');
@@ -234,18 +268,18 @@ class KlondikeCore extends CardGameCore {
             // let buttonBack = document.getElementById('back-button');
             // buttonBack.classList.add('lock');
           }
-        });
+        // });
       } else{
         this.firstFiveStart(count);
       }
 
       if(count >9){
-        window.Telegram.WebApp.CloudStorage.removeItem("countTry");
-        // localStorage.removeItem("countTry");
+        // window.Telegram.WebApp.CloudStorage.removeItem("countTry");
+        localStorage.removeItem("countTry");
       }
 
       checkFirstTry++;
-    });
+    // });
 
     let index =0;
     for(let i=0;i<52;i++){ // считаю сколько каард в дискард для понимания открывать ли back
@@ -257,6 +291,7 @@ class KlondikeCore extends CardGameCore {
     // console.log("количество кард в дискард deal", stockCountForBack);
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.add('lock');
+    buttonBack.classList.remove('colorr');
   }
 
   // Проверяет, можно ли потенциально переместить карту из указанного места
@@ -481,7 +516,7 @@ class KlondikeUI extends CardGameUI {
     }
     if (card === null || this.currentGame.placeIdToCardArray.stock.includes(card)) {
       let testcheck = "";
-      testcheck = window.Telegram.WebApp.platform;
+      // testcheck = window.Telegram.WebApp.platform;
       if(testcheck == "tdesktop"){
         this.currentGame.stockToDiscard(); // Перемещаем карты из стока в сброс
       }else{
@@ -499,6 +534,7 @@ class KlondikeUI extends CardGameUI {
     if(stockCountForBack < this.currentGame.placeIdToCardArray.discard.length){
       let buttonBack = document.getElementById('back-button');
       buttonBack.classList.remove('lock');
+      buttonBack.classList.add('colorr');
     }
 
     stockCountForBack = this.currentGame.placeIdToCardArray.discard.length;
@@ -568,42 +604,40 @@ document.addEventListener('DOMContentLoaded', () => {
   }); 
 
 
-  window.Telegram.WebApp.CloudStorage.getItem("countTryGoogle", (err, count) => {
-    // let count = localStorage.getItem("countTryGoogle");
+
+  // window.Telegram.WebApp.CloudStorage.getItem("countTryGoogle", (err, count) => {
+    let count = localStorage.getItem("countTryGoogle");
     if (count === null || count === undefined || count === "") {
-      let occurrence_time_local = new Date(); // Первое открытие веб вью (новый пользователь)
-      let occurrence_time_utc0 = new Date().toISOString();
       gtag('event', 'first_vw_open', {
-        'occurrence_time_local': occurrence_time_local,
-        'occurrence_time_utc0': occurrence_time_utc0,
+        'occurrence_time_local': formatDate(new Date()),
+        'occurrence_time_utc0': formatISODate(new Date().toISOString()),
         'game_version': game_version,
       });
+      // logEvent(analytics, 'first_vw_open', {// Первое открытие веб вью (новый пользователь)
+      //   occurrence_time_local: new Date(),
+      //   occurrence_time_utc0: new Date().toISOString(),
+      //   game_version: game_version
+      // });
       count=1;
     }else{
-      let occurrence_time_local = new Date(); // Очередное открытие веб вью (старый пользователь)
-      let occurrence_time_utc0 = new Date().toISOString();
       gtag('event', 'ww_open', {
-        'occurrence_time_local': occurrence_time_local,
-        'occurrence_time_utc0': occurrence_time_utc0,
+        'occurrence_time_local': formatDate(new Date()),
+        'occurrence_time_utc0': formatISODate(new Date().toISOString()),
         'game_version': game_version,
       });
+      // logEvent(analytics, 'ww_open', {// Очередное открытие веб вью (старый пользователь)
+      //   occurrence_time_local: new Date(),
+      //   occurrence_time_utc0: new Date().toISOString(),
+      //   game_version: game_version
+      // });
       count++;
     }
-    window.Telegram.WebApp.CloudStorage.setItem("countTryGoogle", count);
-    // localStorage.setItem("countTryGoogle", count);
-  });
+    // window.Telegram.WebApp.CloudStorage.setItem("countTryGoogle", count);
+    localStorage.setItem("countTryGoogle", count);
+  // });
 
 });
 
-window.addEventListener('beforeunload', function() {  // Закрытие веб вью
-  let occurrence_time_local = new Date(); 
-  let occurrence_time_utc0 = new Date().toISOString();
-  gtag('event', 'ww_close', {
-    'occurrence_time_local': occurrence_time_local,
-    'occurrence_time_utc0': occurrence_time_utc0,
-    'game_version': game_version,
-  });
-});
 
 
 

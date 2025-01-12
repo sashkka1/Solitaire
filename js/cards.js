@@ -1,11 +1,11 @@
-let game_version = '1.31.34';
+let game_version = '1.31.43';
 
-import { GameCore, GameStatus, GameUI} from './game.js?v=1.31.34';
+import { GameCore, GameStatus, GameUI} from './game.js?v=1.31.43';
 
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -13,17 +13,35 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyDRdEEY-De_dezz2ycoOJYR-H9CH6wRp5E",
-  authDomain: "telegramminiapp-dc0b0.firebaseapp.com",
-  projectId: "telegramminiapp-dc0b0",
-  storageBucket: "telegramminiapp-dc0b0.firebasestorage.app",
-  messagingSenderId: "266044158892",
-  appId: "1:266044158892:web:6abbe852cb7735b4488009",
-  measurementId: "G-PXL5QGF8DJ"
+    authDomain: "telegramminiapp-dc0b0.firebaseapp.com",
+    projectId: "telegramminiapp-dc0b0",
+    storageBucket: "telegramminiapp-dc0b0.firebasestorage.app",
+    messagingSenderId: "266044158892",
+    appId: "1:266044158892:web:6abbe852cb7735b4488009",
+    measurementId: "G-HN6JHLR3MX"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+
+function formatDate(date) { //new Date() в формат yyyy-mm-dd hh:mm:ss.ms
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0
+  const dd = String(date.getDate()).padStart(2, '0');
+  const hh = String(date.getHours()).padStart(2, '0');
+  const min = String(date.getMinutes()).padStart(2, '0');
+  const ss = String(date.getSeconds()).padStart(2, '0');
+  const ms = String(date.getMilliseconds()).padStart(3, '0');
+
+  return `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}.${ms}`;
+}
+
+function formatISODate(isoString) { //new Date().toISOString() в формат yyyy-mm-dd hh:mm:ss.ms
+  const dateTime = isoString.replace('T', ' ').replace('Z', '');
+  return dateTime.substring(0, 23);
+}
+
 
 export const SUITS = [
   { name: 'spade', color: 'black', unicode: '\u2660'},
@@ -265,8 +283,8 @@ export class CardGameCore extends GameCore {
         }
       }
       if(whatChange == "table"){
-      window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
-      // localStorage.setItem("saveCard", JSON.stringify(b));
+      // window.Telegram.WebApp.CloudStorage.setItem("saveCard", JSON.stringify(b));
+      localStorage.setItem("saveCard", JSON.stringify(b));
       }
       // console.log("Save good");
       // console.table(b);
@@ -296,6 +314,7 @@ export class CardGameCore extends GameCore {
   rawMoveForStock(card, sourcePlaceId, destPlaceId,) { // перемещение карт без сохранения
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.remove('lock');
+    buttonBack.classList.add('colorr');
 
     const sourceArray = this.placeIdToCardArray[sourcePlaceId];
     const index = sourceArray.indexOf(card);
@@ -331,6 +350,7 @@ export class CardGameCore extends GameCore {
   rawMove(card, sourcePlaceId, destPlaceId,) {
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.remove('lock');
+    buttonBack.classList.add('colorr');
 
     const sourceArray = this.placeIdToCardArray[sourcePlaceId];
     const index = sourceArray.indexOf(card);
@@ -350,6 +370,7 @@ export class CardGameCore extends GameCore {
   rawMoveForGet(card, last, neww) { // для реализации перемещения карт при возврате их из тг клаудстор
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.remove('lock');
+    buttonBack.classList.add('colorr');
 // console.log('rawMoveForGet1');
     const sourceArray = this.placeIdToCardArray[last];
     const index = sourceArray.indexOf(card);
@@ -508,6 +529,7 @@ export class CardGameUI extends GameUI {
     let buttonPlace = document.getElementById('button-place');
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.add('lock');
+    buttonBack.classList.remove('colorr');
     if(gameIsStart2 ==0){ // первый заход, позволяем разложить карты
       this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
       this.currentGame.addEventListener('CardsMoved', event => this._onCardsMoved(event)); // Подписка на событие перемещения карт
@@ -524,11 +546,11 @@ export class CardGameUI extends GameUI {
       this.currentGame.stockCurrentDefolt();
       autocomplete.classList.remove('normal-auto');
       buttonPlace.classList.add('normal');
-      // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-      localStorage.removeItem("saveCard");
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      // localStorage.removeItem("saveCard");
     }else{
-      // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-      localStorage.removeItem("saveCard");
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      // localStorage.removeItem("saveCard");
       let elements = document.getElementById("check-desire-box");
       elements.classList.remove('normal');
       this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
@@ -540,13 +562,16 @@ export class CardGameUI extends GameUI {
       autocomplete.classList.remove('normal-auto');
       buttonPlace.classList.add('normal');
       if(checkcontinue == 1 ){ 
-        let occurrence_time_local = new Date(); //Старт новой игры, если прошлая игра находилась в прогрессеПо сути дубликат level_start (отправится два ивента), но будет указание на то, что пользователь решил пропустить текущую игру
-        let occurrence_time_utc0 = new Date().toISOString();
         gtag('event', 'level_reset_and_start', {
-          'occurrence_time_local': occurrence_time_local,
-          'occurrence_time_utc0': occurrence_time_utc0,
+          'occurrence_time_local': formatDate(new Date()),
+          'occurrence_time_utc0': formatISODate(new Date().toISOString()),
           'game_version': game_version,
         });
+        // logEvent(analytics, 'level_reset_and_start', {//Старт новой игры, если прошлая игра находилась в прогрессеПо сути дубликат level_start (отправится два ивента), но будет указание на то, что пользователь решил пропустить текущую игру
+        //   occurrence_time_local: new Date(),
+        //   occurrence_time_utc0: new Date().toISOString(),
+        //   game_version: game_version
+        // });
         checkcontinue++;
       }
     }
@@ -559,14 +584,16 @@ export class CardGameUI extends GameUI {
 
     gameIsStart =0; // для того чтобы не сохраняла при выполнении автокомплита
 
-    let occurrence_time_local = new Date(); // Нажатие на кнопку автокомплита уровня
-    let occurrence_time_utc0 = new Date().toISOString();
     gtag('event', 'initiate_autocomplete', {
-      'occurrence_time_local': occurrence_time_local,
-      'occurrence_time_utc0': occurrence_time_utc0,
+      'occurrence_time_local': formatDate(new Date()),
+      'occurrence_time_utc0': formatISODate(new Date().toISOString()),
       'game_version': game_version,
     });
-
+    // logEvent(analytics, 'initiate_autocomplete', {//Нажатие на кнопку автокомплита уровня
+    //   occurrence_time_local: new Date(),
+    //   occurrence_time_utc0: new Date().toISOString(),
+    //   game_version: game_version
+    // });
     this.currentGame.forAuto();
     let block = document.getElementById('check-autocomplete-button');
     block.classList.remove('normal-auto');
@@ -574,13 +601,16 @@ export class CardGameUI extends GameUI {
 
   backButton(){ // реализация кнопки бэк
 
-    let occurrence_time_local = new Date(); // Нажатие на кнопку отмены действия
-    let occurrence_time_utc0 = new Date().toISOString();
     gtag('event', 'cancel_move', {
-      'occurrence_time_local': occurrence_time_local,
-      'occurrence_time_utc0': occurrence_time_utc0,
+      'occurrence_time_local': formatDate(new Date()),
+      'occurrence_time_utc0': formatISODate(new Date().toISOString()),
       'game_version': game_version,
     });
+    // logEvent(analytics, 'cancel_move', {//Нажатие на кнопку отмены действия
+    //   occurrence_time_local: new Date(),
+    //   occurrence_time_utc0: new Date().toISOString(),
+    //   game_version: game_version
+    // });
 
     if(backCard !="undefined"){
 
@@ -621,6 +651,7 @@ export class CardGameUI extends GameUI {
     }
     let buttonBack = document.getElementById('back-button');
     buttonBack.classList.add('lock');
+    buttonBack.classList.remove('colorr');
   }
     
   _onCardChanged(card) {
@@ -820,13 +851,16 @@ _endDrag(touchElement) {
     this.currentGame.move(this._draggingState.cardInfos[0].card, this._draggingState.oldCardPlaceId, this._draggingState.dropPlaceId);
     // _onCardsMoved() обрабатывает дальнейшие действия
     if(checkcontinue == 1){ 
-      let occurrence_time_local = new Date(); //Продолжение игры rогда пользователь сделал один ход в игре, в которую он уже играл и которая была загружена
-      let occurrence_time_utc0 = new Date().toISOString();
       gtag('event', 'level_continue', {
-        'occurrence_time_local': occurrence_time_local,
-        'occurrence_time_utc0': occurrence_time_utc0,
+        'occurrence_time_local': formatDate(new Date()),
+        'occurrence_time_utc0': formatISODate(new Date().toISOString()),
         'game_version': game_version,
       });
+    //   logEvent(analytics, 'level_continue', {//Продолжение игры rогда пользователь сделал один ход в игре, в которую он уже играл и которая была загружена
+    //   occurrence_time_local: new Date(),
+    //   occurrence_time_utc0: new Date().toISOString(),
+    //   game_version: game_version
+    // });
       checkcontinue++;
     }
 
