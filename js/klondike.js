@@ -289,7 +289,7 @@ class KlondikeCore extends CardGameCore {
     }
     stockCountForBack = index;
     // console.log("количество кард в дискард deal", stockCountForBack);
-    let buttonBack = document.getElementById('back-button');
+    let buttonBack = document.getElementById('back-button-svg');
     buttonBack.classList.add('lock');
     buttonBack.classList.remove('colorr');
   }
@@ -532,7 +532,7 @@ class KlondikeUI extends CardGameUI {
     }
     // console.log('количество карт в дискард при клике', this.currentGame.placeIdToCardArray.discard.length, "было",stockCountForBack);
     if(stockCountForBack < this.currentGame.placeIdToCardArray.discard.length){
-      let buttonBack = document.getElementById('back-button');
+      let buttonBack = document.getElementById('back-button-svg');
       buttonBack.classList.remove('lock');
       buttonBack.classList.add('colorr');
     }

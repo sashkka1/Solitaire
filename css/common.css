@@ -59,12 +59,17 @@ body {
 .normal-auto{
     z-index: 100000;
 }
+.colorr{
+    fill: white;
+    transition-duration: 0.4s;
+}
 .lock{
     /* background-color: grey; */
-    background-color: #0F300F;
-    pointer-events: none;
+    /* background-color: #0F300F;
+    pointer-events: none; */
+    fill: rgb(136, 136, 136);
+    transition-duration: 0.4s;
 }
-
 
 /* Для проверки хочет ли пользователь начать новую игру  */
 .check-desire-box{
@@ -191,10 +196,8 @@ body {
     /* transform: translate(4px, 4px); */
     background-color: #0F300F;
 }
-.colorr{
-    background-color: #0F580F;
-}
 .back-button{
+    background-color: #0F580F;
     padding-top: 0.5vh;
     height: 7vh;
     width: 24%;

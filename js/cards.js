@@ -312,7 +312,7 @@ export class CardGameCore extends GameCore {
   }
 
   rawMoveForStock(card, sourcePlaceId, destPlaceId,) { // перемещение карт без сохранения
-    let buttonBack = document.getElementById('back-button');
+    let buttonBack = document.getElementById('back-button-svg');
     buttonBack.classList.remove('lock');
     buttonBack.classList.add('colorr');
 
@@ -348,7 +348,7 @@ export class CardGameCore extends GameCore {
 
   // Реализует перемещение карты в новое место
   rawMove(card, sourcePlaceId, destPlaceId,) {
-    let buttonBack = document.getElementById('back-button');
+    let buttonBack = document.getElementById('back-button-svg');
     buttonBack.classList.remove('lock');
     buttonBack.classList.add('colorr');
 
@@ -368,7 +368,7 @@ export class CardGameCore extends GameCore {
   }
   
   rawMoveForGet(card, last, neww) { // для реализации перемещения карт при возврате их из тг клаудстор
-    let buttonBack = document.getElementById('back-button');
+    let buttonBack = document.getElementById('back-button-svg');
     buttonBack.classList.remove('lock');
     buttonBack.classList.add('colorr');
 // console.log('rawMoveForGet1');
@@ -407,6 +407,8 @@ if(widthh > 720){
 }
 const CARD_WIDTH = widthh*0.135;
 const CARD_HEIGHT = CARD_WIDTH * 1.390625;
+// const CARD_WIDTH = 256;
+// const CARD_HEIGHT = 356;
 export const SPACING_SMALL = 0.15 * CARD_HEIGHT; // Маленький интервал
 export const SPACING_MEDIUM = 0.3 * CARD_WIDTH; // Средний интервал переписал
 export const SPACING_BIG = 0.35 * CARD_HEIGHT; // Большой интервал переписал
@@ -527,7 +529,7 @@ export class CardGameUI extends GameUI {
   newGame() {// проверяю на то была ли игра уже начата чтобы решить выставлять блок решением пользователя о продолжении или новой игре  
     let autocomplete = document.getElementById('check-autocomplete-button');
     let buttonPlace = document.getElementById('button-place');
-    let buttonBack = document.getElementById('back-button');
+    let buttonBack = document.getElementById('back-button-svg');
     buttonBack.classList.add('lock');
     buttonBack.classList.remove('colorr');
     if(gameIsStart2 ==0){ // первый заход, позволяем разложить карты
@@ -649,7 +651,7 @@ export class CardGameUI extends GameUI {
 
       backCard ="undefined";
     }
-    let buttonBack = document.getElementById('back-button');
+    let buttonBack = document.getElementById('back-button-svg');
     buttonBack.classList.add('lock');
     buttonBack.classList.remove('colorr');
   }
