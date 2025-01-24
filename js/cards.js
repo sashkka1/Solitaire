@@ -1,6 +1,6 @@
-let game_version = '1.31.43';
+let game_version = '1.32';
 
-import { GameCore, GameStatus, GameUI} from './game.js?v=1.31.43';
+import { GameCore, GameStatus, GameUI} from './game.js?v=1.32';
 
 
 // Import the functions you need from the SDKs you need
@@ -407,8 +407,6 @@ if(widthh > 720){
 }
 const CARD_WIDTH = widthh*0.135;
 const CARD_HEIGHT = CARD_WIDTH * 1.390625;
-// const CARD_WIDTH = 256;
-// const CARD_HEIGHT = 356;
 export const SPACING_SMALL = 0.15 * CARD_HEIGHT; // Маленький интервал
 export const SPACING_MEDIUM = 0.3 * CARD_WIDTH; // Средний интервал переписал
 export const SPACING_BIG = 0.35 * CARD_HEIGHT; // Большой интервал переписал

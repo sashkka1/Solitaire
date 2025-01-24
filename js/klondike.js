@@ -1,8 +1,8 @@
-let game_version = '1.31.43';
+let game_version = '1.32';
 
 
-import { GameStatus } from './game.js?v=1.31.43';
-import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.31.43';
+import { GameStatus } from './game.js?v=1.32';
+import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.32';
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
@@ -273,10 +273,10 @@ class KlondikeCore extends CardGameCore {
         this.firstFiveStart(count);
       }
 
-      if(count >9){
-        window.Telegram.WebApp.CloudStorage.removeItem("countTry");
+      // if(count >9){
+        // window.Telegram.WebApp.CloudStorage.removeItem("countTry");
         // localStorage.removeItem("countTry");
-      }
+      // }
 
       checkFirstTry++;
     });
