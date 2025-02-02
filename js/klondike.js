@@ -1,8 +1,8 @@
-let game_version = '1.32';
+let game_version = '1.52';
 
 
-import { GameStatus } from './game.js?v=1.32';
-import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.32';
+import { GameStatus } from './game.js?v=1.52';
+import { CardGameCore, CardGameUI, SPACING_SMALL, SPACING_MEDIUM, SPACING_BIG} from './cards.js?v=1.52';
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
@@ -44,10 +44,6 @@ function formatISODate(isoString) { //new Date().toISOString() в формат y
   const dateTime = isoString.replace('T', ' ').replace('Z', '');
   return dateTime.substring(0, 23);
 }
-
-
-
-
 
 
 
@@ -274,8 +270,8 @@ class KlondikeCore extends CardGameCore {
       }
 
       // if(count >9){
-        // window.Telegram.WebApp.CloudStorage.removeItem("countTry");
-        // localStorage.removeItem("countTry");
+      //   // window.Telegram.WebApp.CloudStorage.removeItem("countTry");
+      //   localStorage.removeItem("countTry");
       // }
 
       checkFirstTry++;

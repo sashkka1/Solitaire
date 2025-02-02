@@ -1,4 +1,4 @@
-let game_version = '1.32';
+let game_version = '1.52';
 
 
 // Import the functions you need from the SDKs you need
@@ -227,12 +227,53 @@ export class GameUI {
         window.Telegram.WebApp.CloudStorage.setItem("countWin", count);
         // localStorage.setItem("countWin", count);
       });
-      let block = document.getElementById('win-box');
-      block.classList.add('normal-win');
-      let buttonPlace = document.getElementById('button-place');
-      buttonPlace.classList.remove('normal');
-      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-      // localStorage.removeItem("saveCard");
+
+
+
+      window.Telegram.WebApp.CloudStorage.getItem("countTry", (err,count) => {
+        // count = localStorage.getItem("countTry");
+        if(count >= 3){
+          let blockReward = document.getElementById('befor-reward');
+          blockReward.classList.add('normal-win');
+          setTimeout(() => {
+            const AdController = window.Adsgram.init({ blockId: "int-7431" }); // вывод рекламы пользователю
+            AdController.show().then((result) => {
+                // user watch ad till the end or close it in interstitial format
+                // your code to reward user for rewarded format
+                // alert('Reward');
+    
+                blockReward.classList.remove('normal-win');
+                let block = document.getElementById('win-box');
+                block.classList.add('normal-win');
+                let buttonPlace = document.getElementById('button-place');
+                buttonPlace.classList.remove('normal');
+                window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+                // localStorage.removeItem("saveCard");
+    
+            }).catch((result) => {
+                // user get error during playing ad
+                // do nothing or whatever you want
+                alert(JSON.stringify(result, null, 4));
+    
+                let block = document.getElementById('win-box');
+                block.classList.add('normal-win');
+                let buttonPlace = document.getElementById('button-place');
+                buttonPlace.classList.remove('normal');
+                window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+                // localStorage.removeItem("saveCard");
+    
+            })
+          }, 300);
+        }else{
+          let block = document.getElementById('win-box');
+          block.classList.add('normal-win');
+          let buttonPlace = document.getElementById('button-place');
+          buttonPlace.classList.remove('normal');
+          window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+          // localStorage.removeItem("saveCard");
+        }
+      });
+
       this._statusMessagePara.classList.remove('hidden');    // Показываем сообщение
       // this._statusMessagePara.textContent = "You win :)";    // Сообщение о победе
     } else if (this.currentGame.status === GameStatus.PLAYING) {

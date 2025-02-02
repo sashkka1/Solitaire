@@ -1,6 +1,6 @@
-let game_version = '1.32';
+let game_version = '1.52';
 
-import { GameCore, GameStatus, GameUI} from './game.js?v=1.32';
+import { GameCore, GameStatus, GameUI} from './game.js?v=1.52';
 
 
 // Import the functions you need from the SDKs you need
@@ -546,11 +546,11 @@ export class CardGameUI extends GameUI {
       this.currentGame.stockCurrentDefolt();
       autocomplete.classList.remove('normal-auto');
       buttonPlace.classList.add('normal');
-      // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-      localStorage.removeItem("saveCard");
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      // localStorage.removeItem("saveCard");
     }else{
-      // window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
-      localStorage.removeItem("saveCard");
+      window.Telegram.WebApp.CloudStorage.removeItem("saveCard");
+      // localStorage.removeItem("saveCard");
       let elements = document.getElementById("check-desire-box");
       elements.classList.remove('normal');
       this.currentGame = new this._CoreClass(Array.from(this.cardDivs.keys()), ...arguments);
