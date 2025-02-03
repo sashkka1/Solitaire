@@ -175,8 +175,7 @@ class KlondikeCore extends CardGameCore {
         }
       }
     }
-    if(autoVisible == 1){
-      console.log(`check-autocomplete-button 1`);
+    if(autoVisible == 0){
       let block = document.getElementById('check-autocomplete-button');
       block.classList.add('normal-auto');
     }
@@ -354,8 +353,7 @@ class KlondikeCore extends CardGameCore {
 
   rawMoveForGet(card, sourcePlaceId, destPlaceId) { // переопределение rawMove для реализации разложения полученных из тг клаудстор карт
     super.rawMoveForGet(card, sourcePlaceId, destPlaceId);
-    if(autoVisible == 0){
-      console.log(`check-autocomplete-button 2`);
+    if(autoVisible == 0){ // хз для чего ибо никогда вроде как 0 не получится но пусть будет, мб нужно
       let block = document.getElementById('check-autocomplete-button');
       block.classList.add('normal-auto');
     }
@@ -367,9 +365,7 @@ class KlondikeCore extends CardGameCore {
     const sourceArray = this.placeIdToCardArray[sourcePlaceId];
     if (sourcePlaceId.startsWith('tableau') && sourceArray.length !== 0) {
       sourceArray[sourceArray.length - 1].visible = true; // Открывает верхнюю карту в tableau, если она закрыта
-      
-      console.log(`In rawMove 1 autoVisible - `, autoVisible)
-      
+
       let a=0;
       // реализация понимания того есть ли открытые карты на доске
       let sourcePlaceIdUltimate ='tableau';
@@ -385,17 +381,16 @@ class KlondikeCore extends CardGameCore {
         }
       }
       if(a == 0){
-        console.log(`In rawMove if(a == 0) autoVisible - `, autoVisible)
         autoVisible = 0;
       }
       a=0;
       
     }
     if(autoVisible == 0){
-      console.log(`check-autocomplete-button 3`);
       let block = document.getElementById('check-autocomplete-button');
       block.classList.add('normal-auto');
     }
+    autoVisible = 1;
   }
 
   // Перемещает карты из стока в сброс или возвращает все карты из сброса в сток
