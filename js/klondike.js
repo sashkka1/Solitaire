@@ -169,13 +169,14 @@ class KlondikeCore extends CardGameCore {
 
     for(let i =0;i<7;i++){ // после разложения проверка на возможность автокомплита
       let sourceArray = this.placeIdToCardArray['tableau' + i];
+      console.log(i,'svisible - ',sourceArray[0].visible);
       if(sourceArray.length>0){
         if(sourceArray[0].visible == false){
           autoVisible = 0;
         }
       }
     }
-    if(autoVisible == 0){
+    if(autoVisible == 1){
       let block = document.getElementById('check-autocomplete-button');
       block.classList.add('normal-auto');
     }
