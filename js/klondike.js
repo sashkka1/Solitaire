@@ -166,7 +166,7 @@ class KlondikeCore extends CardGameCore {
       b[f] = a;
       f++;
     }
-    if (sourcePlaceId.startsWith('tableau')){}
+    
     for(let i=0;i<this._allCards.length;i++){// преобразование в массив для сохранение в облако 
       if( this._allCards[i].p.startsWith('tableau') ){
         console.log(i,'  ',this._allCards[i].p,'  visible - ',this._allCards[i].visible);
