@@ -166,16 +166,26 @@ class KlondikeCore extends CardGameCore {
       b[f] = a;
       f++;
     }
-
-    for(let i =0;i<7;i++){ // после разложения проверка на возможность автокомплита
-      let sourceArray = this.placeIdToCardArray['tableau' + i];
-      console.log(i,'svisible - ',sourceArray[0].visible);
-      if(sourceArray.length>0){
-        if(sourceArray[0].visible == false){
+    if (sourcePlaceId.startsWith('tableau')){}
+    for(let i=0;i<this._allCards.length;i++){// преобразование в массив для сохранение в облако 
+      if( this._allCards[i].p.startsWith('tableau') ){
+        console.log(i,'  ',this._allCards[i].p,'  visible - ',this._allCards[i].visible);
+        if(this._allCards[i].visible == false){
           autoVisible = 0;
-        }
+          console.log('autoVisible = 0');
+        } 
       }
     }
+
+    // for(let i =0;i<7;i++){ // после разложения проверка на возможность автокомплита
+    //   let sourceArray = this.placeIdToCardArray['tableau' + i];
+    //   console.log(i,'svisible - ',sourceArray[0].visible);
+    //   if(sourceArray.length>0){
+    //     if(sourceArray[0].visible == false){
+    //       autoVisible = 0;
+    //     }
+    //   }
+    // }
     if(autoVisible == 1){
       let block = document.getElementById('check-autocomplete-button');
       block.classList.add('normal-auto');
