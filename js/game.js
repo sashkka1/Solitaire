@@ -1,4 +1,4 @@
-let game_version = '1.52';
+let game_version = '1.53';
 
 
 // Import the functions you need from the SDKs you need

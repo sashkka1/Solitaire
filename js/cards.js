@@ -1,6 +1,6 @@
-let game_version = '1.52';
+let game_version = '1.53';
 
-import { GameCore, GameStatus, GameUI} from './game.js?v=1.52';
+import { GameCore, GameStatus, GameUI} from './game.js?v=1.53';
 
 
 // Import the functions you need from the SDKs you need
