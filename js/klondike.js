@@ -176,6 +176,7 @@ class KlondikeCore extends CardGameCore {
       }
     }
     if(autoVisible == 1){
+      console.log(`check-autocomplete-button 1`);
       let block = document.getElementById('check-autocomplete-button');
       block.classList.add('normal-auto');
     }
@@ -354,6 +355,7 @@ class KlondikeCore extends CardGameCore {
   rawMoveForGet(card, sourcePlaceId, destPlaceId) { // переопределение rawMove для реализации разложения полученных из тг клаудстор карт
     super.rawMoveForGet(card, sourcePlaceId, destPlaceId);
     if(autoVisible == 0){
+      console.log(`check-autocomplete-button 2`);
       let block = document.getElementById('check-autocomplete-button');
       block.classList.add('normal-auto');
     }
@@ -390,6 +392,7 @@ class KlondikeCore extends CardGameCore {
       
     }
     if(autoVisible == 0){
+      console.log(`check-autocomplete-button 3`);
       let block = document.getElementById('check-autocomplete-button');
       block.classList.add('normal-auto');
     }
