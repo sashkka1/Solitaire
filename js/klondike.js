@@ -365,7 +365,9 @@ class KlondikeCore extends CardGameCore {
     const sourceArray = this.placeIdToCardArray[sourcePlaceId];
     if (sourcePlaceId.startsWith('tableau') && sourceArray.length !== 0) {
       sourceArray[sourceArray.length - 1].visible = true; // Открывает верхнюю карту в tableau, если она закрыта
-
+      
+      console.log(`In rawMove 1 autoVisible - `, autoVisible)
+      
       let a=0;
       // реализация понимания того есть ли открытые карты на доске
       let sourcePlaceIdUltimate ='tableau';
@@ -381,6 +383,7 @@ class KlondikeCore extends CardGameCore {
         }
       }
       if(a == 0){
+        console.log(`In rawMove if(a == 0) autoVisible - `, autoVisible)
         autoVisible = 0;
       }
       a=0;
